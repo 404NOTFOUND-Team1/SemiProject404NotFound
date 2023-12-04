@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <link rel="stylesheet" href="../css/admin_page_product2.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<header>
+    <div class="header">
+        <div class="logo_image"></div>
+        <div class="login_name">관리자 : 닉네임</div>
+        <div class="top_bar">
+            <span class="now_span"><h3>상품관리</h3></span>
+        </div>
+        <div class="top_search_bar">
+            <div class="search_div">
+                <span class="search_span">주문, 상품, 문의 회원 등</span>
+                <div class="search_icon"></div>
+            </div>
+        </div>
+        <div class="sidebarparents">
+            <div class="side_bar1" onclick="go_dashboard()">대시보드</div>
+            <div class="side_bar2" onclick="go_order()">주문관리</div>
+            <div class="side_bar3" onclick="go_product()">상품관리</div>
+            <div class="side_bar4" onclick="go_notice()">게시판관리</div>
+            <div class="side_bar5" onclick="go_statistics()">통계</div>
+            <div class="side_bar6" onclick="go_member()">회원관리</div>
+            <div class="side_bar0"><!--남는공간--></div>
+        </div>
+    </div>
+    <script>
+        function go_dashboard(){
+            window.location.href = "admin_page_dashboard.html"
+        }
+        function go_order(){
+            window.location.href = "admin_page_order.html"
+        }
+        function go_notice(){
+            window.location.href = "admin_page_notice.html"
+        }
+        function go_statistics(){
+            window.location.href = "admin_page_statistics.html"
+        }
+        function go_member(){
+            window.location.href = "admin_page_member.html"
+        }
+        $(document).ready(function(){
+            $('.search_icon').click(function(){
+                alert('총 검색 아이콘 클릭');
+            });
+        });
+    </script>
+</header>
+
+<section>
+    <div class="product_list">
+        <ul class="product_parents">
+            <li class="select_product" onclick="go_select()">상품조회</li>
+            <li class="insert_product">상품등록</li>
+            <li class="modify_product" onclick="go_modify()">상품수정</li>
+        </ul>
+        <div class="product_page">
+            <div class="page_name">   상품등록<hr></div>
+            <div class="tab1"><label class="tab11">판매상태 : </label>
+                <input type="radio" class="p_radio" name="status" id="yes" value="Y"><label for="yes">즉시 판매</label>
+                <span class="radio_space"></span>
+                <input type="radio" class="p_radio" name="status" id="no" value="N"><label for="no">판매 보류</label>
+                <hr>
+            </div>
+            <div class="tab2"><label class="tab22">판매등록날짜 :    </label>
+                <input class="date_size" type="date" name="p_date"><hr>
+            </div>
+            <div class="tab3"><label class="tab33">상품명 : </label>
+                <input class="p_name" type="text" name="name"><hr>
+            </div>
+            <div class="tab4"><label class="tab44">상품가격 : </label>
+                <input class="p_price" type="number" name="price"><hr>
+            </div>
+            <div class="tab4"><label class="tab44"> 재고량 : </label>
+                <input class="p_price" type="number" name="inventory"><hr>
+            </div>
+            <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
+                <select id="topCategory" class="c_ref" name="ref_category" onchange="updateSubCategories()">
+                    <option value="table">책상</option>
+                    <option value="chair">의자</option>
+                    <option value="light">조명</option>
+                    <option value="etc">기타</option>
+                </select>
+                <label for="subCategory">하위 카테고리 : </label>
+                <select id="subCategory" class="c_ref" name="sub_category"></select>
+                <hr></div>
+            <div class="tab5"><label for="color">옵션(색상) : </label>
+                <select id="colorCategory" class="c_ref" name="color">
+                    <option value="table">black</option>
+                    <option value="chair">blue</option>
+                    <option value="light">red</option>
+                    <option value="etc">기타</option>
+                </select>
+                <hr>
+            </div>
+            <div class="fileUpload"> 상품 이미지 :
+                <input type="file" id="fileInput">
+            </div>
+            <button class="insert_button">상품 등록</button>
+        </div>
+    </div>
+    <script>
+        function go_select(){
+            window.location.href = "admin_page_product1.html"
+        }
+        function go_modify(){
+            window.location.href = "admin_page_product3.html"
+        }
+        function updateSubCategories(){
+            var topCategory = document.getElementById('topCategory');
+            var selectedTopCategory = topCategory.options[topCategory.selectedIndex].value;
+            var subCategory = document.getElementById('subCategory');
+            subCategory.innerHTML ="";
+
+            if(selectedTopCategory === "table"){
+                addOption(subCategory, "desk", '책상');
+                addOption(subCategory, "dining-table", '식탁');
+            }else if (selectedTopCategory === "chair") {
+                addOption(subCategory, "office-chair", "사무용 의자");
+                addOption(subCategory, "armchair", "안락 의자");
+            } else if (selectedTopCategory === "light") {
+                addOption(subCategory, "ceiling-light", "천장 조명");
+                addOption(subCategory, "table-lamp", "탁상 등");
+            } else if (selectedTopCategory === "etc") {
+                addOption(subCategory, "miscellaneous", "기타");
+            }
+        }
+
+        function addOption(selectElement, value, text) {
+            var option = document.createElement("option");
+            option.value = value;
+            option.text = text;
+            selectElement.add(option);
+        }
+        updateSubCategories();
+        document.getElementById('fileInput').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                uploadFile(file);
+            }
+        });
+
+        function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+
+                .then(response => {
+                    if (response.ok) {
+                        console.log('파일이 성공적으로 업로드되었습니다.');
+                    } else {
+                        console.error('파일 업로드 실패');
+                    }
+                })
+                .catch(error => {
+                    console.error('네트워크 오류:', error);
+                });
+        }
+    </script>
+</section>
+</body>
+</html>

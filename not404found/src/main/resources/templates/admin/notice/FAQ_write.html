@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유게시판_글작성</title>
+    <link rel="stylesheet" href="../css/admin_page_notice4.css">
+</head>
+<body>
+<header>
+    <div class="header">
+        <div class="logo_image"></div>
+        <div class="login_name">관리자 : 닉네임</div>
+        <div class="top_bar">
+            <span class="now_span"><h3>게시판관리</h3></span>
+        </div>
+        <div class="top_search_bar">
+            <div class="search_div">
+                <span class="search_span">주문, 상품, 문의 회원 등</span>
+                <div class="search_icon"></div>
+            </div>
+        </div>
+        <div class="sidebarparents">
+            <div class="side_bar1" onclick="go_dashboard()">대시보드</div>
+            <div class="side_bar2" onclick="go_order()">주문관리</div>
+            <div class="side_bar3" onclick="go_product()">상품관리</div>
+            <div class="side_bar4" onclick="go_notice()">게시판관리</div>
+            <div class="side_bar5" onclick="go_statistics()">통계</div>
+            <div class="side_bar6" onclick="go_member()">회원관리</div>
+            <div class="side_bar0"><!--남는공간--></div>
+        </div>
+    </div>
+    <script>
+        function go_dashboard(){
+            window.location.href = "admin_page_dashboard.html"
+        }
+        function go_order(){
+            window.location.href = "admin_page_order.html"
+        }
+        function go_notice(){
+            window.location.href = "admin_page_notice.html"
+        }
+        function go_statistics(){
+            window.location.href = "admin_page_statistics.html"
+        }
+        function go_member(){
+            window.location.href = "admin_page_member.html"
+        }
+        $(document).ready(function(){
+            $('.search_icon').click(function(){
+                alert('총 검색 아이콘 클릭');
+            });
+        });
+    </script>
+
+    <section>
+        <div class="board_wrap">
+            <div class="board_title">
+                <strong>FAQ</strong>
+            </div>
+            <div class="board_write_wrap">
+                <div class="board_write">
+                    <div class="title">
+                        <dl>
+                            <dt>제목</dt>
+                            <dd><input type="text" placeholder="제목 입력" value="글 제목이 들어갑니다"></dd>
+                        </dl>
+                    </div>
+                    <!-- <div class="info">
+                        <dl>
+                            <dt>글쓴이</dt>
+                            <dd><input type="text" placeholder="글쓴이 입력"></dd>
+                        </dl>
+                        <dl>
+                            <dt>비밀번호</dt>
+                            <dd><input type="password" placeholder="비밀번호 입력"></dd>
+                        </dl>
+                    </div> -->
+                    <div class="cont">
+                        <textarea placeholder="내용 입력"></textarea>
+                    </div>
+                </div>
+
+                <div class="fileUpload">
+                    <input type="file" id="fileInput">
+                </div>
+
+                <div class="bt_wrap write">
+                    <a href="자유게시판_게시글.html" class="on">등록</a>
+                    <a href="자유게시판.html">취소</a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('fileInput').addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    uploadFile(file);
+                }
+            });
+
+            function uploadFile(file) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('파일이 성공적으로 업로드되었습니다.');
+                        } else {
+                            console.error('파일 업로드 실패');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('네트워크 오류:', error);
+                    });
+            }
+        </script>
+
+    </section>
+</body>
+</html>

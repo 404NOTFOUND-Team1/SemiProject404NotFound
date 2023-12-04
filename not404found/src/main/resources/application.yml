@@ -1,0 +1,17 @@
+# server port config
+server:
+  port: 8404
+
+
+# driver config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.coffit.today:3306/notfound
+    username: notfound
+    password: root
+
+
+# mybatis config
+mybatis:
+  mapper-locations: mappers/**/*.xml
