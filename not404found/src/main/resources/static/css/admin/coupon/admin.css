@@ -1,0 +1,54 @@
+.coupon_body{
+    z-index: 1;
+    position: relative;
+    padding:30px;
+    margin-left:250px
+}
+
+.main-hd{
+    position:relative;
+    font-size: 18px;
+    font-weight: bold;
+}
+.tab{
+    position: relative;
+    margin-top: 30px;
+}
+li{
+    list-style: none;
+    width: 160px;
+    float : left;
+    margin-right: -1px;
+}
+a{
+    display: block;
+    height: 42px;
+    line-height: 42px;
+    border: 1px solid black;
+    background: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+.tablehd{
+    position: relative;
+    height: 52px;
+    line-height: 52px;
+    margin-top: 100px;
+    padding: 0 20px;
+    border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    background: #fff;
+}
+
+.couponInfo{
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    border-top: none;
+    height: 600px;
+}
+.wltjql{
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 17px;
+    margin-top: -10px;
+}

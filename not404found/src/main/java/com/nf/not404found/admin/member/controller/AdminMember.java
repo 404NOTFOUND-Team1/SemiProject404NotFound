@@ -18,6 +18,21 @@ public class AdminMember {
 
         return "/admin/member/admin";
     }
+    @GetMapping("member/dormant")
+    public String memberDormantPage(Model model){
 
+        model.addAttribute("boardType", "회원 관리");
+
+
+        return "/admin/member/dormant";
+    }
+    @GetMapping("member/blacked")
+    public String memberBlackedPage(Model model){
+
+        model.addAttribute("boardType", "회원 관리");
+
+
+        return "/admin/member/blacked";
+    }
 
 }
