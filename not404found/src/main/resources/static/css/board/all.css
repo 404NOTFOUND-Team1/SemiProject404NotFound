@@ -51,9 +51,7 @@ a {
     left: 0;
     top: -50px;
     text-align: center;
-
 }
-
 #searchType {
     width: 80px;
     height: 31px;
@@ -142,16 +140,17 @@ a {
 }
 
 /* --------------------- 게시물 --------------------- */
-.board_list {
+#listArea {
     width: 100%;
     border-top: 2px solid #000;
     position: absolute;
     top: 120px;
 }
  /* table */
-.board_list > div {
+.board_list > table > tr {
     border-bottom: 1px solid #ddd;
     font-size: 0;
+    text-align: center;
 }
 
 .board_list > div.top {

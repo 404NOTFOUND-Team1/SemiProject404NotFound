@@ -1,4 +1,4 @@
-package com.nf.not404found.user.model.service;
+package com.nf.not404found.product.model.service;
 
 
 import org.springframework.stereotype.Service;
