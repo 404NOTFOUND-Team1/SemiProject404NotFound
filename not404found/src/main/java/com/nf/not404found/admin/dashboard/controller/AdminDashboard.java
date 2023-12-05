@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin/*")
-public class DashboardController {
+public class AdminDashboard {
 
     /**
      * Dashboard페이지 이동 메소드
      */
     @GetMapping("dashboard")
-    public String dashboardLocation() {
+    public String dashboardPage() {
 
         return "/admin/dashboard/admin";
     }
