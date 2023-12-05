@@ -2,14 +2,13 @@ package com.nf.not404found;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
 
-    @RequestMapping(value = {"/", "board/notice/list"})
+    @GetMapping("/")
     public String adminProductModify(){
-
-        return "board/notice/list";
+        return "index";
     }
 }
