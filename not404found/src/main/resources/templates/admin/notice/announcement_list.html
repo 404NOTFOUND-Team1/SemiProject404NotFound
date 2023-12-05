@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/admin_page_notice.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/notice/announcement_list.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin/common/top_bar.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>admin_page</title>
+    <style>
+        .side_bar4 {
+            background-color: #99A3FE;
+        }
+    </style>
 
 </head>
 <body>
 <header>
     <div class="header">
         <div class="logo_image"></div>
-        <div class="login_name">관리자 : 닉네임</div>
+        <div class="login_name" th:text="'관리자 : ' + '닉네임 넣을 곳'"></div>
         <div class="top_bar">
-            <span class="now_span"><h3>게시판 관리</h3></span>
+            <span class="now_span"><h3 th:text="${boardType}"></h3></span>
         </div>
         <div class="top_search_bar">
             <div class="search_div">
@@ -34,19 +41,19 @@
     </div>
     <script>
         function go_dashboard(){
-            window.location.href = "admin_page_dashboard.html"
-        }
-        function go_order(){
-            window.location.href = "admin_page_order.html"
+            window.location.href = "/admin/dashboard";
         }
         function go_product(){
-            window.location.href = "admin_page_product1.html"
+            window.location.href = "/admin/product";
+        }
+        function go_order(){
+            window.location.href = "/admin/order"
         }
         function go_statistics(){
-            window.location.href = "admin_page_statistics.html"
+            window.location.href = "/admin/statistics"
         }
         function go_member(){
-            window.location.href = "admin_page_member.html"
+            window.location.href = "/admin/member"
         }
         $(document).ready(function(){
             $('.search_icon').click(function(){
@@ -174,10 +181,10 @@
     </div>
     <script>
         function go_FAQ(){
-            window.location.href = "admin_page_notice3.html"
+            window.location.href = "/admin/notice/FAQ_list"
         }
         function go_QnA(){
-            window.location.href = "admin_page_notice5.html"
+            window.location.href = "/admin/notice/QnA_list"
         }
     </script>
 </section>
