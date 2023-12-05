@@ -124,7 +124,6 @@
         }
 
         .product_container {
-            width: 1664px;
             height: 250px;
             position: relative;
             display: flex;
@@ -141,6 +140,7 @@
             border-top-right-radius: 20px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            margin: 10px;
         }
 
         .product2 {
@@ -152,6 +152,7 @@
             border-top-right-radius: 20px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            margin: 10px;
         }
 
         .product3 {
@@ -163,6 +164,7 @@
             border-top-right-radius: 20px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            margin: 10px;
         }
 
         .product4 {
@@ -174,6 +176,7 @@
             border-top-right-radius: 20px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            margin: 10px;
         }
 
         .product5 {
@@ -185,6 +188,7 @@
             border-top-right-radius: 20px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            margin: 10px;
         }
 
         .product6 {
@@ -196,6 +200,7 @@
             border-top-right-radius: 20px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            margin: 10px;
         }
 
         @font-face {
@@ -648,11 +653,34 @@
             font-weight: 400;
             font-style: normal;
         }
+        .slider {
+            position: relative;
+            left: 35px;
+            width: 1614px;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slides img {
+            width: 100%;
+            flex-shrink: 0; /* 이미지 크기를 유지 */
+        }
     </style>
 </head>
 <body>
 <div class=e1_5196>
-    <img src="/images/main/mainIMG.png" alt="이미지 설명" style="width: 1614px; height: 781px;">
+    <div class="slider">
+        <div class="slides">
+            <img src="/images/main/mainIMG.png" alt="이미지 설명" style="width: 1614px; height: 781px;">
+            <img src="/images/main/mainIMG2.png" alt="이미지 설명" style="width: 1614px; height: 781px;">
+            <img src="/images/main/mainIMG3.png" alt="이미지 설명" style="width: 1614px; height: 781px;">
+            <img src="/images/main/mainIMG4.png" alt="이미지 설명" style="width: 1614px; height: 781px;">
+        </div>
+    </div>
     <div class="main_img_bar"><span class="main_img_bar_text">집꾸미가 처음이신가요? 요즘 진행 중인 이벤트 알아보세요. ></span></div>
     <span class="main_img_text">How about this?</span>
     <div class=product_container>
@@ -669,6 +697,20 @@
     var main_img_bar = document.querySelector('.main_img_bar');
     main_img_bar.addEventListener('click',function(){
         alert("메인 이미지 바");
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelector('.slides');
+        let index = 0;
+        const interval = 5000; // 3초마다 이미지 변경
+
+        setInterval(() => {
+            index++;
+            const slideWidth = slides.querySelector('img').clientWidth;
+            if (index >= slides.childElementCount) {
+                index = 0;
+            }
+            slides.style.transform = `translateX(-${index * slideWidth}px)`;
+        }, interval);
     });
 </script>
 </body>
