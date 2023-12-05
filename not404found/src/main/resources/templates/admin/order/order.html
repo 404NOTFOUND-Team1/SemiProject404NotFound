@@ -1,66 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>admin_page</title>
   <link rel="stylesheet" type="text/css" href="/css/admin/order/order.css">
-  <link rel="stylesheet" type="text/css" href="/css/admin/common/top_bar.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <style>
-    .side_bar2 {
-      background-color: #99A3FE;
-    }
-  </style>
 </head>
 <body>
-<header>
-  <div class="header">
-    <div class="logo_image"></div>
-    <div class="login_name">관리자 : 닉네임</div>
-    <div class="top_bar">
-      <span class="now_span"><h3>주문관리</h3></span>
-    </div>
-    <div class="top_search_bar">
-      <div class="search_div">
-        <span class="search_span">주문, 상품, 문의 회원 등</span>
-        <div class="search_icon"></div>
-      </div>
-    </div>
-    <div class="sidebarparents">
-      <div class="side_bar1" onclick="go_dashboard()">대시보드</div>
-      <div class="side_bar2">주문관리</div>
-      <div class="side_bar3" onclick="go_product()">상품관리</div>
-      <div class="side_bar4" onclick="go_notice()">게시판관리</div>
-      <div class="side_bar5" onclick="go_statistics()">통계</div>
-      <div class="side_bar6" onclick="go_member()">회원관리</div>
-      <div class="side_bar0"><!--남는공간--></div>
-    </div>
-  </div>
-  <script>
-    function go_dashboard(){
-      window.location.href = "/admin/dashboard";
-    }
-    function go_product(){
-      window.location.href = "/admin/product";
-    }
-    function go_notice(){
-      window.location.href = "/admin/notice"
-    }
-    function go_statistics(){
-      window.location.href = "/admin/statistics"
-    }
-    function go_member(){
-      window.location.href = "/admin/member"
-    }
-    $(document).ready(function(){
-      $('.search_icon').click(function(){
-        alert('총 검색 아이콘 클릭');
-      });
-    });
-  </script>
-</header>
-
+<header th:replace="/admin/common/adminHeader.html"></header>
 <section style="margin-left: 198px;">
   <div id="orderSearch" class="page_body">
     <div class="main_hd">
