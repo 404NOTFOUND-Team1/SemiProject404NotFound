@@ -14,7 +14,7 @@ body{
 }
 
 .logo_image{
-    background-image:url(../image/logo.png);
+    background-image:url(/images/admin/logo.png);
     background-size : cover;
     width :200px;
     height : 75px;
@@ -68,7 +68,7 @@ body{
     top : 5px;
 }
 .search_icon{
-    background-image:url(../image/search.png);
+    background-image:url(/images/admin/search.png);
     background-repeat:no-repeat;
     background-size:cover;
     position: relative;
