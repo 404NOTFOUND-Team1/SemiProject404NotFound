@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = {"/", "board/notice/list"})
+    @RequestMapping(value = {"/", "admin/product/modify"})
     public String adminProductModify(){
 
-        return "board/notice/list";
+        return "admin/product/modify";
     }
 }
