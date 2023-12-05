@@ -37,12 +37,12 @@
 }
 .table_parents {
 	position: relative;
-	margin : 0 auto;
-	left: 100px;
-	top : 150px;
-	width: 1700px;
-	height: 200px;
-	border-collapse: collapse; /* 테이블 셀 사이의 간격 제거 */
+	left: 580px;
+	top : 300px;
+	width: 1000px;
+	height: 80px;
+
+	border-collapse: collapse;
 
 }
 
@@ -96,7 +96,7 @@ button{
 	border: 1px solid black;
 	width: 100px;
 	height: 30px;
-	top : 280px;
+	top : 200px;
 	left: -240px;
 
 }
@@ -106,7 +106,7 @@ button{
 	border: 1px solid black;
 	width: 100px;
 	height: 30px;
-	top : 220px;
+	top : 140px;
 	left: 618px;
 
 }
@@ -116,15 +116,16 @@ button{
 	border: 1px solid black;
 	width: 100px;
 	height: 30px;
-	top : 250px;
+	top : 170px;
 	left: 960px;
-
 }
 
-.search_one{
-	position: relative;
-	width: 1650px;
-	left: 250px;
-	height: 80px;
-	border-spacing: 0;
-}
+ .search_one{
+	 position: relative;
+	 margin: auto 0;
+	 width: 1000px;
+	 left: 580px;
+	 height: 80px;
+	 border-spacing: 0;
+	 top:100px;
+ }

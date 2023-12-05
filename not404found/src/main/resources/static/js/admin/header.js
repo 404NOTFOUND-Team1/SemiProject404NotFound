@@ -16,6 +16,12 @@ function go_member(){
 function go_notice(){
     window.location.href = "/admin/notice"
 }
+function go_event(){
+    window.location.href = "/admin/event"
+}
+function go_coupon(){
+    window.location.href = "/admin/coupon"
+}
 $(document).ready(function(){
     $('.search_icon').click(function(){
         alert('총 검색 아이콘 클릭');

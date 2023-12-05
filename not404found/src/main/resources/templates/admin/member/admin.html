@@ -7,22 +7,63 @@
   <title>admin_page</title>
   <link rel="stylesheet" type="text/css" href="/css/admin/member/admin.css">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    .tab3{
+      background-color: #99A3FE;
+      color:white;
+    }
+  </style>
 </head>
 <body>
+<form>
 <header th:replace="/admin/common/adminHeader.html"></header>
 <section>
   <div class="member_list">
     <ul class="tab_parents">
       <li class="tab3">회원 관리</li>
+      <li class="tab1" onclick="go_dormant()">휴면계정관리</li>
+      <li class="tab2" onclick="go_blacked()">블랙계정관리</li>
     </ul>
   </div>
   <div class="member_search_bar">
-    <input type="text" placeholder="아이디, 비밀번호, 이메일 등" class="mem_search"></input>
-    <button class="mem_search_icon"></button>
+    <input type="text" placeholder="아이디, 이름, 이메일 등" class="mem_search">
+    <button type="submit" class="mem_search_icon"></button>
     <button class="modify_member">업데이트</button>
     <button class="delete_member">삭제</button>
     <button class="insert_member">회원등록</button>
   </div>
+  <table class="search_one">
+    <thead>
+    <tr>
+      <th>아이디</th>
+      <th>이름</th>
+      <th>이메일</th>
+      <th>전화번호</th>
+      <th >계정타입</th>
+      <th>회원가입날짜</th>
+      <th>누적결제금액</th>
+      <th>한달누적금액</th>
+      <th>마지막로그인</th>
+      <th>적립금</th>
+      <th>소유쿠폰</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
 
   <table class="table_parents">
     <thead>
@@ -186,8 +227,14 @@
         alert('회원 등록 클릭');
       });
     });
+    function go_dormant(){
+      window.location.href = "/admin/member/dormant"
+    }
+    function go_blacked(){
+      window.location.href = "/admin/member/blacked"
+    }
   </script>
 </section>
-
+</form>
 </body>
 </html>
