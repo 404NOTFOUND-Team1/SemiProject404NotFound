@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.not404found.board.model.dao.BoardMapper">
+
+    <resultMap id="generalBoardResultMap" type="BoardDTO">
+        <id property="post_code"/>
+        <result property="post_title"/>
+        <result property="post_content"/>
+        <result property="post_created_date"/>
+        <result property="post_modified_date"/>
+        <result property="post_views"/>
+        <association property="categorycode_board" resultMap="boardCategoryResultMap"/>
+        <association property="id" resultMap="accountResultMap"/>
+    </resultMap>
+
+    <resultMap id="boardCategoryResultMap" type="BoardCategoryDTO">
+        <id property="categorycode_board"/>
+        <result property="categoryname_board"/>
+    </resultMap>
+
+    <resultMap id="accountResultMap" type="AccountDTO">
+        <id property="id"/>
+        <result property="password"/>
+        <result property="name"/>
+        <result property="email"/>
+        <result property="phone_number"/>
+        <result property="regist_date"/>
+        <result property="pay_amount"/>
+        <result property="mileage"/>
+        <result property="last_login"/>
+        <result property="half_year_accumulated_amount"/>
+        <result property="account_status"/>
+        <association property="account_type_code" column="type_code" resultMap="accountTypeResultMap"/>
+    </resultMap>
+    
+    <resultMap id="accountTypeResultMap" type="AccountTypeDTO">
+        <id property="type_code"/>
+        <result property="type_name"/>
+    </resultMap>
+
+    <resultMap id="commentResultMap" type="CommentDTO">
+        <id property="comment_code"/>
+        <result property="comment"/>
+        <result property="comment_date"/>
+        <association property="post_code" resultMap="generalBoardResultMap"/>
+        <association property="categorycode_board" resultMap="generalBoardResultMap"/>
+        <association property="id" resultMap="generalBoardResultMap"/>
+    </resultMap>
+
+    <resultMap id="attachmentResultMap" type="AttachmentDTO">
+        <id property="attachment_code"/>
+        <result property="original_attachment_name"/>
+        <result property="attachment_name"/>
+        <result property="is_delete"/>
+        <association property="post_code" resultMap="generalBoardResultMap"/>
+        <association property="categorycode_board" resultMap="generalBoardResultMap"/>
+        <association property="id" resultMap="generalBoardResultMap"/>
+    </resultMap>
+
+</mapper>

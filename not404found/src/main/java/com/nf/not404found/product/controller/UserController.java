@@ -1,4 +1,4 @@
-package com.nf.not404found.user.controller;
+package com.nf.not404found.product.controller;
 
 
 import org.springframework.stereotype.Controller;

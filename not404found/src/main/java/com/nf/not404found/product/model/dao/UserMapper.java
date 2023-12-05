@@ -1,4 +1,4 @@
-package com.nf.not404found.user.model.dao;
+package com.nf.not404found.product.model.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
