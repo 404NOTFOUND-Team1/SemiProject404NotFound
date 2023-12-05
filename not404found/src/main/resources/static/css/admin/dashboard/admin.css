@@ -36,7 +36,7 @@
 	position: relative;
 	width: 85px;
 	height: 80px;
-	background-image: url(../image/order.png);
+	background-image: url(/images/admin/order.png);
 	background-repeat:no-repeat;
 	background-size:cover;
 }
@@ -45,7 +45,7 @@
 	position: relative;
 	width: 85px;
 	height: 80px;
-	background-image: url(../image/product.png);
+	background-image: url(/images/admin/product.png);
 	background-repeat:no-repeat;
 	background-size:cover;
 }
@@ -54,7 +54,7 @@
 	position: relative;
 	width: 85px;
 	height: 80px;
-	background-image: url(../image/board.png);
+	background-image: url(/images/admin/board.png);
 	background-repeat:no-repeat;
 	background-size:cover;
 }
@@ -63,7 +63,7 @@
 	position: relative;
 	width: 85px;
 	height: 80px;
-	background-image: url(../image/member.png);
+	background-image: url(/images/admin/member.png);
 	background-repeat:no-repeat;
 	background-size:cover;
 }

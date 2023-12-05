@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin_page</title>
-    <link rel="stylesheet" href="../css/admin_page_dashboard.css">
+    <link rel="stylesheet" href="/css/admin/dashboard/admin.css">
+    <link rel="stylesheet" href="/css/admin/common/top_bar.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .side_bar1 {
+            background-color: #99A3FE;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -16,10 +22,9 @@
             <span class="now_span"><h3>대시보드</h3></span>
         </div>
         <div class="top_search_bar">
-            <div class="search_div">
-                <span class="search_span">주문, 상품, 문의 회원 등</span>
-                <div class="search_icon"></div>
-            </div>
+            <input type="text" placeholder="주문, 상품, 문의 회원 등" class="search_div">
+<!--                <span class="search_span">주문, 상품, 문의 회원 등</span>-->
+                <button type="submit" class="search_icon"></button>
         </div>
         <div class="sidebarparents">
             <div class="side_bar1">대시보드</div>
@@ -32,20 +37,20 @@
         </div>
     </div>
     <script>
-        function go_order(){
-            window.location.href = "admin_page_order.html"
+        function go_member(){
+            window.location.href = "/admin/member";
         }
         function go_product(){
-            window.location.href = "admin_page_product1.html"
+            window.location.href = "/admin/product";
         }
-        function go_notice(){
-            window.location.href = "admin_page_notice.html"
+        function go_order(){
+            window.location.href = "/admin/order"
         }
         function go_statistics(){
-            window.location.href = "admin_page_statistics.html"
+            window.location.href = "/admin/statistics"
         }
-        function go_member(){
-            window.location.href = "admin_page_member.html"
+        function go_notice(){
+            window.location.href = "/admin/notice"
         }
         $(document).ready(function(){
             $('.search_icon').click(function(){

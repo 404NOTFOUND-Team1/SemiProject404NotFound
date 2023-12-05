@@ -4,8 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>admin_page</title>
-  <link rel="stylesheet" href="../css/admin_page_member.css">
+  <link rel="stylesheet" type="text/css" href="/css/admin/member/admin.css">
+  <link rel="stylesheet" type="text/css" href="/css/admin/common/top_bar.css">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    .side_bar6 {
+      background-color: #99A3FE;
+    }
+  </style>
 </head>
 <body>
 <header>
@@ -31,20 +37,20 @@
   </div>
   <script>
     function go_dashboard(){
-      window.location.href = "admin_page_dashboard.html"
-    };
-    function go_order(){
-      window.location.href = "admin_page_order.html"
-    };
+      window.location.href = "/admin/dashboard";
+    }
     function go_product(){
-      window.location.href = "admin_page_product1.html"
-    };
-    function go_notice(){
-      window.location.href = "admin_page_notice.html"
-    };
+      window.location.href = "/admin/product";
+    }
+    function go_order(){
+      window.location.href = "/admin/order"
+    }
     function go_statistics(){
-      window.location.href = "admin_page_statistics.html"
-    };
+      window.location.href = "/admin/statistics"
+    }
+    function go_notice(){
+      window.location.href = "/admin/notice"
+    }
     $(document).ready(function(){
       $('.search_icon').click(function(){
         alert('총 검색 아이콘 클릭');
