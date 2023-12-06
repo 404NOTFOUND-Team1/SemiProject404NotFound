@@ -14,4 +14,7 @@ spring:
 
 # mybatis config
 mybatis:
-  mapper-locations: mappers/**/*.xml
+  mapper-locations: mybatis/mappers/*.xml
+  type-aliases-package: com.nf.not404found
+  configuration:
+    map-underscore-to-camel-case: true
