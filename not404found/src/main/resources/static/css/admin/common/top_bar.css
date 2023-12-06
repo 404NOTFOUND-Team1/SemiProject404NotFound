@@ -159,6 +159,18 @@ body{
     color: white;
     line-height: 75px;
     border: 1px solid black;
+    border-bottom: none;
+}
+.side_bar8 {
+    background-color: #7D7E8B;
+    width: 198px;
+    height:70px;
+    left:0px;
+    top:573px;
+    color: white;
+    line-height: 75px;
+    border: 1px solid black;
+    border-bottom: none;
 }
 .side_bar0 {
     background-color: #7D7E8B;

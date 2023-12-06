@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="/css/admin/coupon/admin.css">
+</head>
+<body>
+<header th:replace="/admin/common/adminHeader.html"></header>
+<section>
+    <div class="coupon_body">
+        <div class="main-hd">
+            <h2>쿠폰관리</h2>
+        </div>
+        <div class="tab">
+            <ul>
+                <li>
+                    <a href="">쿠폰등록</a>
+                </li>
+                <li>
+                    <a href="">쿠폰목록</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tablehd">
+            <h3 class="wltjql">쿠폰 정보</h3>
+        </div>
+        <div class="couponInfo">
+            <form id="coupon_regist" method="post">
+                <div class="cInfoRe">
+                    <div class="cInfoInner">
+                        <div class="cInfoname"><em>쿠폰명</em></div>
+                        <div class="cInfoBox"><input type="text" id="cName" name="cName" maxlength="20"></div>
+                    </div>
+                </div>
+                <div class="cInfoRe">
+                    <div class="cInfoInner">
+                        <div class="cInfoname"></div>
+                    </div>
+                </div>
+                <div class="cInfoRe">
+                    <div class="cInfoInner">
+                        <div class="cInfoname"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

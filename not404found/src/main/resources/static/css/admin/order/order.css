@@ -15,7 +15,7 @@
 	position: relative;
 	width: 1650px;
 	height: 500px;
-	left : 100px;
+	left : 30px;
 	margin-top: 30px;
 }
 #search_form{
@@ -161,7 +161,7 @@ input[type=text], input[type=password] {
 	/* background-color: lightgray; */
 	position: relative;
 	margin : 0 auto;
-	left : 60px;
+	left : 0px;
 	top : 50px;
 }
 .search_hd{

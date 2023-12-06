@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin/member/dormant.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .tab1{
+            background-color: #99A3FE;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <header th:replace="/admin/common/adminHeader.html"></header>
+    <section>
+        <div class="member_list">
+            <ul class="tab_parents">
+                <li class="tab3" onclick="go_admin()">회원 관리</li>
+                <li class="tab1">휴면계정관리</li>
+                <li class="tab2" onclick="go_blacked()">블랙계정관리</li>
+            </ul>
+        </div>
+        <div class="member_search_bar">
+            <input type="text" placeholder="아이디, 이름, 이메일 등" class="mem_search">
+            <button type="submit" class="mem_search_icon"></button>
+        </div>
+        <table class="search_one">
+            <thead>
+            <tr>
+                <th>아이디</th>
+                <th>휴면 시작일</th>
+                <th>휴면상태</th>
+                <th>휴면종료일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table_parents">
+            <thead>
+            <tr>
+                <th>아이디
+                    <button>↧</button>
+                </th>
+                <th>휴면 시작일
+                    <button>↧</button>
+                </th>
+                <th>휴면상태
+                    <button>↧</button>
+                </th>
+                <th>휴면종료일
+                    <button>↧</button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function(){
+                $('.mem_search_icon').click(function(){
+                    alert('멤버 검색 아이콘 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.t_id1').click(function(){
+                    alert('아이디 조회방법 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.t_pwd1').click(function(){
+                    alert('비밀번호 조회방법 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.t_email1').click(function(){
+                    alert('이메일 조회방법 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.t_phone1').click(function(){
+                    alert('전화번호 조회방법 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.t_type1').click(function(){
+                    alert('계정타입 조회방법 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.t_date1').click(function(){
+                    alert('회원가입날짜 조회방법 클릭');a
+                });
+            });
+            $(document).ready(function(){
+                $('.t_money1').click(function(){
+                    alert('누적결제금액조회방법 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.modify_member').click(function(){
+                    alert('회원 업데이트 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.delete_member').click(function(){
+                    alert('회원 삭제 클릭');
+                });
+            });
+            $(document).ready(function(){
+                $('.insert_member').click(function(){
+                    alert('회원 등록 클릭');
+                });
+            });
+            function go_admin(){
+                window.location.href = "/admin/member"
+            }
+            function go_blacked(){
+                window.location.href = "/admin/member/blacked"
+            }
+        </script>
+    </section>
+</form>
+</body>
+</html>
