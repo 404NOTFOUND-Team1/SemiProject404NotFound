@@ -21,14 +21,14 @@ import java.util.Map;
 @Slf4j
 public class BoardController {
 
-    /**
-     * 공지사항 리스트 페이지 이동 메소드
-     */
-    @GetMapping("notice/*")
-    public String noticeBoardLocation() {
-
-        return "/board/notice/list";
-    }
+//    /**
+//     * 공지사항 리스트 페이지 이동 메소드
+//     */
+//    @GetMapping("notice/*")
+//    public String noticeBoardLocation() {
+//
+//        return "/board/notice/list";
+//    }
 
     private final BoardServiceImpl boardServiceImpl;
 
@@ -36,7 +36,7 @@ public class BoardController {
         this.boardServiceImpl = boardServiceImpl;
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "notice/list")
     public ModelAndView boardList(@RequestParam(required = false) String searchCondition,
                                   @RequestParam(required = false) String searchValue,
                                   @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
@@ -62,38 +62,37 @@ public class BoardController {
          * 검색조건이 있는 경우 검색 조건에 맞는 전체 게시물 수를 조회한다.
          */
 
-        // 내일 이어서!!!
-//        int totalCount = boardServiceImpl.selectTotalCount(searchMap);
-//        log.info("[BoardController] totalBoardCount : " + totalCount);
-//
-//        /* 한 페이지에 보여 줄 게시물 수 */
-//        int limit = 10;        //얘도 파라미터로 전달받아도 된다.
-//
-//        /* 한 번에 보여질 페이징 버튼의 갯수 */
-//        int buttonAmount = 5;
-//
-//        /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
-//        SelectCriteria selectCriteria = null;
-//
-//        if (searchCondition != null && !"".equals(searchCondition)) {
-//            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
-//        } else {
-//            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
-//        }
-//
-//        log.info("[BoardController] selectCriteria : " + selectCriteria);
-//
-//        /* 조회해 온다 */
-//        List<BoardDTO> boardList = boardServiceImpl.selectBoardList(selectCriteria);
-//
-//        log.info("[BoardController] boardList : " + boardList);
-//
-//        mv.addObject("boardList", boardList);
-//        mv.addObject("selectCriteria", selectCriteria);
-//        log.info("[BoardController] SelectCriteria : " + selectCriteria);
-//        mv.setViewName("content/board/boardList");
-//
-//        log.info("[BoardController] ========================================================= end");
+        int totalCount = boardServiceImpl.selectTotalCount(searchMap);
+        log.info("[BoardController] totalBoardCount : " + totalCount);
+
+        /* 한 페이지에 보여 줄 게시물 수 */
+        int limit = 10;        //얘도 파라미터로 전달받아도 된다.
+
+        /* 한 번에 보여질 페이징 버튼의 갯수 */
+        int buttonAmount = 5;
+
+        /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
+        SelectCriteria selectCriteria = null;
+
+        if (searchCondition != null && !"".equals(searchCondition)) {
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
+        } else {
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+        }
+
+        log.info("[BoardController] selectCriteria : " + selectCriteria);
+
+        /* 조회 */
+        List<BoardDTO> boardList = boardServiceImpl.selectBoardList(selectCriteria);
+
+        log.info("[BoardController] boardList : " + boardList);
+
+        mv.addObject("boardList", boardList);
+        mv.addObject("selectCriteria", selectCriteria);
+        log.info("[BoardController] SelectCriteria : " + selectCriteria);
+        mv.setViewName("board/notice/list");
+
+        log.info("[BoardController] ========================================================= end");
         return mv;
     }
 
