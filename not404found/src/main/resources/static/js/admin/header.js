@@ -22,8 +22,3 @@ function go_event(){
 function go_coupon(){
     window.location.href = "/admin/coupon"
 }
-$(document).ready(function(){
-    $('.search_icon').click(function(){
-        alert('총 검색 아이콘 클릭');
-    });
-});

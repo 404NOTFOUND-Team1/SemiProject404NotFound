@@ -15,9 +15,8 @@
   </style>
 </head>
 <body>
-<form>
 <header th:replace="/admin/common/adminHeader.html"></header>
-<section>
+<section style="position: relative">
   <div class="member_list">
     <ul class="tab_parents">
       <li class="tab3">회원 관리</li>
@@ -26,157 +25,110 @@
     </ul>
   </div>
   <div class="member_search_bar">
-    <input type="text" placeholder="아이디, 이름, 이메일 등" class="mem_search">
+    <form id="selectAccounts" th:action="@{member}"
+          method="get" >
+    <select id="searchCondition" name="searchCondition">
+      <option value="Aid">아이디</option>
+      <option value="Atype">계정타입</option>
+      <option value="Aname">이름</option>
+      <option value="Aemail">이메일</option>
+      <option value="AregistDate">회원가입날짜</option>
+      <option value="ApayAmount">누적결제금액</option>
+      <option value="Amileage">적립금</option>
+      <option value="AlastLogin">마지막로그인</option>
+      <option value="AhalfYearAccumulatedAmount">반년누적금액</option>
+    </select>
+    <input type="text" placeholder="아이디, 이름, 이메일 등" id="searchValue" name="searchValue" class="searchMember">
     <button type="submit" class="mem_search_icon"></button>
-    <button class="modify_member">업데이트</button>
-    <button class="delete_member">삭제</button>
-    <button class="insert_member">회원등록</button>
+    </form>
   </div>
   <table class="search_one">
-    <thead>
     <tr>
       <th>아이디</th>
+      <th>계정타입</th>
       <th>이름</th>
       <th>이메일</th>
-      <th>전화번호</th>
-      <th >계정타입</th>
       <th>회원가입날짜</th>
       <th>누적결제금액</th>
-      <th>한달누적금액</th>
-      <th>마지막로그인</th>
       <th>적립금</th>
-      <th>소유쿠폰</th>
+      <th>마지막로그인</th>
+      <th>반년누적금액</th>
     </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr th:if="${#lists.isEmpty(searchList)}" style="text-align:center;">
+      <td colspan="9">검색 결과가 없습니다.</td>
+    </tr>
+    <tr
+            th:each="account : ${ searchList }"
+    >
+      <td th:text="${ account.id }"></td>
+      <td th:text="${ account.accountTypeName.typeName }"></td>
+      <td th:text="${ account.name }"></td>
+      <td th:text="${ account.email }"></td>
+      <td th:text="${ account.registDate }"></td>
+      <td th:text="${ account.payAmount }"></td>
+      <td th:text="${ account.mileage }"></td>
+      <td th:text="${ account.lastLogin }"></td>
+      <td th:text="${ account.halfYearAccumulatedAmount }"></td>
     </tr>
     </tbody>
   </table>
-
   <table class="table_parents">
-    <thead>
     <tr>
-      <th>아이디
+      <th style="width: 120px">
+        아이디
         <button>↧</button>
       </th>
-      <th>이름
+      <th style="width: 100px">
+        계정타입
         <button>↧</button>
       </th>
-      <th>이메일
+      <th style="width: 80px">
+        이름
         <button>↧</button>
       </th>
-      <th>전화번호
+      <th style="width: 250px">
+        이메일
         <button>↧</button>
       </th>
-      <th >계정타입
+      <th style="width: 250px">
+        회원가입날짜
         <button>↧</button>
       </th>
-      <th>회원가입날짜
+      <th style="width: 150px">
+        누적결제금액
         <button>↧</button>
       </th>
-      <th>누적결제금액
+      <th style="width: 100px">
+        적립금
         <button>↧</button>
       </th>
-      <th>한달누적금액
+      <th>
+        마지막로그인
         <button>↧</button>
       </th>
-      <th>마지막로그인
-        <button>↧</button>
-      </th>
-      <th>적립금
-        <button>↧</button>
-      </th>
-      <th>소유쿠폰
+      <th style="width: 170px">
+        반년누적금액
         <button>↧</button>
       </th>
     </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr th:if="${#lists.isEmpty(accountList)}" style="text-align:center;">
+      <td colspan="9">검색 결과가 없습니다.</td>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr
+      th:each="accounts : ${ accountList }"
+    >
+      <td th:text="${ accounts.id }"></td>
+      <td th:text="${ accounts.accountTypeName.typeName }"></td>
+      <td th:text="${ accounts.name }"></td>
+      <td th:text="${ accounts.email }"></td>
+      <td th:text="${ accounts.registDate }"></td>
+      <td th:text="${ accounts.payAmount }"></td>
+      <td th:text="${ accounts.mileage }"></td>
+      <td th:text="${ accounts.lastLogin }"></td>
+      <td th:text="${ accounts.halfYearAccumulatedAmount }"></td>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    </tbody>
   </table>
   <script>
-    $(document).ready(function(){
-      $('.mem_search_icon').click(function(){
-        alert('멤버 검색 아이콘 클릭');
-      });
-    });
     $(document).ready(function(){
       $('.t_id1').click(function(){
         alert('아이디 조회방법 클릭');
@@ -235,6 +187,5 @@
     }
   </script>
 </section>
-</form>
 </body>
 </html>

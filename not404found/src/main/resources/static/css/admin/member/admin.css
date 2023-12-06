@@ -36,20 +36,19 @@
 	border: 1px solid black;
 }
 .table_parents {
-	position: relative;
+	position: absolute;
 	margin : 0 auto;
-	left: 100px;
-	top : 150px;
-	width: 1700px;
-	height: 200px;
-	border-collapse: collapse; /* 테이블 셀 사이의 간격 제거 */
+	left: 250px;
+	top : 700px;
+	width: 1650px;
+	border-collapse: collapse;
 
 }
 
 th, td {
 	border: 1px solid #dddddd;
 	padding: 8px;
-	text-align: left;
+	text-align: center;
 }
 
 th {
@@ -57,7 +56,6 @@ th {
 }
 button{
 	position: relative;
-	margin-right : 60px;
 }
 
 .member_search_bar{
@@ -69,26 +67,44 @@ button{
 	margin-left: 200px;
 }
 
-.mem_search{
+.searchMember{
 	background-color: white;
-	position: relative;
+	position: absolute;
 	width:810px;
 	height:41px;
-	top : 100px;
+	top : 250px;
+	left: 700px;
 	border: 2px solid #a1a1a1;
 	text-align: center;
 	font-size: 16px;
 }
 
-.mem_search_icon{
-	background-image:url(/images/admin/search.png);
-	background-repeat:no-repeat;
-	background-size:cover;
-	position: relative;
-	width:45px;
-	height:45px; 
-	top : 55px;
-	left : 818px;
+#searchCondition{
+	position: absolute;
+	top: 250px;
+	width: 150px;
+	height: 44px;
+	left: 540px;
+
+}
+/*.searchMember{*/
+/*	position: absolute;*/
+/*	top: 350px;*/
+/*	width: 800px;*/
+/*	height: 41px;*/
+/*	left: 700px;*/
+/*}*/
+
+.mem_search_icon {
+	background-image: url(/images/admin/search.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	top: 250px;
+	left: 1520px;
+
 }
 .modify_member{
 	background-color: white;
@@ -98,7 +114,6 @@ button{
 	height: 30px;
 	top : 280px;
 	left: -240px;
-
 }
 .insert_member{
 	background-color: white;
@@ -122,9 +137,9 @@ button{
 }
 
 .search_one{
-	position: relative;
+	position: absolute;
 	width: 1650px;
 	left: 250px;
-	height: 80px;
+	top:400px;
 	border-spacing: 0;
 }
