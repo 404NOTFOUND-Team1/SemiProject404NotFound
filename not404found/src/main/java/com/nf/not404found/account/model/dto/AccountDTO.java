@@ -12,7 +12,7 @@ import java.sql.Date;
 public class AccountDTO {
 
     private String id;
-    AccountTypeDTO account_type_code;
+    AccountTypeDTO accountType;
     private String password;
     private String name;
     private String email;

@@ -10,9 +10,7 @@ import lombok.*;
 public class AttachmentDTO {
 
     private int attachment_code;
-    BoardDTO post_code;
-    BoardDTO categorycode_board;
-    BoardDTO id;
+    BoardDTO boardInfo;
     private String original_attachment_name;
     private String attachment_name;
     private char is_delete;
