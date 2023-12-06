@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+</html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .signup-container{
+            display: grid;
+            margin-top: 158px;
+            grid-template-rows: 50px 50px 50px 20px 50px 20px 50px 20px 50px 20px 50px 20px 50px 20px 50px 50px;
+            grid-template-columns: 70px 10px 50px 20px 50px 20px 50px 50px 50px 20px 50px 50px 50px 50px 50px 50px;
+            justify-content: center;
+            align-items: center;
+        }
+        #email{grid-column: 1/2;grid-row: 5;text-align: center;}
+        #input-email{ grid-column: 3/8; grid-row: 5; height: 30px;}
+        #email-check{ width: 90px; grid-column: 8/10; grid-row: 5; height: 40px;margin-left: 10px;border: none; cursor: pointer; border-radius: 6px;}
+        #email-check:hover{background-color: #c1c1c1;}
+        #email-check2{grid-column: 11/15; grid-row: 5;font-size: 13px;color: green;}
+        #input-email-check{grid-column: 14/16; grid-row: 5;}
+        #input-email-check2{grid-column: 17/19; grid-row: 5; height: 30px; margin-left: 10px;}
+
+        #id-text{grid-column: 1/2; grid-row: 3; text-align: center;}
+        #input-id{grid-column: 3/6; grid-row: 3;height: 30px;}
+        #id-check{grid-column: 7/10; grid-row: 3;width:120px; height: 40px;border: none; cursor: pointer; border-radius: 6px;}
+        #id-check:hover{background-color: #c1c1c1;}
+
+        #pwd-text{
+            font-size: 13px;
+            grid-column: 1/2; grid-row: 7;
+        }
+        #pwd-check{
+            grid-column: 3/6; grid-row: 7;
+            height: 30px;
+        }
+        #pwd-checked{
+            grid-column: 7/10; grid-row: 7; color: green; font-size: 13px; width: 400px
+        }
+        #phone-text{
+            grid-column: 1/2; grid-row: 9; text-align: center;
+        } 
+        #phone-choice{
+            grid-column: 3/4; grid-row: 9; height: 30px;
+        }
+        #phone1{
+            grid-column: 5/6; grid-row: 9;
+            width:80px; height: 30px;
+        }
+        #phone2{
+            grid-column: 8/9; grid-row: 9;
+            width:80px; height: 30px;
+        }
+        #name-text{
+            grid-column: 1/2; grid-row: 11;
+            text-align: center;
+        }
+        #input-name{
+            grid-column: 3/5; grid-row: 11;
+            width:80px; height: 30px;
+        }
+        #agree{
+            grid-column: 3/8; grid-row: 13;
+        }
+        .qwe{
+            color: rgb(66, 66, 241);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        #join{
+            grid-column: 1/10; grid-row: 15;
+        }
+        #newBtn{
+            display: none;
+            width: 740px;
+            height: 50px;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        #email-check-button{
+            grid-column: 10/12; grid-row: 5;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <header th:replace="common/header.html"></header>
+    <div class="signup-container">
+            <span id="email">Email </span>
+            <input type="email" id="input-email">
+            <input type="submit" id="email-check" value="이메일 인증">
+            <span id="email-check2">이메일 인증을 해주세요</span>
+            <div id="input-email-check">
+                
+            </div>
+            <input type="submit" id="email-check-button" value="인증하기">
+
+            <span id="id-text">Id</span>
+            <input type="text" id="input-id" title="아이디는 영문으로 8글자 이상, 숫자가 포함되어야 합니다.">
+            <input type="submit" id="id-check" value="아이디 중복 검사" title="아이디는 영문으로 8글자 이상, 숫자가 포함되어야 합니다.">
+            <script>
+                document.getElementById("input-id").addEventListener("input", function() {
+                    if (this.value.match(/[ㄱ-ㅎㅏ-ㅣ가-힣]/)) {
+                        alert("한글 입력은 불가능합니다.");
+                        this.value = this.value.replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
+                    }
+                });
+                function containsNumber(str){   //숫자가 포함되어 있나?
+                    return /[0-9]/.test(str);
+                }
+                document.getElementById("id-check").addEventListener('click',function(){
+                    const userId = document.getElementById('input-id').value;
+
+                    if(userId!==""){
+                        if(userId.length > 8){
+                            if(containsNumber(userId)) {
+                                fetch("/check-username?username=" + encodeURIComponent(userId))
+                                    .then(function (response) {
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        if (data.count) {
+                                            document.getElementById("id-check").style.color = 'green';
+                                            document.getElementById("id-check").value = '사용가능한 아이디입니다.';
+                                            document.getElementById("id-check").className = 'success';
+                                            document.getElementById("id-check").style.width = '170px';
+                                            idInputFiled.readOnly = true;
+                                        } else {
+                                            document.getElementById("id-check").style.color = 'red';
+                                            document.getElementById("id-check").value = '이미 존재하는 아이디입니다.';
+                                            document.getElementById("id-check").style.width = '180px';
+                                        }
+                                    })
+                                    .catch(function (error) {
+                                        alert("에러");
+                                    });
+                            } else {
+                                document.getElementById("id-check").style.color = 'red';
+                                document.getElementById("id-check").value = '아이디에 숫자가 포함되어 있어야합니다.';
+                                document.getElementById("id-check").style.width = '250px';
+                            }
+                            } else {
+                            document.getElementById("id-check").style.color = 'red';
+                            document.getElementById("id-check").value = '아이디는 8글자 이상이어야 합니다.';
+                            document.getElementById("id-check").style.width = '230px';
+                        }
+                    } else {
+                        document.getElementById("id-check").style.color = 'red';
+                        document.getElementById("id-check").value = '아이디를 입력해주세요.';
+                        document.getElementById("id-check").style.width = '160px';
+                    }
+
+
+                });
+            </script>
+            <span id="pwd-text">Password</span>
+            <input type="password" id="pwd-check">
+            <span id="pwd-checked">-</span>
+        <script>
+            function containsSpecialChars(str) {
+                // 특수 문자를 확인하는 정규 표현식
+                let specialChars = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+                // 특수문자가 포함되어 있는지 검사
+                return specialChars.test(str);
+            }
+            const pwdInput = document.getElementById("pwd-check");
+            const pwdCheck = document.getElementById("pwd-checked");
+
+            pwdInput.addEventListener("input",function (){
+                let pwd = pwdInput.value;
+                console.log(pwd);
+                if(pwd!==""){
+                    if(pwd.length>9){
+                        if(containsSpecialChars(pwd)){
+                            pwdCheck.style.color = 'green';
+                            pwdCheck.textContent = '비밀번호가 적합합니다!';
+                        } else {
+                            pwdCheck.style.color = 'red';
+                            pwdCheck.textContent = '비밀번호에 특수문자가 들어가야합니다.';
+                        }
+                    } else {
+                        pwdCheck.style.color = 'red';
+                        pwdCheck.textContent = '비밀번호는 9글자 이상이어야 합니다.';
+                    }
+                } else {
+                    pwdCheck.style.color = 'red';
+                    pwdCheck.textContent = '비밀번호를 입력하세요.';
+                }
+            });
+
+        </script>
+
+            <span id="phone-text">Phone</span>
+            <select id="phone-choice">
+                <option value="010">010</option>
+                <option value="010">011</option>
+                <option value="010">019</option>
+            </select>
+            <span style="grid-column: 4/5; grid-row: 9;text-align: center;">-</span>
+            <input type="number" id="phone1">
+            <span style="grid-column: 7/8; grid-row: 9;text-align: center;">-</span>
+            <input type="number" id="phone2">
+
+            <span id="name-text">이름</span>
+            <input type="text" id="input-name">
+            
+            <form id="agree">
+                <label>
+                    <span class="qwe">약관</span>에 동의하시나요?
+                    <input type="checkbox" id="check">
+                </label>
+            </form>
+            <div id="join">
+                <button type="submit" id="newBtn">회원가입</button>
+            </div>
+
+    </div>
+    <script>
+        let check = document.querySelector('#check');
+        let emailCheckButton = document.querySelector('#email-check');
+        let idCheck = document.querySelector('#id-check');
+        let idInputFiled = document.querySelector('#input-id');
+        let phoneInputFiled = document.querySelector('#phone1');
+        let phone2InputFiled = document.querySelector('#phone2');
+        let emailInputFiled = document.querySelector('#input-email');
+        let pwdInputFiled = document.querySelector('#pwd-check');
+        let nameInputFiled = document.querySelector('#input-name');
+        var inputEmailCheck2 = document.querySelector('#input-email-check2');
+        let signupButton = document.querySelector('#newBtn');
+        let emailCheckButton2 = document.querySelector('#email-check-button')
+
+        check.addEventListener('change',function(){
+            let regexEmail = /^[a-zA-Z0-9._$+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if(this.checked){
+                if(emailInputFiled.value.trim()===""||
+                    idInputFiled.value.trim()===""||
+                    pwdInputFiled.value.trim()===""||
+                    phoneInputFiled.value.trim()===""||
+                    phone2InputFiled.value.trim()===""||
+                    nameInputFiled.value.trim()==="")
+                {
+                    alert("모두 작성 후 체크해 주세요!!");
+                    check.checked = false;
+                } else {
+                    if(phoneInputFiled.value.length == 4 && phone2InputFiled.value.length == 4){
+                        signupButton.style.display = 'block';
+                    } else {
+                        alert(signupButton.style.display.value);
+                        check.checked = false;
+                        signupButton.style.display = 'none';
+                    }
+                }
+            } else {
+                check.checked = false;
+                        signupButton.style.display = 'none';
+            }
+        });
+        emailCheckButton.addEventListener('click',function(){   //이메일 인증
+
+            var email1 = document.querySelector('#input-email');
+            var emailcheck2 = document.querySelector('#email-check2');
+            const inputId = document.querySelector('#input-id');
+            if(document.querySelector('#id-check').className !== 'success'){
+                emailcheck2.textContent = '아이디 중복 체크를 먼저 하세요!';
+                return;
+            }
+            if(email1.value.trim()===""||inputId.value.trim()===""){
+                emailcheck2.textContent = '이메일 또는 아이디를 입력해주세요.';
+                emailcheck2.style.color = 'red';
+                emailcheck2.style.width = '220px';
+            } else {
+                var id = document.getElementById("input-id").value;
+                // fetch("/checkEmail/id?id="+document.getElementById("input-id").value)
+                //     .then(function (response) {
+                //         return response.json();
+                //     })
+                //     .then(function (data) {
+                //         if (data.check) {
+                //             emailcheck2.style.color = 'green';
+                //             emailcheck2.textContent = '인증번호를 전송했어요!';
+                //         } else {
+                //             alert("인증번호가 생성이 되지 않았거나, 저장하지 못했습니다!");
+                //         }
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //         alert("에러");
+                //     });
+                function sendData(data) {
+                    const url = new URL(window.location.origin + '/checkEmail/id'); // 현재 웹페이지의 기본 URL과 결합
+                    // 객체의 키와 값을 쿼리 파라미터로 추가
+                    Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
+
+                    fetch(url) // 수정된 URL 사용
+                        .then(response => response.text())
+                        .then(function (data){
+                            if(!data){
+                                alert(data);
+                            } else {
+                                emailcheck2.style.color = 'green';
+                                emailcheck2.textContent = '인증번호를 전송했어요!';
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+
+                sendData({
+                    id: document.getElementById('input-id').value,
+                    email: document.getElementById('input-email').value
+                });
+                emailCheckButton.disabled = true;
+                var tttt = document.querySelector('#input-email-check2');
+                if(!tttt){
+                var newInput = document.createElement("input");
+                newInput.type="text";
+                newInput.id="input-email-check2";
+                newInput.placeholder = "이 곳에 입력하세요!";
+                var container = document.getElementById("input-email-check");
+                container.appendChild(newInput);
+                    var time = 180; // 3분은 180초입니다.
+                    var timerId = setInterval(function() {
+                        time--;
+                        var minutes = Math.floor(time / 60);
+                        var seconds = time % 60;
+                        // 두 자릿수로 표시
+                        minutes = minutes < 10 ? '0' + minutes : minutes;
+                        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                        document.getElementById("input-email-check2").placeholder = minutes + ":" + seconds;
+
+                        if (time <= 0) {
+                            clearInterval(timerId);
+                            document.getElementById("input-email-check2").placeholder = "00:00";
+                            document.getElementById("input-email-check2").remove();
+                            emailcheck2.style.color = 'red';
+                            emailcheck2.textContent = "제한시간이 지났어요. 새로고침 해주세요.";
+                            emailcheck2.style.width = "250px";
+                        }
+                    }, 1000);
+            }
+        }
+        });
+        signupButton.addEventListener('click',function(){   //회원가입 버튼
+            //아 개같이 망했다, 생성하는 거 말고 display none 이거로 내일 바꾸자..
+            alert("회원가입");
+        });
+        document.getElementById("phone1").addEventListener("input", function() {
+            var value = this.value;
+            if (value.length > 4) {
+                this.value = value.slice(0, 4); // 첫 4자리만 유지
+            }
+        });
+        document.getElementById("phone2").addEventListener("input", function() {
+            var value = this.value;
+            if (value.length > 4) {
+                this.value = value.slice(0, 4);
+            }
+        });
+        nameInputFiled.addEventListener("keydown", function(e) {
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                e.preventDefault();
+            }
+        });
+        emailCheckButton2.addEventListener("click",function (){
+            function sendDatas(data) {
+                const url = new URL(window.location.origin + '/check/code'); // 현재 웹페이지의 기본 URL과 결합
+                // 객체의 키와 값을 쿼리 파라미터로 추가
+                Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
+
+                fetch(url) // 수정된 URL 사용
+                    .then(response => response.text())
+                    .then(function (data){
+                        if(!data){
+                            alert(data);
+                        } else {
+
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+            sendDatas({
+                id: document.getElementById('input-id').value,
+                pwdCode: document.getElementById('input-email-check2').value
+            });
+        });
+    </script>
+</body>
+</html>
