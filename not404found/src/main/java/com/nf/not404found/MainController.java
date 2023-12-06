@@ -8,38 +8,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    //    @RequestMapping(value = { "admin/product/modify"})
-//    public String adminProductModify(){
-//
-//        return "admin/product/modify";
-//    }
+    @RequestMapping(value = { "admin/product/modify"})
+    public String adminProductModify(){
+
+        return "admin/product/modify";
+    }
     @GetMapping("board/notice/list")
-    public String boardList() {
+    public String boardList(){
         return "board/notice/list";
     }
-
     @GetMapping("board/notice/view")
-    public String boardView() {
+    public String boardView(){
         return "board/notice/view";
     }
-
     @GetMapping("board/review/review")
-    public String boardReview() {
+    public String boardReview(){
         return "board/review/review";
     }
-
     @GetMapping("/")
-    public String defaultLocation() {
+    public String defaultLocation(){
         return "index";
     }
-
     @GetMapping("member/login")
-    public String logIn() {
+    public String logIn(){
         return "member/login";
     }
-
     @GetMapping("member/signup")
-    public String signUp() {
+    public String signUp(){
         return "member/signup";
     }
 }

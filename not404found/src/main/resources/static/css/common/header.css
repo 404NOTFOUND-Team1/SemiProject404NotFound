@@ -10,6 +10,7 @@
     width: 90%; /* 또는 원하는 최대 너비 */
     max-width: 100%; /* 최대 너비 설정 */
     margin: 0 auto; /* 수평 중앙 정렬 */
+    z-index: 999;
 }
 
 
@@ -19,6 +20,7 @@
     position: fixed;
     left: 0px;
     top: 0px;
+    z-index: 999;
 }
 .e1_5254 {
     background-color: rgba(255, 255, 255, 1);
@@ -40,6 +42,7 @@
     width: 100%;
     height: 184px;
     position: fixed;
+    z-index: 999;
     left: 0px;
     top: 0px;
 }
@@ -52,7 +55,6 @@
 }
 .topBar { /* 상단 메뉴 바 */
     position: relative;
-
     background-color: #FFF5E7;
     background-size: cover;
     width: 150%;
@@ -223,16 +225,19 @@ button img{ width: 45%;}
 @media all and (min-width: 1710px) {
     .customer { /* 고객센터 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 1220px;
         top: 52px;
     }
     .signUp { /* 회원가입 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 1320px;
         top: 52px;
     }
     .logIn { /* 로그인 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 1420px;
         top: 52px;
     }
@@ -240,16 +245,19 @@ button img{ width: 45%;}
 @media all and (max-width: 1710px) {
     .customer { /* 고객센터 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 1220px;
         top: 52px;
     }
     .signUp { /* 회원가입 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 1320px;
         top: 52px;
     }
     .logIn { /* 로그인 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 1420px;
         top: 52px;
     }
@@ -257,16 +265,19 @@ button img{ width: 45%;}
 @media all and (max-width: 1438px) {
     .customer { /* 고객센터 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 920px;
         top: 52px;
     }
     .signUp { /* 회원가입 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 1020px;
         top: 52px;
     }
     .logIn { /* 로그인 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 1120px;
         top: 52px;
     }
@@ -274,22 +285,26 @@ button img{ width: 45%;}
 @media all and (max-width: 1138px) {
     .customer { /* 고객센터 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 500px;
         top: 52px;
     }
     .signUp { /* 회원가입 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 600px;
         top: 52px;
     }
     .logIn { /* 로그인 글자 위치*/
         position: fixed;
+        z-index: 999;
         left: 700px;
         top: 52px;
     }
 }
 .homePageImg {
     position: fixed;
+    z-index: 999;
     cursor: pointer;
     border: none;
     background: none;
