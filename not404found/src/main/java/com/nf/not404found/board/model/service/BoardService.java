@@ -8,7 +8,9 @@ import java.util.Map;
 
 public interface BoardService {
 
-    public int selectTotalCount(Map<String, String> searchMap);
+    public int selectTotalCount(Map<String, Object> searchMap);
 
-    public List<BoardDTO> selectBoardList(SelectCriteria selectCriteria);
+    public List<BoardDTO> selectBoardList(Map<String, Object> selecttest);
+
+    BoardDTO selectNoticeView(int post_code);
 }

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>공지사항</title>
     <link rel="stylesheet" href="/css/board/all.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <header th:replace="common/header.html"></header>
@@ -12,16 +14,16 @@
 <div class="sidebar_container">
     <span class="sidebar_container_text">게시판</span>
     <div class="sidebar_button1">
-        <span class="sidebar_button1_text">공지사항</span>
+        <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=1\''">공지사항</span>
+<!--        <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list\''">공지사항</span>-->
     </div>
     <div class="sidebar_button2">
-        <span class="sidebar_button2_text">Review</span>
+        <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review\''">Review</span>
     </div>
     <div class="sidebar_button3">
-        <span class="sidebar_button3_text">QnA</span>
+        <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=3\''">QnA</span>
     </div>
 </div>
-
 
 
 
@@ -61,10 +63,11 @@
             <tr
                     th:each="board : ${ boardList }"
             >
+                <input type="hidden" id="hdPostCode" th:value="${board.post_code}">
                 <td class="post_title" th:text="${board.post_title}">글제목</td>
                 <td th:text="${board.account.id}">아이디</td>
                 <td th:text="${board.post_views}">조회수</td>
-                <td th:text="${board.post_created_date}">작성일</td>
+                <td th:text="${board.post_modified_date != null} ? ${board.post_modified_date} : ${board.post_created_date}">작성일</td>
             </tr>
         </table>
 
@@ -72,14 +75,14 @@
         <div class="pagingArea" align="center">
             <!-- 맨 앞으로 이동 버튼 -->
             <button
-                    th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                    th:onclick="'location.href=\'/board/notice/list?currentPage='+ @{${selectCriteria.startPage}} + '\''"
                     th:disabled="${selectCriteria.pageNo == 1}"
             >
                 <<
             </button>
             <!-- 이전 페이지 버튼 -->
             <button
-                    th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                    th:onclick="'location.href=\'/board/notice/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
                     th:disabled="${selectCriteria.pageNo == 1}"
             >
                 <
@@ -88,33 +91,33 @@
             <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
                 <button
                         th:text="${ page }"
-                        th:onclick="'location.href=\'/board/list?currentPage='+ @{${page}} + '\''"
+                        th:onclick="'location.href=\'/board/notice/list?currentPage='+ @{${page}} + '\''"
                         th:disabled="${ selectCriteria.pageNo eq page }">
                 </button>
             </th:block>
 
             <!-- 다음 페이지 버튼 -->
             <button
-                    th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                    th:onclick="'location.href=\'/board/notice/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
                     th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
             >
                 >
             </button>
             <!-- 마지막 페이지로 이동 버튼 -->
             <button
-                    th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                    th:onclick="'location.href=\'/board/notice/list?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
                     th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
             >
                 >>
             </button>
         </div>
 
-        <!-- 로그인 한 경우에만 글쓰기 버튼이 보여짐 -->
-        <th:block sec:authorize="isAuthenticated()">
-            <div class="bt_wrap">
-                <button class="btn btn-or" id="writeBoard">글쓰기</button>
-            </div>
-        </th:block>
+        <!-- 관리자로 로그인한 경우에만 글쓰기 버튼이 보여짐 -->
+<!--        <th:block sec:authorize="isAuthenticated()">-->
+<!--            <div class="bt_wrap">-->
+<!--                <button id="writeBoard">글쓰기</button>-->
+<!--            </div>-->
+<!--        </th:block>-->
 
 <!--        <div class="bt_wrap">-->
 <!--            &lt;!&ndash; <a href="write.html" class="on">글쓰기</a> &ndash;&gt;-->
@@ -128,25 +131,30 @@
     /*<![CDATA[*/
 
     /* 게시글 리스트에서 해당 게시글에 마우스를 올릴 때에 대한 스타일 처리 */
-    // if (document.querySelectorAll("#listArea td")) {
-    //     const $tds = document.querySelectorAll("#listArea td");
-    //     for (let i = 0; i < $tds.length; i++) {
-    //
-    //         $tds[i].onmouseenter = function() {
-    //             this.parentNode.style.backgroundColor = "orangered";
-    //             this.parentNode.style.cursor = "pointer";
-    //         }
-    //
-    //         $tds[i].onmouseout = function() {
-    //             this.parentNode.style.backgroundColor = "black";
-    //         }
-    //
-    //         $tds[i].onclick = function() {
-    //             const no = this.parentNode.children[0].innerText;
-    //             location.href = "/board/detail?no=" + no;
-    //         }
-    //     }
-    // }
+    if (document.querySelectorAll("#listArea td")) {
+        const $tds = document.querySelectorAll("#listArea td");
+        for (let i = 0; i < $tds.length; i++) {
+
+            $tds[i].onmouseenter = function() {
+                this.parentNode.style.backgroundColor = "rgba(211, 211, 211, 0.3)";
+                this.parentNode.style.cursor = "pointer";
+            }
+
+            $tds[i].onmouseleave = function() {
+                this.parentNode.style.backgroundColor = ""; // 원래의 색상으로 변경 (비움)
+                this.parentNode.style.cursor = "auto"; // 기본 커서로 변경
+            }
+
+            // $tds[i].onmouseout = function() {
+            //     this.parentNode.style.backgroundColor = "black";
+            // }
+
+            $tds[i].onclick = function() {
+                const post_code = this.parentNode.children[0].value;
+                location.href = "/board/notice/view?post_code=" + post_code;
+            }
+        }
+    }
 </script>
 </body>
 </html>
