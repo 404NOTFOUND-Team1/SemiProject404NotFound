@@ -2,11 +2,13 @@ package com.nf.not404found.board.controller;
 
 
 import com.nf.not404found.board.model.dto.BoardDTO;
+import com.nf.not404found.board.model.service.BoardService;
 import com.nf.not404found.board.model.service.BoardServiceImpl;
 import com.nf.not404found.common.paging.Pagenation;
 import com.nf.not404found.common.paging.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,24 +23,16 @@ import java.util.Map;
 @Slf4j
 public class BoardController {
 
-//    /**
-//     * 공지사항 리스트 페이지 이동 메소드
-//     */
-//    @GetMapping("notice/*")
-//    public String noticeBoardLocation() {
-//
-//        return "/board/notice/list";
-//    }
+    private final BoardService boardService;
 
-    private final BoardServiceImpl boardServiceImpl;
-
-    public BoardController(BoardServiceImpl boardServiceImpl) {
-        this.boardServiceImpl = boardServiceImpl;
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
     }
 
     @GetMapping(value = "notice/list")
     public ModelAndView boardList(@RequestParam(required = false) String searchCondition,
                                   @RequestParam(required = false) String searchValue,
+                                  @RequestParam(required = true, defaultValue = "1") int categorycode_board,
                                   @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
                                   ModelAndView mv) {
 
@@ -50,9 +44,10 @@ public class BoardController {
          * 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로 전달받은 페이지 수 이다.
          */
 
-        Map<String, String> searchMap = new HashMap<>();
+        Map<String, Object> searchMap = new HashMap<>();
         searchMap.put("searchCondition", searchCondition);
         searchMap.put("searchValue", searchValue);
+        searchMap.put("categorycode_board", categorycode_board); // categorycode_board 추가
 
         log.info("[BoardController] 컨트롤러에서 검색조건 확인하기 : " + searchMap);
 
@@ -62,10 +57,10 @@ public class BoardController {
          * 검색조건이 있는 경우 검색 조건에 맞는 전체 게시물 수를 조회한다.
          */
 
-        int totalCount = boardServiceImpl.selectTotalCount(searchMap);
+        int totalCount = boardService.selectTotalCount(searchMap);
         log.info("[BoardController] totalBoardCount : " + totalCount);
 
-        /* 한 페이지에 보여 줄 게시물 수 */
+        /* 한 페이지에 보여줄 게시물 수 */
         int limit = 10;        //얘도 파라미터로 전달받아도 된다.
 
         /* 한 번에 보여질 페이징 버튼의 갯수 */
@@ -82,8 +77,12 @@ public class BoardController {
 
         log.info("[BoardController] selectCriteria : " + selectCriteria);
 
+        Map<String, Object> selecttest = new HashMap<>();
+        selecttest.put("selectCriteria", selectCriteria);
+        selecttest.put("categorycode_board", categorycode_board);
+
         /* 조회 */
-        List<BoardDTO> boardList = boardServiceImpl.selectBoardList(selectCriteria);
+        List<BoardDTO> boardList = boardService.selectBoardList(selecttest);
 
         log.info("[BoardController] boardList : " + boardList);
 
@@ -94,6 +93,23 @@ public class BoardController {
 
         log.info("[BoardController] ========================================================= end");
         return mv;
+    }
+
+
+    @GetMapping("/notice/view")
+    public String selectNoticeView(@RequestParam int post_code, Model model) {
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] ========================================================= start");
+
+        BoardDTO noticeView = boardService.selectNoticeView(post_code);
+        log.info("[BoardController] noticeView : " + noticeView);
+
+        model.addAttribute("noticeView", noticeView);
+
+        log.info("[BoardController] ========================================================= end");
+        return "board/notice/view";
     }
 
 
