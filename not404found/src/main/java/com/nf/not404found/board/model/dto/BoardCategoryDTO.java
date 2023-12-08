@@ -11,4 +11,5 @@ public class BoardCategoryDTO {
 
     private int categorycode_board;
     private String categoryname_board;
+
 }

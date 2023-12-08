@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.not404found.admin.product.model.dao.AdminProductMapper">
+
+    <resultMap id="AdminProductMap" type="AdminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="price" column="price"/>
+        <result property="name" column="name"/>
+        <result property="amount" column="amount"/>
+        <result property="enterDate" column="enter_date"/>
+        <result property="deleteStatus" column="delete_status"/>
+        <association property="adminProductCategory" resultMap="AdminProductCategoryMap"/>
+    </resultMap>
+
+    <resultMap id="AdminProductCategoryMap" type="AdminProductCategoryDTO">
+        <id property="categoryCode" column="category_code"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="refCategoryCode" column="ref_category_code"/>
+    </resultMap>
+
+    <select id="selectAllProduct" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.enter_date,
+            b.ref_category_code,
+            b.category_name,
+            a.delete_status,
+            a.amount
+        FROM
+            product a
+        JOIN product_category b ON a.category_code = b.category_code
+    </select>
+
+    <select id="selectConditionProduct" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.enter_date,
+            b.ref_category_code,
+            b.category_name,
+            a.delete_status,
+            a.amount
+        FROM
+            product a
+                JOIN product_category b ON a.category_code = b.category_code
+        <where>
+            <if test="name != ''">
+                AND a.name LIKE CONCAT('%' , #{ name }, '%')
+            </if>
+            <if test="price != 0 " >
+                AND a.price LIKE CONCAT('%' , #{ price }, '%')
+            </if>
+            <if test="amount != 0 " >
+                AND a.amount LIKE CONCAT('%' , #{ amount }, '%')
+            </if>
+            <if test="enterDate != null " >
+                AND a.enter_date LIKE CONCAT('%' , #{ enterDate }, '%')
+            </if>
+            <if test="adminProductCategory.refCategoryCode != 0 " >
+                AND b.ref_category_code LIKE CONCAT('%' , #{ refCategoryCode } , '%')
+            </if>
+            <if test="adminProductCategory.categoryName != null " >
+                AND b.category_name LIKE CONCAT('%' , #{ categoryName }, '%')
+            </if>
+            <if test="deleteStatus != null " >
+                AND a.delete_status LIKE CONCAT('%' , #{ deleteStatus }, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

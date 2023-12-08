@@ -104,10 +104,9 @@
 .table_parents {
 	position: relative;
 	margin : 0 auto;
-	left: 100px;
+	left: -150px;
 	top : 150px;
-	width: 1300px;
-	height: 200px;
+	width: 1650px;
 	border-collapse: collapse; /* 테이블 셀 사이의 간격 제거 */
 }
 
