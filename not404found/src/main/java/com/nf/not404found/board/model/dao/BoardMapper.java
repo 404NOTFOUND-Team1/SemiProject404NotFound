@@ -9,7 +9,11 @@ import java.util.Map;
 
 @Mapper
 public interface BoardMapper {
-    int selectTotalCount(Map<String, String> searchMap);
+    int selectTotalCount(Map<String, Object> searchMap);
 
-    List<BoardDTO> selectBoardList(SelectCriteria selectCriteria);
+    List<BoardDTO> selectBoardList(Map<String, Object> selecttest);
+
+    int incrementBoardCount(int post_code);
+
+    BoardDTO selectNoticeView(int post_code);
 }

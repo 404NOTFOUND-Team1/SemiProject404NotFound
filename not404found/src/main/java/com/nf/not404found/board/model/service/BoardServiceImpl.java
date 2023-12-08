@@ -4,7 +4,6 @@ import com.nf.not404found.board.model.dao.BoardMapper;
 import com.nf.not404found.board.model.dto.BoardDTO;
 import com.nf.not404found.common.paging.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class BoardServiceImpl implements BoardService{
 
     /* 공지사항 & QnA 게시글 전체 갯수 조회용 메소드 */
     @Override
-    public int selectTotalCount(Map<String, String> searchMap) {
+    public int selectTotalCount(Map<String, Object> searchMap) {
 
         int result = mapper.selectTotalCount(searchMap);
         log.info("");
@@ -35,13 +34,32 @@ public class BoardServiceImpl implements BoardService{
 
     /* 공지사항 & QnA 게시글 전체 리스트 조회용 메소드 */
     @Override
-    public List<BoardDTO> selectBoardList(SelectCriteria selectCriteria) {
+    public List<BoardDTO> selectBoardList(Map<String, Object> selecttest) {
 
-        List<BoardDTO> boardList = mapper.selectBoardList(selectCriteria);
+        List<BoardDTO> boardList = mapper.selectBoardList(selecttest);
         log.info("");
         log.info("");
         log.info("[BoardServiceImpl]  selectBoardList ===================== {}", boardList);
 
         return boardList;
+    }
+
+    @Override
+    public BoardDTO selectNoticeView(int post_code) {
+
+        BoardDTO noticeView = null;
+
+        /* 조회수 증가 */
+        int result = mapper.incrementBoardCount(post_code);
+
+        if (result > 0) {
+            noticeView = mapper.selectNoticeView(post_code);
+        }
+
+        log.info("");
+        log.info("");
+        log.info("[BoardServiceImpl]  selectNoticeView ===================== {}", noticeView);
+
+        return noticeView;
     }
 }
