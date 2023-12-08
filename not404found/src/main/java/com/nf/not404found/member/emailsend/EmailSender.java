@@ -18,7 +18,7 @@ public class EmailSender {
         // 인증 정보 설정
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("wjdwltjq8482", "wltjqdl123");
+                return new PasswordAuthentication("wjdwltjq7289", "Qwqw13245@");
             }
         });
 
@@ -41,7 +41,7 @@ public class EmailSender {
 
     public static boolean emailSend(String to, String pwdKey) {
         // 이메일 발신자, 수신자, SMTP 호스트 및 메시지 내용 설정 to는 수신자
-        String from = "wjdwltjq8482@naver.com"; // 발신자 이메일 주소
+        String from = "wjdwltjq7289@naver.com"; // 발신자 이메일 주소
         String host = "smtp.naver.com"; // SMTP 서버 주소
         String subject = "집꾸미 이메일 인증"; // 이메일 제목
         try{
