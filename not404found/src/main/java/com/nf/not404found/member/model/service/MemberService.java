@@ -18,17 +18,24 @@ public class MemberService {
         boolean re = result == 0;
         return re;
     }
-    @Transactional
-    public boolean checkEmail(String id,String key) {
 
-        boolean result = mapper.checkEmail(id, key);
-        System.out.println(result);
+    /**
+     * email_check 테이블에 id, pwd_code INSERT 메소드
+     *
+     * @param id 사용자가 회원 가입 시 입력한 필드의 아이디
+     * @param key 사용자의 아이디와 함께 테이블에 들어갈 인증 코드
+     * @return : 잘 됐는지 체크 (true or false)
+     */
+    @Transactional  //커밋 용
+    public boolean checkEmail(String id,String key) {   //아이디, 랜덤 키 갖고
+        boolean result = mapper.checkEmail(id, key);    //매퍼로 ㄱㄱ
+        System.out.println(result);                     //잘 됐는지 출력 용
         return result;
     }
 
-    public boolean checkCode(String id, String pwdCode) {
-        boolean result = mapper.checkCode(id,pwdCode);
-        System.out.println("checkCode() : ");
+    public int checkCode(String id, String pwdCode) {
+        int result = mapper.checkCode(id,pwdCode);
+        System.out.println("사용자가 입력한 pwdCode와 id가 일치하는 테이블은 몇개?? : "+result);
         return result;
     }
 }

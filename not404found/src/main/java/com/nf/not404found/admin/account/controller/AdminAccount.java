@@ -51,7 +51,7 @@ public class AdminAccount {
 
         List<AdminAccountDTO> searchList = null;
 
-        if(searchCondition != null && searchValue != null) {
+        if(searchCondition != null || searchValue != null) {
             log.info(" ");
             log.info("하나고르는거 가냐 ================> { } start");
 
