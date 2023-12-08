@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = { "admin/product/modify"})
-    public String adminProductModify(){
-
-        return "admin/product/modify";
-    }
-    @GetMapping("board/notice/list")
-    public String boardList(){
-        return "board/notice/list";
-    }
+//    @RequestMapping(value = { "admin/product/modify"})
+//    public String adminProductModify(){
+//
+//        return "admin/product/modify";
+//    }
+//    @GetMapping("board/notice/list")
+//    public String boardList(){
+//        return "board/notice/list";
+//    }
     @GetMapping("board/notice/view")
     public String boardView(){
         return "board/notice/view";

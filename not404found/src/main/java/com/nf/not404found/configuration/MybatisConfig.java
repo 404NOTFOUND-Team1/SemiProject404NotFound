@@ -5,7 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-//@ComponentScan(basePackages = "com.nf.not404found")
+
 @Configuration
 @MapperScan(basePackages = "com.nf.not404found", annotationClass = Mapper.class)
 public class MybatisConfig {

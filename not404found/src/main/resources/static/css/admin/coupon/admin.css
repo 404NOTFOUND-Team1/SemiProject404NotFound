@@ -36,7 +36,7 @@ a{
     margin-top: 100px;
     padding: 0 20px;
     border: 1px solid #d8d8d8;
-    border-bottom-width: 2px;
+    border-bottom-width: 1px; /* 2에서 1로 수정 함*/
     background: #fff;
 }
 
@@ -72,21 +72,16 @@ a{
 em{
     font-style: normal;
 }
-.cInfoBox{
-    margin-left: 40px;
-}
-#cName{
-    width: 300px;
-    height: 30px;
-    font-size: 17px;
+
+/* 입력창 - 우측 정렬 */
+.cInfoInner  {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
 }
 
-#cRate{
-    width: 300px;
-    height: 30px;
-    font-size: 17px;
-}
-#cCommnet{
+#cRate, #cName, #cCommnet {
+    justify-content: right;
     width: 300px;
     height: 30px;
     font-size: 17px;
@@ -94,7 +89,7 @@ em{
 
 .CB{
     position: relative;
-    left: 150px;
+    left: 185px;
     width:100px;
     height: 30px;
     background-color: #99A3FE;
