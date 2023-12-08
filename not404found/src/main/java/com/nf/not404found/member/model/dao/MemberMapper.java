@@ -13,6 +13,6 @@ public interface MemberMapper {
     @Insert("INSERT INTO email_check(id,pwd_key) VALUES (#{id},#{pwd_key})")
     boolean checkEmail(String id, String pwd_key);
 
-    @Select("SELECT COUNT(*) FROM email_check WHERE id = #{id} AND pwd_key = #{pwd_key}")
-    boolean checkCode(String id, String pwdCode);
+    @Select("SELECT COUNT(*) FROM email_check WHERE id = #{id} AND pwd_key = #{pwdCode}")
+    int checkCode(String id, String pwdCode);
 }

@@ -17,57 +17,58 @@
       <li class="insert_product" onclick="go_insert()">상품등록</li>
       <li class="modify_product" onclick="go_modify()">상품수정</li>
     </ul>
+    <form th:action="@{/admin/product}">
     <div class="product_page">
       <div class="page_name">   상품조회<hr></div>
       <div class="tab1"><label class="tab11">판매상태 : </label>
-        <input type="radio" class="p_radio" name="status" id="yes" value="Y"><label for="yes">즉시 판매</label>
+        <input type="radio" class="p_radio" name="deleteStatus" id="sstatusy" value="Y"><label for="sstatusy">즉시 판매</label>
         <span class="radio_space"></span>
-        <input type="radio" class="p_radio" name="status" id="no" value="N"><label for="no">판매 보류</label>
+        <input type="radio" class="p_radio" name="deleteStatus" id="sstatusn" value="N"><label for="sstatusn">판매 보류</label>
         <hr>
       </div>
-      <div class="tab2"><label class="tab22">판매등록날짜 :    </label>
-        <input class="date_size" type="date" name="p_date"><hr>
+      <div class="tab2"><label class="tab22" for="pDate">판매등록날짜 :    </label>
+        <input class="date_size" type="date" name="enterDate" id="pDate"><hr>
       </div>
-      <div class="tab3"><label class="tab33">상품명 : </label>
-        <input class="p_name" type="text" name="name"><hr>
+      <div class="tab3"><label class="tab33" for="name">상품명 : </label>
+        <input class="p_name" type="text" name="name" id="name"><hr>
       </div>
-      <div class="tab4"><label class="tab44">상품가격 : </label>
-        <input class="p_price" type="number" name="price"><hr>
+      <div class="tab4"><label class="tab44" for="price">상품가격 : </label>
+        <input class="p_price" type="number" name="price" id="price"><hr>
       </div>
-      <div class="tab4"><label class="tab44"> 재고량 : </label>
-        <input class="p_price" type="number" name="inventory"><hr>
+      <div class="tab4"><label class="tab44" for="inventory"> 재고량 : </label>
+        <input class="p_price" type="number" name="amount" id="inventory"><hr>
       </div>
       <div class="tab4"><label class="tab44"> 삭제여부 : </label>
-        <input type="radio" class="p_radio" name="status" id="yes" value="Y"><label for="yes">Y</label>
+        <input type="radio" class="p_radio" name="dstatus" id="dstatusy" value="Y"><label for="dstatusy">Y</label>
         <span class="radio_space"></span>
-        <input type="radio" class="p_radio" name="status" id="no" value="N"><label for="no">N</label>
+        <input type="radio" class="p_radio" name="dstatus" id="dstatusn" value="N"><label for="dstatusn">N</label>
         <hr>
       </div>
       <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
-        <select id="topCategory" class="c_ref" name="ref_category" onchange="updateSubCategories()">
-          <option value="table">책상</option>
-          <option value="chair">의자</option>
-          <option value="light">조명</option>
-          <option value="etc">기타</option>
+        <select id="topCategory" class="c_ref" name="refCategoryCode" onchange="updateSubCategories()">
+          <option value="0">미선택</option>
+          <option value="1">가구</option>
+          <option value="2">자재</option>
         </select>
         <label for="subCategory">하위 카테고리 : </label>
-        <select id="subCategory" class="c_ref" name="sub_category"></select>
+        <select id="subCategory" class="c_ref" name="categoryName"></select>
         <hr></div>
-      <div class="tab5"><label for="color">옵션(색상) : </label>
-        <select id="colorCategory" class="c_ref" name="color">
-          <option value="table">black</option>
-          <option value="chair">blue</option>
-          <option value="light">red</option>
-          <option value="etc">기타</option>
-        </select>
-        <hr>
-      </div>
-      <button class="insert_button">상품 조회</button>
+<!--      <div class="tab5"><label for="color">옵션(색상) : </label>-->
+<!--        <select id="color" class="c_ref" name="color">-->
+<!--          <option value="red">레드와인</option>-->
+<!--          <option value="blue">스카이블루</option>-->
+<!--          <option value="orange">오렌지</option>-->
+<!--          <option value="etc">기타</option>-->
+<!--        </select>-->
+<!--        <hr>-->
+<!--      </div>-->
+      <button type="submit" class="insert_button">상품 조회</button>
+<!--       </div>-->
+      </form>
+
     </div>
-  </div>
-  <table class="table_parents">
-    <thead>
-    <tr>
+  <table class="table_parents" >
+    <tr style="text-align:center;">
       <th>상품코드
         <button>↧</button>
       </th>
@@ -102,74 +103,35 @@
         <button>↧</button>
       </th>
     </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr th:if="${#lists.isEmpty(condition)}" th:each="products : ${ productList }">
+      <td th:text="${products.productCode}"></td>
+      <td th:text="${products.name}"></td>
+      <td th:text="${products.price}"></td>
+      <td th:text="${products.enterDate}"></td>
+      <td th:text="${products.adminProductCategory.refCategoryCode}"></td>
+      <td th:text="${products.adminProductCategory.categoryName}"></td>
+      <td th:text="${products.deleteStatus}"></td>
+      <td th:text="${products.amount}"></td>
+      <td th:text="${'0'}"></td>
+      <td th:text="${'N'}"></td>
+      <td th:text="${'100000'}"></td>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+
+    <tr th:unless="${#lists.isEmpty(condition)}" th:if="${not #lists.isEmpty(condition)}">
+      <td colspan="11" th:if="${#lists.isEmpty(condition[0].productCode)}">검색 결과가 없습니다.</td>
+      <td th:unless="${#lists.isEmpty(condition[0].productCode)}" th:each="conditions : ${condition}">
+      <td th:text="${conditions.productCode}"></td>
+      <td th:text="${conditions.name}"></td>
+      <td th:text="${conditions.price}"></td>
+      <td th:text="${conditions.enterDate}"></td>
+      <td th:text="${conditions.adminProductCategory.refCategoryCode}"></td>
+      <td th:text="${conditions.adminProductCategory.categoryName}"></td>
+      <td th:text="${conditions.deleteStatus}"></td>
+      <td th:text="${conditions.amount}"></td>
+      <td th:text="${'0'}"></td>
+      <td th:text="${'N'}"></td>
+      <td th:text="${'100000'}"></td>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    </tbody>
   </table>
   <script>
     function go_insert(){
@@ -184,18 +146,16 @@
       var subCategory = document.getElementById('subCategory');
       subCategory.innerHTML ="";
 
-      if(selectedTopCategory === "table"){
-        addOption(subCategory, "desk", '책상');
-        addOption(subCategory, "dining-table", '식탁');
-      }else if (selectedTopCategory === "chair") {
-        addOption(subCategory, "office-chair", "사무용 의자");
-        addOption(subCategory, "armchair", "안락 의자");
-      } else if (selectedTopCategory === "light") {
-        addOption(subCategory, "ceiling-light", "천장 조명");
-        addOption(subCategory, "table-lamp", "탁상 등");
-      } else if (selectedTopCategory === "etc") {
-        addOption(subCategory, "miscellaneous", "기타");
+      if(selectedTopCategory === "1"){
+        addOption(subCategory, "3", '의자');
+        addOption(subCategory, "4", '책상');
+        addOption(subCategory, "5", '조명');
+      }else if (selectedTopCategory === "2") {
+        addOption(subCategory, "6", "시트지");
+        addOption(subCategory, "7", "벽지");
+        addOption(subCategory, "8", "공구");
       }
+
     }
 
     function addOption(selectElement, value, text) {

@@ -96,7 +96,6 @@ a {
 .bt_wrap {
     margin-top: 30px;
     text-align: center;
-    font-size: 0;
     position: absolute;
     top: 650px;
     left: 50%;
@@ -122,14 +121,14 @@ a {
     left: 41.5%;
 }
 
-.bt_wrap.view{
-    margin-top: 30px;
-    text-align: center;
-    font-size: 0;
-    position: absolute;
-    top: 500px;
-    left: 46%;
-}
+/*.bt_wrap.view{*/
+/*    margin-top: 30px;*/
+/*    text-align: center;*/
+/*    font-size: 0;*/
+/*    position: absolute;*/
+/*    top: 500px;*/
+/*    left: 46%;*/
+/*}*/
 
 .bt_wrap.edit{
     margin-top: 30px;
