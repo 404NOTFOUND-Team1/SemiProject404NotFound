@@ -1,0 +1,132 @@
+.coupon_body{
+    z-index: 1;
+    position: relative;
+    padding:30px;
+    margin-left:250px
+}
+
+.main-hd{
+    position:relative;
+    font-size: 18px;
+    font-weight: bold;
+}
+.tab{
+    position: relative;
+    margin-top: 30px;
+}
+li{
+    list-style: none;
+    width: 160px;
+    float : left;
+    margin-right: -1px;
+}
+a{
+    display: block;
+    height: 42px;
+    line-height: 42px;
+    border: 1px solid black;
+    background: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+.tablehd{
+    position: relative;
+    height: 52px;
+    line-height: 52px;
+    margin-top: 100px;
+    padding: 0 20px;
+    border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    background: #fff;
+}
+
+.couponInfo{
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    border-top: none;
+    height: 350px;
+}
+.wltjql{
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 17px;
+    margin-top: -10px;
+}
+
+.couponInfo .cInfoRe .cInfoInner {
+    display: flex;
+    align-items: center;
+    padding: 19px 30px;
+}
+/*.couponInfo .cInfoRe .cInfoname {*/
+/*    width: 176px;*/
+/*    height: 40px;*/
+/*}*/
+
+.couponInfo .cInfoRe .cInfoBox{
+    width: 12.08%;
+    padding: 0 10px;
+    margin-right: 10px;
+}
+
+em{
+    font-style: normal;
+}
+.cInfoBox{
+    margin-left: 40px;
+}
+#cName{
+    width: 300px;
+    height: 30px;
+    font-size: 17px;
+}
+
+#cRate{
+    width: 300px;
+    height: 30px;
+    font-size: 17px;
+}
+#cCommnet{
+    width: 300px;
+    height: 30px;
+    font-size: 17px;
+}
+
+.CB{
+    position: relative;
+    left: 150px;
+    width:100px;
+    height: 30px;
+    background-color: #99A3FE;
+    color: white;
+    margin-top: 20px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #d8d8d8;
+}
+.search_one{
+    position: relative;
+    margin: auto 0;
+    width: 1000px;
+    left: 300px;
+    height: 80px;
+    border-spacing: 0;
+    top:20px;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.CList{
+    text-align: center;
+    margin-top: 50px;
+}

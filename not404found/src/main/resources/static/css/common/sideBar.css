@@ -24,6 +24,7 @@
     border-top-right-radius: 64px;
     border-bottom-left-radius: 34px;
     border-bottom-right-radius: 34px;
+    z-index: 999;
 }
 .side_bar_menus {
     box-shadow: 7px 7px 12.699999809265137px rgba(0, 0, 0, 0.25);

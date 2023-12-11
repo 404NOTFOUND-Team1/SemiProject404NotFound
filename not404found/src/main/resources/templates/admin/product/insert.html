@@ -1,66 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin_page</title>
     <link rel="stylesheet" type="text/css" href="/css/admin/product/insert.css">
-    <link rel="stylesheet" type="text/css" href="/css/admin/common/top_bar.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <style>
-        .side_bar3 {
-            background-color: #99A3FE;
-        }
-    </style>
 </head>
 <body>
-<header>
-    <div class="header">
-        <div class="logo_image"></div>
-        <div class="login_name">관리자 : 닉네임</div>
-        <div class="top_bar">
-            <span class="now_span"><h3>상품관리</h3></span>
-        </div>
-        <div class="top_search_bar">
-            <div class="search_div">
-                <span class="search_span">주문, 상품, 문의 회원 등</span>
-                <div class="search_icon"></div>
-            </div>
-        </div>
-        <div class="sidebarparents">
-            <div class="side_bar1" onclick="go_dashboard()">대시보드</div>
-            <div class="side_bar2" onclick="go_order()">주문관리</div>
-            <div class="side_bar3">상품관리</div>
-            <div class="side_bar4" onclick="go_notice()">게시판관리</div>
-            <div class="side_bar5" onclick="go_statistics()">통계</div>
-            <div class="side_bar6" onclick="go_member()">회원관리</div>
-            <div class="side_bar0"><!--남는공간--></div>
-        </div>
-    </div>
-    <script>
-        function go_dashboard(){
-            window.location.href = "/admin/dashboard";
-        }
-        function go_order(){
-            window.location.href = "/admin/order";
-        }
-        function go_notice(){
-            window.location.href = "/admin/notice"
-        }
-        function go_statistics(){
-            window.location.href = "/admin/statistics"
-        }
-        function go_member(){
-            window.location.href = "/admin/member"
-        }
-        $(document).ready(function(){
-            $('.search_icon').click(function(){
-                alert('총 검색 아이콘 클릭');
-            });
-        });
-    </script>
-</header>
-
+<header th:replace="/admin/common/adminHeader.html"></header>
 <section>
     <div class="product_list">
         <ul class="product_parents">
@@ -68,16 +17,17 @@
             <li class="insert_product">상품등록</li>
             <li class="modify_product" onclick="go_modify()">상품수정</li>
         </ul>
+    <form th:action="@{ /admin/product/insert }" th:method="post" enctype="multipart/form-data">
         <div class="product_page">
             <div class="page_name">   상품등록<hr></div>
             <div class="tab1"><label class="tab11">판매상태 : </label>
-                <input type="radio" class="p_radio" name="status" id="yes" value="Y"><label for="yes">즉시 판매</label>
+                <input type="radio" class="p_radio" name="deleteStatus" id="sstatusy" value="Y"><label for="sstatusy">즉시 판매</label>
                 <span class="radio_space"></span>
-                <input type="radio" class="p_radio" name="status" id="no" value="N"><label for="no">판매 보류</label>
+                <input type="radio" class="p_radio" name="deleteStatus" id="sstatusn" value="N"><label for="sstatusn">판매 보류</label>
                 <hr>
             </div>
-            <div class="tab2"><label class="tab22">판매등록날짜 :    </label>
-                <input class="date_size" type="date" name="p_date"><hr>
+            <div class="tab2"><label class="tab22">판매등록날짜 :    </label><!-- 이거 Date.now로 할지-->
+                <input class="date_size" type="date" name="enterDate"><hr>
             </div>
             <div class="tab3"><label class="tab33">상품명 : </label>
                 <input class="p_name" type="text" name="name"><hr>
@@ -86,33 +36,128 @@
                 <input class="p_price" type="number" name="price"><hr>
             </div>
             <div class="tab4"><label class="tab44"> 재고량 : </label>
-                <input class="p_price" type="number" name="inventory"><hr>
+                <input class="p_price" type="number" name="amount"><hr>
             </div>
             <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
-                <select id="topCategory" class="c_ref" name="ref_category" onchange="updateSubCategories()">
-                    <option value="table">책상</option>
-                    <option value="chair">의자</option>
-                    <option value="light">조명</option>
-                    <option value="etc">기타</option>
+                <select id="topCategory" class="c_ref" name="adminProductCategory.refCategoryCode" onchange="updateSubCategories()">
+                    <option value="1">가구</option>
+                    <option value="2">자재</option>
                 </select>
                 <label for="subCategory">하위 카테고리 : </label>
-                <select id="subCategory" class="c_ref" name="sub_category"></select>
+                <select id="subCategory" class="c_ref" name="adminProductCategory.categoryCode"></select>
                 <hr></div>
-            <div class="tab5"><label for="color">옵션(색상) : </label>
-                <select id="colorCategory" class="c_ref" name="color">
-                    <option value="table">black</option>
-                    <option value="chair">blue</option>
-                    <option value="light">red</option>
-                    <option value="etc">기타</option>
+            <div class="tab5"><label for="colorCategory">옵션(색상) : </label>
+                <select id="colorCategory" class="c_ref" name="adminOption.colorCode">
+                    <option value="검은색">black</option>
+                    <option value="파란색">blue</option>
+                    <option value="빨간색">red</option>
                 </select>
                 <hr>
             </div>
+            <table>
+                <tr>
+                    <td>대표 이미지</td>
+                    <td colspan="3">
+                        <div class="title-image" id="titleImageArea">
+                            <img id="titleImg" style="width: 350px; height: 200px">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="content-image1" id="contentImageArea1">
+                            <img id="contentImage1" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="content-image2" id="contentImageArea2">
+                            <img id="contentImage2" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="content-image3" id="contentImageArea3">
+                            <img id="contentImage3" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="content-image4" id="contentImageArea4">
+                            <img id="contentImage4" style="width: 120px; height: 100px">
+                        </div>
+                    </td>
+                </tr>
+            </table>
             <div class="fileUpload"> 상품 이미지 :
-                <input type="file" id="fileInput">
+                <input type="file" id="thumbnailImage1" name="thumbnailImage1" onchange="loadImage(this,1)">
+                <input type="file" id="thumbnailImage2" name="thumbnailImage2" onchange="loadImage(this,2)">
+                <input type="file" id="thumbnailImage3" name="thumbnailImage3" onchange="loadImage(this,3)">
+                <input type="file" id="thumbnailImage4" name="thumbnailImage4" onchange="loadImage(this,4)">
+                <input type="file" id="thumbnailImage5" name="thumbnailImage5" onchange="loadImage(this,5)">
             </div>
-            <button class="insert_button">상품 등록</button>
+            <button class="insert_button" type="submit">상품 등록</button>
         </div>
+    </form>
     </div>
+
+    <script th:inline="javascript">
+
+        const $titleImageArea = document.getElementById("titleImageArea");
+        const $contentImageArea1 = document.getElementById("contentImageArea1");
+        const $contentImageArea2 = document.getElementById("contentImageArea2");
+        const $contentImageArea3 = document.getElementById("contentImageArea3");
+        const $contentImageArea4 = document.getElementById("contentImageArea4");
+
+        $titleImageArea.onclick = function () {
+            document.getElementById("thumbnailImage1").click();
+        }
+
+        $contentImageArea1.onclick = function () {
+            document.getElementById("thumbnailImage2").click();
+        }
+
+        $contentImageArea2.onclick = function () {
+            document.getElementById("thumbnailImage3").click();
+        }
+
+        $contentImageArea3.onclick = function () {
+            document.getElementById("thumbnailImage4").click();
+        }
+
+        $contentImageArea4.onclick = function () {
+            document.getElementById("thumbnailImage5").click();
+        }
+
+        function loadImage(value, number){
+
+            if (value.files && value.files[0]){
+                const reader = new FileReader();
+
+                reader.readAsDataURL(value.files[0]);
+                reader.onload = function(e) {
+                    switch(number){
+                        case 1:
+                            console.log(e.target.result);
+                            document.getElementById("titleImg").src = e.target.result;
+                            break;
+                        case 2:
+                            document.getElementById("contentImage1").src = e.target.result;
+                            break;
+                        case 3:
+                            document.getElementById("contentImage2").src = e.target.result;
+                            break;
+                        case 4:
+                            document.getElementById("contentImage3").src = e.target.result;
+                            break;
+                        case 5:
+                            document.getElementById("contentImage4").src = e.target.result;
+                            break;
+                    }
+                }
+            }
+        }
+    </script>
+
+
     <script>
         function go_select(){
             window.location.href = "/admin/product"
@@ -126,17 +171,14 @@
             var subCategory = document.getElementById('subCategory');
             subCategory.innerHTML ="";
 
-            if(selectedTopCategory === "table"){
-                addOption(subCategory, "desk", '책상');
-                addOption(subCategory, "dining-table", '식탁');
-            }else if (selectedTopCategory === "chair") {
-                addOption(subCategory, "office-chair", "사무용 의자");
-                addOption(subCategory, "armchair", "안락 의자");
-            } else if (selectedTopCategory === "light") {
-                addOption(subCategory, "ceiling-light", "천장 조명");
-                addOption(subCategory, "table-lamp", "탁상 등");
-            } else if (selectedTopCategory === "etc") {
-                addOption(subCategory, "miscellaneous", "기타");
+            if(selectedTopCategory === "1"){
+                addOption(subCategory, "3", '의자');
+                addOption(subCategory, "4", '책상');
+                addOption(subCategory, "5", '조명');
+            }else if (selectedTopCategory === "2") {
+                addOption(subCategory, "6", "시트지");
+                addOption(subCategory, "7", "벽지");
+                addOption(subCategory, "8", "공구");
             }
         }
 

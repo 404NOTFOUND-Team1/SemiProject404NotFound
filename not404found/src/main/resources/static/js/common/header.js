@@ -52,7 +52,7 @@ var signUp = document.querySelector('.signUp');
 var logIn = document.querySelector('.logIn');
 
 mainImg.addEventListener('click',function(){
-    alert("홈페이지로 이동");
+    window.location.href = '/';
 });
 customer.addEventListener('mouseenter',function() {
     customer.style.color = 'blue';
@@ -74,7 +74,7 @@ signUp.addEventListener('mouseleave',function(){
     signUp.style.textDecoration = "none";
 });
 signUp.addEventListener('click',function(){
-    alert('회원가입!');
+    window.location.href="/member/signup";
 });
 logIn.addEventListener('mouseenter',function() {
     logIn.style.color = 'blue';
@@ -85,7 +85,7 @@ logIn.addEventListener('mouseleave',function(){
     logIn.style.textDecoration = "none";
 });
 logIn.addEventListener('click',function(){
-    alert('로그인!');
+    window.location.href="/member/login";
 });
 
 function commonEnterMouseEvent(target){
@@ -227,14 +227,14 @@ interior_challenge.addEventListener('click',function(){
 });
 board_toggle.addEventListener('click', function (e)
 {
-    const categoryArray = ['공지사항','리뷰 게시판','자유 게시판']
+    const categoryArray = ['공지사항','리뷰 게시판','QnA']
     var list = commonEvent(e);
     if(list === categoryArray[0]){
-        alert("공지사항 test");
+        window.location.href = '/board/notice/list';
     } else if(list === categoryArray[1]){
-        alert("리뷰 게시판 test");
+        window.location.href = '/board/notice/review';
     } else if(list === categoryArray[2]){
-        alert("자유 게시판 test");
+        window.location.href = '/board/review/review';
     } else {
         alert("Error!!");
     }

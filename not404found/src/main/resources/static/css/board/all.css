@@ -31,53 +31,60 @@ a {
 .board_wrap {
     width: 70%;
     margin: 250px 20px 100px 250px;
+
+}
+
+.board_list {
     position: relative;
+    z-index: 1;
 }
 
 /* --------------------- 게시판 제목 --------------------- */
 .board_title {
     margin-bottom: 30px;
 }
-
 .board_title strong {
     font-size: 3rem;
 }
 
 /* --------------------- 게시글 정렬 & 검색 --------------------- */
+.searchForm {
+    position: relative;
+    z-index: 1;
+}
+
 #sortPosts {
     width: 80px;
     height: 30px;
     position: absolute;
     left: 0;
-    top: -50px;
+    top: 70px;
     text-align: center;
-
 }
-
-#searchType {
+.searchCondition {
     width: 80px;
     height: 31px;
     position: absolute;
-    right: 255px;
-    top: -50px;
+    right: 240px;
+    top: 70px;
     text-align: center;
 }
-#searchInput {
+.searchValue {
     width: 180px;
-    height: 27px;
+    height: 31px;
     position: absolute;
     right: 55px;
-    top: -50px;
+    top: 70px;
     text-align: left;
     padding-left: 5px;
     padding-right: 5px;
 }
 #searchButton {
     width: 50px;
-    height: 30px;
+    height: 31px;
     position: absolute;
     right: 0;
-    top: -50px;
+    top: 70px;
     background-color: white;
     border-radius: 2px;
     border-color: #000000;
@@ -86,13 +93,23 @@ a {
 }
 
 /* --------------------- 글쓰기 버튼 --------------------- */
-.bt_wrap.list{
+.bt_wrap {
     margin-top: 30px;
     text-align: center;
-    font-size: 0;
     position: absolute;
     top: 650px;
-    left: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#writeBoard {
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size: 1.4rem;
 }
 
 .bt_wrap.write{
@@ -104,14 +121,14 @@ a {
     left: 41.5%;
 }
 
-.bt_wrap.view{
-    margin-top: 30px;
-    text-align: center;
-    font-size: 0;
-    position: absolute;
-    top: 500px;
-    left: 46%;
-}
+/*.bt_wrap.view{*/
+/*    margin-top: 30px;*/
+/*    text-align: center;*/
+/*    font-size: 0;*/
+/*    position: absolute;*/
+/*    top: 500px;*/
+/*    left: 46%;*/
+/*}*/
 
 .bt_wrap.edit{
     margin-top: 30px;
@@ -122,15 +139,7 @@ a {
     left: 38%;
 }
 
-.bt_wrap a {
-    display: inline-block;
-    min-width: 80px;
-    margin-left: 10px;
-    padding: 10px;
-    border: 1px solid #000;
-    border-radius: 2px;
-    font-size: 1.4rem;
-}
+
 
 .bt_wrap a:first-child {
     margin-left: 0;
@@ -142,83 +151,76 @@ a {
 }
 
 /* --------------------- 게시물 --------------------- */
-.board_list {
+/* table */
+#listArea {
     width: 100%;
     border-top: 2px solid #000;
-    position: absolute;
+    border-bottom: 1px solid #000;
+    position: relative;
+    z-index: 1;
     top: 120px;
-}
- /* table */
-.board_list > div {
-    border-bottom: 1px solid #ddd;
-    font-size: 0;
+    font-size: 16px;
+    border-collapse: collapse;
+    text-align: center;
 }
 
-.board_list > div.top {
+th, td {
+    font-size: 16px;
+    padding: 10px;
+}
+
+td{
+    border-bottom: 1px solid #d8d8d8;
+}
+
+tr:last-child {
+    border-bottom: 2px solid #000
+}
+
+/* 컬럼명 행 */
+tr.top th {
+    font-weight: 700;
+    font-size: 1.7rem;
     border-bottom: 1px solid #999;
 }
 
-.board_list > div:last-child {
-    border-bottom: 1px solid #000;
+/* 글제목 컬럼 (td) */
+td.post_title {
+    text-align: left;
+    margin-left: 15px;
 }
 
-/* td */
-.board_list > div > div {
-    display: inline-block;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 1.4rem;
-}
-
-/* th */
-.board_list > div.top > div {
-    font-weight: 600;  /* 폰트 굵기 */
-    font-size: 1.5rem;
-}
-
+/* 컬럼 비율 설정 */
 .board_list .title {
     width: 60%;
-    text-align: left;
+    /*text-align: left;*/
 }
-
-.board_list .title a {
-    margin-left: 3%;
-}
-
-.board_list .top .title {
-    text-align: center;
-}
-
 .board_list .writer {
     width: 10%;
 }
-
 .board_list .date {
     width: 10%;
 }
-
 .board_list .count {
     width: 10%;
 }
-
 .board_list .comment {
     width: 10%;
 }
 
 /* --------------------- 페이지 넘기기 --------------------- */
-.board_page {
+.pagingArea {
     margin-top: 30px;
     margin-bottom: 500px;
     text-align: center;
     font-size: 0;
     position: absolute;
     top: 600px;
-    left: 39%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-
-
-.board_page a {
+.pagingArea button {
     display: inline-block;
     width: 32px;
     height: 32px;
@@ -270,6 +272,7 @@ a {
 
 .board_view .info dl {
     position: relative;
+    z-index: 1;
     display: inline-block;
     padding: 0 20px;
 }
@@ -325,6 +328,7 @@ a {
     border-radius: 5px;
     resize: none;
     position: relative;
+    z-index: 1;
 }
 
 .comment p {
@@ -583,17 +587,8 @@ a {
     position: absolute;
     left: 0px;
     top: 230px;
+    z-index: 2;
 }
-
-/* .sidebar_container_text_container {
-    background-color: rgba(255, 255, 255, 1);
-    width: 236px;
-    height: 53px;
-    position: relative;
-    left: 0px;
-    top: 206px;
-
-} */
 
 .sidebar_container_text {
     color: rgba(0, 0, 0, 1);
@@ -707,6 +702,7 @@ a {
 
 .review_list_all > .review_list:first-child {
     position: relative;
+    z-index: 1;
 }
 
 /* 화면이 축소될 때 스타일 변경 */
@@ -774,6 +770,7 @@ a {
     flex: 2;
     position: relative;
     padding-left: 10px;
+    z-index: 1;
 }
 
 .review_list_lcontent::after {
@@ -962,6 +959,7 @@ a {
 .star-ratings {
     color: #aaa9a9;
     position: relative;
+    z-index: 1;
     unicode-bidi: bidi-override;
     width: max-content;
     -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */

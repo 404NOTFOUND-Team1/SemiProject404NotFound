@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.board.model.dao.BoardMapper">
+
+    <resultMap id="generalBoardResultMap" type="BoardDTO">
+        <id property="post_code" column="post_code"/>
+        <result property="post_title" column="post_title"/>
+        <result property="post_content" column="post_content"/>
+        <result property="post_created_date" column="post_created_date"/>
+        <result property="post_modified_date" column="post_modified_date"/>
+        <result property="post_views"  column="post_views"/>
+        <association property="boardCategory" resultMap="boardCategoryResultMap"/>
+        <association property="account" resultMap="accountResultMap"/>
+    </resultMap>
+
+    <resultMap id="boardCategoryResultMap" type="BoardCategoryDTO">
+        <id property="categorycode_board" column="categorycode_board"/>
+        <result property="categoryname_board" column="categoryname_board"/>
+    </resultMap>
+
+    <resultMap id="accountResultMap" type="AccountDTO">
+        <id property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="phone_number" column="phone_number"/>
+        <result property="regist_date" column="regist_date"/>
+        <result property="pay_amount" column="pay_amount"/>
+        <result property="mileage" column="mileage"/>
+        <result property="last_login" column="last_login"/>
+        <result property="half_year_accumulated_amount" column="half_year_accumulated_amount"/>
+        <result property="account_status" column="account_status"/>
+        <association property="accountType" resultMap="accountTypeResultMap"/>
+    </resultMap>
+    
+    <resultMap id="accountTypeResultMap" type="AccountTypeDTO">
+        <id property="type_code" column="type_code"/>
+        <result property="type_name" column="type_name"/>
+    </resultMap>
+
+    <resultMap id="commentResultMap" type="CommentDTO">
+        <id property="comment_code" column="comment_code"/>
+        <result property="comment" column="comment"/>
+        <result property="comment_date" column="comment_date"/>
+        <association property="boardInfo" resultMap="generalBoardResultMap"/>
+    </resultMap>
+
+    <resultMap id="attachmentResultMap" type="AttachmentDTO">
+        <id property="attachment_code" column="attachment_code"/>
+        <result property="original_attachment_name" column="original_attachment_name"/>
+        <result property="attachment_name" column="attachment_name"/>
+        <result property="is_delete" column="is_delete"/>
+        <association property="boardInfo" resultMap="generalBoardResultMap"/>
+    </resultMap>
+
+
+
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        select count(*)
+        from   board A
+        <where>
+            <!-- 검색 조건 -->
+            <if test="searchCondition == 'title'">
+                A.post_title LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'content'">
+                A.post_content LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+
+<!--            &lt;!&ndash; 게시판 카테고리별로 추가되는 조건 &ndash;&gt;
+            <choose>
+                &lt;!&ndash; 공지사항 카테고리 &ndash;&gt;
+                <when test="categorycode_board == 1">
+                    AND A.categorycode_board = 1
+                </when>
+                &lt;!&ndash; qna 카테고리 (문의글엔 검색기능 안 넣을거지만 테스트로 넣어봄) &ndash;&gt;
+                <when test="categorycode_board == 3">
+                    AND A.categorycode_board = 3
+                </when>
+            </choose>-->
+        </where>
+    </select>
+
+    <select id="selectBoardList" resultMap="generalBoardResultMap" parameterType="java.util.Map">
+        select  A.post_code,
+                A.categorycode_board,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views
+        from    (
+                select  B.post_code,
+                        B.categorycode_board,
+                        B.id,
+                        B.post_title,
+                        B.post_content,
+                        B.post_created_date,
+                        B.post_modified_date,
+                        B.post_views
+                from    board B
+                <where>
+                    <!-- 검색 조건 -->
+                    <if test="selectCriteria.searchCondition == 'title'">
+                        B.post_title LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                    <if test="selectCriteria.searchCondition == 'content'">
+                        B.post_content LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                    <!-- 게시판 카테고리별로 추가되는 조건 -->
+                    <choose>
+                        <!-- 공지사항 카테고리 -->
+                        <when test="categorycode_board == 1">
+                            AND B.categorycode_board = 1
+                        </when>
+                        <!-- qna 카테고리 -->
+                        <when test="categorycode_board == 3">
+                            AND B.categorycode_board = 3
+                        </when>
+                    </choose>
+                </where>
+                ) A
+        join     category_board C on (A.categorycode_board = C.categorycode_board)
+        join     accounts D on (A.id = D.id)
+        order by A.post_code DESC
+        limit    #{ selectCriteria.startRow }, 10
+    </select>
+
+    <select id="selectBoardList111" resultMap="generalBoardResultMap" parameterType="java.util.Map">
+        SELECT
+        A.post_code,
+        A.categorycode_board,
+        A.id,
+        A.post_title,
+        A.post_content,
+        A.post_created_date,
+        A.post_modified_date,
+        A.post_views
+        FROM board A
+        <where>
+            <!-- 검색 조건 -->
+            <if test="searchCondition != null and searchValue != null">
+                <if test="searchCondition == 'title'">
+                    AND A.post_title LIKE CONCAT('%', #{searchValue}, '%')
+                </if>
+                <if test="searchCondition == 'content'">
+                    AND A.post_content LIKE CONCAT('%', #{searchValue}, '%')
+                </if>
+            </if>
+            <!-- 추가된 파라미터로 게시판 카테고리별로 추가되는 조건 -->
+            <choose>
+                <!-- 공지사항 카테고리 -->
+                <when test="categorycode_board == 1">
+                    AND A.categorycode_board = 1
+                </when>
+                <!-- qna 카테고리 -->
+                <when test="categorycode_board == 3">
+                    AND A.categorycode_board = 3
+                </when>
+                <!-- 기타 카테고리 -->
+                <!-- 추가적인 조건이 있을 경우에 작성 -->
+            </choose>
+        </where>
+        ORDER BY A.post_code DESC
+        LIMIT #{startRow}, 10
+    </select>
+
+
+
+
+
+
+    <update id="incrementBoardCount">
+        update board
+        set    post_views = post_views + 1
+        where  post_code = #{ post_code }
+    </update>
+
+    <select id="selectNoticeView" resultMap="generalBoardResultMap">
+        select  A.post_code,
+                A.categorycode_board,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views
+        from    board A
+        join     category_board C on (A.categorycode_board = C.categorycode_board)
+        join     accounts D on (A.id = D.id)
+        where   A.post_code = #{ post_code }
+    </select>
+
+</mapper>
