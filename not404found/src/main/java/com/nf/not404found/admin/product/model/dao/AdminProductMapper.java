@@ -1,5 +1,6 @@
 package com.nf.not404found.admin.product.model.dao;
 
+import com.nf.not404found.admin.product.model.dto.AdminAttachmentDTO;
 import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,4 +12,10 @@ public interface AdminProductMapper {
     List<AdminProductDTO> selectConditionProduct(AdminProductDTO product);
 
     List<AdminProductDTO> selectAllProduct();
+
+    int insertProduct(AdminProductDTO thumbnail);
+
+    int insertAttachment(AdminAttachmentDTO adminAttachmentDTO);
+
+    int insertOptions(AdminProductDTO thumbnail);
 }

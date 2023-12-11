@@ -42,7 +42,7 @@
 	display: grid;
 	position: relative;
 	width : 1100px;
-	height: 800px;
+	height: 1200px;
 	border: 1px solid black;
 	top : 80px;
 	left : 10px;
@@ -98,4 +98,8 @@
 
 .page_name{
 	font-size: 22px;
+}
+
+.fileUpload{
+	display: none;
 }
