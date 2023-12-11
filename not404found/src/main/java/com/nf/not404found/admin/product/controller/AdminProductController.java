@@ -42,7 +42,7 @@ public class AdminProductController {
     @Value("${image.image-dir}")
     private String IMAGE_DIR;
 
-    @Value("C:/thymeleaf-springboot/")
+    @Value("C:/not404foundImageFile/")
     private String ROOT_LOCATION;
 
     @GetMapping("product")
