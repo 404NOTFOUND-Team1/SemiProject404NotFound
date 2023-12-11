@@ -10,6 +10,9 @@
     width: 90%; /* 또는 원하는 최대 너비 */
     max-width: 100%; /* 최대 너비 설정 */
     margin: 0 auto; /* 수평 중앙 정렬 */
+    z-index: 999;
+
+
 }
 
 
@@ -19,6 +22,7 @@
     position: fixed;
     left: 0px;
     top: 0px;
+    z-index: 999;
 }
 .e1_5254 {
     background-color: rgba(255, 255, 255, 1);
@@ -27,6 +31,7 @@
     position: absolute;
     left: 0px;
     top: 0px;
+
 }
 .e1_5256 {
     width: 307px;
@@ -34,6 +39,7 @@
     position: absolute;
     left: 1507px;
     top: 43px;
+
 }
 .topBarParent {     /*상단 메뉴 바 부모*/
     font-family: 'Pretendard-Regular';
@@ -42,6 +48,8 @@
     position: fixed;
     left: 0px;
     top: 0px;
+    z-index: 999;
+
 }
 .topBarParent2 {    /*상단 메뉴 바 부모2*/
     width: 100%;
@@ -49,6 +57,8 @@
     position: absolute;
     left: 0px;
     top: 111px;
+
+
 }
 .topBar { /* 상단 메뉴 바 */
     position: relative;
@@ -59,6 +69,7 @@
     height: 50px;
     left: 0px;
     top: 0px;
+
 }
 .customer { /* 고객센터 글자 위치*/
     cursor: pointer;
@@ -70,6 +81,7 @@
     top: 10px;
     text-align: left;
     font-size: 15px;
+
 }
 
 
@@ -83,6 +95,7 @@
     top: 10px;
     text-align: left;
     font-size: 15px;
+
 }
 .logIn { /* 로그인 글자 위치*/
     cursor: pointer;
@@ -94,6 +107,7 @@
     top: 10px;
     text-align: left;
     font-size: 15px;
+
 }
 @keyframes appearFromSideAnimation {    /*드롭 다운 메뉴 애니메이션*/
     from {opacity: 0;}
@@ -106,6 +120,7 @@
     top: 20px;
     left: 0px;
     display: inline-block;
+
 }
 #category { /* 카테고리 */
     top: -3px;
@@ -115,6 +130,7 @@
     left: 30px; /* 왼쪽으로 px 이동 */
     width: 80px; /* 상위 컨테이너의 너비를 증가 */
     height: 54px; /* 상위 컨테이너의 높이를 증가 */
+
 }
 #category:hover{font-size: 20px; transition: font-size 0.5s ease;}
 
@@ -126,6 +142,7 @@
     left: 150px; /* 왼쪽으로 px 이동 */
     width: 50px; /* 상위 컨테이너의 너비를 증가 */
     height: 54px; /* 상위 컨테이너의 높이를 증가 */
+
 }
 #theme:hover{font-size: 20px;transition: font-size 0.5s ease;}
 
@@ -137,6 +154,7 @@
     left: 250px; /* 왼쪽으로 px 이동 */
     width: 60px; /* 상위 컨테이너의 너비를 증가 */
     height: 54px; /* 상위 컨테이너의 높이를 증가 */
+
 }
 #new_product:hover{font-size: 20px; transition: font-size 0.5s ease;}
 
@@ -148,6 +166,7 @@
     left: 350px; /* 왼쪽으로 px 이동 */
     width: 60px; /* 상위 컨테이너의 너비를 증가 */
     height: 54px; /* 상위 컨테이너의 높이를 증가 */
+
 }
 #best:hover{font-size: 20px;transition: font-size 0.5s ease;}
 
@@ -159,6 +178,7 @@
     left: 440px; /* 왼쪽으로 px 이동 */
     width: 150px; /* 상위 컨테이너의 너비를 증가 */
     height: 54px; /* 상위 컨테이너의 높이를 증가 */
+
 }
 #interior_challenge:hover{font-size: 20px;transition: font-size 0.5s ease;}
 
@@ -170,6 +190,7 @@
     left: 620px; /* 왼쪽으로 px 이동 */
     width: 60px; /* 상위 컨테이너의 너비를 증가 */
     height: 54px; /* 상위 컨테이너의 높이를 증가 */
+
 }
 #board:hover{font-size: 20px;transition: font-size 0.5s ease;}
 
@@ -181,6 +202,7 @@
     left: 720px; /* 왼쪽으로 px 이동 */
     width: 50px; /* 상위 컨테이너의 너비를 증가 */
     height: 54px; /* 상위 컨테이너의 높이를 증가 */
+
 }
 #special_price:hover{font-size: 20px;transition: font-size 0.5s ease;}
 
@@ -191,10 +213,11 @@
     top: 45px;
     background-color: rgb(255, 255, 255);
     min-width: 150px; /* 드롭다운 메뉴 가로 너비*/
-    z-index: 1;
+
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+
 }
 
 #category_toggle{left: 10px;}
@@ -247,11 +270,13 @@ button img{ width: 45%;}
         position: fixed;
         left: 1320px;
         top: 52px;
+        z-index: 999;
     }
     .logIn { /* 로그인 글자 위치*/
         position: fixed;
         left: 1420px;
         top: 52px;
+        z-index: 999;
     }
 }
 @media all and (max-width: 1438px) {
@@ -259,16 +284,19 @@ button img{ width: 45%;}
         position: fixed;
         left: 920px;
         top: 52px;
+        z-index: 999;
     }
     .signUp { /* 회원가입 글자 위치*/
         position: fixed;
         left: 1020px;
         top: 52px;
+        z-index: 999;
     }
     .logIn { /* 로그인 글자 위치*/
         position: fixed;
         left: 1120px;
         top: 52px;
+        z-index: 999;
     }
 }
 @media all and (max-width: 1138px) {
@@ -276,16 +304,19 @@ button img{ width: 45%;}
         position: fixed;
         left: 500px;
         top: 52px;
+        z-index: 999;
     }
     .signUp { /* 회원가입 글자 위치*/
         position: fixed;
         left: 600px;
         top: 52px;
+        z-index: 999;
     }
     .logIn { /* 로그인 글자 위치*/
         position: fixed;
         left: 700px;
         top: 52px;
+        z-index: 999;
     }
 }
 .homePageImg {
@@ -294,7 +325,7 @@ button img{ width: 45%;}
     border: none;
     background: none;
     padding: 0;
-
+    z-index: 999;
     left: -120px;
     top: 0px;
     background-repeat: no-repeat;

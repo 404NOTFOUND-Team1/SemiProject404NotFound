@@ -17,6 +17,7 @@
     width: 120px;
     height: 526px;
     position: fixed;
+    z-index: 999;
     left: 90%;
     top: 258px;
     border-top-left-radius: 34px;
@@ -200,6 +201,7 @@
     position: relative;
     top: 50px;
     transition: transform 0.3s ease;
+
 }
 #faqButton{
     margin: 0 auto;

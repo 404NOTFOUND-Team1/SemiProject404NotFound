@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = { "admin/product/modify"})
+    @RequestMapping(value = { "mypage/main/*"})
     public String adminProductModify(){
 
-        return "admin/product/modify";
+        return "mypage/main/ShippingAddressManagement";       //admin/product/modify
     }
 
     @GetMapping("/")
