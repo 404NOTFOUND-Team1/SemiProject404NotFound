@@ -5,10 +5,8 @@ import com.nf.not404found.admin.account.model.dto.AdminAccountDTO;
 import com.nf.not404found.admin.account.model.dto.AdminBlackDTO;
 import com.nf.not404found.admin.account.model.dto.AdminDormantDTO;
 import com.nf.not404found.admin.account.model.service.AdminAccountServiceImpl;
-import com.nf.not404found.admin.common.AdminSelectCriteria;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +19,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin/*")
 @Slf4j
-public class AdminAccount {
+public class AdminAccountController {
 
 
 //    @GetMapping("member")
@@ -34,7 +32,7 @@ public class AdminAccount {
 //    }
 
     private final AdminAccountServiceImpl accountService;
-    public AdminAccount(AdminAccountServiceImpl accountService) {
+    public AdminAccountController(AdminAccountServiceImpl accountService) {
         this.accountService = accountService;
     }
 
@@ -51,7 +49,7 @@ public class AdminAccount {
 
         List<AdminAccountDTO> searchList = null;
 
-        if(searchCondition != null && searchValue != null) {
+        if(searchCondition != null || searchValue != null) {
             log.info(" ");
             log.info("하나고르는거 가냐 ================> { } start");
 

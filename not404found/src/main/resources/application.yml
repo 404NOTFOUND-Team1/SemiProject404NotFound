@@ -30,10 +30,10 @@ spring:
       check-template-location: true
     web:
       resources:
-        static-locations: C:/thymeleaf-springboot/
+        static-locations: C:/not404foundImageFile/
 
-  image:
-    image-dir: img
+image:
+  image-dir: img
 
 
 # mybatis config

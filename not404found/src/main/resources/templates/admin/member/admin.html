@@ -64,13 +64,12 @@
       <td th:text="${ account.accountTypeName.typeName }"></td>
       <td th:text="${ account.name }"></td>
       <td th:text="${ account.email }"></td>
-      <td th:text="${ account.registDate }"></td>
+      <td th:text="${ #dates.format(account.registDate,'yyyy-MM-dd')}"></td>
       <td th:text="${ account.payAmount }"></td>
       <td th:text="${ account.mileage }"></td>
-      <td th:text="${ account.lastLogin }"></td>
+      <td th:text="${ #dates.format(account.lastLogin,'yyyy-MM-dd') }"></td>
       <td th:text="${ account.halfYearAccumulatedAmount }"></td>
     </tr>
-    </tbody>
   </table>
   <table class="table_parents">
     <tr>
@@ -121,10 +120,10 @@
       <td th:text="${ accounts.accountTypeName.typeName }"></td>
       <td th:text="${ accounts.name }"></td>
       <td th:text="${ accounts.email }"></td>
-      <td th:text="${ accounts.registDate }"></td>
+      <td th:text="${ #dates.format(accounts.registDate,'yyyy-MM-dd') }"></td>
       <td th:text="${ accounts.payAmount }"></td>
       <td th:text="${ accounts.mileage }"></td>
-      <td th:text="${ accounts.lastLogin }"></td>
+      <td th:text="${ #dates.format(accounts.lastLogin,'yyyy-MM-dd') }"></td>
       <td th:text="${ accounts.halfYearAccumulatedAmount }"></td>
     </tr>
   </table>

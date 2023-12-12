@@ -1,6 +1,7 @@
 package com.nf.not404found.admin.account.model.dto;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -15,9 +16,15 @@ public class AdminAccountDTO {
     private AdminAccountTypeDTO accountTypeName;
     private String name;
     private String email;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date registDate;
+
     private int payAmount;
     private int mileage;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastLogin;
+
     private int halfYearAccumulatedAmount;
 }

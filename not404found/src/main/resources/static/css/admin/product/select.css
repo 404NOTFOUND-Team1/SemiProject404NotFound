@@ -104,17 +104,16 @@
 .table_parents {
 	position: relative;
 	margin : 0 auto;
-	left: 100px;
+	left: 150px;
 	top : 150px;
-	width: 1300px;
-	height: 200px;
+	width: 1650px;
 	border-collapse: collapse; /* 테이블 셀 사이의 간격 제거 */
 }
 
 th, td {
 	border: 1px solid #dddddd;
 	padding: 8px;
-	text-align: left;
+	text-align: center;
 }
 
 th {
