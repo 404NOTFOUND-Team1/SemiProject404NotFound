@@ -22,4 +22,12 @@ public interface AdminProductMapper {
     List<AdminProductDTO> selectOneProduct(String productName);
 
     List<AdminProductDTO> selectOneProduct2(Long productCode);
+
+    int modifyProduct(AdminProductDTO modifyProduct);
+
+    int modifyProduct2(AdminProductDTO modifyProduct);
+
+    int modifyProduct3(AdminAttachmentDTO adminAttachmentDTO);
+
+    int modifyProduct4(AdminProductDTO modifyProduct);
 }

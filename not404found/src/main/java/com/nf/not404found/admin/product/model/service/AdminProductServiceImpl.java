@@ -4,13 +4,13 @@ package com.nf.not404found.admin.product.model.service;
 import com.nf.not404found.admin.product.model.dao.AdminProductMapper;
 import com.nf.not404found.admin.product.model.dto.AdminAttachmentDTO;
 import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
-import com.nf.not404found.common.exception.admin.ThumbnailRegistException;
+import com.nf.not404found.admin.common.exception.ThumbnailRegistException;
+import com.nf.not404found.admin.common.exception.modifyProductException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -110,5 +110,33 @@ public class AdminProductServiceImpl implements AdminProductService{
         log.info("======================================================> 잘 되냐?");
 
         return productList;
+    }
+
+    @Override
+    @Transactional
+    public void modifyProduct(AdminProductDTO modifyProduct) throws modifyProductException{
+
+        int result = mapper.modifyProduct(modifyProduct);
+        log.info("카테고리 수정 잘 되었나===================================================>");
+        int result2 = mapper.modifyProduct2(modifyProduct);
+        log.info("상품 수정 서비스 다 끝났나 =-================================ : " + modifyProduct);
+        int result3 = 0;
+        log.info("썸네일 가냐 ==========================> modifyProduct = " + modifyProduct);
+        // LIST 객체 통해서 값을 추가
+        List<AdminAttachmentDTO> attachmentList = modifyProduct.getAttachmentList();
+        for(int i = 0; i < attachmentList.size(); i++){
+            AdminAttachmentDTO attachmentDTO = attachmentList.get(i);
+            attachmentDTO.setProductCode(modifyProduct.getProductCode());
+            result3 += mapper.modifyProduct3(attachmentDTO);
+        }
+        int result4 = mapper.modifyProduct4(modifyProduct);
+        log.info("상품 수정 됬나 =====================================================>");
+        System.out.println("result = " + result);
+        System.out.println("result2 = " + result2);
+        System.out.println("result3 = " + result3);
+        System.out.println("result4 = " + result4);
+        if(!(result >= 0 && result2 >= 0  && result3 >= 0 && result4 >= 0)) {
+            throw new modifyProductException("상품 정보 수정에 실패하셨습니다.");
+        }
     }
 }

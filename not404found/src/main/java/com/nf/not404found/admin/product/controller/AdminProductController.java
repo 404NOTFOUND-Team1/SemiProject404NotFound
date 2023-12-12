@@ -1,12 +1,12 @@
 package com.nf.not404found.admin.product.controller;
 
 
+import com.nf.not404found.admin.common.exception.modifyProductException;
 import com.nf.not404found.admin.product.model.dto.AdminAttachmentDTO;
 import com.nf.not404found.admin.product.model.dto.AdminProductCategoryDTO;
 import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
 import com.nf.not404found.admin.product.model.service.AdminProductServiceImpl;
-import com.nf.not404found.board.model.dto.AttachmentDTO;
-import com.nf.not404found.common.exception.admin.ThumbnailRegistException;
+import com.nf.not404found.admin.common.exception.ThumbnailRegistException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -213,7 +213,7 @@ public class AdminProductController {
                     fileMap.put("originalFileName", originalFileName);
                     fileMap.put("savedFileName", savedFileName);
                     fileMap.put("savedPath", fileUploadDirectory);
-                    fileMap.put("thumbnailPath",thumbnailDirectory);
+
                     int width = 0;
                     int height = 0;
 
@@ -236,6 +236,8 @@ public class AdminProductController {
 
                     Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
                             .toFile(thumbnailDirectory + "/thumbnail_" + savedFileName);
+
+                    fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
 
                     fileList.add(fileMap);
                 }
@@ -342,5 +344,166 @@ public class AdminProductController {
         log.info("===========================================================> 비동기 끝 productList = " + productList);
 
         return productList;
+    }
+
+    @PostMapping(value="product/modify")
+    public String productModifyPage(@ModelAttribute AdminProductDTO modifyProduct,
+                                    @RequestParam("thumbnailImage1")MultipartFile thumbnailImg1,
+                                    @RequestParam("thumbnailImage2")MultipartFile thumbnailImg2,
+                                    @RequestParam("thumbnailImage3")MultipartFile thumbnailImg3,
+                                    @RequestParam("thumbnailImage4")MultipartFile thumbnailImg4,
+                                    @RequestParam("thumbnailImage5")MultipartFile thumbnailImg5,
+                                    RedirectAttributes rttr) throws modifyProductException {
+
+        log.info("=====================================no확인 =================== + thumbnail" );
+
+        log.info("============================================================================== {} ", modifyProduct);
+        log.info("===========================================상품 수정 ===================================");
+        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
+
+        String fileUploadDirectory = rootLocation + "/upload/original";
+        String thumbnailDirectory = rootLocation + "/upload/thumbnail";
+
+        File directory = new File(fileUploadDirectory);
+        File directory2 = new File(thumbnailDirectory);
+
+
+        if (!directory.exists() || !directory2.exists()){
+
+            log.info("없냐아아======================================================> fileUploadDirectory : " + directory.mkdirs());
+            log.info("없냐아아======================================================> thumbnailDirectory : " + directory2.mkdirs());
+
+        }
+
+        List<Map<String, String>> fileList = new ArrayList<>();
+
+        List<MultipartFile> paramFileList = new ArrayList<>();
+
+        paramFileList.add(thumbnailImg1);
+        paramFileList.add(thumbnailImg2);
+        paramFileList.add(thumbnailImg3);
+        paramFileList.add(thumbnailImg4);
+        paramFileList.add(thumbnailImg5);
+
+        try {
+            for (MultipartFile paramFile : paramFileList){
+
+                if (paramFile.getSize() > 0){
+
+                    String originalFileName = paramFile.getOriginalFilename();
+
+                    log.info("=====================================> originalFileName : " + originalFileName);
+
+                    String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+                    String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+
+                    log.info("수정 잘 됬냐 ========================================== " + savedFileName);
+
+                    log.info("파일 경로한번 보자 =================================== " + fileUploadDirectory + "/" + savedFileName);
+
+                    paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
+
+                    Map<String, String> fileMap = new HashMap<>();
+
+                    fileMap.put("originalFileName", originalFileName);
+                    fileMap.put("savedFileName", savedFileName);
+                    fileMap.put("savedPath", fileUploadDirectory);
+
+                    int width = 0;
+                    int height = 0;
+
+                    String fieldName = paramFile.getName();
+
+                    log.info("필드 네임 =============================================> 필드이ㅓ름 : " + fieldName);
+
+                    if ("thumbnailImage1".equals(fieldName)){
+                        fileMap.put("fileType", "TITLE");;
+
+                        width = 300;
+                        height = 150;
+                    }else {
+
+                        fileMap.put("fileType", "BODY");
+
+                        width = 120;
+                        height= 100;
+                    }
+
+                    Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
+                            .toFile(thumbnailDirectory + "/thumbnail_" + savedFileName);
+
+                    fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
+
+                    fileList.add(fileMap);
+                }
+            }
+
+            log.info("fileList ======================================================================================== fileList : " + fileList);
+
+
+            modifyProduct.setAttachmentList(new ArrayList<AdminAttachmentDTO>());
+            List<AdminAttachmentDTO> list = modifyProduct.getAttachmentList();
+
+            for (int i = 0; i < fileList.size() ; i++) {
+                Map<String, String> file = fileList.get(i);
+
+                AdminAttachmentDTO tempFileInfo = new AdminAttachmentDTO();
+
+                tempFileInfo.setOriginalName(file.get("originalFileName"));
+                tempFileInfo.setModifyName((file.get("savedFileName")));
+                tempFileInfo.setSavedPath(file.get("savedPath"));
+                tempFileInfo.setFileType(file.get("fileType"));
+                tempFileInfo.setThumbnailPath(file.get("thumbnailPath"));
+                tempFileInfo.setStatus("Y");
+
+                list.add(tempFileInfo);
+
+            }
+
+            log.info(" thumbnail 잘 나왔냐 ================================================ 썸네일 : " + modifyProduct);
+            log.info("list check ============================================================ {} ", list);
+            modifyProduct.setAttachmentList(list);
+            productService.modifyProduct(modifyProduct);
+
+            log.info("=-==============================================================> 등록정보 : ");
+            rttr.addFlashAttribute("message", "상품 등록에 성공하셨습니다.");
+
+
+        } catch ( IllegalStateException | IOException e) {
+            e.printStackTrace();
+
+            int cnt = 0;
+
+            for (int i = 0; i < fileList.size(); i++ ){
+                Map<String, String> file = fileList.get(i);
+
+                File deleteFile = new File(fileUploadDirectory + "/" + file.get("savedFileName"));
+
+                boolean isDelete = deleteFile.delete();
+
+                File deleteThumbnail = new File(thumbnailDirectory + "/thumbnail_" + file.get("savedFileName"));
+
+                boolean isDelete2 = deleteThumbnail.delete();
+
+                if (isDelete && isDelete2){
+                    cnt++;
+                }
+            }
+
+            if (cnt == fileList.size()){
+
+                log.info("다 지워따아아=-======================================");
+
+                e.printStackTrace();
+            }else {
+                e.printStackTrace();
+            }
+        }
+
+
+        log.info("상품 수정 이걸 해 ? ========================================================> ");
+
+
+        return "redirect:/admin/product/modify";
     }
 }

@@ -1,10 +1,10 @@
 package com.nf.not404found.admin.product.model.service;
 
+import com.nf.not404found.admin.common.exception.modifyProductException;
 import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
-import com.nf.not404found.common.exception.admin.ThumbnailRegistException;
+import com.nf.not404found.admin.common.exception.ThumbnailRegistException;
 
 import java.util.List;
-import java.util.Map;
 
 public interface AdminProductService {
     public List<AdminProductDTO> selectConditionProduct(AdminProductDTO product);
@@ -13,4 +13,6 @@ public interface AdminProductService {
     public List<AdminProductDTO> selectOneProduct(String productName);
 
     List<AdminProductDTO> selectOneProduct2(Long productCode);
+
+    void modifyProduct(AdminProductDTO modifyProduct) throws modifyProductException;
 }
