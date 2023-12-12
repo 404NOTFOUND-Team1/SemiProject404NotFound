@@ -37,8 +37,8 @@ public class AdminAccountController {
     }
 
     @GetMapping(value = "member")
-    public ModelAndView selectAllAccounts(@RequestParam(required = false) String searchCondition,
-                                          @RequestParam(required = false) String searchValue,
+    public ModelAndView selectAllAccounts(@RequestParam(required = false) String searchCondition,   //입력한 값(selectOption)
+                                          @RequestParam(required = false) String searchValue,       //입력한 값(inputText)
                                           ModelAndView mv){
 
         mv.addObject("boardType", "회원 관리");
@@ -83,13 +83,7 @@ public class AdminAccountController {
     public ModelAndView memberBlackedPage(@RequestParam(required = false) String searchCondition,
                                     @RequestParam(required = false) String searchValue,
                                     ModelAndView mv){
-
         mv.addObject("boardType", "회원 관리");
-
-        log.info("");
-        log.info("");
-        log.info("블랙 간다==========================================================================================");
-
         List<AdminBlackDTO> searchBlackList = null;
 
         if(searchCondition != null && searchValue != null) {

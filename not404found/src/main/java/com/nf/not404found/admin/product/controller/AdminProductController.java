@@ -305,16 +305,42 @@ public class AdminProductController {
         log.info("ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 상품등록 끝까지 왔다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ=====");
 
 
-        return "redirect:/admin/product/select";
+        return "redirect:/admin/product/insert";
     }
 
 
 
-    @GetMapping("product/modify")
+    @GetMapping(value="product/modify")
     public String productModifyPage(Model model){
 
         model.addAttribute("boardType", "상품 관리");
 
         return "/admin/product/modify";
+    }
+
+    @GetMapping(value="product/searchData", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public List<AdminProductDTO> productModifyPage(@RequestParam String productName){
+
+        log.info("=================================================> 비동기 시작 ");
+
+        List<AdminProductDTO> productList = productService.selectOneProduct(productName);
+
+        log.info("===========================================================> 비동기 끝 productList = " + productList);
+
+        return productList;
+    }
+
+    @GetMapping(value="product/data", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public List<AdminProductDTO> productModifyPage2(@RequestParam Long productCode){
+
+        log.info("=================================================> 비동기 시작 ");
+
+        List<AdminProductDTO> productList = productService.selectOneProduct2(productCode);
+
+        log.info("===========================================================> 비동기 끝 productList = " + productList);
+
+        return productList;
     }
 }

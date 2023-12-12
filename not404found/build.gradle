@@ -39,6 +39,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     // 스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // 사진등록용 API
     implementation 'net.coobird:thumbnailator:0.4.8'
 }
 

@@ -87,4 +87,28 @@ public class AdminProductServiceImpl implements AdminProductService{
 
 
     }
+
+    @Override
+    public List<AdminProductDTO> selectOneProduct(String productName) {
+
+        log.info("========================================================> 서비스단 시작");
+        log.info("========================================================> productName = " + productName);
+
+        List<AdminProductDTO> productList = mapper.selectOneProduct(productName);
+
+        log.info("==========================================================> 비동기 잘 들어왔나 = > productList = " + productList);
+
+
+        return productList;
+    }
+
+    @Override
+    public List<AdminProductDTO> selectOneProduct2(Long productCode) {
+
+        List<AdminProductDTO> productList = mapper.selectOneProduct2(productCode);
+
+        log.info("======================================================> 잘 되냐?");
+
+        return productList;
+    }
 }

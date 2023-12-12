@@ -18,4 +18,8 @@ public interface AdminProductMapper {
     int insertAttachment(AdminAttachmentDTO adminAttachmentDTO);
 
     int insertOptions(AdminProductDTO thumbnail);
+
+    List<AdminProductDTO> selectOneProduct(String productName);
+
+    List<AdminProductDTO> selectOneProduct2(Long productCode);
 }

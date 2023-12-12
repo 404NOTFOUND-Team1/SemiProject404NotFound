@@ -65,7 +65,7 @@
             color: rgb(112, 165, 224);
             text-decoration: underline;
         }
-        #login-button{
+        #loginSubmit{
             cursor:pointer;
             background-color: #fff5e7;
             color: grey;
@@ -104,19 +104,21 @@
 </head>
 <body>
 <header th:replace="common/header.html"></header>
+<!-- 아래 줄과 위치가 바뀌어있었는데 버튼을 누르면 submit처리가 되어버려서 다른 헤더에 버튼들이 안먹는 상황들이 발생했음 -->
+<form id="loginForm" th:action="@{/member/login}" method="post">
 <div class="login-page-container">
     <div class="login-window">
         <div class="input-id">
-            <input type="text" name="몰라" placeholder="ID" id="input-id-field">
+            <input type="text" name="memberId" placeholder="ID" id="input-id-field">
         </div>
         <div class="input-pwd">
-            <input type="password" name="몰라" placeholder="Password" id="input-pwd-field">
+            <input type="password" name="memberPwd" placeholder="Password" id="input-pwd-field">
         </div>
         <div>
             <span class="find-password">Forgot password?</span>
         </div>
         <div>
-            <input type="submit" value="로그인" id="login-button">
+            <input type="submit" value="로그인" id="loginSubmit">
         </div>
         <div>
             <span class="signup">회원이 아니시면 가입해보세요!</span>
@@ -126,7 +128,7 @@
 </div>
 <script>
     const forgotPassword = document.querySelector('.find-password');
-    const loginButton = document.querySelector('#login-button');
+    const loginButton = document.querySelector('#loginSubmit');
     const idInput = document.querySelector('#input-id-field');
     const pwdInput = document.querySelector('#input-pwd-field');
     const signup = document.querySelector('.signup');
@@ -134,7 +136,7 @@
         alert('비밀번호 찾기'); //비밀번호 찾을 때.
     });
     function login(){   //로그인 할 때 호출하는 메소드.
-        alert('로그인');
+
     }
     loginButton.addEventListener('click',function(e){   //로그인 버튼 눌럿음
         if(idInput.value.trim() === "" || pwdInput.value.trim()===""){  //id,pwd중 하나라도 비었으면
@@ -157,5 +159,6 @@
         window.location.href = "/member/signup";
     });
 </script>
+</form>
 </body>
 </html>

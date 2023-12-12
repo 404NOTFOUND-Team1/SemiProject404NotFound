@@ -10,4 +10,7 @@ public interface AdminProductService {
     public List<AdminProductDTO> selectConditionProduct(AdminProductDTO product);
     public List<AdminProductDTO> selectAllProduct();
     public void insertProduct(AdminProductDTO thumbnail) throws ThumbnailRegistException;
+    public List<AdminProductDTO> selectOneProduct(String productName);
+
+    List<AdminProductDTO> selectOneProduct2(Long productCode);
 }
