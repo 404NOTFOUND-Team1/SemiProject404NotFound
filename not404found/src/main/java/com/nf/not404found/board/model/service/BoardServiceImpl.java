@@ -2,10 +2,14 @@ package com.nf.not404found.board.model.service;
 
 import com.nf.not404found.board.model.dao.BoardMapper;
 import com.nf.not404found.board.model.dto.BoardDTO;
-import com.nf.not404found.common.paging.SelectCriteria;
+import com.nf.not404found.board.model.dto.ReviewDTO;
+import com.nf.not404found.common.exception.NoticeWriteException;
+import com.nf.not404found.product.model.dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,9 +38,9 @@ public class BoardServiceImpl implements BoardService{
 
     /* 공지사항 & QnA 게시글 전체 리스트 조회용 메소드 */
     @Override
-    public List<BoardDTO> selectBoardList(Map<String, Object> selecttest) {
+    public List<BoardDTO> selectBoardList(Map<String, Object> selectCriteria2) {
 
-        List<BoardDTO> boardList = mapper.selectBoardList(selecttest);
+        List<BoardDTO> boardList = mapper.selectBoardList(selectCriteria2);
         log.info("");
         log.info("");
         log.info("[BoardServiceImpl]  selectBoardList ===================== {}", boardList);
@@ -45,6 +49,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    @Transactional
     public BoardDTO selectNoticeView(int post_code) {
 
         BoardDTO noticeView = null;
@@ -61,5 +66,45 @@ public class BoardServiceImpl implements BoardService{
         log.info("[BoardServiceImpl]  selectNoticeView ===================== {}", noticeView);
 
         return noticeView;
+    }
+
+    @Override
+    public List<ReviewDTO> selectReviewList(Map<String, Object> selectCriteria2) {
+
+        List<ReviewDTO> reviewList = mapper.selectReviewList(selectCriteria2);
+
+        log.info("");
+        log.info("");
+        log.info("[BoardServiceImpl]  selectReviewList ===================== {}", reviewList);
+
+        return reviewList;
+    }
+
+    @Override
+    @Transactional
+    public void writeNotice(BoardDTO board) throws NoticeWriteException {
+
+        int result = mapper.insertNotice(board);
+
+        if (!(result > 0)) {
+            throw new NoticeWriteException("게시글 등록에 실패하셨습니다.");
+        }
+    }
+
+    @Override
+    public List<ReviewDTO> getTotalReviewCountByProduct(List<ReviewDTO> reviewList) {
+
+        for(int i = 0; i < reviewList.size(); i++){
+            int result = mapper.getTotalReviewCountByProduct(reviewList.get(i).getProduct().getProduct_code());
+
+            reviewList.get(i).setReviewCount(result);
+        }
+
+
+        log.info("");
+        log.info("");
+        log.info("[BoardServiceImpl]  getTotalReviewCountByProduct ===================== {}", reviewList);
+
+        return reviewList;
     }
 }

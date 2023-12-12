@@ -1,7 +1,8 @@
 package com.nf.not404found.board.model.service;
 
 import com.nf.not404found.board.model.dto.BoardDTO;
-import com.nf.not404found.common.paging.SelectCriteria;
+import com.nf.not404found.board.model.dto.ReviewDTO;
+import com.nf.not404found.common.exception.NoticeWriteException;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,13 @@ public interface BoardService {
 
     public int selectTotalCount(Map<String, Object> searchMap);
 
-    public List<BoardDTO> selectBoardList(Map<String, Object> selecttest);
+    public List<BoardDTO> selectBoardList(Map<String, Object> selectCriteria2);
 
     BoardDTO selectNoticeView(int post_code);
+
+    List<ReviewDTO> selectReviewList(Map<String, Object> selectCriteria2);
+
+    void writeNotice(BoardDTO board) throws NoticeWriteException;
+
+    List<ReviewDTO> getTotalReviewCountByProduct(List<ReviewDTO> reviewList);
 }

@@ -1,6 +1,7 @@
 package com.nf.not404found.board.model.dto;
 
 import com.nf.not404found.account.model.dto.AccountDTO;
+import com.nf.not404found.product.model.dto.ProductDTO;
 import lombok.*;
 
 import java.sql.Date;
@@ -22,4 +23,6 @@ public class BoardDTO {
     private Date post_modified_date;
     private int post_views;
     private List<AttachmentDTO> attachmentList;
+
+
 }
