@@ -72,7 +72,7 @@
             grid-column: 1/10; grid-row: 15;
         }
         #newBtn{
-            display: none;
+            /*display: none;*/
             width: 740px;
             height: 50px;
         }
@@ -218,7 +218,6 @@
                 const name = document.getElementById("input-name");
 
                 name.addEventListener('input', function(){
-                    alert("ss");
                     if(name.length>=2){
                         document.getElementById("name-text").className = "success";
                     } else {
@@ -236,6 +235,43 @@
             <div id="join">
                 <button type="submit" id="newBtn">회원가입</button>
             </div>
+        <script>
+            //회원가입 처리
+            //const idInputFiled = document.querySelector('#input-id');
+            const emailInputFileds = document.querySelector('#input-email');
+            const nameInputFileds = document.querySelector('#input-name');
+            const phone1 = document.getElementById("phone1");
+            const phone2 = document.getElementById("phone2");
+            //const pwdInput = document.getElementById("pwd-check");
+            const createAccount = document.getElementById("newBtn");
+            createAccount.addEventListener("click", function (){
+                alert("씨발 무반응!");
+                data = {
+                    id: idInputFiled.value,
+                    email: emailInputFileds.value,
+                    pwd: pwdInput.value,
+                    name: nameInputFileds.value,
+                    phone: "010-"+phone1.value+"-"+phone2.value
+                }
+                fetch("/join",{
+                    method: 'POST',
+                    headers:{'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data){
+                            alert("성공");
+                        }else{
+                            alert("실패");
+                        }
+                    })
+                    .catch((error => {
+                        console.log(error);
+                    }))
+            });
+        </script>
 
     </div>
     <script>
@@ -249,13 +285,15 @@
 
         check.addEventListener('change',function(){
             if(this.checked){
+                signupButton.style.display = 'block';
                 if(
-                    document.getElementById("id-check").className === "success" ||
-                    document.getElementById("email-check2").className === "success" ||
-                    document.getElementById("pwd-checked").className === "success" ||
-                    document.getElementById("phone1").className === "success" ||
-                    document.getElementById("phone2").className === "success" ||
-                    document.getElementById("name-text").className === "success"
+                    // document.getElementById("id-check").className === "success" ||
+                    // document.getElementById("email-check2").className === "success" ||
+                    // document.getElementById("pwd-checked").className === "success" ||
+                    // document.getElementById("phone1").className === "success" ||
+                    // document.getElementById("phone2").className === "success" ||
+                    // document.getElementById("name-text").className === "success"
+                    true
                 )
                 {
                     alert("모두 작성 후 체크해 주세요!!");
@@ -356,13 +394,6 @@
             }
         }
         });
-
-
-
-        signupButton.addEventListener('click',function(){   //회원가입 버튼
-            //아 개같이 망했다, 생성하는 거 말고 display none 이거로 내일 바꾸자..
-            alert("회원가입");
-        });
         document.getElementById("phone1").addEventListener("input", function() {
             var value = this.value;
             if (value.length >= 4) {
@@ -424,7 +455,7 @@
             "비밀번호 : "+document.getElementById("pwd-checked").className+"\n"+
             "폰1 : "+document.getElementById("phone1").className+"\n"+
             "폰2 : "+document.getElementById("phone2").className+"\n"+
-            "이름 : "+document.getElementById("input-name").className
+            "이름 : "+document.getElementById("name-text").className
         );
     });
 
@@ -434,6 +465,7 @@
         document.getElementById("email-check-button").style.display = 'none';
         document.getElementById("email-check2").className = 'success';
         alert(document.getElementById("email-check2").className);
+        document.getElementById("name-text").className = "success";
     });
 </script>
 </body>

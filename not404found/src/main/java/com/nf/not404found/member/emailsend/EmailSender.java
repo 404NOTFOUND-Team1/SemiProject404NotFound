@@ -5,6 +5,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+
 public class EmailSender {
     public static void sendEmail(String to, String from, String host, String subject, String text) {
         // SMTP 서버 설정
@@ -33,7 +34,7 @@ public class EmailSender {
             System.out.println("EmailSender 클래스 : "+text);
             // 메시지 전송
             Transport.send(message);
-            System.out.println("Sent message successfully....");
+            System.out.println("이메일 전송 성공!");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
