@@ -52,7 +52,12 @@ var signUp = document.querySelector('.signUp');
 var logIn = document.querySelector('.logIn');
 
 mainImg.addEventListener('click',function(){
-    window.location.href = '/';
+    if(window.location.origin === 'http://localhost:8404'){
+
+    } else {
+        window.location.href = '/';
+    }
+
 });
 customer.addEventListener('mouseenter',function() {
     customer.style.color = 'blue';

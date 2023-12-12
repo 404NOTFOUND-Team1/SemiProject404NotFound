@@ -1,11 +1,11 @@
 package com.nf.not404found.member.controller;
 
 
+import com.nf.not404found.member.model.dto.MemberDTO;
 import com.nf.not404found.member.model.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,9 +17,11 @@ import static java.lang.Character.toUpperCase;
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public MemberController(MemberService memberService){
+    public MemberController(MemberService memberService, PasswordEncoder passwordEncoder){
         this.memberService = memberService;
+        this.passwordEncoder = passwordEncoder;
     }
     @GetMapping("/check-username")
     public Map<String, Object> checkUsername(@RequestParam String username){
@@ -97,4 +99,19 @@ public class MemberController {
         System.out.println("랜덤 문자열: " + randomString);
         return randomString;
     }
+    @PostMapping("/join")
+    public boolean createMember(@RequestBody MemberDTO member){
+        System.out.println(member.getId());
+        System.out.println(member.getEmail());
+        System.out.println(member.getPwd());
+        System.out.println(member.getPhone());
+        member.setPwd(passwordEncoder.encode(member.getPwd()));
+        System.out.println("암호화 된 비밀번호 = " + member.getPwd());
+        if (memberService.createMember(member)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
