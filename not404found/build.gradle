@@ -37,6 +37,8 @@ dependencies {
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
     // 스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // 사진등록용 API
     implementation 'net.coobird:thumbnailator:0.4.8'
 }
 
