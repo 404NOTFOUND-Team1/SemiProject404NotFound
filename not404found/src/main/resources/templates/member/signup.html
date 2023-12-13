@@ -72,7 +72,7 @@
             grid-column: 1/10; grid-row: 15;
         }
         #newBtn{
-            /*display: none;*/
+            display: none;
             width: 740px;
             height: 50px;
         }
@@ -103,7 +103,7 @@
 
             <span id="id-text">Id</span>
             <input type="text" id="input-id" title="아이디는 영문으로 8글자 이상, 숫자가 포함되어야 합니다.">
-            <input type="submit" id="id-check" value="아이디 중복 검사" title="아이디는 영문으로 8글자 이상, 숫자가 포함되어야 합니다.">
+            <input type="button" id="id-check" value="아이디 중복 검사" title="아이디는 영문으로 8글자 이상, 숫자가 포함되어야 합니다.">
             <script>
                 document.getElementById("input-id").addEventListener("input", function() {
                     if (this.value.match(/[ㄱ-ㅎㅏ-ㅣ가-힣]/)) {
@@ -120,7 +120,8 @@
                     if(userId!==""){
                         if(userId.length > 8){
                             if(containsNumber(userId)) {
-                                fetch("/check-username?username=" + encodeURIComponent(userId))
+                                fetch("/member/check-username?username=" + encodeURIComponent(userId))
+                                    //요청할 때 member/ 가 아니어서 권한이 없는 것으로 판단하여 요청이 불가능 했었음
                                     .then(function (response) {
                                         return response.json();
                                     })
@@ -129,6 +130,7 @@
                                             document.getElementById("id-check").style.color = 'green';
                                             document.getElementById("id-check").value = '사용가능한 아이디입니다.';
                                             document.getElementById("id-check").className = 'success';
+                                            document.getElementById("input-id").style.backgroundColor = '#dcdbdb';
                                             document.getElementById("id-check").style.width = '170px';
                                             idInputFiled.readOnly = true;
                                         } else {
@@ -138,7 +140,7 @@
                                         }
                                     })
                                     .catch(function (error) {
-                                        alert("에러");
+                                        alert(error+"에러");
                                     });
                             } else {
                                 document.getElementById("id-check").style.color = 'red';
@@ -161,7 +163,7 @@
             </script>
             <span id="pwd-text">Password</span>
             <input type="password" id="pwd-check">
-            <span id="pwd-checked">-</span>
+            <span id="pwd-checked">비밀번호는 9자 이상 특수문자가 포함되어야 합니다.</span>
         <script>
             function containsSpecialChars(str) {
                 // 특수 문자를 확인하는 정규 표현식
@@ -218,7 +220,7 @@
                 const name = document.getElementById("input-name");
 
                 name.addEventListener('input', function(){
-                    if(name.length>=2){
+                    if(name.value.length>=2){
                         document.getElementById("name-text").className = "success";
                     } else {
                         document.getElementById("name-text").className = "fail";
@@ -245,7 +247,6 @@
             //const pwdInput = document.getElementById("pwd-check");
             const createAccount = document.getElementById("newBtn");
             createAccount.addEventListener("click", function (){
-                alert("씨발 무반응!");
                 data = {
                     id: idInputFiled.value,
                     email: emailInputFileds.value,
@@ -253,7 +254,7 @@
                     name: nameInputFileds.value,
                     phone: "010-"+phone1.value+"-"+phone2.value
                 }
-                fetch("/join",{
+                fetch("join",{
                     method: 'POST',
                     headers:{'Content-Type': 'application/json',
                     },
@@ -262,9 +263,9 @@
                     .then(response => response.json())
                     .then(data => {
                         if(data){
-                            alert("성공");
+                            window.location.href = "member/login";
                         }else{
-                            alert("실패");
+                            alert(data+"실패");
                         }
                     })
                     .catch((error => {
@@ -287,20 +288,20 @@
             if(this.checked){
                 signupButton.style.display = 'block';
                 if(
-                    // document.getElementById("id-check").className === "success" ||
-                    // document.getElementById("email-check2").className === "success" ||
-                    // document.getElementById("pwd-checked").className === "success" ||
-                    // document.getElementById("phone1").className === "success" ||
-                    // document.getElementById("phone2").className === "success" ||
-                    // document.getElementById("name-text").className === "success"
-                    true
+                    document.getElementById("id-check").className === "success" ||
+                    document.getElementById("email-check2").className === "success" ||
+                    document.getElementById("pwd-checked").className === "success" ||
+                    document.getElementById("phone1").className === "success" ||
+                    document.getElementById("phone2").className === "success" ||
+                    document.getElementById("name-text").className === "success"
                 )
                 {
-                    alert("모두 작성 후 체크해 주세요!!");
-                    check.checked = false;
-                    signupButton.style.display = 'none';
-                } else {
+                    check.checked = true;
                     signupButton.style.display = 'block';
+                } else {
+                    check.checked = false;
+                    alert("모두 작성 후 체크해 주세요!!");
+                    signupButton.style.display = 'none';
                 }
             } else {
                 check.checked = false;
@@ -325,11 +326,11 @@
 
         emailCheckButton.addEventListener('click',function(){                       //이메일 인증 버튼 눌렀을 때
             function sendData(data) {
-                const url = new URL(window.location.origin + '/checkEmail/id'); // 현재 웹페이지의 기본 URL과 결합
-                // 객체의 키와 값을 쿼리 파라미터로 추가
-                Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
-
-                fetch(url) // 수정된 URL 사용
+                const value1 = data.id;
+                const value2 = data.email;
+                fetch("/member/checkEmail?param1="+encodeURIComponent(value1)+'&param2='+encodeURIComponent(value2),{
+                    method:"GET"
+                })
                     .then(response => response.text())
                     .then(function (data){
                         if(!data){
@@ -357,10 +358,10 @@
                 text.style.width = '220px';
             } else {
                 var id = document.getElementById("input-id").value;
-                sendData({
-                    id: document.getElementById('input-id').value,
-                    email: document.getElementById('input-email').value
-                });
+                        sendData({
+                            id: document.getElementById('input-id').value,
+                            email: document.getElementById('input-email').value
+                        });
                 emailCheckButton.disabled = true;
                 var tttt = document.querySelector('#input-email-check2');
                 if(!tttt){
@@ -419,20 +420,26 @@
         });
         emailCheckButton2.addEventListener("click",function (){ //얘는 인증하기 버튼 눌렀을 때
             function sendDatas(data) {
-                const url = new URL(window.location.origin + '/check/code');
-                Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
-                fetch(url)
+                //const url = new URL(window.location.origin + 'member/check/code');
+                //Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
+                const id = data.id;
+                const pwdCode = data.pwdCode;
+                fetch("member/check/code?id="+encodeURIComponent(id)+"&pwdCode="+encodeURIComponent(pwdCode),{
+                    method:"GET"
+                })
                     .then(response => response.text())
                     .then(function (data){
                         if(data==="1"){
-                            alert("성공");
                             document.getElementById("email-check2").textContent = '인증에 성공하였습니다.';
                             document.getElementById("email-check-button").style.display = 'none';
+                            document.getElementById("input-email-check2").style.display = 'none';
+                            document.getElementById("email-check2").style.color = 'green';
                             document.getElementById("email-check2").className = 'success';
-                            alert(document.getElementById("email-check2").className);
+                            document.getElementById("input-email").readOnly = true;
+                            document.getElementById("input-email").style.backgroundColor = '#dcdbdb';
                         } else {
-                            alert("실패");
                             document.getElementById("email-check2").textContent = '인증 번호가 다릅니다.';
+                            document.getElementById("email-check2").style.color = 'red';
                             document.getElementById("email-check2").className = 'fail';
                         }
                     })
@@ -446,6 +453,7 @@
     </script>
 <button type="submit" id="test">class 상태 보기 테스트 버튼</button>
 <button type="submit" id="pass-email">이메일 인증 해버리기 버튼</button>
+<button type="submit" id="all-pass">무적의 개사기버튼!</button>
 <script>
     const test = document.getElementById("test");
     test.addEventListener('click',function (){
@@ -466,6 +474,16 @@
         document.getElementById("email-check2").className = 'success';
         alert(document.getElementById("email-check2").className);
         document.getElementById("name-text").className = "success";
+    });
+
+    const test3 = document.getElementById("all-pass");
+    test3.addEventListener('click',function (){
+        document.getElementById("id-check").className = 'success';
+        document.getElementById("email-check2").className = 'success';
+        document.getElementById("pwd-checked").className = 'success';
+        document.getElementById("phone1").className = 'success';
+        document.getElementById("phone2").className = 'success';
+        document.getElementById("name-text").className = 'success';
     });
 </script>
 </body>
