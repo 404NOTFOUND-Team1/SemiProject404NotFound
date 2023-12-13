@@ -42,6 +42,7 @@ public class MemberService {
         return result;
     }
 
+    @Transactional
     public boolean createMember(MemberDTO member) {
         System.out.println(member.getId());
         return mapper.createMember(member.getId(),member.getEmail(),member.getPwd(),member.getName(),member.getPhone());

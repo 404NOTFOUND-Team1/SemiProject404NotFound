@@ -45,6 +45,7 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {    
         } else {
             errorMessage = "알 수 없는 오류로 로그인 요청을 처리할 수 없습니다. \n 관리자에게 문의해주세요";
         }
+        System.out.println(errorMessage);
 
         // url을 안전하게 인코딩하게위해서 URLEncoder를 사용해서 지정
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
