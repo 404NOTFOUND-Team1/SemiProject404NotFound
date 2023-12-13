@@ -18,7 +18,10 @@
 </head>
 <body>
 <header th:replace="/admin/common/adminHeader.html"></header>
-<h1>필수입력사항</h1>
+<section>
+    <div class="s_wrap">
+        <h1>이벤트 등록</h1>
+<h2>필수입력사항</h2>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
 <div class="tbl_frm01">
     <table>
@@ -31,14 +34,14 @@
             <th scope="row">이벤트명</th>
             <td>
                 <input type="text" name="cp_subject" value="" required="" itemname="쿠폰명" class="required frm_input w300" style="background-repeat: no-repeat;">
-                <span class="fc_197 marl5">(ex: 회원 등급 달성 쿠폰 )</span>
+                <span class="fc_197 marl5">(ex: 따뜻한 연말 할인 )</span>
             </td>
         </tr>
         <tr>
             <th scope="row">설명</th>
             <td>
                 <input type="text" name="cp_explan" value="" class="frm_input w300">
-                <span class="fc_197 marl5">(ex: 겨울이벤트 크리스마스 20% 할인쿠폰)</span>
+                <span class="fc_197 marl5">(ex: 전품목 30% 할인)</span>
             </td>
         </tr>
         <tr>
@@ -51,7 +54,7 @@
         <tr id="ids_date">
             <th scope="row">이벤트 등록일</th>
             <td>
-                <input type="date" name="cp_pub_sdate" value="" id="pub_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_sdate', '9999999999');" class="btn_small grey">무제한</a> ~
+                <input type="date" name="cp_pub_sdate" value="" id="pub_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_sdate', '9999999999');" class="btn_small grey">무제한</a>
             </td>
         </tr>
         <tr>
@@ -61,38 +64,10 @@
                     <input type="date" name="cp_inv_sdate" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_sdate', '9999-99-99');" class="btn_small grey">시작일</a> ~
                     <input type="date" name="cp_inv_edate" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_edate', '9999-99-99');" class="btn_small grey">종료일</a>
                 </div>
-                    <!--        <tr id="ids_download">-->
-<!--            <th scope="row">쿠폰발급 시점</th>-->
-<!--            <td>-->
-<!--                <p>-->
-<!--                    <label><input type="radio" name="cp_download" value="0" checked=""> 회원직접 다운로드</label>-->
-<!--                    <span class="fc_197 marl5">(회원이 직접 쿠폰을 다운)</span>-->
-<!--                </p>-->
-<!--                <p class="mart3">-->
-<!--                    <label><input type="radio" name="cp_download" value="1"> 주문완료 후 자동발급</label>-->
-<!--                    <span class="fc_197 marl5">(주문완료 즉시 쿠폰을 발급)</span>-->
-<!--                </p>-->
-<!--                <p class="mart3">-->
-<!--                    <label><input type="radio" name="cp_download" value="2"> 주문완료 후 배송완료시에 자동발급</label>-->
-<!--                    <span class="fc_197 marl5">(주문상태가 배송완료로 변경되는 시점에 쿠폰을 발급합니다)</span>-->
-<!--                </p>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <th scope="row">중복발급 여부</th>-->
-<!--            <td>-->
-<!--                <p>-->
-<!--                    <label><input type="radio" name="cp_overlap" value="0" checked=""> 중복발급 안함</label>-->
-<!--                    <span class="fc_197 marl5">(한 고객에게 무조건 1회만 쿠폰을 발급합니다)</span>-->
-<!--                </p>-->
-<!--                <p class="mart3">-->
-<!--                    <label><input type="radio" name="cp_overlap" value="1"> 중복발급 허용</label>-->
-<!--                    <span class="fc_197 marl5">(쿠폰을 사용한 후 다음번 주문시에도 같은 상품의 쿠폰다운로드를 허용합니다)</span>-->
-<!--                </p>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-            <th scope="row">해택</th>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">혜택/할인율</th>
             <td>
                 <p>
                     <input type="radio" name="cp_sale_type" value="0" checked="">
@@ -192,6 +167,197 @@
     <input type="submit" value="저장" class="btn_large" accesskey="s">
     <a href="/templates/admin/coupon/admin.html" class="btn_large bx-white">목록</a>
 </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var startDate, endDate; // 변수를 선언하고 초기화해야 합니다.
 
+            // 오늘 날짜 구하기
+            var today = new Date();
+
+            // datepicker 초기화 함수
+            function initDatepicker($element) {
+                $element.datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    minDate: 0,
+                    defaultDate: today,
+                    onSelect: function (selectedDate) {
+                        startDate = new Date(selectedDate);
+                        updateEndDatepicker(startDate);
+                    }
+                });
+                $element.val($.datepicker.formatDate('yy-mm-dd', today));
+            }
+
+            // 각각의 datepicker 초기화
+            initDatepicker($('#pub_sdate, #inv_sdate'));
+            initDatepicker($('#pub_edate, #inv_edate'));
+
+            function updateEndDatepicker(startDate) {
+                $('#pub_edate, #inv_edate').datepicker('option', 'minDate', startDate);
+            }
+        });
+    </script>
+    <script language="javascript">
+        function chk_use_show(n) {
+            var f = document.fregform;
+            switch (n) {
+                case '1':
+                    eval("ids_cpart").style.display = 'none';
+                    break;
+                case '2':
+                    eval("ids_cpart").style.display = '';
+                    break;
+                case '3':
+                    eval("ids_cpart").style.display = 'none';
+                    break;
+            }
+        }
+
+        chk_use_show("");
+
+
+            var cp_week_day = false;
+
+            for(var i=0; i<f.elements.length; i++){
+
+            }
+                if(f.elements[i].name == "cp_use_part" && f.elements[i].checked==true){
+                    cp_use_part = true;
+                }
+
+            if(cp_use_part == false) {
+                alert('사용가능대상을 선택하세요!');
+                return false;
+            }
+
+            var tmp_str = '';
+            var tmp_comma = '';
+            for(var i=0;i<f.use_category_list.length;i++)
+            {
+                tmp_str += tmp_comma + f.use_category_list.options[i].value;
+                tmp_comma = ',';
+            }
+
+            f.cp_use_category.value = tmp_str;
+
+        }
+        // 분류 추가
+        function chk_cate_add() {
+            var f = document.fregform;
+            if(!f.use_category.value) {
+                alert('카테고리를 선택하세요.');
+                f.use_category.focus();
+                return;
+            }
+
+            var n = f.use_category_list.length;
+            var k = f.use_category.options.selectedIndex;
+            f.use_category_list.options[n] = new Option();
+            f.use_category_list.options[n].text  = f.use_category.options[k].text;
+            f.use_category_list.options[n].value = f.use_category.options[k].value;
+        }
+
+        // 분류 삭제
+        function chk_cate_del() {
+            var f = document.fregform;
+            var chk  = 0;
+
+            for(var i = 0; i < f.use_category_list.length; i++) {
+                if(f.use_category_list.options[i].selected == true) {
+                    f.use_category_list.options[i] = null;
+                    chk++;
+                    break;
+                }
+            }
+
+            if(!chk) {
+                alert('제외시킬 항목을 선택해 주세요.');
+                return;
+            }
+        }
+
+        // 뷴류 이동
+        function chk_cate_move(index,to,list) {
+            var f = document.fregform;
+            var total = list.options.length-1;
+            var chk = 0;
+
+            for(var i = 0; i < list.length; i++) {
+                if(list.options[i].selected == true) {
+                    chk = 1;
+                    break;
+                }
+            }
+
+            if(!chk) {
+                alert('이동할 항목을 선택해 주세요.');
+                return;
+            }
+
+            if(index == -1) return false;
+            if(to == +1 && index == total) return false;
+            if(to == -1 && index == 0) return false;
+
+            var items = new Array;
+            var values = new Array;
+
+            for(i = total; i >= 0; i--)
+            {
+                items[i] = list.options[i].text;
+                values[i] = list.options[i].value;
+            }
+
+            for(i = total; i >= 0; i--) {
+                if(index == i) {
+                    list.options[i + to] = new Option(items[i],values[i], 0, 1);
+                    list.options[i] = new Option(items[i + to], values[i + to]);
+                    i--;
+                } else {
+                    list.options[i] = new Option(items[i], values[i]);
+                }
+            }
+        }
+
+        // 상품 삭제
+        function chk_del(gs_id){
+            var cp_use_goods = document.getElementById('cp_use_goods');  // 실제 입력 값
+            var ck_use_table = document.getElementById('chk_'+gs_id);
+
+            ck_use_table.style.display ='none';
+            cp_use_goods.value = cp_use_goods.value.replace(gs_id,'');
+
+            var tmp_str = '';
+            var tmp_comma = '';
+            var tmp_use_goods = cp_use_goods.value.split(',');
+            for(var i=0;i<tmp_use_goods.length;i++)
+            {
+                if(tmp_use_goods[i]){
+                    tmp_str += tmp_comma + tmp_use_goods[i];
+                    tmp_comma = ',';
+                }
+            }
+
+            cp_use_goods.value = tmp_str;
+        }
+        function chk_use_show(n) {
+            var f = document.fregform;
+            switch (n) {
+                case '1':
+                    eval("ids_cpart").style.display = 'none';
+                    break;
+                case '2':
+                    eval("ids_cpart").style.display = '';
+                    break;
+                case '3':
+                    eval("ids_cpart").style.display = 'none';
+                    break;
+            }
+        }
+        chk_use_show("");
+
+    </script>
+
+</section>
 </body>
 </html>
