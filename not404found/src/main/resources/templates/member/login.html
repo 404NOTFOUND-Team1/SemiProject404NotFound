@@ -110,10 +110,10 @@
     <div class="login-window">
         <form id="loginForm" th:action="@{/member/login}" method="post" onsubmit="return validateForm()">
             <div class="input-id">
-                <input type="text" name="memberId" placeholder="ID" id="input-id-field">
+                <input type="text" name="memberId" placeholder="ID" value="admin" id="input-id-field">
             </div>
             <div class="input-pwd">
-                <input type="password" name="memberPwd" placeholder="Password" id="input-pwd-field">
+                <input type="password" name="memberPwd" placeholder="Password" value="admin1234@" id="input-pwd-field">
                 <img src="/images/member/showPwd.png" id="showPwdImg" width="50" height="50">
             </div>
             <div>
