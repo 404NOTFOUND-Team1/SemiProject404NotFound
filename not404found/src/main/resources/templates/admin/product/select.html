@@ -26,23 +26,24 @@
         <input type="radio" class="p_radio" name="deleteStatus" id="sstatusn" value="N"><label for="sstatusn">판매 보류</label>
         <hr>
       </div>
-      <div class="tab2"><label class="tab22" for="pDate">판매등록날짜 :    </label>
-        <input class="date_size" type="date" name="enterDate" id="pDate"><hr>
+      <div class="tab2"><label class="tab22" for="pDates">판매등록날짜 :    </label>
+        <input class="date_size" type="date" name="enterDates" id="pDates" style="margin-right: 10px;">
+        <span style="margin-right: 10px;"> ~ </span>
+        <input class="date_size" type="date" name="enterDateb" id="pDateb"><hr>
       </div>
       <div class="tab3"><label class="tab33" for="name">상품명 : </label>
         <input class="p_name" type="text" name="name" id="name"><hr>
       </div>
-      <div class="tab4"><label class="tab44" for="price">상품가격 : </label>
-        <input class="p_price" type="number" name="price" id="price"><hr>
-      </div>
-      <div class="tab4"><label class="tab44" for="inventory"> 재고량 : </label>
-        <input class="p_price" type="number" name="amount" id="inventory"><hr>
-      </div>
-      <div class="tab4"><label class="tab44"> 삭제여부 : </label>
-        <input type="radio" class="p_radio" name="dstatus" id="dstatusy" value="Y"><label for="dstatusy">Y</label>
-        <span class="radio_space"></span>
-        <input type="radio" class="p_radio" name="dstatus" id="dstatusn" value="N"><label for="dstatusn">N</label>
+      <div class="tab4"><label class="tab44">상품가격 : </label>
+        <input class="p_price" type="number" name="prices" id="prices" style="margin-right: 10px;">
+        <span style="margin-right: 10px;"> ~ </span>
+        <input class="p_price" type="number" name="priceb" id="priceb">
         <hr>
+      </div>
+      <div class="tab4"><label class="tab44"> 재고량 : </label>
+        <input class="p_price" type="number" name="amounts" id="inventorys" style="margin-right: 10px;">
+        <span style="margin-right: 10px;"> ~ </span>
+        <input class="p_price" type="number" name="amountb" id="inventoryb"><hr>
       </div>
       <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
         <select id="topCategory" class="c_ref" name="refCategoryCode" onchange="updateSubCategories()">
@@ -53,17 +54,16 @@
         <label for="subCategory">하위 카테고리 : </label>
         <select id="subCategory" class="c_ref" name="categoryName"></select>
         <hr></div>
-<!--      <div class="tab5"><label for="color">옵션(색상) : </label>-->
-<!--        <select id="color" class="c_ref" name="color">-->
-<!--          <option value="red">레드와인</option>-->
-<!--          <option value="blue">스카이블루</option>-->
-<!--          <option value="orange">오렌지</option>-->
-<!--          <option value="etc">기타</option>-->
-<!--        </select>-->
-<!--        <hr>-->
-<!--      </div>-->
+      <div class="tab5"><label for="color">옵션(색상) : </label>
+        <select id="color" class="c_ref" name="color">
+          <option value="검은색">레드와인</option>
+          <option value="파란색">스카이블루</option>
+          <option value="빨간색">오렌지</option>
+        </select>
+        <hr>
+      </div>
       <button type="submit" class="insert_button">상품 조회</button>
-<!--       </div>-->
+    </div>
       </form>
 
     </div>
@@ -96,40 +96,36 @@
       <th>별점
         <button>↧</button>
       </th>
-      <th>삭제
-        <button>↧</button>
-      </th>
       <th>누적판매집계
         <button>↧</button>
       </th>
+    </tr>
+    <tr th:if="${#lists.isEmpty(condition) and #lists.isEmpty(productList)}">
+      <td colspan="11" style="text-align: center">검색 결과가 없습니다.</td>
     </tr>
     <tr th:if="${#lists.isEmpty(condition)}" th:each="products : ${ productList }">
       <td th:text="${products.productCode}"></td>
       <td th:text="${products.name}"></td>
       <td th:text="${products.price}"></td>
-      <td th:text="${products.enterDate}"></td>
+      <td th:text="${#dates.format(products.enterDate,'yyyy-MM-dd')}"></td>
       <td th:text="${products.adminProductCategory.refCategoryCode}"></td>
       <td th:text="${products.adminProductCategory.categoryName}"></td>
       <td th:text="${products.deleteStatus}"></td>
       <td th:text="${products.amount}"></td>
       <td th:text="${'0'}"></td>
-      <td th:text="${'N'}"></td>
       <td th:text="${'100000'}"></td>
     </tr>
 
-    <tr th:unless="${#lists.isEmpty(condition)}" th:if="${not #lists.isEmpty(condition)}">
-      <td colspan="11" th:if="${#lists.isEmpty(condition[0].productCode)}">검색 결과가 없습니다.</td>
-      <td th:unless="${#lists.isEmpty(condition[0].productCode)}" th:each="conditions : ${condition}">
+    <tr th:unless="${#lists.isEmpty(condition)}" th:each="conditions : ${condition}">
       <td th:text="${conditions.productCode}"></td>
       <td th:text="${conditions.name}"></td>
       <td th:text="${conditions.price}"></td>
-      <td th:text="${conditions.enterDate}"></td>
+      <td th:text="${#dates.format(conditions.enterDate,'yyyy-MM-dd')}"></td>
       <td th:text="${conditions.adminProductCategory.refCategoryCode}"></td>
       <td th:text="${conditions.adminProductCategory.categoryName}"></td>
       <td th:text="${conditions.deleteStatus}"></td>
       <td th:text="${conditions.amount}"></td>
       <td th:text="${'0'}"></td>
-      <td th:text="${'N'}"></td>
       <td th:text="${'100000'}"></td>
     </tr>
   </table>
@@ -147,13 +143,13 @@
       subCategory.innerHTML ="";
 
       if(selectedTopCategory === "1"){
-        addOption(subCategory, "3", '의자');
-        addOption(subCategory, "4", '책상');
-        addOption(subCategory, "5", '조명');
+        addOption(subCategory, "의자", '의자');
+        addOption(subCategory, "책상", '책상');
+        addOption(subCategory, "조명", '조명');
       }else if (selectedTopCategory === "2") {
-        addOption(subCategory, "6", "시트지");
-        addOption(subCategory, "7", "벽지");
-        addOption(subCategory, "8", "공구");
+        addOption(subCategory, "시트지", "시트지");
+        addOption(subCategory, "벽지", "벽지");
+        addOption(subCategory, "공구", "공구");
       }
 
     }
