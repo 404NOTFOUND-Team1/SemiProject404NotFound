@@ -17,4 +17,14 @@ public class AdminEvent {
 
         return "/admin/event/admin";
     }
+
+    @GetMapping("event/insert")
+    public String eventPage2(Model model){
+        model.addAttribute("boardType", "이벤트");
+
+        return "/admin/event/insert";
+    }
 }
+
+
+
