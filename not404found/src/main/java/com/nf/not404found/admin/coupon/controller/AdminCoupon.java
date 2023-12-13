@@ -17,4 +17,12 @@ public class AdminCoupon {
 
         return "/admin/coupon/admin";
     }
+
+    @GetMapping("coupon/insertCoupon")
+    public String couponPage2(Model model){
+
+        model.addAttribute("boardType", "쿠폰");
+
+        return "/admin/coupon/insertCoupon";
+    }
 }
