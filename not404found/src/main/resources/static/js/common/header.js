@@ -50,49 +50,41 @@ var mainImg = document.querySelector('.homePageImg');
 var customer = document.querySelector('.customer');
 var signUp = document.querySelector('.signUp');
 var logIn = document.querySelector('.logIn');
+var logOut = document.querySelector('.logOut');
+var adminPage = document.querySelector('.adminPage');
 
 mainImg.addEventListener('click',function(){
-    if(window.location.origin === 'http://localhost:8404'){
-
+    if(window.location.href == 'http://localhost:8404/'){
     } else {
+        alert(window.location.href);
         window.location.href = '/';
     }
 
 });
-customer.addEventListener('mouseenter',function() {
-    customer.style.color = 'blue';
-    customer.style.textDecoration = "underline";
-});
-customer.addEventListener('mouseleave',function(){
-    customer.style.color = 'black';
-    customer.style.textDecoration = "none";
-});
+
 customer.addEventListener('click',function(){
     alert('고객센터!');
 });
-signUp.addEventListener('mouseenter',function() {
-    signUp.style.color = 'blue';
-    signUp.style.textDecoration = "underline";
-});
-signUp.addEventListener('mouseleave',function(){
-    signUp.style.color = 'black';
-    signUp.style.textDecoration = "none";
-});
-signUp.addEventListener('click',function(){
-    window.location.href="/member/signup";
-});
-logIn.addEventListener('mouseenter',function() {
-    logIn.style.color = 'blue';
-    logIn.style.textDecoration = "underline";
-});
-logIn.addEventListener('mouseleave',function(){
-    logIn.style.color = 'black';
-    logIn.style.textDecoration = "none";
-});
-logIn.addEventListener('click',function(){
-    window.location.href="/member/login";
-});
-
+if(signUp!=null) {
+    signUp.addEventListener('click', function () {
+        window.location.href = "/member/signup";
+    });
+}
+if(logIn!=null) {
+    logIn.addEventListener('click', function () {
+        window.location.href = "/member/login";
+    });
+}
+if(logOut!=null) {
+    logOut.addEventListener('click', function () {
+        window.location.href = "/member/logout";
+    });
+}
+if(adminPage!=null){
+    adminPage.addEventListener('click',function (){
+        window.location.href = '/admin/dashboard';
+    });
+}
 function commonEnterMouseEvent(target){
     if(target === category){       //이 if문 블럭은 메뉴 바가 동시에 출력되는 것을 막는다.
         theme_toggle.style.display = 'none';
