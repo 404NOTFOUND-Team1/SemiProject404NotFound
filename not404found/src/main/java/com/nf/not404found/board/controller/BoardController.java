@@ -2,22 +2,30 @@ package com.nf.not404found.board.controller;
 
 
 import com.nf.not404found.board.model.dto.BoardDTO;
+import com.nf.not404found.board.model.dto.CommentDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
 import com.nf.not404found.board.model.service.BoardService;
-import com.nf.not404found.board.model.service.BoardServiceImpl;
-import com.nf.not404found.common.exception.NoticeWriteException;
+import com.nf.not404found.common.exception.board.CommentRegistException;
+import com.nf.not404found.common.exception.board.NoticeWriteException;
 import com.nf.not404found.common.paging.Pagenation;
 import com.nf.not404found.common.paging.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/board")
@@ -62,7 +70,7 @@ public class BoardController {
         log.info("[BoardController] totalBoardCount : " + totalCount);
 
         /* 한 페이지에 보여줄 게시물 수 */
-        int limit = 10;        //얘도 파라미터로 전달받아도 된다.
+        int limit = 10;
 
         /* 한 번에 보여질 페이징 버튼의 갯수 */
         int buttonAmount = 5;
@@ -203,7 +211,8 @@ public class BoardController {
         log.info("");
         log.info("");
         log.info("[BoardController] writeNotice ========================================================= start");
-        log.info("[BoardController] writeNotice Request : " + board);
+        log.info("[BoardController] writeNotice =============================== board : " + board);
+
 
         boardService.writeNotice(board);
 
@@ -214,6 +223,36 @@ public class BoardController {
         return "redirect:/board/notice/list";
     }
 
+    @PostMapping(value="notice/uploadSummernoteImageFile", produces = "application/json")
+    @ResponseBody
+    public Map<String, String> uploadSummernoteImgFile(@RequestParam("file") MultipartFile multipartFile){
+
+        log.info("");
+        log.info("");
+        log.info("[NoticeController] uploadSummernoteImgFile ========================================================= start");
+        Map<String, String> returnMap = new HashMap<>();
+        String fileRoot = "/Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload/";
+        String originFileName = multipartFile.getOriginalFilename();
+        String ext = originFileName.substring(originFileName.lastIndexOf("."));
+
+        String savedFileName = UUID.randomUUID().toString().replace("-","") + ext;
+        System.out.println("savedFileName = " + savedFileName);
+        File targetFile = new File(fileRoot + savedFileName);
+
+        try {
+            InputStream fileStream = multipartFile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+            returnMap.put("url", "/summernoteImage/"+savedFileName);
+            returnMap.put("responseCode", "success");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+            e.printStackTrace();
+        }
+
+        log.info("[NoticeController] uploadSummernoteImgFile ===================================================== return \n {}", returnMap);
+        log.info("[NoticeController] uploadSummernoteImgFile ========================================================= end");
+        return returnMap;
+    }
 
 
 
@@ -225,4 +264,123 @@ public class BoardController {
 
         return "/board/qna/list";
     }
+
+    @GetMapping(value = "qna/list")
+    public ModelAndView qnaList(@RequestParam(required = false, defaultValue = "") String searchCondition,
+                                   @RequestParam(required = false, defaultValue = "") String searchValue,
+                                   @RequestParam(required = true, defaultValue = "3") int categorycode_board,
+                                   @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
+                                   ModelAndView mv) {
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] ========================================================= start");
+        /*
+         * 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다.
+         * 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로 전달받은 페이지 수 이다.
+         */
+
+        Map<String, Object> searchMap = new HashMap<>();
+        searchMap.put("searchCondition", searchCondition);
+        searchMap.put("searchValue", searchValue);
+        searchMap.put("categorycode_board", categorycode_board); // categorycode_board 추가
+
+        log.info("[BoardController] 컨트롤러에서 검색조건 확인하기 : " + searchMap);
+
+        /*
+         * 전체 게시물 수가 필요하다.
+         * 데이터베이스에서 먼저 전체 게시물 수를 조회해올 것이다.
+         * 검색조건이 있는 경우 검색 조건에 맞는 전체 게시물 수를 조회한다.
+         */
+
+        int totalCount = boardService.selectTotalCount(searchMap);
+        log.info("[BoardController] totalBoardCount : " + totalCount);
+
+        /* 한 페이지에 보여줄 게시물 수 */
+        int limit = 10;
+
+        /* 한 번에 보여질 페이징 버튼의 갯수 */
+        int buttonAmount = 5;
+
+        /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
+        SelectCriteria selectCriteria = null;
+
+        if (searchCondition != null && !"".equals(searchCondition)) {
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
+        } else {
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+        }
+
+        log.info("[BoardController] selectCriteria : " + selectCriteria);
+
+        Map<String, Object> selectCriteria2 = new HashMap<>();
+        selectCriteria2.put("selectCriteria", selectCriteria);
+        selectCriteria2.put("categorycode_board", categorycode_board);
+
+        /* 조회 */
+        List<BoardDTO> boardList = boardService.selectBoardList(selectCriteria2);
+
+        log.info("[BoardController] boardList : " + boardList);
+
+        mv.addObject("boardList", boardList);
+        mv.addObject("selectCriteria", selectCriteria);
+        log.info("[BoardController] SelectCriteria : " + selectCriteria);
+        mv.setViewName("board/qna/list");
+
+        log.info("[BoardController] ========================================================= end");
+        return mv;
+    }
+
+    @GetMapping("/qna/view")
+    public String selectQnaView(@RequestParam int post_code, Model model) {
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] ========================================================= start");
+
+        BoardDTO qnaView = boardService.selectQnaView(post_code);
+        log.info("[BoardController] QnaView : " + qnaView);
+
+        model.addAttribute("qnaView", qnaView);
+
+        /* 댓글 */
+        List<CommentDTO> qnaCommentList = boardService.selectQnaCommentList(post_code);
+        model.addAttribute("qnaCommentList", qnaCommentList);
+        log.info("[BoardController] qnaCommentList : " + qnaCommentList);
+
+        log.info("[BoardController] ========================================================= end");
+        return "board/qna/view";
+    }
+
+    @PostMapping("qna/registComment")
+    public ResponseEntity<List<CommentDTO>> registReply(@RequestBody CommentDTO registComment) throws CommentRegistException {
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] ========================================================= start");
+        log.info("[BoardController] registComment Request : " + registComment);
+
+        List<CommentDTO> qnaCommentList = boardService.registQnaComment(registComment);
+
+        log.info("[BoardController] replyList : " + qnaCommentList);
+        log.info("[BoardController] ========================================================= end");
+
+        return ResponseEntity.ok(qnaCommentList);
+    }
+
+//    @PostMapping("/removeReply")
+//    public ResponseEntity<List<CommentDTO>> removeReply(@RequestBody CommentDTO removeReply) throws _ReplyRemoveException {
+//
+//        log.info("");
+//        log.info("");
+//        log.info("[BoardController] ========================================================= start");
+//        log.info("[BoardController] removeReply Request : " + removeReply);
+//
+//        List<CommentDTO> replyList = boardService.removeReply(removeReply);
+//
+//        log.info("[BoardController] replyList : " + replyList);
+//        log.info("[BoardController] ========================================================= end");
+//
+//        return ResponseEntity.ok(replyList);
+//    }
 }

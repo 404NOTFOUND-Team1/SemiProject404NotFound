@@ -71,10 +71,42 @@
 
     <resultMap id="commentResultMap" type="CommentDTO">
         <id property="comment_code" column="comment_code"/>
-        <result property="comment" column="comment"/>
+        <result property="comment_body" column="comment_body"/>
         <result property="comment_date" column="comment_date"/>
-        <association property="boardInfo" resultMap="generalBoardResultMap"/>
+        <association property="board" resultMap="generalBoardResultMap"/>
     </resultMap>
+    
+    <select id="selectQnaCommentList" resultMap="commentResultMap">
+        select      A.comment_code,
+                    A.post_code,
+                    A.categorycode_board,
+                    A.id,
+                    A.comment_body,
+                    A.comment_date
+        from        comment A
+        join        board B on (A.post_code = B.post_code)
+        join        category_board C on (A.categorycode_board = C.categorycode_board)
+        join        accounts D on (A.id = D.id)
+        where       A.categorycode_board = 3
+        order by    A.comment_code DESC
+    </select>
+
+    <insert id="insertQnaComment">
+        insert
+        into    comment (
+                         post_code,
+                         categorycode_board,
+                         id,
+                         comment_body,
+                         comment_date)
+        values  (
+                #{ post_code },
+                3,
+                'sy',
+                #{ comment_body },
+                now()
+                )
+    </insert>
 
     <resultMap id="attachmentResultMap" type="AttachmentDTO">
         <id property="attachment_code" column="attachment_code"/>
@@ -108,7 +140,7 @@
                 </when>
                 <!-- qna 카테고리 -->
                 <when test="categorycode_board == 3">
-                    AND B.categorycode_board = 3
+                    AND A.categorycode_board = 3
                 </when>
                 <!-- 인테리어 챌린지 카테고리 -->
                 <when test="categorycode_board == 4">
@@ -172,7 +204,6 @@
         limit    #{ selectCriteria.startRow }, 10
     </select>
 
-
     <update id="incrementBoardCount">
         update board
         set    post_views = post_views + 1
@@ -180,6 +211,21 @@
     </update>
 
     <select id="selectNoticeView" resultMap="generalBoardResultMap">
+        select  A.post_code,
+                A.categorycode_board,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views
+        from    board A
+        join     category_board C on (A.categorycode_board = C.categorycode_board)
+        join     accounts D on (A.id = D.id)
+        where   A.post_code = #{ post_code }
+    </select>
+
+    <select id="selectQnaView" resultMap="generalBoardResultMap">
         select  A.post_code,
                 A.categorycode_board,
                 A.id,
@@ -251,9 +297,9 @@
                            post_created_date,
                            post_modified_date)
         values (1,
-                'admin',
+                'sy',         /* 권한 설정 후 수정 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
                 #{ post_title },
-                #{ post_content},
+                #{ post_content },
                 NOW(),
                 NOW())
     </insert>

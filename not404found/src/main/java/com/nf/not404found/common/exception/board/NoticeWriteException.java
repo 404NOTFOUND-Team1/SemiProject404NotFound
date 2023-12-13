@@ -1,4 +1,4 @@
-package com.nf.not404found.common.exception;
+package com.nf.not404found.common.exception.board;
 
 public class NoticeWriteException extends Exception {
 

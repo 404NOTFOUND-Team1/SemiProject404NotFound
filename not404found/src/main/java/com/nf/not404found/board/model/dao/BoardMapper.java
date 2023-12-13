@@ -1,6 +1,7 @@
 package com.nf.not404found.board.model.dao;
 
 import com.nf.not404found.board.model.dto.BoardDTO;
+import com.nf.not404found.board.model.dto.CommentDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
 import com.nf.not404found.common.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +24,10 @@ public interface BoardMapper {
     int insertNotice(BoardDTO board);
 
     int getTotalReviewCountByProduct(int product_code);
+
+    BoardDTO selectQnaView(int post_code);
+
+    List<CommentDTO> selectQnaCommentList(int post_code);
+
+    int insertQnaComment(CommentDTO registComment);
 }

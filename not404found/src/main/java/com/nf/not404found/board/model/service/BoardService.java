@@ -1,8 +1,10 @@
 package com.nf.not404found.board.model.service;
 
 import com.nf.not404found.board.model.dto.BoardDTO;
+import com.nf.not404found.board.model.dto.CommentDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
-import com.nf.not404found.common.exception.NoticeWriteException;
+import com.nf.not404found.common.exception.board.CommentRegistException;
+import com.nf.not404found.common.exception.board.NoticeWriteException;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +22,10 @@ public interface BoardService {
     void writeNotice(BoardDTO board) throws NoticeWriteException;
 
     List<ReviewDTO> getTotalReviewCountByProduct(List<ReviewDTO> reviewList);
+
+    BoardDTO selectQnaView(int post_code);
+
+    List<CommentDTO> selectQnaCommentList(int post_code);
+
+    List<CommentDTO> registQnaComment(CommentDTO registComment) throws CommentRegistException;
 }

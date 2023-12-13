@@ -77,12 +77,12 @@
     <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review?categorycode_board=2\''">Review</span>
   </div>
   <div class="sidebar_button3">
-    <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=3\''">QnA</span>
+    <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/qna/list?categorycode_board=3\''">QnA</span>
   </div>
 </div>
 
 <div class="board_wrap">
-  <div class="board_title">
+  <div class="board_title" style="margin-bottom: 30px;">
     <strong>공지사항</strong>
   </div>
 
@@ -96,7 +96,6 @@
                 id="noticeWriterId"
                 name="id"
                 th:value="${ #authentication.getPrincipal().getId() }">-->   <!-- id 불러오기!!! -->
-
 
         <div class="title">
           <dl>
