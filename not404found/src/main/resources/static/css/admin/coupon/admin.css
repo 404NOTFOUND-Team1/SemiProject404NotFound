@@ -1,127 +1,255 @@
-.coupon_body{
-    z-index: 1;
-    position: relative;
-    padding:30px;
-    margin-left:250px
+.s_wrap {
+    margin:65px 240px;
 }
 
-.main-hd{
-    position:relative;
-    font-size: 18px;
-    font-weight: bold;
+.s_wrap h1{ /* 쿠폰 관리 */
+    font-size: 17px;
 }
-.tab{
+
+#content h2 {
+    margin: 30px 0 0;
     position: relative;
-    margin-top: 30px;
-}
-li{
-    list-style: none;
-    width: 160px;
-    float : left;
-    margin-right: -1px;
-}
-a{
-    display: block;
-    height: 42px;
-    line-height: 42px;
-    border: 1px solid black;
-    background: #fff;
     font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 1em;
+    padding: 0 0 10px 10px;
+}
+
+.btn_confirm { /* 검색, 초기화 */
+    margin-top: 21px;
     text-align: center;
 }
-.tablehd{
-    position: relative;
-    height: 52px;
-    line-height: 52px;
-    margin-top: 100px;
-    padding: 0 20px;
-    border: 1px solid #d8d8d8;
-    border-bottom-width: 1px; /* 2에서 1로 수정 함*/
-    background: #fff;
+
+.btn_lsmall { /* 선택삭제 버튼과 연결된 클래스 ?*/
+    padding: 3px 10px;
+    font-size: 12px;
+    line-height: 1.666;
+    font-weight: normal !important;
 }
 
-.couponInfo{
-    background: #fff;
-    border: 1px solid #d8d8d8;
-    border-top: none;
-    height: 350px;
-}
-.wltjql{
-    display: inline-block;
-    margin-right: 5px;
-    font-size: 17px;
-    margin-top: -10px;
+.tbl_head01 tr:not(.rows) th:first-child, .tbl_head01 tr:not(.rows) td:first-child {
+    border-left: 0 !important;
 }
 
-.couponInfo .cInfoRe .cInfoInner {
-    display: flex;
-    align-items: center;
-    padding: 19px 30px;
+.local_ov { /* 0건 조회 및 위 간격 */
+    margin: 0;
+    padding: 10px;
+    border-top: 1px solid #aeaeae;
+    margin-top: 30px !important;
 }
-/*.couponInfo .cInfoRe .cInfoname {*/
-/*    width: 176px;*/
-/*    height: 40px;*/
+
+/*.mart30 {*/
+/*    margin-top: 30px !important;*/
 /*}*/
 
-.couponInfo .cInfoRe .cInfoBox{
-    width: 12.08%;
-    padding: 0 10px;
-    margin-right: 10px;
+.fc_red { /* 0건 조회 글씨 */
+    color: #ec0e03 !important;
 }
 
-em{
-    font-style: normal;
+.local_frm01 { /* 선택삭제 클래스 */
+    border-top: 1px solid #ececec;
 }
 
-/* 입력창 - 우측 정렬 */
-.cInfoInner  {
-    display: flex;
-    justify-content: space-between;
-    width: 200px;
+.local_frm01, .local_frm02 { /* 선택삭제 위 아래 2개*/
+    overflow: hidden;
+    margin: 0;
+    padding: 7px 10px;
+    background: #fcfcfc;
 }
 
-#cRate, #cName, #cCommnet {
-    justify-content: right;
-    width: 300px;
-    height: 30px;
-    font-size: 17px;
+.red { /* 쿠폰 등록에 있는 클래스 이름 뒷자리*/
+    background: #ffc771;
+    border: 1px solid #ffc771;
+    color: #000 !important;
 }
 
-.CB{
-    position: relative;
-    left: 185px;
-    width:100px;
-    height: 30px;
-    background-color: #99A3FE;
-    color: white;
-    margin-top: 20px;
+.btn_medium{ /* 검색 초기화 버튼 */
+    background: #333;
+    border: 1px solid #333;
+    color: #fff !important;
 }
 
-hr {
-    border: none;
-    border-top: 1px solid #d8d8d8;
-}
-.search_one{
-    position: relative;
-    margin: auto 0;
-    width: 1000px;
-    left: 300px;
-    height: 80px;
-    border-spacing: 0;
-    top:20px;
+.btn_small, .btn_lsmall, .btn_medium { /* 모든 버튼*/
+    display: inline-block;
+    text-decoration: none !important;
+    vertical-align: middle !important;
+    font-family: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: right;
 }
 
-th, td {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    text-align: left;
+.btn_medium { /* 검색, 초기화 버튼 */
+    padding: 8px 15px;
+    font-size: 13px;
+    line-height: 1.444;
+    font-weight: 600;
 }
 
-th {
-    background-color: #f2f2f2;
+.bx-white { /* 석제삭제만*/
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #222
 }
 
-.CList{
+/* 기본 검색 폼 테이블 */
+.tbl_frm01 { /* 검색란 전체 */
+    border-top:1px solid #888;}
+
+.tbl_frm01 table {
+    width:100%;}
+
+.tbl_frm01 th,
+.tbl_frm01 td { /* 검색어, 사용기간 및 검색란*/
+    padding:8px 14px;
+    height:23px;
+    border-bottom:1px solid #e4e5e7;
+    text-align:left;
+    vertical-align:middle;
+}
+
+.tbl_head01 th{
+    vertical-align:middle;
+}
+
+.tbl_frm01 th {
+    font-weight:600;
+}
+
+.tbl_frm01 td label { /* 시작일과 종료일 글자 사이 간격과 폰트사이즈 */
+    margin-right:7px;
+    font-size: 12px
+}
+
+.tbl_head01 {
+    border-top:1px solid #aeaeae;
+    border-bottom:1px solid #e4e5e7;
+}
+
+.tbl_head01 table {
+    width:100%;
+}
+
+.tbl_head01 thead th {
+    border-top:0 !important;
+    text-align:center;
+}
+
+.tbl_head01 thead tr.rows th {
+    border-top:1px solid #e4e5e7 !important;
+}
+
+.tbl_head01 thead tr.grid th {
+    padding:8px 0 !important;
+    line-height:1.4em !important;
+}
+
+.tbl_head01 th {
+    padding:8px 10px;
+    line-height:1em;
+    font-weight:600;
+    background:#f1f1f1;
+}
+
+.tbl_head01 th a {
+    text-decoration:underline !important;}
+
+.tbl_head01 th, .tbl_head01 td {
+    border-left: 1px solid #e4e5e7;
     text-align: center;
-    margin-top: 50px;
+    vertical-align: middle;
 }
+
+.tbl_head01 td {
+    height:22px;
+    padding:8px 8px;
+    line-height:1.6em;
+    border-top:1px solid #e4e5e7;
+}
+
+.tbl_head01 td a {
+    font-weight:600;
+}
+
+.tbl_head01 td a:focus,
+.tbl_head01 td a:hover,
+.tbl_head01 td a:active {
+    text-decoration:underline;
+}
+
+.tbl_head01 td.url a {
+    text-decoration:underline !important;
+    font-weight:normal !important;
+}
+.tbl_head01 td label {
+    margin-right:10px;
+}
+.tbl_head01 tr.grid td {
+    height:33px !important;
+    line-height:1.4em !important;
+}
+
+.tbl_head01 tbody.list tr:hover {
+    background:#ececec !important;
+}
+
+/*.tbl_head01 tfoot {*/
+/*    background:#f1f1f1 !important;*/
+/*}*/
+
+.tbl_head01 tfoot th,
+.tbl_head01 tfoot td
+{border-top:1px solid #d6d6d6 !important;
+}
+
+.tbl_head01 .frm_input {
+    width:100%;
+}
+
+.tbl_head01 .frm_refer {
+    display:block;
+    padding-top:5px;
+    color:#547eec;
+}
+
+.empty_table { /* 자료가 없습니다 글씨 */
+    color: #999;
+    padding: 50px 0 !important;
+    text-align: center;
+}
+
+.frm_input { /* 쿠폰 입력 받는 란 */
+    margin-left: 3px;
+    padding: 2px 8px 2px 8px;
+    font-size: 13px;
+    font-weight: normal;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    /*border-radius: 0;*/
+    -webkit-border-radius: 0;
+}
+
+/*table {*/
+/*    border-collapse: collapse;*/
+/*    border-spacing: 0;*/
+/*    text-indent: initial;*/
+/*}*/
+
+table th {
+    background-color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.3em;
+}
+table, th, td {
+    font-size: 12px;
+    font-style: normal;
+    color: #454545;
+}
+
+.local_frm02 {
+    border-bottom: 1px solid #e4e5e7;
+}
+
+

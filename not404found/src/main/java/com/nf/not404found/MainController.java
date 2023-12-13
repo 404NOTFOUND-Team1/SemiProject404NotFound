@@ -17,14 +17,14 @@ public class MainController {
 //    public String boardList(){
 //        return "board/notice/list";
 //    }
-    @GetMapping("board/notice/view")
-    public String boardView(){
-        return "board/notice/view";
-    }
-    @GetMapping("board/review/review")
-    public String boardReview(){
-        return "board/review/review";
-    }
+//    @GetMapping("board/notice/view")
+//    public String boardView(){
+//        return "board/notice/view";
+//    }
+//    @GetMapping("board/review/review")
+//    public String boardReview(){
+//        return "board/review/review";
+//    }
     @GetMapping("/")
     public String defaultLocation(){
         return "index";

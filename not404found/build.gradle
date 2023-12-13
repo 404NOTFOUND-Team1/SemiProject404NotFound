@@ -36,8 +36,6 @@ dependencies {
     implementation 'javax.mail:javax.mail-api:1.6.2'
     implementation 'com.sun.mail:javax.mail:1.6.2'
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
-    // 스프링 시큐리티
-    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {
