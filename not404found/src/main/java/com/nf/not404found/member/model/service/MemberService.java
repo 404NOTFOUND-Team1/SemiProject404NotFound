@@ -2,6 +2,9 @@ package com.nf.not404found.member.model.service;
 
 
 import com.nf.not404found.member.model.dao.MemberMapper;
+import com.nf.not404found.member.model.dto.LoginUserDTO;
+import com.nf.not404found.member.model.dto.MemberDTO;
+import com.nf.not404found.member.security.auth.model.dto.AuthDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,5 +40,17 @@ public class MemberService {
         int result = mapper.checkCode(id,pwdCode);
         System.out.println("사용자가 입력한 pwdCode와 id가 일치하는 테이블은 몇개?? : "+result);
         return result;
+    }
+
+    @Transactional
+    public boolean createMember(MemberDTO member) {
+        System.out.println(member.getId());
+        return mapper.createMember(member.getId(),member.getEmail(),member.getPwd(),member.getName(),member.getPhone());
+    }
+    public AuthDetails findByUserId(String username) {
+       // mapper.findId(username);
+        LoginUserDTO login = mapper.findId(username);
+        AuthDetails authDetails = new AuthDetails(login);
+        return authDetails;
     }
 }

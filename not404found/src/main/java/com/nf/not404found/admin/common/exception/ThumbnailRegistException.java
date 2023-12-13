@@ -1,4 +1,4 @@
-package com.nf.not404found.common.exception.admin;
+package com.nf.not404found.admin.common.exception;
 
 public class ThumbnailRegistException extends Exception {
 
