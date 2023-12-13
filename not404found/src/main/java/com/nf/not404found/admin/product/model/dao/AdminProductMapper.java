@@ -5,7 +5,6 @@ import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface AdminProductMapper {
@@ -30,4 +29,6 @@ public interface AdminProductMapper {
     int modifyProduct3(AdminAttachmentDTO adminAttachmentDTO);
 
     int modifyProduct4(AdminProductDTO modifyProduct);
+
+    List<AdminAttachmentDTO> selectAttach(Long productCode);
 }
