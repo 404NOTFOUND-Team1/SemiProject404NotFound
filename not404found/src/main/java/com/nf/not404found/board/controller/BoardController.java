@@ -164,15 +164,15 @@ public class BoardController {
         System.out.println("savedFileName = " + savedFileName);
         File targetFile = new File(fileRoot + savedFileName);
 
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-            returnMap.put("url", "/summernoteImage/"+savedFileName);
-            returnMap.put("responseCode", "success");
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-            e.printStackTrace();
-        }
+//        try {
+//          InputStream fileStream = multipartFile.getInputStream();
+//            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+//            returnMap.put("url", "/summernoteImage/"+savedFileName);
+//            returnMap.put("responseCode", "success");
+//        } catch (IOException e) {
+//            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+//          e.printStackTrace();
+//        }
 
         log.info("[BoardController] uploadSummernoteImgFile ===================================================== return \n {}", returnMap);
         log.info("[BoardController] uploadSummernoteImgFile ========================================================= end");

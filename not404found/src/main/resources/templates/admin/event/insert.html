@@ -21,341 +21,114 @@
 <section>
     <div class="s_wrap">
         <h1>이벤트 등록</h1>
-<h2>필수입력사항</h2>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
-<div class="tbl_frm01">
-    <table>
-        <colgroup>
-            <col class="w180">
-            <col>
-        </colgroup>
-        <tbody>
-        <tr>
-            <th scope="row">이벤트명</th>
-            <td>
-                <input type="text" name="cp_subject" value="" required="" itemname="쿠폰명" class="required frm_input w300" style="background-repeat: no-repeat;">
-                <span class="fc_197 marl5">(ex: 따뜻한 연말 할인 )</span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">설명</th>
-            <td>
-                <input type="text" name="cp_explan" value="" class="frm_input w300">
-                <span class="fc_197 marl5">(ex: 전품목 30% 할인)</span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">사용여부</th>
-            <td class="td_label">
-                <label><input type="radio" name="cp_use" value="1" checked=""> 사용</label>
-                <label><input type="radio" name="cp_use" value="0"> 중지</label>
-            </td>
-        </tr>
-        <tr id="ids_date">
-            <th scope="row">이벤트 등록일</th>
-            <td>
-                <input type="date" name="cp_pub_sdate" value="" id="pub_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_sdate', '9999999999');" class="btn_small grey">무제한</a>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">이벤트 유효 기간</th>
-            <td class="td_label">
-                <div id="ids_inv_type0" class="mart7">
-                    <input type="date" name="cp_inv_sdate" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_sdate', '9999-99-99');" class="btn_small grey">시작일</a> ~
-                    <input type="date" name="cp_inv_edate" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_edate', '9999-99-99');" class="btn_small grey">종료일</a>
+        <h2>필수입력사항</h2>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+        <div class="tbl_frm01">
+            <table>
+                <colgroup>
+                    <col class="w180">
+                    <col>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">이벤트명</th>
+                    <td>
+                        <input type="text" name="cp_subject" value="" required="" itemname="쿠폰명" class="required frm_input w300" style="background-repeat: no-repeat;">
+                        <span class="fc_197 marl5">( ex: 따뜻한 연말 할인 )</span>
+                        <!--required는 입력필드가 필드가 필수로 채워져야 하는지는 나타낼 떄 사용 현재는 빈값으로 설정되어 있음 -->
+                    </td>
+                </tr>
+                <th scope="row">설명</th>
+                <td>
+                    <input type="text" name="cp_explan" value="" class="frm_input w300">
+                    <span class="fc_197 marl5">( ex: 전품목 30% 할인 )</span>
+                </td>
+                </tr>
+                <tr>
+                    <th scope="row">이벤트 상태</th>
+                    <td class="td_label">
+                        <label><input type="radio" name="cp_use" value="1" checked=""> 상태1</label>
+                        <label><input type="radio" name="cp_use" value="0"> 상태2</label>
+                    </td>
+                </tr>
+                <!--        <tr id="ids_date">-->
+                <!--            <th scope="row">이벤트 등록일</th>-->
+                <!--            <td>-->
+                <!--                <input type="date" name="cp_pub_sdate" value="" id="pub_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_sdate', '9999999999');" class="btn_small grey">무제한</a>-->
+                <!--            </td>-->
+                <!--        </tr>-->
+                <tr>
+                    <th scope="row">이벤트 유효 기간</th>
+                    <td class="td_label">
+                        <div id="ids_inv_type0" class="mart7">
+                            <input type="date" name="cp_inv_sdate" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_sdate', '9999-99-99');" class="btn_small grey">시작일</a> ~
+                            <input type="date" name="cp_inv_edate" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_edate', '9999-99-99');" class="btn_small grey">종료일</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">혜택/할인율</th>
+                    <td>
+                        <p>
+                            <input type="radio" name="cp_sale_type" value="0" checked="">
+                            (상품 판매가 x 수량) 의
+                            <input type="text" name="cp_sale_percent" value="0" numeric="" itemname="할인율" class="frm_input w80">
+                            % 할인
+                        </p>
+                        <!--                , 최대-->
+                        <!--                    <input type="text" name="cp_sale_amt_max" value="0" numeric="" itemname="최대 할인금액" class="frm_input w80"> 원-->
+                        <!--                </p>-->
+                        <!--                <p class="mart3">-->
+                        <!--                    <input type="radio" name="cp_sale_type" value="1">-->
+                        <!--                    <input type="text" name="cp_sale_amt" value="0" numeric="" itemname="할인금액" class="frm_input w80"> 원 할인-->
+                        <!--                </p>-->
+                    </td>
+                </tr>
+                </tbody>
+                <div class="csstest">
                 </div>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">혜택/할인율</th>
-            <td>
-                <p>
-                    <input type="radio" name="cp_sale_type" value="0" checked="">
-                    (상품 판매가 x 수량) 의
-                    <input type="text" name="cp_sale_percent" value="0" numeric="" itemname="할인률" class="frm_input w80">
-                    % 할인, 최대
-                    <input type="text" name="cp_sale_amt_max" value="0" numeric="" itemname="최대 할인금액" class="frm_input w80"> 원
-                </p>
-                <p class="mart3">
-                    <input type="radio" name="cp_sale_type" value="1">
-                    <input type="text" name="cp_sale_amt" value="0" numeric="" itemname="할인금액" class="frm_input w80"> 원 할인
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">금액제한</th>
-            <td>
-                <input type="text" name="cp_low_amt" value="0" numeric="" itemname="금액제한" class="frm_input w80"> 원 이상이면 사용가능.<span class="fc_197 marl5">(ex : 3만원이상 구매시)</span>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">사용가능대상</th>
-            <td>
-                <p>
-                    <label><input type="radio" name="cp_use_part" value="0" onclick="chk_use_show('0');"> 전체상품에 쿠폰사용 가능</label>
-                </p>
-                <p class="mart3">
-                    <label><input type="radio" name="cp_use_part" value="1" onclick="chk_use_show('1');"> 일부 상품만 쿠폰사용 가능</label>
-                </p>
-                <p class="mart3">
-                    <label><input type="radio" name="cp_use_part" value="2" onclick="chk_use_show('2');"> 일부 카테고리만 쿠폰사용 가능</label>
-                </p>
-            </td>
-        </tr>
-        <tr id="ids_gpart" style="display: none;">
-            <th scope="row">쿠폰<span id="g_title"></span> 상품</th>
-            <td>
-                <input type="hidden" name="cp_use_goods" id="cp_use_goods" value="">
-                <input type="hidden" name="cp_use_category" value="">
-                <p>
-                    전체 : <b>0</b> 건
-                    <a href="상품 연결 주소 넣기" onclick="win_open(this,'cp_goods','850','800','yes'); return false;" class="btn_small red marl10">상품등록</a>
-                </p>
-                <ul id="ck_use_goods" class="chk_opli">
-                </ul>
-            </td>
-        </tr>
-        <tr id="ids_cpart" style="display: none;">
-            <th scope="row">쿠폰<span id="c_title"></span> 카테고리</th>
-            <td>
-                <p>
-                    <select id="use_category" name="use_category">
-                        <option value="">선택</option>
-                        <option value="001">카테고리1</option>
-                        <option value="001001">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1]상품1</option>
-                        <option value="001002">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1]상품2</option>
-                        <option value="001003">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1]상품3</option>
-
-                        <option value="002">카테고리2</option>
-                        <option value="002001">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2]상품1</option>
-                        <option value="002002">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2]상품2</option>
-
-                        <option value="004">카테고리3</option>
-                        <option value="004001">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3]상품1</option>
-                        <option value="004002">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3]상품2</option>
-                        <option value="004003">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3]상품3</option>
-
-                    </select>
-                    <a href="javascript:chk_cate_add();" class="btn_small bx-white">저장</a>
-                </p>
-                <p class="mart5">
-                    <select name="use_category_list" size="10" class="frm_input wfull h100 list1">
-                    </select>
-                </p>
-                <p class="mart5">
-                    <a href="javascript:chk_cate_move(document.fregform.use_category_list.selectedIndex, -1, document.fregform.use_category_list);" class="btn_small bx-white">위로</a>
-                    <a href="javascript:chk_cate_move(document.fregform.use_category_list.selectedIndex, +1, document.fregform.use_category_list);" class="btn_small bx-white">아래로</a>
-                    <a href="javascript:chk_cate_del();" class="btn_small bx-red">삭제</a>
-                </p>
-            </td>
-        </tr>
-<!--        <tr>-->
-<!--            <th scope="row">중복사용 여부</th>-->
-<!--            <td>-->
-<!--                <p>-->
-<!--                    <label><input type="radio" name="cp_dups" value="0" checked=""> 이 쿠폰은 동일한 주문건에 중복해서 동시에 사용할 수 있습니다.</label>-->
-<!--                </p>-->
-<!--                <p class="mart3">-->
-<!--                    <label><input type="radio" name="cp_dups" value="1"> 이 쿠폰은 동일한 주문건에 중복해서 동시에 사용할 수 없습니다.</label>-->
-<!--                </p>-->
-<!--            </td>-->
-<!--        </tr>-->
-        </tbody>
-    </table>
-</div>
-<div class="btn_confirm"> <!-- 이벤트 목록으로 가기 -->
-    <input type="submit" value="저장" class="btn_large" accesskey="s">
-    <a href="/templates/admin/coupon/admin.html" class="btn_large bx-white">목록</a>
-</div>
+            </table>
+        </div>
+        <div class="btn_confirm"> <!-- 이벤트 등록 또는 목록 -->
+            <input type="submit" value="등록" class="btn_large">
+            <a href="/templates/admin/event/admin.html" class="btn_large bx-white">목록</a>
+        </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            var startDate, endDate; // 변수를 선언하고 초기화해야 합니다.
+    <script> // ============ 이벤트 유효 기간 달력 뜨게 하는 스트립트 ===============
+    $(document).ready(function () {
+        var startDate, endDate; // 변수를 선언하고 초기화해야 합니다.
 
-            // 오늘 날짜 구하기
-            var today = new Date();
+        // 오늘 날짜 구하기
+        var today = new Date(); // 변수에 현재 날짜를 담아줌
 
-            // datepicker 초기화 함수
-            function initDatepicker($element) {
-                $element.datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    minDate: 0,
-                    defaultDate: today,
-                    onSelect: function (selectedDate) {
-                        startDate = new Date(selectedDate);
-                        updateEndDatepicker(startDate);
-                    }
-                });
-                $element.val($.datepicker.formatDate('yy-mm-dd', today));
-            }
-
-            // 각각의 datepicker 초기화
-            initDatepicker($('#pub_sdate, #inv_sdate'));
-            initDatepicker($('#pub_edate, #inv_edate'));
-
-            function updateEndDatepicker(startDate) {
-                $('#pub_edate, #inv_edate').datepicker('option', 'minDate', startDate);
-            }
-        });
-    </script>
-    <script language="javascript">
-        function chk_use_show(n) {
-            var f = document.fregform;
-            switch (n) {
-                case '1':
-                    eval("ids_cpart").style.display = 'none';
-                    break;
-                case '2':
-                    eval("ids_cpart").style.display = '';
-                    break;
-                case '3':
-                    eval("ids_cpart").style.display = 'none';
-                    break;
-            }
-        }
-
-        chk_use_show("");
-
-
-            var cp_week_day = false;
-
-            for(var i=0; i<f.elements.length; i++){
-
-            }
-                if(f.elements[i].name == "cp_use_part" && f.elements[i].checked==true){
-                    cp_use_part = true;
+        // datepicker 초기화 함수
+        function initDatepicker($element) {
+            $element.datepicker({ // 제이쿼리 객체를 받아 해당 객체에 datepicker를 적용 후 datepicker를 설정
+                dateFormat: 'yy-mm-dd', // 설정에는 날짜 형식
+                minDate: 0, // 최소 선택 가능한 날짜
+                defaultDate: today, // 기본 날짜
+                onSelect: function (selectedDate) { // 날짜를 선택했을 때의 동작
+                    startDate = new Date(selectedDate);
+                    updateEndDatepicker(startDate);
                 }
-
-            if(cp_use_part == false) {
-                alert('사용가능대상을 선택하세요!');
-                return false;
-            }
-
-            var tmp_str = '';
-            var tmp_comma = '';
-            for(var i=0;i<f.use_category_list.length;i++)
-            {
-                tmp_str += tmp_comma + f.use_category_list.options[i].value;
-                tmp_comma = ',';
-            }
-
-            f.cp_use_category.value = tmp_str;
-
-        }
-        // 분류 추가
-        function chk_cate_add() {
-            var f = document.fregform;
-            if(!f.use_category.value) {
-                alert('카테고리를 선택하세요.');
-                f.use_category.focus();
-                return;
-            }
-
-            var n = f.use_category_list.length;
-            var k = f.use_category.options.selectedIndex;
-            f.use_category_list.options[n] = new Option();
-            f.use_category_list.options[n].text  = f.use_category.options[k].text;
-            f.use_category_list.options[n].value = f.use_category.options[k].value;
+            });
+            $element.val($.datepicker.formatDate('yy-mm-dd', today));
+            // datepicker에서 제공하는 formatDate 함수를 사용하여 날짜를 지정된 형식으로 포맷해줌
+            // 날짜는 'yy-mm-dd'형식으로 포맷하고 today 변수에 저장된 현재 날짜를 이형식에 맞게 변환함
+            // 그래서 $element에 현재 날짜를 yy-mm-dd형식으로 설정하는 역할을 함
         }
 
-        // 분류 삭제
-        function chk_cate_del() {
-            var f = document.fregform;
-            var chk  = 0;
+        // 각각의 datepicker 초기화
+        initDatepicker($('#pub_sdate, #inv_sdate')); //initDatepicker 함수 호출 후 #pub_sdate, #inv_sdate 요소에 datepicker를 적용 시킴
+        initDatepicker($('#pub_edate, #inv_edate')); //initDatepicker 함수 호출 후 #pub_sdate, #inv_sdate 요소에 datepicker를 적용 시킴
+        // 위에 있던 설정들
 
-            for(var i = 0; i < f.use_category_list.length; i++) {
-                if(f.use_category_list.options[i].selected == true) {
-                    f.use_category_list.options[i] = null;
-                    chk++;
-                    break;
-                }
-            }
-
-            if(!chk) {
-                alert('제외시킬 항목을 선택해 주세요.');
-                return;
-            }
+        function updateEndDatepicker(startDate) {
+            $('#pub_edate, #inv_edate').datepicker('option', 'minDate', startDate);
+            // updateEndDatepicker 함수는 startDate를 받아 시작 날짜로 설정하고
+            // 해당 시작 날짜 이후의 날짜만 선택가능 하도록 #pub_edate, #inv_edate의 datepicker 설정을 업데이트함
         }
-
-        // 뷴류 이동
-        function chk_cate_move(index,to,list) {
-            var f = document.fregform;
-            var total = list.options.length-1;
-            var chk = 0;
-
-            for(var i = 0; i < list.length; i++) {
-                if(list.options[i].selected == true) {
-                    chk = 1;
-                    break;
-                }
-            }
-
-            if(!chk) {
-                alert('이동할 항목을 선택해 주세요.');
-                return;
-            }
-
-            if(index == -1) return false;
-            if(to == +1 && index == total) return false;
-            if(to == -1 && index == 0) return false;
-
-            var items = new Array;
-            var values = new Array;
-
-            for(i = total; i >= 0; i--)
-            {
-                items[i] = list.options[i].text;
-                values[i] = list.options[i].value;
-            }
-
-            for(i = total; i >= 0; i--) {
-                if(index == i) {
-                    list.options[i + to] = new Option(items[i],values[i], 0, 1);
-                    list.options[i] = new Option(items[i + to], values[i + to]);
-                    i--;
-                } else {
-                    list.options[i] = new Option(items[i], values[i]);
-                }
-            }
-        }
-
-        // 상품 삭제
-        function chk_del(gs_id){
-            var cp_use_goods = document.getElementById('cp_use_goods');  // 실제 입력 값
-            var ck_use_table = document.getElementById('chk_'+gs_id);
-
-            ck_use_table.style.display ='none';
-            cp_use_goods.value = cp_use_goods.value.replace(gs_id,'');
-
-            var tmp_str = '';
-            var tmp_comma = '';
-            var tmp_use_goods = cp_use_goods.value.split(',');
-            for(var i=0;i<tmp_use_goods.length;i++)
-            {
-                if(tmp_use_goods[i]){
-                    tmp_str += tmp_comma + tmp_use_goods[i];
-                    tmp_comma = ',';
-                }
-            }
-
-            cp_use_goods.value = tmp_str;
-        }
-        function chk_use_show(n) {
-            var f = document.fregform;
-            switch (n) {
-                case '1':
-                    eval("ids_cpart").style.display = 'none';
-                    break;
-                case '2':
-                    eval("ids_cpart").style.display = '';
-                    break;
-                case '3':
-                    eval("ids_cpart").style.display = 'none';
-                    break;
-            }
-        }
-        chk_use_show("");
-
+    });
     </script>
 
 </section>
