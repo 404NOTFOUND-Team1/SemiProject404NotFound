@@ -16,6 +16,7 @@ public class AdminAccountDTO {
     private AdminAccountTypeDTO accountTypeName;
     private String name;
     private String email;
+    private String accountStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date registDate;

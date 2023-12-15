@@ -13,6 +13,7 @@
         <result property="payAmount" column="pay_amount"/>
         <result property="mileage" column="mileage"/>
         <result property="lastLogin" column="last_login"/>
+        <result property="accountStatus" column="account_status"/>
         <result property="halfYearAccumulatedAmount" column="half_year_accumulated_amount"/>
         <association property="accountTypeName" resultMap="accountTypeMap"/>
     </resultMap>
@@ -46,6 +47,7 @@
             a.mileage,
             a.last_login,
             a.half_year_accumulated_amount,
+            a.account_status,
             b.type_name
         FROM
             accounts a
@@ -63,6 +65,7 @@
             a.mileage,
             a.last_login,
             a.half_year_accumulated_amount,
+            a.account_status,
             b.type_name
         FROM
             accounts a
