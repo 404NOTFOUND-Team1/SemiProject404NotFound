@@ -1,11 +1,14 @@
 package com.nf.not404found.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    @Value("${summernote.image-dir}")
+    private String summernotePath;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
@@ -21,6 +24,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:///C:/not404foundImageFile/img/upload/thumbnail/");
         registry.addResourceHandler("/imagePath/**")
                 .addResourceLocations("file:///C:/not404foundImageFile/img/upload/original/");
+
+        registry.addResourceHandler("/summernoteImage/**")
+                .addResourceLocations("file:///" + summernotePath);
 
     }
 }

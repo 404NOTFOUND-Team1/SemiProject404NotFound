@@ -12,8 +12,38 @@
         <result property="post_created_date" column="post_created_date"/>
         <result property="post_modified_date" column="post_modified_date"/>
         <result property="post_views"  column="post_views"/>
+        <result property="comment_cnt" column="comment_cnt"/>
         <association property="boardCategory" resultMap="boardCategoryResultMap"/>
         <association property="account" resultMap="accountResultMap"/>
+        <collection property="attachmentList" resultMap="attachmentResultMap"/>
+    </resultMap>
+
+    <resultMap id="reviewResultMap" type="ReviewDTO">
+        <id property="post_code" column="post_code"/>
+        <id property="category_code" column="category_code"/>
+        <id property="product_code" column="product_code"/>
+        <id property="id" column="id"/>
+        <result property="recommend_review" column="recommend_review"/>
+        <result property="star_rating" column="star_rating"/>
+        <association property="board" resultMap="generalBoardResultMap"/>
+        <association property="product" resultMap="productResultMap"/>
+    </resultMap>
+
+    <resultMap id="productCategoryResultMap" type="ProductCategoryDTO">
+        <id property="category_code" column="category_code"/>
+        <result property="category_name" column="category_name"/>
+        <result property="ref_category_code" column="ref_category_code"/>
+    </resultMap>
+
+    <resultMap id="productResultMap" type="ProductDTO">
+        <id property="product_code" column="product_code"/>
+        <result property="price" column="price"/>
+        <result property="name" column="name"/>
+        <result property="amount" column="amount"/>
+        <result property="enter_date" column="enter_date"/>
+        <result property="delete_status" column="delete_status"/>
+        <result property="average_star_rating" column="average_star_rating"/>
+        <association property="productCategory" resultMap="productCategoryResultMap"/>
     </resultMap>
 
     <resultMap id="boardCategoryResultMap" type="BoardCategoryDTO">
@@ -43,9 +73,9 @@
 
     <resultMap id="commentResultMap" type="CommentDTO">
         <id property="comment_code" column="comment_code"/>
-        <result property="comment" column="comment"/>
+        <result property="comment_body" column="comment_body"/>
         <result property="comment_date" column="comment_date"/>
-        <association property="boardInfo" resultMap="generalBoardResultMap"/>
+        <association property="board" resultMap="generalBoardResultMap"/>
     </resultMap>
 
     <resultMap id="attachmentResultMap" type="AttachmentDTO">
@@ -55,7 +85,6 @@
         <result property="is_delete" column="is_delete"/>
         <association property="boardInfo" resultMap="generalBoardResultMap"/>
     </resultMap>
-
 
 
     <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
@@ -69,18 +98,25 @@
             <if test="searchCondition == 'content'">
                 A.post_content LIKE CONCAT('%', #{ searchValue }, '%')
             </if>
-
-<!--            &lt;!&ndash; 게시판 카테고리별로 추가되는 조건 &ndash;&gt;
+            <!-- 게시판 카테고리별로 추가되는 조건 -->
             <choose>
-                &lt;!&ndash; 공지사항 카테고리 &ndash;&gt;
+                <!-- 공지사항 카테고리 -->
                 <when test="categorycode_board == 1">
                     AND A.categorycode_board = 1
                 </when>
-                &lt;!&ndash; qna 카테고리 (문의글엔 검색기능 안 넣을거지만 테스트로 넣어봄) &ndash;&gt;
+                <!-- Review 카테고리 -->
+                <when test="categorycode_board == 2">
+                    AND A.categorycode_board = 2
+                </when>
+                <!-- qna 카테고리 -->
                 <when test="categorycode_board == 3">
                     AND A.categorycode_board = 3
                 </when>
-            </choose>-->
+                <!-- 인테리어 챌린지 카테고리 -->
+                <when test="categorycode_board == 4">
+                    AND A.categorycode_board = 4
+                </when>
+            </choose>
         </where>
     </select>
 
@@ -92,7 +128,8 @@
                 A.post_content,
                 A.post_created_date,
                 A.post_modified_date,
-                A.post_views
+                A.post_views,
+                (select count(comment_code) from comment where post_code = A.post_code) as comment_cnt
         from    (
                 select  B.post_code,
                         B.categorycode_board,
@@ -106,10 +143,10 @@
                 <where>
                     <!-- 검색 조건 -->
                     <if test="selectCriteria.searchCondition == 'title'">
-                        B.post_title LIKE CONCAT('%', #{ searchValue }, '%')
+                        B.post_title LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
                     </if>
                     <if test="selectCriteria.searchCondition == 'content'">
-                        B.post_content LIKE CONCAT('%', #{ searchValue }, '%')
+                        B.post_content LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
                     </if>
                     <!-- 게시판 카테고리별로 추가되는 조건 -->
                     <choose>
@@ -117,9 +154,17 @@
                         <when test="categorycode_board == 1">
                             AND B.categorycode_board = 1
                         </when>
+                        <!-- Review 카테고리 -->
+                        <when test="categorycode_board == 2">
+                            AND B.categorycode_board = 2
+                        </when>
                         <!-- qna 카테고리 -->
                         <when test="categorycode_board == 3">
                             AND B.categorycode_board = 3
+                        </when>
+                        <!-- 인테리어 챌린지 카테고리 -->
+                        <when test="categorycode_board == 4">
+                            AND B.categorycode_board = 4
                         </when>
                     </choose>
                 </where>
@@ -129,50 +174,6 @@
         order by A.post_code DESC
         limit    #{ selectCriteria.startRow }, 10
     </select>
-
-    <select id="selectBoardList111" resultMap="generalBoardResultMap" parameterType="java.util.Map">
-        SELECT
-        A.post_code,
-        A.categorycode_board,
-        A.id,
-        A.post_title,
-        A.post_content,
-        A.post_created_date,
-        A.post_modified_date,
-        A.post_views
-        FROM board A
-        <where>
-            <!-- 검색 조건 -->
-            <if test="searchCondition != null and searchValue != null">
-                <if test="searchCondition == 'title'">
-                    AND A.post_title LIKE CONCAT('%', #{searchValue}, '%')
-                </if>
-                <if test="searchCondition == 'content'">
-                    AND A.post_content LIKE CONCAT('%', #{searchValue}, '%')
-                </if>
-            </if>
-            <!-- 추가된 파라미터로 게시판 카테고리별로 추가되는 조건 -->
-            <choose>
-                <!-- 공지사항 카테고리 -->
-                <when test="categorycode_board == 1">
-                    AND A.categorycode_board = 1
-                </when>
-                <!-- qna 카테고리 -->
-                <when test="categorycode_board == 3">
-                    AND A.categorycode_board = 3
-                </when>
-                <!-- 기타 카테고리 -->
-                <!-- 추가적인 조건이 있을 경우에 작성 -->
-            </choose>
-        </where>
-        ORDER BY A.post_code DESC
-        LIMIT #{startRow}, 10
-    </select>
-
-
-
-
-
 
     <update id="incrementBoardCount">
         update board
@@ -194,5 +195,137 @@
         join     accounts D on (A.id = D.id)
         where   A.post_code = #{ post_code }
     </select>
+
+    <select id="selectQnaView" resultMap="generalBoardResultMap">
+        select  A.post_code,
+                A.categorycode_board,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views
+        from    board A
+        join     category_board C on (A.categorycode_board = C.categorycode_board)
+        join     accounts D on (A.id = D.id)
+        where   A.post_code = #{ post_code }
+    </select>
+
+    <select id="selectReviewList" resultMap="reviewResultMap">
+        select      A.post_code,
+                    A.categorycode_board,
+                    A.product_code,
+                    A.id,
+                    A.recommend_review,
+                    A.star_rating,
+                    F.post_title,
+                    F.post_created_date,
+                    F.post_content,
+                    E.name
+        from       (
+                    select      B.post_code,
+                                B.categorycode_board,
+                                B.product_code,
+                                B.id,
+                                B.recommend_review,
+                                B.star_rating
+                    from        review B
+                    ) A
+        join        category_board C on (A.categorycode_board = C.categorycode_board)
+        join        accounts D on (A.id = D.id)
+        join        product E on (A.product_code = E.product_code)
+        join        board F on (A.post_code = F.post_code)
+        <where>
+            <!-- 검색 조건 -->
+            <if test="selectCriteria.searchCondition == 'title'">
+                AND F.post_title LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
+            </if>
+            <if test="selectCriteria.searchCondition == 'content'">
+                AND F.post_content LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
+            </if>
+            <if test="selectCriteria.searchCondition == 'writer'">
+                AND A.id LIKE CONCAT('%', #{ selectCriteria.searchValue }, '%')
+            </if>
+            AND A.categorycode_board = 2
+        </where>
+        order by     A.post_code DESC
+        limit       #{ selectCriteria.startRow }, 5
+    </select>
+
+    <select id="getTotalReviewCountByProduct" resultType="_int" parameterType="_int">
+        SELECT COUNT(*) AS review_count
+        FROM review A
+        JOIN product E ON (A.product_code = E.product_code)
+        WHERE E.product_code = #{ product_code };
+    </select>
+
+
+    <insert id="insertNotice">
+        insert into board (categorycode_board,
+                           id,
+                           post_title,
+                           post_content,
+                           post_created_date,
+                           post_modified_date)
+        values (1,
+                #{ account.id },
+                #{ post_title },
+                #{ post_content },
+                NOW(),
+                NOW())
+    </insert>
+
+    <select id="selectQnaCommentList" resultMap="commentResultMap">
+        select      A.comment_code,
+                    A.post_code,
+                    A.categorycode_board,
+                    A.id,
+                    A.comment_body,
+                    A.comment_date
+        from        comment A
+                        join        board B on (A.post_code = B.post_code)
+                        join        category_board C on (A.categorycode_board = C.categorycode_board)
+                        join        accounts D on (A.id = D.id)
+        where       A.categorycode_board = 3
+          AND A.post_code = #{ board.post_code }
+        order by    A.comment_code DESC
+    </select>
+
+    <insert id="insertQnaComment">
+        insert
+        into    comment (
+            post_code,
+            categorycode_board,
+            id,
+            comment_body,
+            comment_date)
+        values  (
+                    #{postCode},
+                    3,
+                    #{qnaView.account.id},
+                    #{commentText},
+                    now()
+                )
+    </insert>
+
+    <delete id="deleteQnaComment" parameterType="_int">
+        delete
+        from     comment
+        where    comment_code = #{ comment_code }
+    </delete>
+    
+    <update id="updateNotice" parameterType="boardDTO">
+        update   board
+        set      post_title = #{ post_title }
+                , post_content = #{ post_content }
+                , post_modified_date = NOW()
+        where    post_code = #{ post_code }
+    </update>
+
+    <delete id="deleteNotice" parameterType="_int">
+        delete
+        from    board
+        where   post_code = #{ post_code }
+    </delete>
 
 </mapper>
