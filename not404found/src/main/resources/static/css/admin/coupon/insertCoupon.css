@@ -219,6 +219,11 @@ table th {
     margin-left: -5px;
 }
 
+#start_min1{ /* 몇분인지 선택하는 부분부터~ */
+    margin-left: -5px;
+}
+
+
 .btn_confirm{ /* 저장, 목록*/
     margin-top: 10px;
     font-size: 12px;
