@@ -4,6 +4,7 @@ import com.nf.not404found.board.model.dto.BoardDTO;
 import com.nf.not404found.board.model.dto.CommentDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
 import com.nf.not404found.common.paging.SelectCriteria;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -30,4 +31,12 @@ public interface BoardMapper {
     List<CommentDTO> selectQnaCommentList(int post_code);
 
     int insertQnaComment(CommentDTO registComment);
+
+    int deleteQnaComment(int commentCode);
+
+    int updateNotice(BoardDTO board);
+
+
+    int deleteNotice(int postCode);
+
 }

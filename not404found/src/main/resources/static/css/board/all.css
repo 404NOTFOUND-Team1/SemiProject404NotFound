@@ -134,7 +134,7 @@ a {
     transform: translate(-50%, -50%);
 }
 
-#writeBoard {
+.writeBoard {
     display: inline-block;
     min-width: 80px;
     padding: 10px;
@@ -231,7 +231,7 @@ td.post_title {
 .board_list .count {
     width: 10%;
 }
-.board_list .comment {
+.board_list .commentColumn {
     width: 10%;
 }
 
@@ -327,18 +327,10 @@ td.post_title {
 
 /* --------------------- 댓글 --------------------- */
 .comment {
-    /*height: 50px;*/
-    /*width: 100%;*/
-    /*text-align: left;*/
-    /*vertical-align: middle;*/
-    /*box-sizing: border-box;*/
-    /*position: relative;*/
-    /*z-index: 1;*/
     display: flex;
     align-items: stretch;
 }
 .textarea-container {
-
     display: flex;
     flex-direction: column;
     width: 90%;

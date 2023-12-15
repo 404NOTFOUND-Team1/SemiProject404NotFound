@@ -12,8 +12,10 @@
         <result property="post_created_date" column="post_created_date"/>
         <result property="post_modified_date" column="post_modified_date"/>
         <result property="post_views"  column="post_views"/>
+        <result property="comment_cnt" column="comment_cnt"/>
         <association property="boardCategory" resultMap="boardCategoryResultMap"/>
         <association property="account" resultMap="accountResultMap"/>
+        <collection property="attachmentList" resultMap="attachmentResultMap"/>
     </resultMap>
 
     <resultMap id="reviewResultMap" type="ReviewDTO">
@@ -75,38 +77,6 @@
         <result property="comment_date" column="comment_date"/>
         <association property="board" resultMap="generalBoardResultMap"/>
     </resultMap>
-    
-    <select id="selectQnaCommentList" resultMap="commentResultMap">
-        select      A.comment_code,
-                    A.post_code,
-                    A.categorycode_board,
-                    A.id,
-                    A.comment_body,
-                    A.comment_date
-        from        comment A
-        join        board B on (A.post_code = B.post_code)
-        join        category_board C on (A.categorycode_board = C.categorycode_board)
-        join        accounts D on (A.id = D.id)
-        where       A.categorycode_board = 3
-        order by    A.comment_code DESC
-    </select>
-
-    <insert id="insertQnaComment">
-        insert
-        into    comment (
-                         post_code,
-                         categorycode_board,
-                         id,
-                         comment_body,
-                         comment_date)
-        values  (
-                #{ post_code },
-                3,
-                'sy',
-                #{ comment_body },
-                now()
-                )
-    </insert>
 
     <resultMap id="attachmentResultMap" type="AttachmentDTO">
         <id property="attachment_code" column="attachment_code"/>
@@ -158,7 +128,8 @@
                 A.post_content,
                 A.post_created_date,
                 A.post_modified_date,
-                A.post_views
+                A.post_views,
+                (select count(comment_code) from comment where post_code = A.post_code) as comment_cnt
         from    (
                 select  B.post_code,
                         B.categorycode_board,
@@ -297,11 +268,64 @@
                            post_created_date,
                            post_modified_date)
         values (1,
-                'sy',         /* 권한 설정 후 수정 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+                #{ account.id },
                 #{ post_title },
                 #{ post_content },
                 NOW(),
                 NOW())
     </insert>
+
+    <select id="selectQnaCommentList" resultMap="commentResultMap">
+        select      A.comment_code,
+                    A.post_code,
+                    A.categorycode_board,
+                    A.id,
+                    A.comment_body,
+                    A.comment_date
+        from        comment A
+                        join        board B on (A.post_code = B.post_code)
+                        join        category_board C on (A.categorycode_board = C.categorycode_board)
+                        join        accounts D on (A.id = D.id)
+        where       A.categorycode_board = 3
+          AND A.post_code = #{ board.post_code }
+        order by    A.comment_code DESC
+    </select>
+
+    <insert id="insertQnaComment">
+        insert
+        into    comment (
+            post_code,
+            categorycode_board,
+            id,
+            comment_body,
+            comment_date)
+        values  (
+                    #{postCode},
+                    3,
+                    #{qnaView.account.id},
+                    #{commentText},
+                    now()
+                )
+    </insert>
+
+    <delete id="deleteQnaComment" parameterType="_int">
+        delete
+        from     comment
+        where    comment_code = #{ comment_code }
+    </delete>
+    
+    <update id="updateNotice" parameterType="boardDTO">
+        update   board
+        set      post_title = #{ post_title }
+                , post_content = #{ post_content }
+                , post_modified_date = NOW()
+        where    post_code = #{ post_code }
+    </update>
+
+    <delete id="deleteNotice" parameterType="_int">
+        delete
+        from    board
+        where   post_code = #{ post_code }
+    </delete>
 
 </mapper>

@@ -3,8 +3,7 @@ package com.nf.not404found.board.model.service;
 import com.nf.not404found.board.model.dto.BoardDTO;
 import com.nf.not404found.board.model.dto.CommentDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
-import com.nf.not404found.common.exception.board.CommentRegistException;
-import com.nf.not404found.common.exception.board.NoticeWriteException;
+import com.nf.not404found.common.exception.board.*;
 
 import java.util.List;
 import java.util.Map;
@@ -28,4 +27,10 @@ public interface BoardService {
     List<CommentDTO> selectQnaCommentList(int post_code);
 
     List<CommentDTO> registQnaComment(CommentDTO registComment) throws CommentRegistException;
+
+    List<CommentDTO> removeComment(CommentDTO removeComment) throws CommentRemoveException;
+
+    void modifyNotice(BoardDTO board) throws NoticeModifyException;
+
+    void removeNotice(int post_code) throws NoticeRemoveException;
 }

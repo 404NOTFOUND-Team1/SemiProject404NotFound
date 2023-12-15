@@ -5,8 +5,7 @@ import com.nf.not404found.board.model.dto.BoardDTO;
 import com.nf.not404found.board.model.dto.CommentDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
 import com.nf.not404found.board.model.service.BoardService;
-import com.nf.not404found.common.exception.board.CommentRegistException;
-import com.nf.not404found.common.exception.board.NoticeWriteException;
+import com.nf.not404found.common.exception.board.*;
 import com.nf.not404found.common.paging.Pagenation;
 import com.nf.not404found.common.paging.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +37,10 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+
+    /**
+     * ======================================================================== 공지사항 ========================================================================
+     */
     @GetMapping(value = "notice/list")
     public ModelAndView noticeList(@RequestParam(required = false, defaultValue = "") String searchCondition,
                                   @RequestParam(required = false, defaultValue = "") String searchValue,
@@ -121,7 +124,115 @@ public class BoardController {
         return "board/notice/view";
     }
 
+    @GetMapping("notice/write")
+    public String goWriteNotice() {
+        return "board/notice/write";
+    }
 
+    @PostMapping("notice/write")
+    public String writeNotice(@ModelAttribute BoardDTO board, RedirectAttributes rttr) throws NoticeWriteException {
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] writeNotice ========================================================= start");
+        log.info("[BoardController] writeNotice =============================== board : " + board);
+
+
+        boardService.writeNotice(board);
+
+        rttr.addFlashAttribute("message", "게시글 등록에 성공하셨습니다!");
+
+        log.info("[BoardController] writeNotice ========================================================= end");
+
+        return "redirect:/board/notice/list";
+    }
+
+    @PostMapping(value="notice/uploadSummernoteImageFile", produces = "application/json")
+    @ResponseBody
+    public Map<String, String> uploadSummernoteImgFile(@RequestParam("file") MultipartFile multipartFile){
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] uploadSummernoteImgFile ========================================================= start");
+        log.info("[BoardController] multipartFile ========================================================= {}", multipartFile);
+        Map<String, String> returnMap = new HashMap<>();
+        String fileRoot = "/Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload/";
+        String originFileName = multipartFile.getOriginalFilename();
+        String ext = originFileName.substring(originFileName.lastIndexOf("."));
+
+        String savedFileName = UUID.randomUUID().toString().replace("-","") + ext;
+        System.out.println("savedFileName = " + savedFileName);
+        File targetFile = new File(fileRoot + savedFileName);
+
+        try {
+            InputStream fileStream = multipartFile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+            returnMap.put("url", "/summernoteImage/"+savedFileName);
+            returnMap.put("responseCode", "success");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+            e.printStackTrace();
+        }
+
+        log.info("[BoardController] uploadSummernoteImgFile ===================================================== return \n {}", returnMap);
+        log.info("[BoardController] uploadSummernoteImgFile ========================================================= end");
+        return returnMap;
+    }
+
+    @GetMapping("notice/modify")
+    public String goModifyNotice(@RequestParam int post_code, Model model) {
+
+        log.info("");
+        log.info("");
+        log.info("[NoticeController] modifyNotice ========================================================= start");
+
+        BoardDTO noticeView = boardService.selectNoticeView(post_code);
+        log.info("[BoardController] noticeView : " + noticeView);
+
+        model.addAttribute("noticeView", noticeView);
+
+        log.info("[BoardController] ========================================================= end");
+
+        return "board/notice/modify";
+    }
+
+    @PostMapping("notice/modify")
+    public String modifyNotice(@ModelAttribute BoardDTO board, RedirectAttributes rttr) throws NoticeModifyException {
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] modifyNotice ========================================================= start");
+        log.info("[BoardController] modifyNotice =============================== board : " + board);
+
+
+        boardService.modifyNotice(board);
+
+        rttr.addFlashAttribute("message", "게시글 수정에 성공하셨습니다!");
+
+        log.info("[BoardController] modifyNotice ========================================================= end");
+
+        return "redirect:/board/notice/list";
+    }
+
+    @GetMapping("notice/delete")
+    public String removeNotice(@RequestParam int post_code, RedirectAttributes rttr) throws NoticeRemoveException {
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] removeNotice ========================================================= start");
+        log.info("[BoardController] removeNotice ========================================================= post_code : {} ", post_code);
+        boardService.removeNotice(post_code);
+
+        rttr.addFlashAttribute("message", "게시글 삭제에 성공하셨습니다!");
+        log.info("[BoardController] removeNotice ========================================================= end");
+        return "redirect:/board/notice/list";
+    }
+
+
+
+    /**
+     * ======================================================================== Review ========================================================================
+     */
     @GetMapping(value = "review/review")
     public ModelAndView reviewList(@RequestParam(required = false, defaultValue = "") String searchCondition,
                                    @RequestParam(required = false, defaultValue = "") String searchValue,
@@ -199,65 +310,8 @@ public class BoardController {
 
 
 
-    @GetMapping("notice/write")
-    public String goNoticeWrite(Model model){
-
-        return "/board/notice/write";
-    }
-
-    @PostMapping("notice/write")
-    public String writeNotice(@ModelAttribute BoardDTO board, RedirectAttributes rttr) throws NoticeWriteException {
-
-        log.info("");
-        log.info("");
-        log.info("[BoardController] writeNotice ========================================================= start");
-        log.info("[BoardController] writeNotice =============================== board : " + board);
-
-
-        boardService.writeNotice(board);
-
-        rttr.addFlashAttribute("message", "게시글 등록에 성공하셨습니다!");
-
-        log.info("[BoardController] writeNotice ========================================================= end");
-
-        return "redirect:/board/notice/list";
-    }
-
-    @PostMapping(value="notice/uploadSummernoteImageFile", produces = "application/json")
-    @ResponseBody
-    public Map<String, String> uploadSummernoteImgFile(@RequestParam("file") MultipartFile multipartFile){
-
-        log.info("");
-        log.info("");
-        log.info("[NoticeController] uploadSummernoteImgFile ========================================================= start");
-        Map<String, String> returnMap = new HashMap<>();
-        String fileRoot = "/Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload/";
-        String originFileName = multipartFile.getOriginalFilename();
-        String ext = originFileName.substring(originFileName.lastIndexOf("."));
-
-        String savedFileName = UUID.randomUUID().toString().replace("-","") + ext;
-        System.out.println("savedFileName = " + savedFileName);
-        File targetFile = new File(fileRoot + savedFileName);
-
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-            returnMap.put("url", "/summernoteImage/"+savedFileName);
-            returnMap.put("responseCode", "success");
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-            e.printStackTrace();
-        }
-
-        log.info("[NoticeController] uploadSummernoteImgFile ===================================================== return \n {}", returnMap);
-        log.info("[NoticeController] uploadSummernoteImgFile ========================================================= end");
-        return returnMap;
-    }
-
-
-
     /**
-     * QnA 리스트 페이지 이동 메소드
+     * ======================================================================== QnA ========================================================================
      */
     @GetMapping("/qna/*")
     public String QnABoardLocation() {
@@ -353,7 +407,7 @@ public class BoardController {
     }
 
     @PostMapping("qna/registComment")
-    public ResponseEntity<List<CommentDTO>> registReply(@RequestBody CommentDTO registComment) throws CommentRegistException {
+    public ResponseEntity<List<CommentDTO>> registComment(@RequestBody CommentDTO registComment) throws CommentRegistException {
 
         log.info("");
         log.info("");
@@ -368,19 +422,126 @@ public class BoardController {
         return ResponseEntity.ok(qnaCommentList);
     }
 
-//    @PostMapping("/removeReply")
-//    public ResponseEntity<List<CommentDTO>> removeReply(@RequestBody CommentDTO removeReply) throws _ReplyRemoveException {
+    @PostMapping("qna/removeComment")
+    public ResponseEntity<List<CommentDTO>> removeComment(@RequestBody CommentDTO removeComment) throws CommentRemoveException {
+
+        log.info("");
+        log.info("");
+        log.info("[BoardController] ========================================================= start");
+        log.info("[BoardController] removeReply Request : " + removeComment);
+
+        List<CommentDTO> qnaCommentList = boardService.removeComment(removeComment);
+
+        log.info("[BoardController] replyList : " + qnaCommentList);
+        log.info("[BoardController] ========================================================= end");
+
+        return ResponseEntity.ok(qnaCommentList);
+    }
+
+//    @GetMapping("qna/write")
+//    public String goQnaNotice() {
+//        return "board/qna/write";
+//    }
+//
+//    @PostMapping("qna/write")
+//    public String writeQna(@ModelAttribute BoardDTO board, RedirectAttributes rttr) throws NoticeWriteException {
 //
 //        log.info("");
 //        log.info("");
-//        log.info("[BoardController] ========================================================= start");
-//        log.info("[BoardController] removeReply Request : " + removeReply);
+//        log.info("[BoardController] writeNotice ========================================================= start");
+//        log.info("[BoardController] writeNotice =============================== board : " + board);
 //
-//        List<CommentDTO> replyList = boardService.removeReply(removeReply);
 //
-//        log.info("[BoardController] replyList : " + replyList);
+//        boardService.writeNotice(board);
+//
+//        rttr.addFlashAttribute("message", "게시글 등록에 성공하셨습니다!");
+//
+//        log.info("[BoardController] writeNotice ========================================================= end");
+//
+//        return "redirect:/board/qna/list";
+//    }
+//
+//    @PostMapping(value="qna/uploadSummernoteImageFile", produces = "application/json")
+//    @ResponseBody
+//    public Map<String, String> uploadSummernoteImgFile(@RequestParam("file") MultipartFile multipartFile){
+//
+//        log.info("");
+//        log.info("");
+//        log.info("[BoardController] uploadSummernoteImgFile ========================================================= start");
+//        log.info("[BoardController] multipartFile ========================================================= {}", multipartFile);
+//        Map<String, String> returnMap = new HashMap<>();
+//        String fileRoot = "/Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload/";
+//        String originFileName = multipartFile.getOriginalFilename();
+//        String ext = originFileName.substring(originFileName.lastIndexOf("."));
+//
+//        String savedFileName = UUID.randomUUID().toString().replace("-","") + ext;
+//        System.out.println("savedFileName = " + savedFileName);
+//        File targetFile = new File(fileRoot + savedFileName);
+//
+//        try {
+//            InputStream fileStream = multipartFile.getInputStream();
+//            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+//            returnMap.put("url", "/summernoteImage/"+savedFileName);
+//            returnMap.put("responseCode", "success");
+//        } catch (IOException e) {
+//            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+//            e.printStackTrace();
+//        }
+//
+//        log.info("[BoardController] uploadSummernoteImgFile ===================================================== return \n {}", returnMap);
+//        log.info("[BoardController] uploadSummernoteImgFile ========================================================= end");
+//        return returnMap;
+//    }
+//
+//    @GetMapping("qna/modify")
+//    public String goModifyNotice(@RequestParam int post_code, Model model) {
+//
+//        log.info("");
+//        log.info("");
+//        log.info("[NoticeController] modifyNotice ========================================================= start");
+//
+//        BoardDTO noticeView = boardService.selectNoticeView(post_code);
+//        log.info("[BoardController] noticeView : " + noticeView);
+//
+//        model.addAttribute("noticeView", noticeView);
+//
 //        log.info("[BoardController] ========================================================= end");
 //
-//        return ResponseEntity.ok(replyList);
+//        return "board/qna/modify";
 //    }
+//
+//    @PostMapping("qna/modify")
+//    public String modifyNotice(@ModelAttribute BoardDTO board, RedirectAttributes rttr) throws NoticeModifyException {
+//
+//        log.info("");
+//        log.info("");
+//        log.info("[BoardController] modifyNotice ========================================================= start");
+//        log.info("[BoardController] modifyNotice =============================== board : " + board);
+//
+//
+//        boardService.modifyNotice(board);
+//
+//        rttr.addFlashAttribute("message", "게시글 수정에 성공하셨습니다!");
+//
+//        log.info("[BoardController] modifyNotice ========================================================= end");
+//
+//        return "redirect:/board/notice/list";
+//    }
+//
+//    @GetMapping("qna/delete")
+//    public String removeNotice(@RequestParam int post_code, RedirectAttributes rttr) throws NoticeRemoveException {
+//
+//        log.info("");
+//        log.info("");
+//        log.info("[BoardController] removeNotice ========================================================= start");
+//        log.info("[BoardController] removeNotice ========================================================= post_code : {} ", post_code);
+//        boardService.removeNotice(post_code);
+//
+//        rttr.addFlashAttribute("message", "게시글 삭제에 성공하셨습니다!");
+//        log.info("[BoardController] removeNotice ========================================================= end");
+//        return "redirect:/board/qna/list";
+//    }
+
 }
+
+

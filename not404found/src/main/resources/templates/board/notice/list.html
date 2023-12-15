@@ -112,15 +112,12 @@
         </div>
 
 <!--         관리자로 로그인한 경우에만 글쓰기 버튼이 보여짐 -->
-        <th:block sec:authorize="isAuthenticated()">
+        <th:block sec:authorize="hasRole('ADMIN')">
             <div class="bt_wrap">
-                <button id="writeBoard" th:onclick="'location.href=\'/board/notice/write\''">글쓰기</button>
+                <button class="writeBoard" th:onclick="'location.href=\'/board/notice/write\''">글쓰기</button>
             </div>
         </th:block>
 
-<!--        <div class="bt_wrap">-->
-<!--            &lt;!&ndash; <a href="write.html" class="on">글쓰기</a> &ndash;&gt;-->
-<!--            &lt;!&ndash;<a href="#">수정</a>&ndash;&gt;-->
     </div>
 
 </div>

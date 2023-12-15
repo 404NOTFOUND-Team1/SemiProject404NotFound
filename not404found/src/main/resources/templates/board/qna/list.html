@@ -53,10 +53,11 @@
 
         <table style="align: center" id="listArea">
             <tr class="top">
-                <th class="notice title">글제목</th>
-                <th class="notice writer">작성자</th>
-                <th class="notice count">조회수</th>
-                <th class="notice date">작성일</th>
+                <th class="list title">글제목</th>
+                <th class="list writer">작성자</th>
+                <th class="list count">조회수</th>
+                <th class="list date">작성일</th>
+                <th class="list commentColumn">댓글</th>
             </tr>
 
             <tr
@@ -67,6 +68,7 @@
                 <td th:text="${board.account.id}">아이디</td>
                 <td th:text="${board.post_views}">조회수</td>
                 <td th:text="${board.post_modified_date != null} ? ${board.post_modified_date} : ${board.post_created_date}">작성일</td>
+                <td th:text="${board.comment_cnt}">댓글수</td>
             </tr>
         </table>
 
@@ -111,16 +113,10 @@
             </button>
         </div>
 
-        <!--         관리자로 로그인한 경우에만 글쓰기 버튼이 보여짐 -->
-        <th:block sec:authorize="isAuthenticated()">
             <div class="bt_wrap">
-                <button id="writeBoard" th:onclick="'location.href=\'/board/qna/write\''">글쓰기</button>
+                <button class="writeBoard" th:onclick="'location.href=\'/board/qna/write\''">글쓰기</button>
             </div>
-        </th:block>
 
-        <!--        <div class="bt_wrap">-->
-        <!--            &lt;!&ndash; <a href="write.html" class="on">글쓰기</a> &ndash;&gt;-->
-        <!--            &lt;!&ndash;<a href="#">수정</a>&ndash;&gt;-->
     </div>
 
 </div>
@@ -165,11 +161,3 @@
 </html>
 
 
-<input type="hidden" id="postCode" th:value="${ qnaView.post_code }">
-<div class="comment">
-    <div class="textarea-container">
-        <textarea name="commentText" id="commentText" placeholder="댓글을 작성해 주세요."></textarea>
-        <p><span class="charCount">0/150</span></p>
-    </div>
-    <button type="button" id="registComment">등록</button>
-</div>

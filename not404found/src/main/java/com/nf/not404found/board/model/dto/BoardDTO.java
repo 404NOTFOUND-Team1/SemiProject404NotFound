@@ -23,6 +23,10 @@ public class BoardDTO {
     private Date post_modified_date;
     private int post_views;
     private List<AttachmentDTO> attachmentList;
+    private int comment_cnt;
 
 
+    public String getId() {
+        return account != null ? account.getId() : null;
+    }
 }

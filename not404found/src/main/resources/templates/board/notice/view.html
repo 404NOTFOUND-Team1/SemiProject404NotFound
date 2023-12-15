@@ -35,6 +35,7 @@
       <div class="title">
         <p th:text="${noticeView.post_title}">
       </div>
+      <input type="hidden" name="post_code" th:text="${noticeView.post_code}">
       <div class="info">
         <dl>
             <dt>글쓴이</dt>
@@ -53,7 +54,21 @@
     </div>
 
     <div class="bt_wrap">
-      <button type="button" th:onclick="'location.href=\'/board/notice/list\''" id="writeBoard">목록</button>
+      <button type="button" th:onclick="'location.href=\'/board/notice/list\''" class="writeBoard">목록</button>
+      <th:block sec:authorize="hasRole('ADMIN')">
+        <button
+                class="writeBoard"
+                th:onclick="'location.href=\'/board/notice/modify?post_code='+ @{${ noticeView.post_code }} + '\''"
+        >
+          수정
+        </button>
+        <button
+                class="writeBoard"
+                th:onclick="'location.href=\'/board/notice/delete?post_code='+ @{${ noticeView.post_code }} + '\''"
+        >
+          삭제
+        </button>
+      </th:block>
     </div>
   </div>
 </div>

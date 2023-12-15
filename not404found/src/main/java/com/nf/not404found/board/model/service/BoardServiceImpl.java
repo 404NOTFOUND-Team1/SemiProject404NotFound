@@ -4,8 +4,7 @@ import com.nf.not404found.board.model.dao.BoardMapper;
 import com.nf.not404found.board.model.dto.BoardDTO;
 import com.nf.not404found.board.model.dto.CommentDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
-import com.nf.not404found.common.exception.board.CommentRegistException;
-import com.nf.not404found.common.exception.board.NoticeWriteException;
+import com.nf.not404found.common.exception.board.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -158,5 +157,55 @@ public class BoardServiceImpl implements BoardService{
         }
 
         return qnaCommentList;
+    }
+
+    @Override
+    @Transactional
+    public List<CommentDTO> removeComment(CommentDTO removeComment) throws CommentRemoveException {
+        List<CommentDTO> qnaCommentList = null;
+
+        int result = mapper.deleteQnaComment(removeComment.getComment_code());
+
+        if (result > 0) {
+            qnaCommentList = mapper.selectQnaCommentList(removeComment.getComment_code());
+        } else {
+            throw new CommentRemoveException("댓글 삭제에 실패하셨습니다.");
+        }
+
+        return qnaCommentList;
+    }
+
+    @Override
+    @Transactional
+    public void modifyNotice(BoardDTO board) throws NoticeModifyException {
+        log.info("");
+        log.info("");
+        log.info("[BoardServiceImpl] modifyNotice =================================== start");
+        int result = mapper.updateNotice(board);
+
+
+        log.info("[BoardServiceImpl] modifyNotice =================================== result : {}", result);
+        log.info("[BoardServiceImpl] modifyNotice =================================== end");
+
+        if(!(result > 0)) {
+            throw new NoticeModifyException("공지사항 수정에 실패하셨습니다.");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void removeNotice(int post_code) throws NoticeRemoveException {
+        log.info("");
+        log.info("");
+        log.info("[BoardServiceImpl] removeNotice =================================== start");
+        int result = mapper.deleteNotice(post_code);
+
+
+        log.info("[BoardServiceImpl] removeNotice =================================== result : {}", result);
+        log.info("[BoardServiceImpl] removeNotice =================================== end");
+
+        if(!(result > 0)) {
+            throw new NoticeRemoveException("공지사항 삭제에 실패하셨습니다.");
+        }
     }
 }
