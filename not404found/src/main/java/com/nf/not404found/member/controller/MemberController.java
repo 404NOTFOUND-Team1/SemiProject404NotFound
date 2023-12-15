@@ -1,6 +1,7 @@
 package com.nf.not404found.member.controller;
 
 
+import com.nf.not404found.member.emailsend.EmailSender;
 import com.nf.not404found.member.model.dto.MemberDTO;
 import com.nf.not404found.member.model.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;

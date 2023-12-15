@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Document</title>
     <style>
         *{
             font-family: Pretendard-Regular;
         }
-        .search-page-container{
+        .find-page-container{
             margin-top: 158px;
             display: grid;
             grid-template-rows: 130px 100px 200px 200px;
@@ -19,7 +19,7 @@
             align-items: center;
 
         }
-        .search-window{
+        .find-window{
             background-color: #fff5e769;
             grid-column: 2/4;
             grid-row: 2/4;
@@ -27,7 +27,7 @@
             width:500px;
             border-radius: 17px;
         }
-        .search-text{
+        .find-text{
             font-weight: bold;
             margin-top: 80px;
             font-family:serif;
@@ -55,7 +55,7 @@
             font-size: 20px;
             padding-left: 20px;
         }
-        #search-button{
+        #find-button{
             cursor:pointer;
             background-color: #fff5e7;
             color: grey;
@@ -82,50 +82,33 @@
 </head>
 <body>
 <header th:replace="common/header.html"></header>
-<div class="search-page-container">
-    <div class="search-window">
-<!--        <div class="input-id">-->
-<!--            <input type="text" name="몰라" placeholder="ID" id="input-id-field">-->
-<!--        </div>-->
-        <form action="/send-email" method="post">
-            <div class="input-email">
-                <input type="email" name="email" placeholder="E-mail Address" id="input-email-field">
+<div class="find-page-container">
+    <div class="find-window">
+
+        <form action="/member/send-email" method="post">
+
+            <div class="input-id">
+                <input type="name" id="input-id-field" name="name" placeholder="UserId">
             </div>
+
+            <div class="input-email">
+                <input type="email" id="input-email-field" name="email" placeholder="E-mail Address">
+            </div>
+
             <div>
-                <input type="submit" value="찾기" id="search-button">
+                <input type="submit" value="확인" id="find-button">
             </div>
         </form>
     </div>
-    <div class="search-text">비밀번호찾기</div>
+    <div class="find-text">비밀번호찾기</div>
 </div>
 <script>
+    const Button = document.querySelector('#find-button');
 
-    const searchButton = document.querySelector('#search-button');
-    const idInput = document.querySelector('#input-id-field');
-    const emailInput = document.querySelector('#input-email-field');
-    const signup = document.querySelector('.signup');
-
-    function search(){
-        alert('입력하신 E-mail로 인증번호를 보냈습니다')
-    }
-    searchButton.addEventListener('click',function(e){   //로그인 버튼 눌럿음
-        if(idInput.value.trim() === "" || emailInput.value.trim()===""){  //id,E-mail중 하나라도 비었으면
-            alert("아이디, E-mail을 입력해주세요.");  //ㄱㄱ
-        } else {
-            search();    //아니면 찾기
-        }
+    Button.addEventListener('click',function(){
+        window.location.href = "/member/pwdFindCertification";
     });
-    emailInput.addEventListener('keydown',function(e){    //이메일 창에서 키 뭐 눌렀을 때
-
-        if(e.keyCode===13){         //엔터임?
-            if(idInput.value.trim() === "" || emailInput.value.trim()===""){ //아디 비번 중 하나라도 비었으면
-                alert("아이디, E-mail을 입력해주세요.");  //ㄱㄱ
-            } else {
-                search();    //아니면 로그인
-            }
-        }
-    });
-
 </script>
+
 </body>
 </html>

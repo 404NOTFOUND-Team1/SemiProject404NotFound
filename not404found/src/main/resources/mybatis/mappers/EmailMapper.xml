@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.not404found.member.model.dao.EmailMapper">
+
+    <insert id="insertRandomEmailCode">
+        insert into email_check (id, pwd_key)values (#{id},#{pwd_key})
+        <selectKey keyProperty="num" keyColumn="num" resultType="_int" order="AFTER">
+            selet last_insert_id()
+        </selectKey>
+    </insert>
+
+</mapper>
