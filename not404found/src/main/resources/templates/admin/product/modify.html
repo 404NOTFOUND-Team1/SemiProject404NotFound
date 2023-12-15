@@ -22,7 +22,7 @@
                 <div class="page_name" style="width : 150px">   상품수정
                     <hr></div>
             <div class="page_name2">
-                <input type="text" class="search_product" placeholder="상품명을 적어주세요" id="productName" name="name" style="width: 400px; height: 30px; margin-right: 10px;">
+                <input type="text" class="search_product" placeholder="상품명을 적어주세요" id="productName" style="width: 400px; height: 30px; margin-right: 10px;">
                 <label class="md_button" style="height: 35px; width: 60px; margin-right: 5px;" id="btnSearch">검색</label>
             </div>
             <div class="pd_select_result" >
@@ -101,10 +101,15 @@
                     </table>
                     <div class="fileUpload"> 상품 이미지 :
                         <input type="file" id="thumbnailImage1" name="thumbnailImage1" onchange="loadImage(this,1)">
+                        <input type="text" id="image0" name="attachmentList[0].no">
                         <input type="file" id="thumbnailImage2" name="thumbnailImage2" onchange="loadImage(this,2)">
+                        <input type="text" id="image1" name="attachmentList[1].no">
                         <input type="file" id="thumbnailImage3" name="thumbnailImage3" onchange="loadImage(this,3)">
+                        <input type="text" id="image2" name="attachmentList[2].no">
                         <input type="file" id="thumbnailImage4" name="thumbnailImage4" onchange="loadImage(this,4)">
+                        <input type="text" id="image3" name="attachmentList[3].no">
                         <input type="file" id="thumbnailImage5" name="thumbnailImage5" onchange="loadImage(this,5)">
+                        <input type="text" id="image4" name="attachmentList[4].no">
                     </div>
                     <button class="insert_button" type="submit" onclick="submitForm()">상품 수정</button>
                 </div>
@@ -324,15 +329,30 @@
 
             $('#colorCategory').val(data[0].adminOption.colorCode);
 
+            console.log("1")
+            console.log(data[0]);
+            console.log("2")
             console.log(data[0].adminOption.colorCode);
-
+            console.log("3")
             console.log(data[0].attachmentList[0]);
-
+            console.log("4")
             console.log(data[0].attachmentList[0].modifyName);
-
+            console.log("5")
             console.log(data[0].attachmentList[0].no);
 
+            console.log("6")
+            console.log('http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
             $('#titleImg').attr('src', 'http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
+            //
+            $('#image0').val(data[0].attachmentList[0].no)
+            $('#image1').val(data[0].attachmentList[1].no)
+            $('#image2').val(data[0].attachmentList[2].no)
+            $('#image3').val(data[0].attachmentList[3].no)
+            $('#image4').val(data[0].attachmentList[4].no)
+
+
+            console.log("modifyName")
+            console.log(data[0].attachmentList[0].modifyName)
 
             console.log("어디야")
 
@@ -341,18 +361,20 @@
                 var contentImageArea = 'contentImageArea' + i;
                 console.log("반복도냐")
                 $('#' + contentImagePath).attr('src', 'http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
+                console.log("thumbnailPath")
+                console.log('http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
 
             }
 
         }
 
+
         function submitForm() {
-// return을 시켰는데도 비동기가 진행이 된다 . submit 버튼을 누르는 순간에 검사를 해야할 것 같은데 어떻게 해야할지 모르겠다.
-            if ($('.productName') === "" || $('.productPrice') === "" || $('.productAmount') === ""){
-                alert("비엇다")
-                return;
-            }
-            else {
+            // if ($('.productName') === "" || $('.productPrice') === "" || $('.productAmount') === ""){
+            //     alert("비엇다")
+            //     return;
+            // }
+            // if (!$('.productName') === "" || $('.productPrice') === "" || $('.productAmount') === "")
 
                 var formData = new FormData(document.getElementById('uploadForm'));
 
@@ -369,7 +391,6 @@
                         console.error('파일 업로드 실패', error);
                     }
                 });
-            }
         }
     </script>
     <script>

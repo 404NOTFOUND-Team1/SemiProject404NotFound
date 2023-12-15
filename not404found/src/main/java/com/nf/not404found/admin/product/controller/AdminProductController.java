@@ -355,7 +355,7 @@ public class AdminProductController {
                                     @RequestParam("thumbnailImage5")MultipartFile thumbnailImg5,
                                     RedirectAttributes rttr) throws modifyProductException {
 
-        log.info("=====================================no확인 =================== + thumbnail" );
+        log.info("=====================================no확인 =================== + modifyProduct" + modifyProduct.getAttachmentList().get(2).getNo() );
 
         log.info("============================================================================== {} ", modifyProduct);
         log.info("===========================================상품 수정 ===================================");
@@ -384,6 +384,14 @@ public class AdminProductController {
         paramFileList.add(thumbnailImg3);
         paramFileList.add(thumbnailImg4);
         paramFileList.add(thumbnailImg5);
+//        modifyProduct.getAttachmentList().get(0).setNo(image0);
+//        modifyProduct.getAttachmentList().get(1).setNo(image1);
+//        modifyProduct.getAttachmentList().get(2).setNo(image2);
+//        modifyProduct.getAttachmentList().get(3).setNo(image3);
+//        modifyProduct.getAttachmentList().get(4).setNo(image4);
+
+
+
 
         try {
             for (MultipartFile paramFile : paramFileList){
@@ -417,7 +425,7 @@ public class AdminProductController {
                     log.info("필드 네임 =============================================> 필드이ㅓ름 : " + fieldName);
 
                     if ("thumbnailImage1".equals(fieldName)){
-                        fileMap.put("fileType", "TITLE");;
+                        fileMap.put("fileType", "TITLE");
 
                         width = 300;
                         height = 150;
@@ -438,11 +446,16 @@ public class AdminProductController {
                 }
             }
 
+            List<AdminAttachmentDTO> cast = modifyProduct.getAttachmentList();
+
             log.info("fileList ======================================================================================== fileList : " + fileList);
 
+            log.info("==============================================================================)))) {} ", modifyProduct);
 
             modifyProduct.setAttachmentList(new ArrayList<AdminAttachmentDTO>());
             List<AdminAttachmentDTO> list = modifyProduct.getAttachmentList();
+
+            log.info("==============================================================================)))) {} ", modifyProduct);
 
             for (int i = 0; i < fileList.size() ; i++) {
                 Map<String, String> file = fileList.get(i);
@@ -458,15 +471,32 @@ public class AdminProductController {
 
                 list.add(tempFileInfo);
 
+
             }
 
             log.info(" thumbnail 잘 나왔냐 ================================================ 썸네일 : " + modifyProduct);
             log.info("list check ============================================================ {} ", list);
             modifyProduct.setAttachmentList(list);
+//            modifyProduct.getAttachmentList().get(0).setNo(image0);
+//            modifyProduct.getAttachmentList().get(1).setNo(image1);
+//            modifyProduct.getAttachmentList().get(2).setNo(image2);
+//            modifyProduct.getAttachmentList().get(3).setNo(image3);
+//            modifyProduct.getAttachmentList().get(4).setNo(image4);
+
+            log.info("=========================================== modify = " +modifyProduct);
+
+            for (int i = 0; i < modifyProduct.getAttachmentList().size(); i++) {
+                modifyProduct.getAttachmentList().get(i).setNo(
+                        cast.get(i).getNo()
+                );
+
+            }
+
+            log.info("==============================================================================)))) {} ", modifyProduct);
+
             productService.modifyProduct(modifyProduct);
 
-            log.info("=-==============================================================> 등록정보 : ");
-            rttr.addFlashAttribute("message", "상품 등록에 성공하셨습니다.");
+            rttr.addFlashAttribute("message", "상품 수정에 성공하셨습니다.");
 
 
         } catch ( IllegalStateException | IOException e) {

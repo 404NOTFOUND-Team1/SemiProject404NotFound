@@ -189,38 +189,21 @@
     </update>
 
     <insert id="modifyProduct2">
-        INSERT INTO options
+        REPLACE INTO options
         (product_code, color_code)
             VALUES (#{productCode}, #{adminOption.colorCode})
-            ON DUPLICATE KEY UPDATE
-            color_code = VALUES(color_code)
     </insert>
 
-    <insert id="modifyProduct3">
-        INSERT INTO image
-        (product_code,
-        saved_path,
-        modify_name,
-        thumnail_path,
-        file_type,
-         original_name,
-         status)
-        VALUES
-        (#{productCode},
-        #{savedPath},
-        #{ModifyName},
-        #{thumbnailPath},
-        #{fileType},
-         #{originalName},
-         'Y')
-        ON DUPLICATE KEY UPDATE
-        saved_path = VALUES(saved_path),
-        modify_name = VALUES(modify_name),
-        thumnail_path = VALUES(thumnail_path),
-        file_type = VALUES(file_type),
-        original_name = VALUES(original_name),
-        status = VALUES (status)
-    </insert>
+    <update id="modifyProduct3">
+        update image
+            SET saved_path = #{savedPath},
+                modify_name = #{ModifyName},
+                thumnail_path = #{thumbnailPath},
+                file_type = #{fileType},
+                original_name = #{originalName},
+                status = 'Y'
+        WHERE image_code = #{ no }
+    </update>
 
     <update id="modifyProduct4">
         UPDATE   product
@@ -232,5 +215,12 @@
 
         WHERE product_code = #{ productCode }
     </update>
+
+    <select id="selectAttach" resultMap="AdminProductImageMap">
+        SELECT
+            modify_name
+        from image
+        WHERE product_code = #{ productCode }
+    </select>
 
 </mapper>
