@@ -2,6 +2,7 @@ package com.nf.not404found.mypage;
 
 import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.mypage.model.dto.AddrDTO;
+import com.nf.not404found.mypage.model.dto.MyPageCouponDTO;
 import com.nf.not404found.mypage.model.dto.MyPageDTO;
 import com.nf.not404found.mypage.model.service.MyPageService;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,23 @@ public class MyPageController {
         mv.setViewName("mypage/home");
         return mv;
     }
+    @GetMapping("coupon")
+    @ResponseBody
+    public ModelAndView myCoupon(ModelAndView mv){
+        List<MyPageCouponDTO> list = service.selectMyCoupon();
+        mv.addObject("userCoupon",list);
+        mv.setViewName("mypage/myPageCoupon");
+        return mv;
+    }
+//    @GetMapping("order")
+//    @ResponseBody
+//    public ModelAndView myOrder(ModelAndView mv){
+//        List<PaymentDTO> list = service.selectMyPayment();
+//        System.out.println("============="+list.get(0).getCoupon_number());
+//        mv.addObject("userCoupon",list);
+//        mv.setViewName("mypage/myPageCoupon");
+//        return mv;
+//    }
     @PostMapping("changePhone")
     @ResponseBody
     public boolean changePhone(@RequestBody String phone){
@@ -67,5 +85,7 @@ public class MyPageController {
 
         return service.deleteAddr(name);
     }
+
+
 
 }

@@ -113,60 +113,32 @@
     $span.textContent = len + "/150";
   });
 
-  function go(url, value){
-    fetch(url,{
-      method: "POST",
-      headers:{
-        'Content-Type': 'text/plain'
-      },
-      body: value
-    })
-            .then(response =>{
-              return response.text();
-            })
-            .then(data => {
-              alert(data)
-            })
-            .catch((error) =>{
-              alert(error);
-            });
-  }
 </script>
 
 <!-- 댓글 작성 & 출력 -->
 <script th:inline="javascript">
 
-  /* 댓글 작성 이벤트 처리 */
-  if(document.getElementById("registComment")) {
-    /* Jquery ajax 사용 */
-    const $registComment = $("#registComment");
-    const $commentText = $("#commentText");
 
-    $registComment.click(function () {
-
-      if ($commentText.val().trim() === "") {
-        alert("댓글을 입력해 주십시오.")
-        return;
-      }
-
-      let postCode = $("#postCode").val();
-      let commentText = $("#commentText").val();
-
-      console.log('postCode : ', postCode);
-      console.log('commentText : ', commentText);
-
-      $.ajax({
-        url: "/board/qna/registComment",
-        type: "POST",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify({
-          id: '[[${#authentication.getPrincipal().getUsername()}]]',
-          postCode: postCode,
-          commentBody: commentText
-        }),
-        success: function(data) {
-          const $table = $("#commentResult");
-          $table.html("");
+  // /* 댓글 작성 이벤트 처리 */
+  // if(document.getElementById("registComment")) {
+  //   /* Jquery ajax 사용 */
+  //   const $registComment = $("#registComment");
+  //   const $commentText = $("#commentText");
+  //
+  //   $registComment.click(function () {
+  //
+  //     if ($commentText.val().trim() === "") {
+  //       alert("댓글을 입력해 주십시오.")
+  //       return;
+  //     }
+  //
+  //     let postCode = $("#postCode").val();
+  //     let commentText = $("#commentText").val();
+  //
+  //     console.log('postCode : ', postCode);
+  //     console.log('commentText : ', commentText);
+  //     const postCodeUrl = window.location.href;
+  //             alert(postCodeUrl);
 
         //   data.map((comment) => {
         //     $tr = $("<tr>");

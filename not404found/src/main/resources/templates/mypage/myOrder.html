@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<tr th:each="test : ${userCoupon}">
+    <div th:value="${test.getId()}"></div>
+    <div th:value="${test.getCoupon_number()}"></div>
+    <div th:value="${test.getExpiry_date()}"></div>
+    <div th:value="${test.getDate_of_issue()}"></div>
+    <div th:value="${test.getCoupon_status()}"></div>
+</tr>
+</body>
+</html>

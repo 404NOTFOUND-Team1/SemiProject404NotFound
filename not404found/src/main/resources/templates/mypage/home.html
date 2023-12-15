@@ -170,7 +170,7 @@
         <span class="sidebar_button2_text">주문 목록</span>
     </div>
     <div class="sidebar_button3">
-        <span class="sidebar_button3_text">보유 쿠폰</span>
+        <span class="sidebar_button3_text" onclick="goCoupon()">보유 쿠폰</span>
     </div>
 </div>
 <div class="main-grid">
@@ -203,6 +203,7 @@
     <span class="myGrade">내 계정 등급</span>
     <span class="myGradeImg">30x200이미지가 들어감</span>
     </tr>
+    <button type="submit" onclick="test()">테스트 버튼</button>
     <script>
         function changeMyData(url, value, btn,inputField){
             if(btn.textContent === '변경하기'){
@@ -268,7 +269,9 @@
             const name = slice[slice.length -1];
             go("/myPage/deleteAddr",name);
         }
-
+        function goCoupon(){
+            window.location.href = "coupon"
+        }
 
 
     </script>
