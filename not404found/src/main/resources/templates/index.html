@@ -136,7 +136,7 @@
         .product1 {
             cursor: pointer;
             background-color: rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
-            width: 250px;
+            width: 50px;
             height: 250px;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
@@ -671,6 +671,17 @@
             width: 100%;
             flex-shrink: 0; /* 이미지 크기를 유지 */
         }
+        /*-------------------------------------- 메인 수정 중 ----------------------------------*/
+        /*second_icon {*/
+
+
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*    border-radius: 5%;*/
+        /*}*/
+
+
+
     </style>
 </head>
 <body>
@@ -693,15 +704,42 @@
 
     <span class="main_img_text">How about this?</span>
     <div class=product_container>
-        <div class="product1"></div>
-        <div class="product2"></div>
-        <div class="product3"></div>
-        <div class="product4"></div>
-        <div class="product5"></div>
-        <div class="product6"></div>
+        <div class="product1">
+            <img src="/images/productpage/product6.jpg" alt="상품1">
+<!--            <i class="second_img"></i>-->
+            <p class="product_name">상품1명</p>
+            <p class="product_price">상품1 가격</p>
+            <p class="product_discount">상품1 할인율</p>
+            <p class="product_review">상품1 리뷰 평점</p>
+        </div>
+        <div class="product2">
+            <img src="/images/productpage/product2.png" alt="상품1">
+            <i class="second_img"></i>
+            <p>상품1</p>
+        </div>
+        <div class="product3">
+            <img src="/images/productpage/product3.png" alt="상품1">
+            <i class="second_img"></i>
+            <p>상품1</p>
+        </div>
+        <div class="product4">
+            <img src="/images/productpage/product4.png" alt="상품1">
+            <i class="second_img"></i>
+            <p>상품1</p>
+        </div>
+        <div class="product5">
+            <img src="/images/productpage/product5.png" alt="상품1">
+            <i class="second_img"></i>
+            <p>상품1</p>
+        </div>
+        <div class="product6">
+            <img src="/images/productpage/product6.png" alt="상품1">
+            <i class="second_img"></i>
+            <p>상품1</p>
+        </div>
     </div>
-    </div>
-    <header th:replace="common/header.html"></header>
+</div>
+<header th:replace="common/header.html"></header>
 <script>
     var main_img_bar = document.querySelector('.main_img_bar');
     main_img_bar.addEventListener('click',function(){
