@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.mypage.model.dao.MyPageMapper">
+    <resultMap id="addrResultMap" type="AddrDTO">
+        <id property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="zonecode" column="zipcode"/>
+        <result property="name" column="address_name"/>
+        <result property="addrDetail" column="address_detail"/>
+    </resultMap>
+    <select id="selectUserAddr" resultMap="addrResultMap">
+        SELECT * FROM address WHERE id = #{id}
+    </select>
+</mapper>
