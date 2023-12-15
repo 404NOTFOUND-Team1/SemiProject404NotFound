@@ -17,7 +17,7 @@
             <li class="insert_product" onclick="go_insert()">상품등록</li>
             <li class="modify_product">상품수정</li>
         </ul>
-            <form th:action="@{ /admin/product/modify }" th:method="post" enctype="multipart/form-data" id="uploadForm">
+            <form th:action="@{ /admin/product/modify }" th:method="post" enctype="multipart/form-data" id="uploadForm" onsubmit="return submitForm();">
         <div class="product_page">
                 <div class="page_name" style="width : 150px">   상품수정
                     <hr></div>
@@ -111,7 +111,7 @@
                         <input type="file" id="thumbnailImage5" name="thumbnailImage5" onchange="loadImage(this,5)">
                         <input type="text" id="image4" name="attachmentList[4].no">
                     </div>
-                    <button class="insert_button" type="submit" onclick="submitForm()">상품 수정</button>
+                    <button class="insert_button" type="submit">상품 수정</button>
                 </div>
             </form>
         </div>
@@ -183,7 +183,6 @@
                 url:"/admin/product/searchData",
                 data: { productName : productName},
                 success: function (response){
-
                     if (response.length > 0){
                     updateTable(response)
                     }
@@ -201,23 +200,7 @@
             document.getElementById('productName').value = '';
         });
 
-        // const asdf = document.getElementById("clickbt")
-        // function searchProduct(){
-        //     var productName = $("#productName").val();
-        //
-        //     $.ajax({
-        //         type: "GET",
-        //         url:"/admin/product/modify",
-        //         data: { productName : productName},
-        //         success: function (response){
-        //             updateTable(response)
-        //         },
-        //         error: function (error) {
-        //             console.error("검색에 실패하셨습니다", error);
-        //         }
-        //     });
-        //
-        // }
+
 
         function updateTable(data){
 
@@ -329,21 +312,21 @@
 
             $('#colorCategory').val(data[0].adminOption.colorCode);
 
-            console.log("1")
-            console.log(data[0]);
-            console.log("2")
-            console.log(data[0].adminOption.colorCode);
-            console.log("3")
-            console.log(data[0].attachmentList[0]);
-            console.log("4")
-            console.log(data[0].attachmentList[0].modifyName);
-            console.log("5")
-            console.log(data[0].attachmentList[0].no);
+            console.log()
+
 
             console.log("6")
             console.log('http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
-            $('#titleImg').attr('src', 'http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
-            //
+
+            var cast = $('#titleImg');
+
+            cast.attr('src', 'http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
+            console.log(data[0].attachmentList[0].originalName)
+
+            cast.val("C:\\fakepath\\" + data[0].attachmentList[0].originalName)
+            console.log("캐스트 밸류");
+            console.log(cast.val());
+
             $('#image0').val(data[0].attachmentList[0].no)
             $('#image1').val(data[0].attachmentList[1].no)
             $('#image2').val(data[0].attachmentList[2].no)
@@ -358,7 +341,6 @@
 
             for (var i = 1; i <= 4; i++) {
                 var contentImagePath = 'contentImage' + i;
-                var contentImageArea = 'contentImageArea' + i;
                 console.log("반복도냐")
                 $('#' + contentImagePath).attr('src', 'http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
                 console.log("thumbnailPath")
@@ -369,12 +351,21 @@
         }
 
 
-        function submitForm() {
-            // if ($('.productName') === "" || $('.productPrice') === "" || $('.productAmount') === ""){
-            //     alert("비엇다")
-            //     return;
-            // }
-            // if (!$('.productName') === "" || $('.productPrice') === "" || $('.productAmount') === "")
+        function submitForm(event) {
+// 물어보기 ^%^^^^^^^^^^^^^^^^%%%%%%%////////////////////////////////////////////////////////////////////////////////////////
+            let cast = false;
+            if ($('.p_name').val() === "" || $('.p_price').val() === "" || $('.p_amount').val() === ""
+                // $('#thumbnailImage1').val() === "" || $('#thumbnailImage2').val() === "" || $('#thumbnailImage3').val() === "" ||
+                // $('#thumbnailImage4').val() === "" || $('#thumbnailImage5').val() === ""
+            ){
+
+
+                alert("비엇다")
+                cast = true;
+                return false;
+            }
+
+            if(cast) {
 
                 var formData = new FormData(document.getElementById('uploadForm'));
 
@@ -391,6 +382,9 @@
                         console.error('파일 업로드 실패', error);
                     }
                 });
+
+                return true;
+            }
         }
     </script>
     <script>
