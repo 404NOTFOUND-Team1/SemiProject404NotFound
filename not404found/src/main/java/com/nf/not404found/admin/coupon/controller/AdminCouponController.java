@@ -8,12 +8,16 @@ import com.nf.not404found.admin.coupon.model.dto.AdminCouponDTO;
 import com.nf.not404found.admin.coupon.model.service.AdminCouponServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -29,37 +33,115 @@ public class AdminCouponController {
     }
 
     @GetMapping("coupon")
-    public ModelAndView couponPage(ModelAndView mv){
+    public ModelAndView couponPage(ModelAndView mv,
+                                   @RequestParam(required = false) String searchCondition,
+                                   @RequestParam(required = false) String searchCoupon,
+                                   @RequestParam(required = false) String searchRates,
+                                   @RequestParam(required = false) String searchRatee,
+                                   @RequestParam(required = false) String periods,
+                                   @RequestParam(required = false) String periode){
+
+        log.info("===============================================================> searchCondition : " + searchCondition);
+        log.info("===============================================================> searchCoupon : " + searchCoupon);
+        log.info("===============================================================> periods : " + periods);
+        log.info("===============================================================> periode : " + periode);
+        log.info("===============================================================> searchRates : " + searchRates);
+        log.info("===============================================================> searchRatee : " + searchRatee);
 
         mv.addObject("boardType", "쿠폰");
         mv.setViewName("admin/coupon/admin");
 
-        List<AdminCouponDTO> couponList = couponService.selectAllCoupon();
+        Map<String, String> condition = new HashMap<>();
+
+        List<AdminCouponDTO> couponList = new ArrayList<>();
+
+        AdminCouponDTO addPlus = new AdminCouponDTO();
 
 
-        log.info("=================================================> 쿠폰 갯수 : " + couponList.size());
-        int count = couponList.size();
+        int count = 0;
+
+//        if (periods != 0 || periode != 0 || searchRates != 0 || searchRatee != 0){
+//
+//            log.info("===============================================================> 조건문 시작 number ");
+//
+//            addPlus.setPeriods(periods);
+//            addPlus.setPeriode(periode);
+//            addPlus.setSearchRates(searchRates);
+//            addPlus.setSearchRatee(searchRatee);
+//
+//            couponList = couponService.selectSection(addPlus);
+//
+//            log.info("========================================================= > addPlus " + addPlus);
+//
+//            couponList.add(addPlus);
+//
+//        }
+
+        if (searchCoupon != "" && searchCoupon != null || periods != null || periode != null || searchRates != null || searchRatee != null){
+
+
+            log.info("===============================================================> 조건문 시작 search ");
+            condition.put("searchCondition", searchCondition);
+            condition.put("searchCoupon", searchCoupon);
+            condition.put("searchRates", searchRates);
+            condition.put("searchRatee", searchRatee);
+            condition.put("periode", periode);
+            condition.put("periods", periods);
+
+
+            couponList = couponService.selectCondition(condition);
+
+            count += couponList.size();
+
+
+
+        }
+        else{
+
+            log.info("===============================================================> searchCondition : " + searchCondition);
+            log.info("===============================================================> searchCoupon : " + searchCoupon);
+            log.info("===============================================================> periods : " + periods);
+            log.info("===============================================================> periode : " + periode);
+            log.info("===============================================================> searchRates : " + searchRates);
+            log.info("===============================================================> searchRatee : " + searchRatee);
+            log.info("===============================================================> 전체 조회 ");
+            couponList = couponService.selectAllCoupon();
+
+
+            log.info("=================================================> 쿠폰 갯수 : " + couponList.size());
+            count += couponList.size();
+
+            mv.addObject("couponList", couponList);
+
+
+            log.info("============================================> 쿠폰리스트 = " + couponList);
+        }
+
+        log.info("===============================================================> condition : " + couponList);
+//        ("".equals(searchCoupon) || searchCoupon == null && periods == null && periode == null && searchRates == null && searchRatee == null){
 
         mv.addObject("couponList", couponList);
         mv.addObject("count", count);
-
-        log.info("============================================> 쿠폰리스트 = " + couponList);
 
         return mv;
     }
 
     @PostMapping("coupon/search")
-    public String couponSearchPage(Model model,
-                                   @RequestParam(required = false) String searchCondition,
-                                   @RequestParam(required = false) String searchCoupon,
-                                   @RequestParam(required = false, defaultValue = "0") int periods,
-                                   @RequestParam(required = false, defaultValue = "0") int periode,
-                                   @RequestParam(required = false, defaultValue = "0") int chkbox1,
-                                   @RequestParam(required = false, defaultValue = "0") int chkbox2,
+    public String couponSearchPage(@ModelAttribute AdminCouponDTO coupon,
+                                   @RequestParam(required = false) List<Integer> chkbox1,
+                                   @RequestParam(required = false) List<Integer> chkbox2,
+                                   @RequestParam(required = false) String chk1,
+                                   @RequestParam(required = false) String chk2,
                                    RedirectAttributes rttr){
 
 
         log.info("=================================================================>");
+        log.info("=========================================================> 쿠폰 서치로 왔나 ");
+        log.info("===============================================================> chkbox1 : " + chkbox1);
+
+
+        couponService.deleteCoupon(chkbox1);
+
 
         return "redirect:/admin/coupon";
     }

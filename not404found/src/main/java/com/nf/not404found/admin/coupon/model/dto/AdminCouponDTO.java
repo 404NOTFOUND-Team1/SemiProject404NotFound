@@ -1,5 +1,6 @@
 package com.nf.not404found.admin.coupon.model.dto;
 
+import com.nf.not404found.admin.account.model.dto.AdminAccountDTO;
 import lombok.*;
 
 @AllArgsConstructor
@@ -13,4 +14,9 @@ public class AdminCouponDTO {
     private int rate;
     private String comment;
     private int period;
+    private int periods;
+    private int periode;
+    private int searchRates;
+    private int searchRatee;
+    private AdminAccountDTO adminAccountList;
 }

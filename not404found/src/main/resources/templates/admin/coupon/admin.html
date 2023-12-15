@@ -39,8 +39,8 @@
             });
         </script>
         <h2>기본검색</h2>
-        <form name="fsearch" id="fsearch" method="post" th:action="@{/admin/coupon/search}">
-            <input type="hidden" name="code" value="coupon">
+        <form name="fsearch" id="fsearch" method="get" th:action="@{/admin/coupon}">
+<!--            <input type="hidden" name="code" value="coupon">-->
             <div class="tbl_frm01">
                 <table>
                     <colgroup>
@@ -54,9 +54,15 @@
                             <select name="searchCondition">
                                 <option value="name">쿠폰명</option>
                                 <option value="comment">설명</option>
-                                <option value="rate">할인율</option>
                             </select>
                             <input type="text" name="searchCoupon" class="frm_input" size="30">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 할인율</th>
+                        <td>
+                            <input type="number" name="searchRates" class="frm_input" size="30">
+                            <input type="number" name="searchRatee" class="frm_input" size="30">
                         </td>
                     </tr>
                     <tr>
@@ -71,26 +77,26 @@
                 </table>
             </div>
             <div class="btn_confirm">
-                <input type="submit" value="검색" class="btn_medium">
+                <input type="submit" value="검색" class="btn_medium"> <!-- onclick="getChoiceValue1()" -->
             </div>
-<!--        </form>-->
+        </form>
 
 
-<!--        <form name="fcouponlist" class="fcouponlist" method="post" action="@{/admin/coupon}" onsubmit="return fcouponlist_submit(this);">-->
+        <form name="fcouponlist" class="fcouponlist" method="post" th:action="@{/admin/coupon/search}" onsubmit="return submitForm();">
 
             <div class="local_ov mart30">
                 전체 : <b class="fc_red" th:text="${ count }">0</b> 건 조회
             </div>
             <div class="local_frm01">
                 <input type="button" value="쿠폰지급" class="btn_lsmall bx-white" onclick="deployCoupon()">
-                <input type="submit" name="act_button" value="선택삭제" class="btn_lsmall bx-white" onclick="document.pressed=this.value">
+                <input type="submit" name="deleteBtn" value="선택삭제" class="btn_lsmall bx-white" onclick="document.pressed=this.value">
                 <a href="coupon/insertCoupon" class="fr btn_lsmall red"><i class="ionicons ion-android-add"></i> 쿠폰등록</a></div>
 
             <div class="tbl_head01">
                 <table>
                     <thead>
                     <tr>
-                        <th scope="col"><input type="checkbox" name="chk[]" value="1" onclick="check_all1(this.form);"></th>
+                        <th scope="col"><input type="checkbox" name="chkbox1" value="1" onclick="check_all1(this.form);"></th>
                         <th scope="col">쿠폰명</th>
                         <th scope="col">할인율</th>
                         <th scope="col" style="width: 500px">쿠폰설명</th>
@@ -100,14 +106,14 @@
                         <td colspan="5" style="text-align: center">검색 결과가 없습니다.</td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(condition)}" th:each="coupons : ${ couponList }">
-                        <td><input type='checkbox' name='chkbox1' value="${coupons.couponNumber}"></td>
+                        <td><input type='checkbox' name='chkbox1' th:value="${coupons.couponNumber}"></td>
                         <td th:text="${coupons.name}"></td>
                         <td th:text="${coupons.rate}"></td>
                         <td th:text="${coupons.comment}"></td>
                         <td th:text="${coupons.period}"></td>
                     </tr>
                     <tr th:unless="${#lists.isEmpty(condition)}" th:each="coupons : ${ couponList }">
-                        <td><input type='checkbox' name='chkbox1' value="${coupons.couponNumber}"></td>
+                        <td><input type='checkbox' name='chkbox1' th:value="${coupons.couponNumber}"></td>
                         <td th:text="${coupons.name}"></td>
                         <td th:text="${coupons.rate}"></td>
                         <td th:text="${coupons.comment}"></td>
@@ -117,14 +123,14 @@
 
                 </table>
             </div>
-        </form>
+<!--        </form>-->
 
-        <form>
+<!--        <form>-->
             <input type="submit" name="act_button" value="지급완료" class="btn_lsmall bx-white" style="position: relative; margin-left: 10px; margin-top: 30px;">
             <div class="tbl_head01" style=" align-items: center">
                 <table id="couponMember">
                     <tr>
-                        <th scope="col"><input type="checkbox" name="chk[]" value="" onclick="check_all2(this.form);"></th>
+                        <th scope="col"><input type="checkbox" name="chkbox2" value="" onclick="check_all2(this.form);"></th>
                         <th scope="col">아이디</th>
                         <th scope="col">계정등급</th>
                         <th scope="col">이름</th>
@@ -141,7 +147,7 @@
         <script>
             function fcouponlist_submit(f)
             {
-                if(!is_checked("chk[]")) {
+                if(!is_checked("chk1")) {
                     alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
                     return false;
                 }
@@ -225,13 +231,14 @@
                 for (var i = 0; i < data.length; i++) {
                     console.log("여기온겨???")
                     var row = "<tr>" +
-                        "<td><input type='checkbox' name='chkbox2' value='" + data[i].id + "'></td>" +
+                        "<td><input type='checkbox' name='chkbox2' th:value=" + data[i].id + "></td>" +
                         "<td>" + data[i].id + "</td>" +
                         "<td>" + data[i].accountStatus + "</td>" +
                         "<td>" + data[i].name + "</td>" +
                         "<td>" + data[i].email + "</td>" +
                         "<td>" + data[i].payAmount + "</td>" +
                         "</tr>";
+                    console.log(data[i].id)
                     console.log(data[i].name);
                     tbody.append(row);
                     console.log("여기온겨?")
@@ -254,13 +261,32 @@
             //     $('input[name="chk[]"]').prop('checked', checkallCheckbox.checked);
             // }
             function check_all1(form) {
-                var allcheck = $('[name="chk[]"]', form);
+                var allcheck = $('[name="chkbox1"]', form);
                 $('input[name="chkbox1"]').prop('checked', allcheck.prop('checked'));
             }
             function check_all2(form) {
-                var allcheck = $('[name="chk[]"]', form);
+                var allcheck = $('[name="chkbox2"]', form);
                 $('input[name="chkbox2"]').prop('checked', allcheck.prop('checked'));
             }
+
+            function submitForm1() {
+
+                var checkedCheckboxes1 = $('input[name="chkbox1"]:checked');
+
+                var checkedCheckboxes2 = $('input[name="chkbox2"]:checked');
+
+                var numberOfCheckedCheckboxes1 = checkedCheckboxes1.length;
+                var numberOfCheckedCheckboxes2 = checkedCheckboxes2.length;
+
+                if (numberOfCheckedCheckboxes1 === 0 || numberOfCheckedCheckboxes2 === 0) {
+                    alert('하나 이상의 쿠폰 및 회원을 선택하세요.');
+                    return false;
+                }
+
+                return true;
+            }
+
+
         </script>
     </div>
 </section>

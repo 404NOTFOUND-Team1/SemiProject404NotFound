@@ -38,4 +38,79 @@
              #{ period }
             )
     </insert>
+
+    <select id="selectCondition" resultMap="AdminCouponMap">
+        SELECT
+            a.coupon_number,
+            a.name,
+            a.rate,
+            a.comment,
+            a.period
+        FROM
+            coupon a
+        <where>
+            <if test="searchCondition == 'name'">
+                a.name LIKE CONCAT ( '%', #{searchCoupon}, '%')
+            </if>
+            <if test="searchCondition == 'comment'">
+                a.comment LIKE CONCAT ( '%', #{searchCoupon}, '%')
+            </if>
+            <if test="periods != 0 and periode == 0">
+                AND period >= #{periods}
+            </if>
+            <if test="periods == 0 and periode != 0">
+                AND #{periode} >= period
+            </if>
+            <if test="periods != 0 and periode != 0" >
+                AND period BETWEEN #{periods} AND #{periode}
+            </if>
+            <if test="searchRates != 0 and searchRatee == 0">
+                AND rate >= #{searchRates}
+            </if>
+            <if test="searchRates == 0 and searchRatee != 0">
+                AND #{searchRatee} >= rate
+            </if>
+            <if test="searchRates != 0 and searchRatee != 0" >
+                AND rate BETWEEN #{searchRates} AND #{searchRatee}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectSection" resultMap="AdminCouponMap">
+    SELECT
+    coupon_number,
+    name,
+    rate,
+    comment,
+    period
+    FROM
+    coupon
+    <where>
+        <if test="periods != 0 and periode == 0">
+            AND period >= #{periods}
+        </if>
+        <if test="periods == 0 and periode != 0">
+            AND #{periode} >= period
+        </if>
+        <if test="periods != 0 and periode != 0" >
+            AND period BETWEEN #{periods} AND #{periode}
+        </if>
+        <if test="searchRates != 0 and searchRatee == 0">
+            AND rate >= #{searchRates}
+        </if>
+        <if test="searchRates == 0 and searchRatee != 0">
+            AND #{searchRatee} >= rate
+        </if>
+        <if test="searchRates != 0 and searchRatee != 0" >
+            AND rate BETWEEN #{searchRates} AND #{searchRatee}
+        </if>
+    </where>
+    </select>
+
+    <delete id="deleteCoupon" >
+        delete from coupon
+        where coupon_number = #{chkbox1}
+    </delete>
+
+
 </mapper>

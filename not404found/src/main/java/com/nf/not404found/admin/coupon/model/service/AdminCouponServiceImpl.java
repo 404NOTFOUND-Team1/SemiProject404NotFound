@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -42,5 +43,41 @@ public class AdminCouponServiceImpl implements AdminCouponService{
         List<AdminCouponDTO> couponList = mapper.selectAllCoupon();
 
         return couponList;
+    }
+
+    @Override
+    public List<AdminCouponDTO> selectCondition(Map<String, String> condition) {
+
+        log.info("===================================> 컨디션 서비스 시작 ");
+
+        List<AdminCouponDTO> couponList = mapper.selectCondition(condition);
+
+
+        return couponList;
+    }
+
+    @Override
+    public List<AdminCouponDTO> selectSection(AdminCouponDTO addPlus) {
+
+        List<AdminCouponDTO> plusCoupon = mapper.selectSection(addPlus);
+
+        return plusCoupon;
+    }
+
+    @Override
+    @Transactional
+    public void deleteCoupon(List<Integer> chkbox1) {
+
+        log.info("쿠폰 삭제 서비스 ㄱㄱ");
+        int result = 0;
+
+        for (int i = 0; i < chkbox1.size(); i++) {
+
+            log.info("==========================================> 삭제 시작 ");
+            mapper.deleteCoupon(chkbox1.get(i));
+
+            result++;
+
+        }
     }
 }
