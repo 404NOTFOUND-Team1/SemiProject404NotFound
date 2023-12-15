@@ -12,6 +12,24 @@
         <result property="enterDate" column="enter_date"/>
         <result property="deleteStatus" column="delete_status"/>
         <association property="adminProductCategory" resultMap="AdminProductCategoryMap"/>
+        <association property="attachmentList" resultMap="AdminProductImageMap"/>
+        <association property="adminOption" resultMap="AdminProductOptionMap"/>
+    </resultMap>
+
+    <resultMap id="AdminProductOptionMap" type="AdminOptionDTO">
+        <id property="productCode" column="product_code"/>
+        <id property="colorCode" column="color_code"/>
+    </resultMap>
+
+    <resultMap id="AdminProductImageMap" type="AdminAttachmentDTO">
+        <id property="productCode" column="product_code"/>
+        <id property="no" column="image_code"/>
+        <result property="originalName" column="original_name"/>
+        <result property="ModifyName" column="modify_name"/>
+        <result property="savedPath" column="saved_path"/>
+        <result property="fileType" column="file_type"/>
+        <result property="thumbnailPath" column="thumnail_path"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <resultMap id="AdminProductCategoryMap" type="AdminProductCategoryDTO">
@@ -29,10 +47,16 @@
             b.ref_category_code,
             b.category_name,
             a.delete_status,
-            a.amount
+            a.amount,
+            c.image_code,
+            c.saved_path,
+            c.modify_name,
+            c.thumnail_path,
+            c.file_type
         FROM
             product a
         JOIN product_category b ON a.category_code = b.category_code
+        LEFT JOIN image c ON a.product_code = c.product_code
     </select>
 
     <select id="selectConditionProduct" resultMap="AdminProductMap">
@@ -121,6 +145,7 @@
         VALUES ( #{productCode}, #{thumbnailPath}, #{fileType}, #{originalName}, #{savedPath}, #{ModifyName}, #{status})
     </insert>
 
+
     <select id="selectOneProduct" resultMap="AdminProductMap">
     SELECT
         product_code,
@@ -134,12 +159,68 @@
 
     <select id="selectOneProduct2" resultMap="AdminProductMap">
         SELECT
-            product_code,
-            name,
-            price
+            a.product_code,
+            a.name,
+            a.price,
+            a.amount,
+            a.delete_status,
+            b.ref_category_code,
+            b.category_code,
+            c.image_code,
+            c.saved_path,
+            c.modify_name,
+            c.thumnail_path,
+            c.file_type,
+            d.color_code
         FROM
-            product
+            product a
+            JOIN product_category b ON a.category_code = b.category_code
+            LEFT JOIN image c ON a.product_code = c.product_code
+            LEFT JOIN options d ON a.product_code = d.product_code
         WHERE
-            product_code = #{productCode}
+            a.product_code = #{productCode}
     </select>
+
+    <update id="modifyProduct">
+        UPDATE product
+        SET
+            category_code = #{adminProductCategory.categoryCode}
+        WHERE product_code = #{productCode}
+    </update>
+
+    <insert id="modifyProduct2">
+        REPLACE INTO options
+        (product_code, color_code)
+            VALUES (#{productCode}, #{adminOption.colorCode})
+    </insert>
+
+    <update id="modifyProduct3">
+        update image
+            SET saved_path = #{savedPath},
+                modify_name = #{ModifyName},
+                thumnail_path = #{thumbnailPath},
+                file_type = #{fileType},
+                original_name = #{originalName},
+                status = 'Y'
+        WHERE image_code = #{ no }
+    </update>
+
+    <update id="modifyProduct4">
+        UPDATE   product
+        SET
+            delete_status = #{ deleteStatus},
+            name = #{ name },
+            price = #{ price },
+            amount = #{ amount }
+
+        WHERE product_code = #{ productCode }
+    </update>
+
+    <select id="selectAttach" resultMap="AdminProductImageMap">
+        SELECT
+            modify_name
+        from image
+        WHERE product_code = #{ productCode }
+    </select>
+
 </mapper>

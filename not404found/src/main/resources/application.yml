@@ -16,6 +16,7 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
       location: C:/thymeleaf-springboot/
+#      location: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload
     devtools:
       restart:
         enabled: false
@@ -31,10 +32,13 @@ spring:
     web:
       resources:
         static-locations: C:/not404foundImageFile/
+#        static-locations: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload
 
 image:
   image-dir: img
 
+summernote:
+  image-dir: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload/
 
 # mybatis config
 mybatis:

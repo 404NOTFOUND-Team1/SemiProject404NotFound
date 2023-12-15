@@ -15,13 +15,12 @@
     <span class="sidebar_container_text">게시판</span>
     <div class="sidebar_button1">
         <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=1\''">공지사항</span>
-<!--        <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list\''">공지사항</span>-->
     </div>
     <div class="sidebar_button2">
-        <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review\''">Review</span>
+        <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review?categorycode_board=2\''">Review</span>
     </div>
     <div class="sidebar_button3">
-        <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=3\''">QnA</span>
+        <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/qna/list?categorycode_board=3\''">QnA</span>
     </div>
 </div>
 
@@ -112,16 +111,13 @@
             </button>
         </div>
 
-        <!-- 관리자로 로그인한 경우에만 글쓰기 버튼이 보여짐 -->
-<!--        <th:block sec:authorize="isAuthenticated()">-->
-<!--            <div class="bt_wrap">-->
-<!--                <button id="writeBoard">글쓰기</button>-->
-<!--            </div>-->
-<!--        </th:block>-->
+<!--         관리자로 로그인한 경우에만 글쓰기 버튼이 보여짐 -->
+        <th:block sec:authorize="hasRole('ADMIN')">
+            <div class="bt_wrap">
+                <button class="writeBoard" th:onclick="'location.href=\'/board/notice/write\''">글쓰기</button>
+            </div>
+        </th:block>
 
-<!--        <div class="bt_wrap">-->
-<!--            &lt;!&ndash; <a href="write.html" class="on">글쓰기</a> &ndash;&gt;-->
-<!--            &lt;!&ndash;<a href="#">수정</a>&ndash;&gt;-->
     </div>
 
 </div>
@@ -129,6 +125,12 @@
 <script th:inline="javascript">
 
     /*<![CDATA[*/
+
+    let message = '[[${message}]]';
+
+    if(message != null && message !== 'null') {
+        alert(message);
+    }
 
     /* 게시글 리스트에서 해당 게시글에 마우스를 올릴 때에 대한 스타일 처리 */
     if (document.querySelectorAll("#listArea td")) {

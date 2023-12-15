@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Q&A</title>
+    <link rel="stylesheet" href="/css/board/all.css">
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+<!-- ====================== 좌측 카테고리 사이드바 ====================== -->
+<div class="sidebar_container">
+  <span class="sidebar_container_text">게시판</span>
+  <div class="sidebar_button1">
+    <span class="sidebar_button1_text" th:onclick="'location.href=\'/board/notice/list?categorycode_board=1\''">공지사항</span>
+  </div>
+  <div class="sidebar_button2">
+    <span class="sidebar_button2_text" th:onclick="'location.href=\'/board/review/review?categorycode_board=2\''">Review</span>
+  </div>
+  <div class="sidebar_button3">
+    <span class="sidebar_button3_text" th:onclick="'location.href=\'/board/qna/list?categorycode_board=3\''">QnA</span>
+  </div>
+</div>
+
+
+
+
+<!-- ====================== 게시판 전체 태그 ====================== -->
+<div class="board_wrap">
+  <div class="board_title" style="margin-bottom: 30px;">
+    <strong>Q&A</strong>
+  </div>
+  <div class="board_view_wrap">
+    <div class="board_view">
+      <div class="title">
+        <p th:text="${qnaView.post_title}">
+      </div>
+      <div class="info">
+        <dl>
+            <dt>글쓴이</dt>
+            <dd th:text="${qnaView.account.id}"></dd>
+        </dl>
+        <dl>
+          <dt>작성일</dt>
+          <dd th:text="${qnaView.post_modified_date != null} ? ${qnaView.post_modified_date} : ${qnaView.post_created_date}"></dd>
+        </dl>
+        <dl>
+          <dt>조회</dt>
+          <dd th:text="${qnaView.post_views}"></dd>
+        </dl>
+      </div>
+      <div th:utext="${qnaView.post_content}" class="cont"></div>
+    </div>
+
+
+    <!-- 댓글 작성 -->
+    <input type="hidden" id="postCode" name="postCode" th:value="${ qnaView.post_code }">
+    <input type="hidden" id="qnaView.account.id" name="qnaView.account.id" th:value="${ qnaView.account.id }">
+    <div class="comment">
+      <div class="textarea-container">
+        <textarea name="commentText" id="commentText" placeholder="댓글을 작성해 주세요."></textarea>
+        <p><span class="charCount">0/150</span></p>
+      </div>
+        <button type="button" id="registComment">등록</button>
+    </div>
+
+
+    <!-- 댓글 내용 출력 table -->
+    <table id="commentResult">
+      <th:block th:if="${ qnaCommentList != null }">
+
+        <th:block th:each="comment : ${qnaCommentList}">
+          <tr class="commentListTr">
+            <input type="hidden" id="${ comment.comment_code }" th:value="${ comment.comment_code }">
+            <td th:text="${ comment.comment_body }"></td>
+            <td th:text="${ comment.board.account.id }"></td>
+            <td th:text="${ comment.comment_date }"></td>
+            <td>
+              <th:block
+                      sec:authorize="isAuthenticated()"
+                      th:if="${ #authentication.getPrincipal().getUsername() == comment.board.account.id }"
+              >
+                <button
+                        type="button"
+                        th:comment_code="${ comment.comment_code }"
+                        th:onclick="removeComment(this.getAttribute('comment_code'))"
+                        >
+                  댓글삭제
+                </button>
+              </th:block>
+            </td>
+          </tr>
+        </th:block>
+
+      </th:block>
+    </table>
+
+
+    <div class="bt_wrap">
+      <button type="button" th:onclick="'location.href=\'/board/qna/list\''" class="writeBoard">목록</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- 댓글 글자수 세기 -->
+<script>
+  const $commentText = document.getElementById('commentText');
+  const $span = document.querySelector('.comment span');
+
+  $commentText.addEventListener('input', (e) => {
+    let len = e.target.value.trim().length;
+    $span.textContent = len + "/150";
+  });
+
+  function go(url, value){
+    fetch(url,{
+      method: "POST",
+      headers:{
+        'Content-Type': 'text/plain'
+      },
+      body: value
+    })
+            .then(response =>{
+              return response.text();
+            })
+            .then(data => {
+              alert(data)
+            })
+            .catch((error) =>{
+              alert(error);
+            });
+  }
+</script>
+
+<!-- 댓글 작성 & 출력 -->
+<script th:inline="javascript">
+
+  /* 댓글 작성 이벤트 처리 */
+  if(document.getElementById("registComment")) {
+    /* Jquery ajax 사용 */
+    const $registComment = $("#registComment");
+    const $commentText = $("#commentText");
+
+    $registComment.click(function () {
+
+      if ($commentText.val().trim() === "") {
+        alert("댓글을 입력해 주십시오.")
+        return;
+      }
+
+      let postCode = $("#postCode").val();
+      let commentText = $("#commentText").val();
+
+      console.log('postCode : ', postCode);
+      console.log('commentText : ', commentText);
+
+      $.ajax({
+        url: "/board/qna/registComment",
+        type: "POST",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+          id: '[[${#authentication.getPrincipal().getUsername()}]]',
+          postCode: postCode,
+          commentBody: commentText
+        }),
+        success: function(data) {
+          const $table = $("#commentResult");
+          $table.html("");
+
+        //   data.map((comment) => {
+        //     $tr = $("<tr>");
+        //     $bodyTd = $("<td>").text(comment.comment_body);
+        //     $writerTd = $("<td>").text(comment.board.account.id );
+        //     $createDateTd = $("<td>").text(comment.comment_date );
+        //     if(comment.board.account.id == '[[${#authentication.getPrincipal().getUsername()}]]'){
+        //       $removeTd = $("<td>").append("<button type='button' onclick='removeComment(" + comment.comment_code + ")'>댓글삭제</button>");
+        //     } else {
+        //       $removeTd = $("<td>");
+        //     }
+        //
+        //     $tr.append("<input type='hidden' id=" + comment.comment_code + " value='" + comment.comment_code + "'>");
+        //     $tr.append($bodyTd);
+        //     $tr.append($writerTd);
+        //     $tr.append($createDateTd);
+        //     $tr.append($removeTd);
+        //
+        //     $table.append($tr);
+        //   });
+        // },
+        // error: function(error) {
+        //   alert(error);
+        // }
+          data.forEach(function(comment) {
+            var $tr = $("<tr>");
+            $tr.append("<input type='hidden' id='" + comment.comment_code + "' value='" + comment.comment_code + "'>");
+            $tr.append("<td>" + comment.comment_body + "</td>");
+            $tr.append("<td>" + comment.board.account.id + "</td>");
+            $tr.append("<td>" + comment.comment_date + "</td>");
+
+            if (comment.board.account.id === "[[${#authentication.getPrincipal().getUsername()}]]") {
+              var $removeTd = $("<td>");
+              var $removeBtn = $("<button>")
+                      .attr("type", "button")
+                      .attr("onclick", "removeComment('" + comment.comment_code + "')")
+                      .text("댓글삭제");
+              $removeTd.append($removeBtn);
+              $tr.append($removeTd);
+            } else {
+              $tr.append("<td></td>");
+            }
+
+            $table.append($tr);
+          });
+        },
+        error: function(error) {
+          alert(error);
+        }
+      })
+    });
+  }
+
+
+
+  /* 댓글 삭제 이벤트 처리 함수*/
+  function removeComment(comment_code){
+
+    let postCode = $("#postCode").val();
+
+    $.ajax({
+      url: "/board/qna/removeComment",
+      type: "POST",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({
+        postCode: postCode,
+        comment_code: comment_code
+      }),
+      success: function(data) {
+        console.table(data);
+
+        const $table = $("#commentResult");
+
+        $table.html("");
+
+        data.map((comment) => {
+          $tr = $("<tr>");
+          $bodyTd = $("<td>").text(comment.comment_body);
+          $writerTd = $("<td>").text(comment.board.account.id );
+          $createDateTd = $("<td>").text(comment.comment_date );
+          if(comment.board.account.id == '[[${#authentication.getPrincipal().getUsername()}]]'){
+            $removeTd = $("<td>").append("<button type='button' onclick='removeComment(" + comment.comment_code + ")'>댓글삭제</button>");
+          } else {
+            $removeTd = $("<td>");
+          }
+
+          $tr.append("<input type='hidden' id=" + comment.comment_code + " value='" + comment.comment_code + "'>");
+          $tr.append($bodyTd);
+          $tr.append($writerTd);
+          $tr.append($createDateTd);
+          $tr.append($removeTd);
+
+          $table.append($tr);
+
+        });
+      },
+      error: function(error) {
+        alert(error);
+      }
+
+    });
+  }
+</script>
+
+
+</body>
+</html>

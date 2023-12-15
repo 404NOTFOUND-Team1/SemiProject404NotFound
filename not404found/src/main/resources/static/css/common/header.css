@@ -62,40 +62,22 @@
     left: 0px;
     top: 0px;
 }
-.customer { /* 고객센터 글자 위치*/
+.customer, .signUp, .myPage, .logIn, .logOut, .adminPage{
     cursor: pointer;
-    color: rgb(0, 0, 0);
-    width: 74px;
+    color: black;
+    width: 82px;
     height: 24px;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    text-align: left;
     font-size: 15px;
+    font-family: Pretendard-Regular;
 }
-
-
-.signUp { /* 회원가입 글자 위치*/
-    cursor: pointer;
-    color: rgb(0, 0, 0);
-    width: 74px;
-    height: 24px;
-    position: absolute;
-    left: 118px;
-    top: 10px;
-    text-align: left;
-    font-size: 15px;
+.myInformation{
+    font-family: Pretendard-Regular;
+    font-size: 13px;
+    color: #6969ff;
 }
-.logIn { /* 로그인 글자 위치*/
-    cursor: pointer;
-    color: rgb(0, 0, 0);
-    width: 56px;
-    height: 24px;
-    position: absolute;
-    left: 226px;
-    top: 10px;
-    text-align: left;
-    font-size: 15px;
+.customer:hover, .signUp:hover, .myPage:hover, .logIn:hover, .logOut:hover, .adminPage:hover {
+    color: #6969ff;
+    text-decoration: underline;
 }
 @keyframes appearFromSideAnimation {    /*드롭 다운 메뉴 애니메이션*/
     from {opacity: 0;}
@@ -229,16 +211,28 @@ button img{ width: 45%;}
         left: 1220px;
         top: 52px;
     }
-    .signUp { /* 회원가입 글자 위치*/
+    .signUp, .myPage { /* 회원가입 글자 위치*/
         position: fixed;
         z-index: 999;
         left: 1320px;
         top: 52px;
     }
-    .logIn { /* 로그인 글자 위치*/
+    .logIn, .logOut { /* 로그인 글자 위치*/
         position: fixed;
         z-index: 999;
         left: 1420px;
+        top: 52px;
+    }
+    .adminPage {
+        position: fixed;
+        z-index: 999;
+        left: 1120px;
+        top: 52px;
+    }
+    .myInformation{
+        position: fixed;
+        z-index: 999;
+        left: 1020px;
         top: 52px;
     }
 }
@@ -249,16 +243,28 @@ button img{ width: 45%;}
         left: 1220px;
         top: 52px;
     }
-    .signUp { /* 회원가입 글자 위치*/
+    .signUp, .myPage { /* 회원가입 글자 위치*/
         position: fixed;
         z-index: 999;
         left: 1320px;
         top: 52px;
     }
-    .logIn { /* 로그인 글자 위치*/
+    .logIn, .logOut { /* 로그인 글자 위치*/
         position: fixed;
         z-index: 999;
         left: 1420px;
+        top: 52px;
+    }
+    .adminPage {
+        position: fixed;
+        z-index: 999;
+        left: 1120px;
+        top: 52px;
+    }
+    .myInformation{
+        position: fixed;
+        z-index: 999;
+        left: 1020px;
         top: 52px;
     }
 }
@@ -269,16 +275,28 @@ button img{ width: 45%;}
         left: 920px;
         top: 52px;
     }
-    .signUp { /* 회원가입 글자 위치*/
+    .signUp, .myPage { /* 회원가입 글자 위치*/
         position: fixed;
         z-index: 999;
         left: 1020px;
         top: 52px;
     }
-    .logIn { /* 로그인 글자 위치*/
+    .logIn, .logOut { /* 로그인 글자 위치*/
         position: fixed;
         z-index: 999;
         left: 1120px;
+        top: 52px;
+    }
+    .adminPage {
+        position: fixed;
+        z-index: 999;
+        left: 820px;
+        top: 52px;
+    }
+    .myInformation{
+        position: fixed;
+        z-index: 999;
+        left: 720px;
         top: 52px;
     }
 }
@@ -289,16 +307,28 @@ button img{ width: 45%;}
         left: 500px;
         top: 52px;
     }
-    .signUp { /* 회원가입 글자 위치*/
+    .signUp, .myPage { /* 회원가입 글자 위치*/
         position: fixed;
         z-index: 999;
         left: 600px;
         top: 52px;
     }
-    .logIn { /* 로그인 글자 위치*/
+    .logIn, .logOut { /* 로그인 글자 위치*/
         position: fixed;
         z-index: 999;
         left: 700px;
+        top: 52px;
+    }
+    .adminPage {
+        position: fixed;
+        z-index: 999;
+        left: 400px;
+        top: 52px;
+    }
+    .myInformation{
+        position: fixed;
+        z-index: 999;
+        left: 300px;
         top: 52px;
     }
 }

@@ -17,12 +17,12 @@
             <li class="insert_product" onclick="go_insert()">상품등록</li>
             <li class="modify_product">상품수정</li>
         </ul>
-            <form th:action="@{ /admin/product/modify }" th:method="post" enctype="multipart/form-data">
+            <form th:action="@{ /admin/product/modify }" th:method="post" enctype="multipart/form-data" id="uploadForm">
         <div class="product_page">
                 <div class="page_name" style="width : 150px">   상품수정
                     <hr></div>
             <div class="page_name2">
-                <input type="text" class="search_product" placeholder="상품명을 적어주세요" id="productName" name="name" style="width: 400px; height: 30px; margin-right: 10px;">
+                <input type="text" class="search_product" placeholder="상품명을 적어주세요" id="productName" style="width: 400px; height: 30px; margin-right: 10px;">
                 <label class="md_button" style="height: 35px; width: 60px; margin-right: 5px;" id="btnSearch">검색</label>
             </div>
             <div class="pd_select_result" >
@@ -34,6 +34,7 @@
                     </tr>
                 </table>
             </div>
+            <input hidden="hidden" id="productCode" name="productCode" >
                     <div class="tab1"><label class="tab11">판매상태 : </label>
                         <input type="radio" class="p_radio" name="deleteStatus" id="sstatusy" value="Y"><label for="sstatusy">즉시 판매</label>
                         <span class="radio_space"></span>
@@ -41,13 +42,13 @@
                         <hr>
                     </div>
                     <div class="tab3"><label class="tab33">상품명 : </label>
-                        <input class="p_name" type="text" name="name"><hr>
+                        <input class="p_name" type="text" name="name" value=""><hr>
                     </div>
                     <div class="tab4"><label class="tab44">상품가격 : </label>
                         <input class="p_price" type="number" name="price"><hr>
                     </div>
                     <div class="tab4"><label class="tab44"> 재고량 : </label>
-                        <input class="p_price" type="number" name="amount"><hr>
+                        <input class="p_amount" type="number" name="amount"><hr>
                     </div>
                     <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
                         <select id="topCategory" class="c_ref" name="adminProductCategory.refCategoryCode" onchange="updateSubCategories()">
@@ -100,12 +101,17 @@
                     </table>
                     <div class="fileUpload"> 상품 이미지 :
                         <input type="file" id="thumbnailImage1" name="thumbnailImage1" onchange="loadImage(this,1)">
+                        <input type="text" id="image0" name="attachmentList[0].no">
                         <input type="file" id="thumbnailImage2" name="thumbnailImage2" onchange="loadImage(this,2)">
+                        <input type="text" id="image1" name="attachmentList[1].no">
                         <input type="file" id="thumbnailImage3" name="thumbnailImage3" onchange="loadImage(this,3)">
+                        <input type="text" id="image2" name="attachmentList[2].no">
                         <input type="file" id="thumbnailImage4" name="thumbnailImage4" onchange="loadImage(this,4)">
+                        <input type="text" id="image3" name="attachmentList[3].no">
                         <input type="file" id="thumbnailImage5" name="thumbnailImage5" onchange="loadImage(this,5)">
+                        <input type="text" id="image4" name="attachmentList[4].no">
                     </div>
-                    <button class="insert_button" type="submit">상품 수정</button>
+                    <button class="insert_button" type="submit" onclick="submitForm()">상품 수정</button>
                 </div>
             </form>
         </div>
@@ -170,6 +176,7 @@
 
     <script>
         document.getElementById('btnSearch').addEventListener('click', function() {
+
             var productName = document.getElementById("productName").value;
             $.ajax({
                 type: "GET",
@@ -191,6 +198,7 @@
                 }
             });
 
+            document.getElementById('productName').value = '';
         });
 
         // const asdf = document.getElementById("clickbt")
@@ -241,6 +249,8 @@
                 tbody.append(row);
                 console.log('원숭이는끢끡');
             }
+            $('.search_product').empty();
+            console.log("지워졌냐")
         }
 
         $(document).ready(function () {
@@ -268,18 +278,18 @@
             });
         });
 // 여기까지 했음 이제 더블클릭 하면 코드 나오고 그 코드 값에 맞는 정보들이 다 내려와야 함
-        function updateTable2(data){
+        function updateTable2(data) {
 
             console.log("여까진 오냐")
-            var tbody= $('.table_parents tbody');
+            var tbody = $('.table_parents tbody');
 
             tbody.empty();
 
-            var headRow =                     '<tr>'+
-                '<th class="th1">상품코드</th>'+
-                '<th class="th1">상품명</th>'+
-                '<th class="th1">상품가격</th>'+
-                '</tr>' ;
+            var headRow = '<tr>' +
+                '<th class="th1">상품코드</th>' +
+                '<th class="th1">상품명</th>' +
+                '<th class="th1">상품가격</th>' +
+                '</tr>';
             console.log("여까진 오냐122222222222")
             tbody.append(headRow);
 
@@ -290,6 +300,97 @@
                 '</tr>';
             tbody.append(row);
             console.log("됬냐 2222222222222222222222222222")
+
+
+
+
+
+            var deleteStatus = data[0].deleteStatus;
+            if (deleteStatus === 'Y') {
+                $('#sstatusy').prop('checked', true);
+            } else if (deleteStatus === 'N') {
+                $('#sstatusn').prop('checked', true);
+            }
+
+
+            $('.p_name').val(data[0].name);
+
+            $('.p_price').val(data[0].price);
+
+            $('.p_amount').val(data[0].amount);
+
+            $('#productCode').val(data[0].productCode);
+
+            $('#topCategory').val(data[0].adminProductCategory.refCategoryCode);
+
+            updateSubCategories();
+            $('#subCategory').val(data[0].adminProductCategory.categoryCode);
+
+
+            $('#colorCategory').val(data[0].adminOption.colorCode);
+
+            console.log("1")
+            console.log(data[0]);
+            console.log("2")
+            console.log(data[0].adminOption.colorCode);
+            console.log("3")
+            console.log(data[0].attachmentList[0]);
+            console.log("4")
+            console.log(data[0].attachmentList[0].modifyName);
+            console.log("5")
+            console.log(data[0].attachmentList[0].no);
+
+            console.log("6")
+            console.log('http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
+            $('#titleImg').attr('src', 'http://localhost:8404/imagePath/' + data[0].attachmentList[0].modifyName);
+            //
+            $('#image0').val(data[0].attachmentList[0].no)
+            $('#image1').val(data[0].attachmentList[1].no)
+            $('#image2').val(data[0].attachmentList[2].no)
+            $('#image3').val(data[0].attachmentList[3].no)
+            $('#image4').val(data[0].attachmentList[4].no)
+
+
+            console.log("modifyName")
+            console.log(data[0].attachmentList[0].modifyName)
+
+            console.log("어디야")
+
+            for (var i = 1; i <= 4; i++) {
+                var contentImagePath = 'contentImage' + i;
+                var contentImageArea = 'contentImageArea' + i;
+                console.log("반복도냐")
+                $('#' + contentImagePath).attr('src', 'http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
+                console.log("thumbnailPath")
+                console.log('http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
+
+            }
+
+        }
+
+
+        function submitForm() {
+            // if ($('.productName') === "" || $('.productPrice') === "" || $('.productAmount') === ""){
+            //     alert("비엇다")
+            //     return;
+            // }
+            // if (!$('.productName') === "" || $('.productPrice') === "" || $('.productAmount') === "")
+
+                var formData = new FormData(document.getElementById('uploadForm'));
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/product/modify',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        console.log('성공적으로 업로드되었습니다.', response);
+                    },
+                    error: function (error) {
+                        console.error('파일 업로드 실패', error);
+                    }
+                });
         }
     </script>
     <script>

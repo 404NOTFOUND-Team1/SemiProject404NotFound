@@ -12,7 +12,7 @@ import java.sql.Date;
 public class CommentDTO {
 
     private int comment_code;
-    BoardDTO boardInfo;
-    private String comment;
+    BoardDTO board;
+    private String comment_body;
     private Date comment_date;
 }
