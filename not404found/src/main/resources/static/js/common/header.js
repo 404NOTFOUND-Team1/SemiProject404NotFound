@@ -52,6 +52,7 @@ var signUp = document.querySelector('.signUp');
 var logIn = document.querySelector('.logIn');
 var logOut = document.querySelector('.logOut');
 var adminPage = document.querySelector('.adminPage');
+var myPage = document.querySelector('.myPage');
 
 mainImg.addEventListener('click',function(){
     if(window.location.href == 'http://localhost:8404/'){
@@ -85,6 +86,12 @@ if(adminPage!=null){
         window.location.href = '/admin/dashboard';
     });
 }
+if(myPage!=null){
+    myPage.addEventListener('click',function (){
+        window.location.href ='/myPage/home'
+    })
+}
+
 function commonEnterMouseEvent(target){
     if(target === category){       //이 if문 블럭은 메뉴 바가 동시에 출력되는 것을 막는다.
         theme_toggle.style.display = 'none';

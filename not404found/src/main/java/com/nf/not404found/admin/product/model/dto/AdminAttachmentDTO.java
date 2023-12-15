@@ -3,6 +3,8 @@ package com.nf.not404found.admin.product.model.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

@@ -116,6 +116,8 @@ public class AdminProductServiceImpl implements AdminProductService{
     @Transactional
     public void modifyProduct(AdminProductDTO modifyProduct) throws modifyProductException{
 
+        List<AdminAttachmentDTO> forif = mapper.selectAttach(modifyProduct.getProductCode());
+
         int result = mapper.modifyProduct(modifyProduct);
         log.info("카테고리 수정 잘 되었나===================================================>");
         int result2 = mapper.modifyProduct2(modifyProduct);
@@ -124,10 +126,21 @@ public class AdminProductServiceImpl implements AdminProductService{
         log.info("썸네일 가냐 ==========================> modifyProduct = " + modifyProduct);
         // LIST 객체 통해서 값을 추가
         List<AdminAttachmentDTO> attachmentList = modifyProduct.getAttachmentList();
+
         for(int i = 0; i < attachmentList.size(); i++){
             AdminAttachmentDTO attachmentDTO = attachmentList.get(i);
             attachmentDTO.setProductCode(modifyProduct.getProductCode());
-            result3 += mapper.modifyProduct3(attachmentDTO);
+            attachmentDTO.setNo(modifyProduct.getAttachmentList().get(i).getNo());
+            if (forif.size()>0 && attachmentList.size() > 0) {
+                if (!forif.get(i).getModifyName().equals(attachmentDTO.getModifyName())) {
+                    log.info("=======================================================> forif " + forif.get(i).getModifyName());
+                    log.info("=======================================================> product " + attachmentDTO.getModifyName());
+                    log.info("==========================================================> " + i);
+                    log.info("============================================================ no : " + modifyProduct.getAttachmentList().get(i).getNo());
+                    result3 += mapper.modifyProduct3(attachmentDTO); // attachmentDTO에 이름을 넣어야된다......../,.//.바꾸기 전의 이름
+                }
+            }
+            log.info("==============================================> attachmentList " + attachmentList);
         }
         int result4 = mapper.modifyProduct4(modifyProduct);
         log.info("상품 수정 됬나 =====================================================>");
