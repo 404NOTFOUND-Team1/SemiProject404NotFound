@@ -129,18 +129,33 @@ public class AdminCouponController {
     @PostMapping("coupon/search")
     public String couponSearchPage(@ModelAttribute AdminCouponDTO coupon,
                                    @RequestParam(required = false) List<Integer> chkbox1,
-                                   @RequestParam(required = false) List<Integer> chkbox2,
-                                   @RequestParam(required = false) String chk1,
-                                   @RequestParam(required = false) String chk2,
+                                   @RequestParam(required = false) List<String> chkbox2,
+                                   @RequestParam(required = false) String deleteBtn,
+                                   @RequestParam(required = false) String supplyBtn,
                                    RedirectAttributes rttr){
 
-
+// 아이디 정보 받아오기 확인 ,
         log.info("=================================================================>");
         log.info("=========================================================> 쿠폰 서치로 왔나 ");
         log.info("===============================================================> chkbox1 : " + chkbox1);
+        log.info("===============================================================> chkbox2 : " + chkbox2);
+        log.info("===============================================================> supplyBtn : " + supplyBtn);
+        log.info("===============================================================> deleteBtn : " + deleteBtn);
+        log.info("===============================================================> coupon : " + coupon);
+
+        if (deleteBtn != null) {
+            // 선택 삭제 누를 때
+            log.info("============================================= 선택 삳ㄱ제 ");
+            couponService.deleteCoupon(chkbox1);
+
+        } else if (supplyBtn != null ) {
+            // 지급완료 누를 때
 
 
-        couponService.deleteCoupon(chkbox1);
+            couponService.supplyCoupon(chkbox1, chkbox2);
+            log.info("======================================================> 지급완료 ");
+
+        }
 
 
         return "redirect:/admin/coupon";

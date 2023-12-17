@@ -16,4 +16,6 @@ public interface AdminCouponService {
     List<AdminCouponDTO> selectSection(AdminCouponDTO addPlus);
 
     void deleteCoupon(List<Integer> chkbox1);
+
+    void supplyCoupon(List<Integer> chkbox1, List<String> chkbox2);
 }

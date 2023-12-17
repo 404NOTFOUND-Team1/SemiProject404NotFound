@@ -2,6 +2,7 @@ package com.nf.not404found.admin.coupon.model.dao;
 
 
 import com.nf.not404found.admin.coupon.model.dto.AdminCouponDTO;
+import com.nf.not404found.admin.coupon.model.dto.AdminUserCouponDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface AdminCouponMapper {
     List<AdminCouponDTO> selectSection(AdminCouponDTO addPlus);
 
     void deleteCoupon(Integer integer);
+
+//    void supplyCoupon(Integer integer, String s);
+
+    void supplyCoupon(AdminUserCouponDTO user);
 }

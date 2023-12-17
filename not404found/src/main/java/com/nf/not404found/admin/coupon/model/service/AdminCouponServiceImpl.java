@@ -3,6 +3,7 @@ package com.nf.not404found.admin.coupon.model.service;
 import com.nf.not404found.admin.common.exception.CouponInsertException;
 import com.nf.not404found.admin.coupon.model.dao.AdminCouponMapper;
 import com.nf.not404found.admin.coupon.model.dto.AdminCouponDTO;
+import com.nf.not404found.admin.coupon.model.dto.AdminUserCouponDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import java.util.Map;
 @Service
 @Slf4j
 @Transactional
-public class AdminCouponServiceImpl implements AdminCouponService{
+public class AdminCouponServiceImpl implements AdminCouponService {
 
     private final AdminCouponMapper mapper;
 
@@ -29,7 +30,7 @@ public class AdminCouponServiceImpl implements AdminCouponService{
         int result = mapper.insertCoupon(coupon);
 
         System.out.println(result);
-        if (!(result > 0 )){
+        if (!(result > 0)) {
             log.info("==========================> 쿠폰 등록 실패 ");
             throw new CouponInsertException("쿠폰 등록에 실패하셨습니다. ");
         }
@@ -80,4 +81,44 @@ public class AdminCouponServiceImpl implements AdminCouponService{
 
         }
     }
+
+    @Override
+    @Transactional
+    public void supplyCoupon(List<Integer> chkbox1, List<String> chkbox2) {
+
+        log.info("==================> 쿠폰 배포 서비스 ");
+        log.info("chkbox2 ===========================> chkbox2 :" + chkbox2);
+        log.info("chkbox2 ===========================> chkbox1 :" + chkbox1);
+
+        int result = 0;
+
+        AdminUserCouponDTO user = new AdminUserCouponDTO();
+
+        for (int i = 0; i < chkbox1.size(); i++) {
+
+            log.info("쿠폰 반복 시작 -======> chkbox1 : " + chkbox1.get(i));
+
+            user.setCouponNumber(chkbox1.get(i));
+
+            log.info("========================> user 1 : " + user);
+            for (int j = 0; j < chkbox2.size(); j++) {
+
+                log.info("=================================> chkbox2 : " + chkbox2.get(i));
+
+                if (!chkbox2.get(j).isEmpty()) {
+                    log.info("아이디 반복 시작==========> chkbox2 : " + chkbox2.get(j));
+
+                    user.setId(chkbox2.get(j));
+
+                    log.info("==================================> user2 : " + user);
+
+                    mapper.supplyCoupon(user);
+                }
+            }
+            result++;
+
+
+        }
+    }
+
 }

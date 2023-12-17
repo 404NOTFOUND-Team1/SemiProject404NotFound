@@ -126,11 +126,11 @@
 <!--        </form>-->
 
 <!--        <form>-->
-            <input type="submit" name="act_button" value="지급완료" class="btn_lsmall bx-white" style="position: relative; margin-left: 10px; margin-top: 30px;">
+            <input type="submit" name="supplyBtn" value="지급완료" class="btn_lsmall bx-white" style="position: relative; margin-left: 10px; margin-top: 30px;">
             <div class="tbl_head01" style=" align-items: center">
                 <table id="couponMember">
                     <tr>
-                        <th scope="col"><input type="checkbox" name="chkbox2" value="" onclick="check_all2(this.form);"></th>
+                        <th scope="col"><input type="checkbox" name="chkbox2" value="" onclick="check_all2(this.form);"></th>  <!-- 첫번째 값 빼야함-->
                         <th scope="col">아이디</th>
                         <th scope="col">계정등급</th>
                         <th scope="col">이름</th>
@@ -231,7 +231,7 @@
                 for (var i = 0; i < data.length; i++) {
                     console.log("여기온겨???")
                     var row = "<tr>" +
-                        "<td><input type='checkbox' name='chkbox2' th:value=" + data[i].id + "></td>" +
+                        "<td><input type='checkbox' name='chkbox2' value=" + data[i].id + "></td>" +
                         "<td>" + data[i].id + "</td>" +
                         "<td>" + data[i].accountStatus + "</td>" +
                         "<td>" + data[i].name + "</td>" +

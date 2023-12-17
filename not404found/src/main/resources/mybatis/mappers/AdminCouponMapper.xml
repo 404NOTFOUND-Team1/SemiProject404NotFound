@@ -112,5 +112,10 @@
         where coupon_number = #{chkbox1}
     </delete>
 
+    <insert id="supplyCoupon">
+        REPLACE INTO user_coupon
+        (id, coupon_number, expiry_date, date_of_issue, coupon_status)
+        VALUES (#{id}, #{couponNumber}, DATE(NOW()), DATE_ADD(DATE(NOW()), interval 30 day), 'Y')
+    </insert>
 
 </mapper>
