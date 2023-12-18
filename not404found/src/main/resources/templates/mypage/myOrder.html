@@ -55,13 +55,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="coupon : ${userCoupon}">
-                <td colspan="1" th:text="${coupon.getCoupon_name()}"/>
-                <td colspan="1" th:text="${coupon.getCoupon_status()}"/>
-                <td colspan="1" th:text="${coupon.getRate()}"/>
-                <td colspan="1" th:text="${coupon.getComment()}"/>
+            <tr th:each="order : ${userOrder}">
+                <td colspan="1" th:text="${order.name}"/>
+                <td colspan="1" th:text="${order.price}"/>
+                <td colspan="1" th:text="${order.amount}"/>
+                <td colspan="1" th:text="${order.payment_date}"/>
             </tr>
-            <tr th:if="${userCoupon.isEmpty()}">
+            <tr th:if="${userOrder.isEmpty()}">
                 <td colspan="6" class="empty_list">보유 쿠폰이 없습니다.</td>
             </tr>
             </tbody>
