@@ -150,10 +150,9 @@ button{
 }
 
 .search_one{
-	position: absolute;
+	position: relative;
 	width: 1650px;
-	left: 250px;
-	top:400px;
+	left: 10px;
 	border-spacing: 0;
 }
 

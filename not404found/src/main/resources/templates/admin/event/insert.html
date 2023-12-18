@@ -33,24 +33,25 @@
                 <tr>
                     <th scope="row">이벤트명</th>
                     <td>
-                        <input type="text" name="cp_subject" value="" required="" itemname="쿠폰명" class="required frm_input w300" style="background-repeat: no-repeat;">
+                        <input type="text" name="eventName" value="" required=""  class="required frm_input w300" style="background-repeat: no-repeat;">
                         <span class="fc_197 marl5">( ex: 따뜻한 연말 할인 )</span>
                         <!--required는 입력필드가 필드가 필수로 채워져야 하는지는 나타낼 떄 사용 현재는 빈값으로 설정되어 있음 -->
                     </td>
                 </tr>
+                <tr>
                 <th scope="row">설명</th>
                 <td>
-                    <input type="text" name="cp_explan" value="" class="frm_input w300">
+                    <input type="text" name="eventComment" value="" class="frm_input w300">
                     <span class="fc_197 marl5">( ex: 전품목 30% 할인 )</span>
                 </td>
                 </tr>
-                <tr>
-                    <th scope="row">이벤트 상태</th>
-                    <td class="td_label">
-                        <label><input type="radio" name="cp_use" value="1" checked=""> 상태1</label>
-                        <label><input type="radio" name="cp_use" value="0"> 상태2</label>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <th scope="row">이벤트 상태</th>-->
+<!--                    <td class="td_label">-->
+<!--                        <label><input type="radio" name="cp_use" value="1" checked=""> 상태1</label>-->
+<!--                        <label><input type="radio" name="cp_use" value="0"> 상태2</label>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 <!--        <tr id="ids_date">-->
                 <!--            <th scope="row">이벤트 등록일</th>-->
                 <!--            <td>-->
@@ -61,19 +62,18 @@
                     <th scope="row">이벤트 유효 기간</th>
                     <td class="td_label">
                         <div id="ids_inv_type0" class="mart7">
-                            <input type="date" name="cp_inv_sdate" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_sdate', '9999-99-99');" class="btn_small grey">시작일</a> ~
-                            <input type="date" name="cp_inv_edate" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_inv_edate', '9999-99-99');" class="btn_small grey">종료일</a>
+                            <input type="date" name="eventDates" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('eventDates', '9999-99-99');" class="btn_small grey">시작일</a> ~
+                            <input type="date" name="eventDatee" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('eventDatee', '9999-99-99');" class="btn_small grey">종료일</a>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">혜택/할인율</th>
+                    <th scope="row">할인율</th>
                     <td>
                         <p>
-                            <input type="radio" name="cp_sale_type" value="0" checked="">
+<!--                            <input type="radio" name="cp_sale_type" value="0" checked="">-->
                             (상품 판매가 x 수량) 의
-                            <input type="text" name="cp_sale_percent" value="0" numeric="" itemname="할인율" class="frm_input w80">
-                            % 할인
+                            <input type="text" name="eventRate" value="0"  class="frm_input w80"> <!-- numeric="" itemname="할인율" -->                            % 할인
                         </p>
                         <!--                , 최대-->
                         <!--                    <input type="text" name="cp_sale_amt_max" value="0" numeric="" itemname="최대 할인금액" class="frm_input w80"> 원-->
@@ -87,11 +87,12 @@
                 </tbody>
                 <div class="csstest">
                 </div>
+                <!-- 상품 코드로 갈지 카테고리로 갈지 -->
             </table>
         </div>
         <div class="btn_confirm"> <!-- 이벤트 등록 또는 목록 -->
             <input type="submit" value="등록" class="btn_large">
-            <a href="/templates/admin/event/admin.html" class="btn_large bx-white">목록</a>
+            <a href="/admin/event" class="btn_large bx-white">목록</a>
         </div>
     </div>
     <script> // ============ 이벤트 유효 기간 달력 뜨게 하는 스트립트 ===============
