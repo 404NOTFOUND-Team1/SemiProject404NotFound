@@ -84,6 +84,14 @@ li{
     font-weight: 400;
     letter-spacing: -0.05em;
 }
+#tab_cate_ul {
+    display: flex;
+    flex-direction: row;
+}
+
+#tab_cate_ul li {
+    margin-right: 0px; /* 각 요소 사이의 간격 설정 */
+}
 
 .pg_tit { /* 쿠폰 관리 */
     margin: 0 0 20px;
@@ -134,10 +142,10 @@ nav{
     z-index: 10;
 }
 
-/*a:link, a:visited {*/
-/*    color: #454545;*/
-/*    text-decoration: none;*/
-/*}*/
+a:link, a:visited {
+    color: #454545;
+    text-decoration: none;
+}
 
 #tab_cate li a {
     width: 120px;

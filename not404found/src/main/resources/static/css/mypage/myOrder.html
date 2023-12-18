@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,12 +18,12 @@
         <span class="sidebar_button2_text">주문 목록</span>
     </div>
     <div class="sidebar_button3">
-        <span class="sidebar_button3_text" onclick="goCoupon()">보유 쿠폰</span>
+        <span class="sidebar_button3_text">보유 쿠폰</span>
     </div>
 </div>
 <div id="con_lf">
     <h2 class="pg_tit">
-        <span>주문 관리</span>
+        <span>쿠폰관리</span>
     </h2>
 
     <nav id="tab_cate">
@@ -55,15 +56,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="coupon : ${userCoupon}">
-                <td colspan="1" th:text="${coupon.getCoupon_name()}"/>
-                <td colspan="1" th:text="${coupon.getCoupon_status()}"/>
-                <td colspan="1" th:text="${coupon.getRate()}"/>
-                <td colspan="1" th:text="${coupon.getComment()}"/>
-            </tr>
-            <tr th:if="${userCoupon.isEmpty()}">
-                <td colspan="6" class="empty_list">보유 쿠폰이 없습니다.</td>
-            </tr>
+                <tr th:each="order : ${userOrder}">
+                    <td colspan="1" th:text="${order.getName()}"></td>
+                    <td colspan="1" th:text="${order.getPrice()}"></td>
+                    <td colspan="1" th:text="${order.getAmout()}"></td>
+                    <td colspan="1" th:text="${order.getPayment_date()}"></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -73,9 +71,6 @@
 <script>
     function goHome(){
         window.location.href = "home";
-    }
-    function goCoupon(){
-        window.location.href = "coupon";
     }
     function inactivateCoupon(){
 

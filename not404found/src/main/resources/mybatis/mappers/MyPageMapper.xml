@@ -21,6 +21,12 @@
         <result property="expiry_date" column="expiry_date"/>
         <result property="date_of_issue" column="date_of_issue"/>
     </resultMap>
+    <resultMap id="selectOrderResultMap" type="com.nf.not404found.mypage.model.dto.MyPageOrderDTO">
+        <id property="id" column="id"/>
+        <result property="price" column="price"/>
+        <result property="amount" column="amount"/>
+        <result property="payment_date" column="payment_date"/>
+    </resultMap>
     <select id="selectUserAddr" resultMap="addrResultMap">
         SELECT * FROM address WHERE id = #{id}
     </select>
@@ -29,5 +35,11 @@
         FROM user_coupon as user
             JOIN coupon as cp ON user.coupon_number = cp.coupon_number
         WHERE user.id = #{id}
+    </select>
+    <select id="selectOrder" resultMap="selectOrderResultMap">
+        SELECT p.name, pay.price,pay.amout,pay.payment_date
+        FROM product as p
+                 JOIN payment as pay ON p.product_code = pay.product_code
+        WHERE id = #{id};
     </select>
 </mapper>

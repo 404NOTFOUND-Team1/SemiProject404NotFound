@@ -4,6 +4,7 @@ import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.mypage.model.dto.AddrDTO;
 import com.nf.not404found.mypage.model.dto.MyPageCouponDTO;
 import com.nf.not404found.mypage.model.dto.MyPageDTO;
+import com.nf.not404found.mypage.model.dto.MyPageOrderDTO;
 import com.nf.not404found.mypage.model.service.MyPageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,13 @@ public class MyPageController {
         List<MyPageCouponDTO> list = service.selectMyCoupon();
         mv.addObject("userCoupon",list);
         mv.setViewName("mypage/myPageCoupon");
+        return mv;
+    }
+    @GetMapping("order")
+    public ModelAndView myOrder(ModelAndView mv){
+        List<MyPageOrderDTO> list = service.selectMyOrder();
+        mv.addObject("userOrder",list);
+        mv.setViewName("mypage/myOrder");
         return mv;
     }
 //    @GetMapping("order")
