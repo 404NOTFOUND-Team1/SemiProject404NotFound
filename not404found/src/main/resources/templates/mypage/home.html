@@ -167,7 +167,7 @@
         <span class="sidebar_button1_text">내 정보</span>
     </div>
     <div class="sidebar_button2">
-        <span class="sidebar_button2_text">주문 목록</span>
+        <span class="sidebar_button2_text" onclick="goOrder()">주문 목록</span>
     </div>
     <div class="sidebar_button3">
         <span class="sidebar_button3_text" onclick="goCoupon()">보유 쿠폰</span>
@@ -269,10 +269,11 @@
             go("/myPage/deleteAddr",name);
         }
         function goCoupon(){
-            window.location.href = "myCoupon.html";
+            window.location.href = "coupon"
         }
-
-
+        function goOrder(){
+            window.location.href = "order";
+        }
 
 
     </script>

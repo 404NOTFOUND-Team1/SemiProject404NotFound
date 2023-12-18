@@ -55,29 +55,34 @@ function sample6_execDaumPostcode() {
 
 function insertAddress(extraAddr, zonecode, addr, name,addrDetail){
     address = addr + extraAddr;
-    const data = {
-        //extraAddr : extraAddr,  //사우동, 김포사우아이파크 : 주소
-        //addr : addr,            //경기도 김포시 사우로 51 : 도로명 주소
-        address : address,      // 경기도 김포시 사우로 51 사우동, 김포사우아이파크
-        zonecode : zonecode,    //10111 : 우편번호
-        name : name,             //집 : 주소 이름
-        addrDetail : addrDetail //105동 402호
+    if(addrDetail){
+        const data = {
+            //extraAddr : extraAddr,  //사우동, 김포사우아이파크 : 주소
+            //addr : addr,            //경기도 김포시 사우로 51 : 도로명 주소
+            address : address,      // 경기도 김포시 사우로 51 사우동, 김포사우아이파크
+            zonecode : zonecode,    //10111 : 우편번호
+            name : name,             //집 : 주소 이름
+            addrDetail : addrDetail //105동 402호
+        }
+        console.log(data)
+        fetch("/myPage/insertAddress",{
+            method: "POST",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response =>{
+                return response.text();
+            })
+            .then(data => {
+                alert(data)
+            })
+            .catch((error) =>{
+                alert(error);
+            });
+    } else {
+        alert("안됏");
     }
-    console.log(data)
-    fetch("/myPage/insertAddress",{
-        method: "POST",
-        headers:{
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response =>{
-            return response.text();
-        })
-        .then(data => {
-            alert(data)
-        })
-        .catch((error) =>{
-            alert(error);
-        });
+
 }

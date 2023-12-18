@@ -13,6 +13,7 @@ public class CommentDTO {
 
     private int comment_code;
     BoardDTO board;
+    private int postCode;
     private String comment_body;
     private Date comment_date;
 }
