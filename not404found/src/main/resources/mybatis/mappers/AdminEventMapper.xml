@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nf.not404found.admin.event.model.dao.AdminEventMapper">
+
+    <resultMap id="eventMap" type="AdminEventDTO">
+        <id property="eventCode" column="event_code"/>
+        <id property="productCode" column="product_code"/>
+        <result property="name" column="name"/>
+        <result property="discountRate" column="discount_rate"/>
+        <result property="registEventDate" column="regist_event_date"/>
+        <result property="startDate" column="startDate"/>
+        <result property="endDate" column="end_date"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="selectAllEvent" resultMap="eventMap">
+        SELECT
+            event_code,
+            product_code,
+            name,
+            discount_rate,
+            regist_event_date,
+            start_date,
+            end_date,
+            status
+        FROM event
+    </select>
+</mapper>

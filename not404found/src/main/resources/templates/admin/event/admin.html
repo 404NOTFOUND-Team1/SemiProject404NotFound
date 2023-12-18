@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>admin_page</title>
-  <link rel="stylesheet" type="text/css" href="/css/admin/event/admin.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/admin/event/admin.css">
 
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -42,7 +42,7 @@
       </button>
       </div>
   </div>
-  <table class="search_one">
+  <table class="search_one" style="position: relative; left: 10px; top: 0px;">
     <tr>
       <th><input type="checkbox" name="selectedEvents" value=""></th>
       <th>이벤트코드</th>
@@ -55,24 +55,23 @@
       <th>이벤트상태</th>
     </tr>
 
-    <tr th:if="${#lists.isEmpty(searchList)}" style="text-align:center;">
+    <tr th:if="${#lists.isEmpty(eventList)}" style="text-align:center;">
       <td colspan="9">검색 결과가 없습니다.</td>
     </tr>
 
-    <tr th:each="account : ${ searchList }">
-      <td><input type="checkbox" name="selectedEvents" value="" th:value="${account.id}"></td>
-      <td th:text="${ account.id }"></td>
-      <td th:text="${ account.accountTypeName.typeName }"></td>
-      <td th:text="${ account.name }"></td>
-      <td th:text="${ account.email }"></td>
-      <td th:text="${ account.registDate }"></td>
-      <td th:text="${ account.payAmount }"></td>
-      <td th:text="${ account.mileage }"></td>
-      <td th:text="${ account.lastLogin }"></td>
-      <td th:text="${ account.halfYearAccumulatedAmount }"></td>
+    <tr th:each="events : ${ eventList }">
+      <td><input type="checkbox" name="selectedEvents" value="" th:value="${events.eventCode}"></td>
+      <td th:text="${ events.eventCode }"></td>
+      <td th:text="${ events.productCode }"></td>
+      <td th:text="${ events.name }"></td>
+      <td th:text="${ events.discountRate }"></td>
+      <td th:text="${ events.registEventDate }"></td>
+      <td th:text="${ events.startDate }"></td>
+      <td th:text="${ events.endDate }"></td>
+      <td th:text="${ events.status }"></td>
     </tr>
   </table>
-  <div class="event_list2">
+  <div class="event_list2" style="margin-top: 10px">
     <input type="submit" name="act_button" value="선택삭제" class="btn_lsmall bx-white" onclick="document.pressed=this.value">
     <a href="event/insert" class="fr btn_lsmall red"><i class="ionicons ion-android-add" onclick="go_event_insert()"></i>이벤트 등록</a></div>
     </form>
