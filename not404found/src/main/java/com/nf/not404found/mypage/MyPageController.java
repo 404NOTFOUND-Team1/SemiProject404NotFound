@@ -1,8 +1,11 @@
 package com.nf.not404found.mypage;
 
+import com.google.gson.Gson;
 import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.mypage.model.dto.AddrDTO;
+import com.nf.not404found.mypage.model.dto.MyPageCouponDTO;
 import com.nf.not404found.mypage.model.dto.MyPageDTO;
+import com.nf.not404found.mypage.model.dto.MyPageOrderDTO;
 import com.nf.not404found.mypage.model.service.MyPageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +39,40 @@ public class MyPageController {
         mv.setViewName("mypage/home");
         return mv;
     }
+    @GetMapping("coupon")
+    public ModelAndView myCoupon(ModelAndView mv){
+        List<MyPageCouponDTO> list = service.selectMyCoupon();
+        int couponCount = list.size();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        mv.addObject("userCoupon",list);
+        mv.addObject("json", json);
+        mv.addObject("couponCount",couponCount);
+        mv.setViewName("mypage/myPageCoupon");
+        return mv;
+    }
+    @GetMapping("order")
+    public ModelAndView myOrder(ModelAndView mv){
+        List<MyPageOrderDTO> list = service.selectMyOrder();
+        int orderCount = list.size();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        mv.addObject("userOrder",list);
+        mv.addObject("json", json);
+        mv.addObject("orderCount",orderCount);
+        mv.setViewName("mypage/myOrder");
+
+        return mv;
+    }
+//    @GetMapping("order")
+//    @ResponseBody
+//    public ModelAndView myOrder(ModelAndView mv){
+//        List<PaymentDTO> list = service.selectMyPayment();
+//        System.out.println("============="+list.get(0).getCoupon_number());
+//        mv.addObject("userCoupon",list);
+//        mv.setViewName("mypage/myPageCoupon");
+//        return mv;
+//    }
     @PostMapping("changePhone")
     @ResponseBody
     public boolean changePhone(@RequestBody String phone){
@@ -67,5 +104,7 @@ public class MyPageController {
 
         return service.deleteAddr(name);
     }
+
+
 
 }

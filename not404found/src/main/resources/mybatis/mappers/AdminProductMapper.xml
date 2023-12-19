@@ -171,6 +171,7 @@
             c.modify_name,
             c.thumnail_path,
             c.file_type,
+            c.original_name,
             d.color_code
         FROM
             product a
@@ -222,5 +223,6 @@
         from image
         WHERE product_code = #{ productCode }
     </select>
+
 
 </mapper>

@@ -4,6 +4,8 @@ package com.nf.not404found.mypage.model.service;
 import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.mypage.model.dao.MyPageMapper;
 import com.nf.not404found.mypage.model.dto.AddrDTO;
+import com.nf.not404found.mypage.model.dto.MyPageCouponDTO;
+import com.nf.not404found.mypage.model.dto.MyPageOrderDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,5 +58,15 @@ public class MyPageService {
     public boolean deleteAddr(String name) {
         String id = user.getId();
         return mapper.deleteAddr(name,id);
+    }
+
+    public List<MyPageCouponDTO> selectMyCoupon() {
+        String id = user.getId();
+        return mapper.selectMyCoupon(id);
+    }
+
+    public List<MyPageOrderDTO> selectMyOrder() {
+        String id = user.getId();
+        return mapper.selectOrder(id);
     }
 }

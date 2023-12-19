@@ -167,10 +167,10 @@
         <span class="sidebar_button1_text">내 정보</span>
     </div>
     <div class="sidebar_button2">
-        <span class="sidebar_button2_text">주문 목록</span>
+        <span class="sidebar_button2_text" onclick="goOrder()">주문 목록</span>
     </div>
     <div class="sidebar_button3">
-        <span class="sidebar_button3_text">보유 쿠폰</span>
+        <span class="sidebar_button3_text" onclick="goCoupon()">보유 쿠폰</span>
     </div>
 </div>
 <div class="main-grid">
@@ -204,6 +204,7 @@
     <span class="myGradeImg">30x200이미지가 들어감</span>
     </tr>
     <script>
+        //주석
         function changeMyData(url, value, btn,inputField){
             if(btn.textContent === '변경하기'){
                 fetch(url,{
@@ -228,24 +229,24 @@
                 inputField.type = 'text';
             }
         }
-        function go(url, value){
-                fetch(url,{
-                    method: "POST",
-                    headers:{
-                        'Content-Type': 'text/plain'
-                    },
-                    body: value
-                })
-                    .then(response =>{
-                        return response.text();
-                    })
-                    .then(data => {
-                        alert(data)
-                    })
-                    .catch((error) =>{
-                        alert(error);
-                    });
-        }
+        // function go(url, value){
+        //         fetch(url,{
+        //             method: "POST",
+        //             headers:{
+        //                 'Content-Type': 'text/plain'
+        //             },
+        //             body: value
+        //         })
+        //             .then(response =>{
+        //                 return response.text();
+        //             })
+        //             .then(data => {
+        //                 alert(data)
+        //             })
+        //             .catch((error) =>{
+        //                 alert(error);
+        //             });
+        // }
         function changePhone(){
             const phoneBtn = document.getElementById('changePhone');
             const phoneInputField = document.getElementById('myPhoneField');
@@ -266,9 +267,16 @@
             const myAddressDropDown = document.getElementById('myAddressDropDown');
             const slice = myAddressDropDown.value.split(" ");
             const name = slice[slice.length -1];
-            go("/myPage/deleteAddr",name);
+            go("/myPage/deleteAddr",name,function(data){
+                alert("data = "+data);
+            });
         }
-
+        function goCoupon(){
+            window.location.href = "coupon"
+        }
+        function goOrder(){
+            window.location.href = "order";
+        }
 
 
     </script>
