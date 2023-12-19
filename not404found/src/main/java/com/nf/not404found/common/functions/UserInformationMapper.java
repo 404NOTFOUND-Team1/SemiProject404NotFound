@@ -24,4 +24,7 @@ public interface UserInformationMapper {
     String SearchUserAddrZipCode(String username);
     @Select("SELECT COUNT(*) FROM address WHERE id = #{username}")
     int SearchUserAddrCount(String username);
+
+    @Select("SELECT account_status FROM accounts WHERE id = #{username}")
+    String SearchUserStatus(String username);
 }
