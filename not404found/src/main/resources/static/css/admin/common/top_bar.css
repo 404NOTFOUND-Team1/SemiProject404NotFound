@@ -119,9 +119,10 @@ body{
 .side_bar8 {top:576px;}
 .side_bar0 {
 
-    position: absolute;
+    position: relative;
     cursor: default;
-    width: 198px;   height:100%;
-    top:565px;
+    width: 198px;
+    height:100%;
+    top:0px;
     line-height: 75px;
 }
