@@ -139,17 +139,17 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+      <tr th:each="order : ${orderList}" style="align-items: center; text-align: center">
+        <td th:text="${order.paymentId}"></td>
+        <td th:text="${order.paymentCode}"></td>
+        <td th:text="${order.productList.name}"></td>
+        <td th:text="${order.amount}"></td>
+        <td th:text="${order.deliveryCost}"></td>
+        <td th:text="${order.couponList.name}"></td>
+        <td th:text="${order.couponList.rate}"></td>
+        <td th:text="${order.deliveryList.deliveryStatus}"></td>
+        <td th:text="${order.price}"></td>
+        <td th:text="${order.paymentDate}"></td>
       </tr>
       </tbody>
     </table>

@@ -252,4 +252,13 @@ table, th, td {
     border-bottom: 1px solid #e4e5e7;
 }
 
+.table_parents {
+    position: relative;
+    margin : 0 auto;
+    left: 250px;
+    top : 700px;
+    width: 1650px;
+    border-collapse: collapse;
+
+}
 

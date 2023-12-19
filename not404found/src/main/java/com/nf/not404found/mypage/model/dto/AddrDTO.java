@@ -6,6 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter@Setter@ToString
 public class AddrDTO {
+    private int deliveryCode;
     private String id;
     private String address;
     private String zonecode;
