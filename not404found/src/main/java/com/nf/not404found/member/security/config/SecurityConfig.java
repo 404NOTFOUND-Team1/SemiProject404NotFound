@@ -43,6 +43,8 @@ public class SecurityConfig {
                     auth.requestMatchers("/admin/*").hasAnyAuthority("ROLE_ADMIN"); //admin/dashboard는 ROLE_ADMIN 만 가능
                     auth.requestMatchers("/member/login").permitAll();
                     auth.requestMatchers("/member/**").permitAll();
+                    auth.requestMatchers("/productPage/").permitAll();
+                    auth.requestMatchers("productpage/productPage").permitAll();
                     auth.requestMatchers("/mypage/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
                     auth.requestMatchers("/").permitAll();
                     //auth.requestMatchers("/**").permitAll();  // 모든 리소스를 권한 없이 사용가능
