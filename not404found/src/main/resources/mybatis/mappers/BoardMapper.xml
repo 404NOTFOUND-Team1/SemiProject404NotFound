@@ -15,6 +15,17 @@
         <result property="comment_cnt" column="comment_cnt"/>
         <association property="boardCategory" resultMap="boardCategoryResultMap"/>
         <association property="account" resultMap="accountResultMap"/>
+    </resultMap>
+
+    <resultMap id="interiorChallengeResultMap" type="InteriorChallengeDTO">
+        <id property="post_code" column="post_code"/>
+        <result property="post_title" column="post_title"/>
+        <result property="post_content" column="post_content"/>
+        <result property="post_created_date" column="post_created_date"/>
+        <result property="post_modified_date" column="post_modified_date"/>
+        <result property="post_views"  column="post_views"/>
+        <result property="recommend_count" column="recommend_count"/>
+        <association property="account" resultMap="accountResultMap"/>
         <collection property="attachmentList" resultMap="attachmentResultMap"/>
     </resultMap>
 
@@ -27,6 +38,7 @@
         <result property="star_rating" column="star_rating"/>
         <association property="board" resultMap="generalBoardResultMap"/>
         <association property="product" resultMap="productResultMap"/>
+        <association property="adminProduct" resultMap="AdminProductMap"/>
     </resultMap>
 
     <resultMap id="productCategoryResultMap" type="ProductCategoryDTO">
@@ -44,6 +56,27 @@
         <result property="delete_status" column="delete_status"/>
         <result property="average_star_rating" column="average_star_rating"/>
         <association property="productCategory" resultMap="productCategoryResultMap"/>
+    </resultMap>
+
+    <resultMap id="AdminProductMap" type="AdminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="price" column="price"/>
+        <result property="name" column="name"/>
+        <result property="amount" column="amount"/>
+        <result property="enterDate" column="enter_date"/>
+        <result property="deleteStatus" column="delete_status"/>
+        <association property="attachmentList" resultMap="AdminProductImageMap"/>
+    </resultMap>
+
+    <resultMap id="AdminProductImageMap" type="AdminAttachmentDTO">
+        <id property="productCode" column="product_code"/>
+        <id property="no" column="image_code"/>
+        <result property="originalName" column="original_name"/>
+        <result property="ModifyName" column="modify_name"/>
+        <result property="savedPath" column="saved_path"/>
+        <result property="fileType" column="file_type"/>
+        <result property="thumbnailPath" column="thumnail_path"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <resultMap id="boardCategoryResultMap" type="BoardCategoryDTO">
@@ -82,8 +115,11 @@
         <id property="attachment_code" column="attachment_code"/>
         <result property="original_attachment_name" column="original_attachment_name"/>
         <result property="attachment_name" column="attachment_name"/>
-        <result property="is_delete" column="is_delete"/>
-        <association property="boardInfo" resultMap="generalBoardResultMap"/>
+        <result property="saved_path" column="saved_path"/>
+        <result property="file_type" column="file_type"/>
+        <result property="thumbnail_path" column="thumbnail_path"/>
+        <result property="status" column="status"/>
+<!--        <association property="boardInfo" resultMap="interiorChallengeResultMap"/>-->
     </resultMap>
 
 
@@ -119,6 +155,8 @@
             </choose>
         </where>
     </select>
+
+
 
     <select id="selectBoardList" resultMap="generalBoardResultMap" parameterType="java.util.Map">
         select  A.post_code,
@@ -175,11 +213,119 @@
         limit    #{ selectCriteria.startRow }, 10
     </select>
 
+    <select id="selectTotalIcCount" resultType="_int" parameterType="hashmap">
+        select count(*)
+        from   interior_challenge A
+        <where>
+            <!-- 검색 조건 -->
+            <if test="searchCondition == 'title'">
+                A.post_title LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'content'">
+                A.post_content LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectIcList" resultMap="interiorChallengeResultMap" parameterType="java.util.Map">
+        select  A.post_code,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views,
+                A.recommend_count,
+                D.attachment_code,
+                D.original_attachment_name,
+                D.attachment_name,
+                D.saved_path,
+                D.thumbnail_path
+        from    (
+                select  B.post_code,
+                        B.id,
+                        B.post_title,
+                        B.post_content,
+                        B.post_created_date,
+                        B.post_modified_date,
+                        B.post_views,
+                        B.recommend_count
+                from    interior_challenge B
+                <where>
+                    <!-- 검색 조건 -->
+                    <if test="searchCondition == 'title'">
+                        B.post_title LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                    <if test="searchCondition == 'content'">
+                        B.post_content LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                </where>
+                ) A
+        join     accounts C on (A.id = C.id)
+        JOIN attachment D
+            ON (A.post_code = D.post_code
+                    AND D.status = 'Y')
+        order by A.post_code DESC
+        limit    #{ startRow }, 9
+    </select>
+
+    <insert id="insertIc">
+        insert
+        into interior_challenge (id,
+                                 post_title,
+                                 post_content,
+                                 post_created_date,
+                                 post_modified_date)
+        values ( #{ account.id },
+                #{ post_title },
+                #{ post_content },
+                NOW(),
+                NOW())
+        <selectKey keyProperty="post_code" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="insertAttachment">
+        insert
+        into attachment (post_code,
+        original_attachment_name,
+        attachment_name,
+        saved_path,
+        thumbnail_path)
+        values
+            (#{post_code},
+            #{original_attachment_name},
+            #{attachment_name},
+            #{saved_path},
+            #{thumbnail_path})
+    </insert>
+
     <update id="incrementBoardCount">
         update board
         set    post_views = post_views + 1
         where  post_code = #{ post_code }
     </update>
+
+    <update id="incrementIcCount">
+        update interior_challenge
+        set    post_views = post_views + 1
+        where  post_code = #{ post_code }
+    </update>
+
+    <select id="selectIcView" resultMap="interiorChallengeResultMap">
+        select  A.post_code,
+                A.id,
+                A.post_title,
+                A.post_content,
+                A.post_created_date,
+                A.post_modified_date,
+                A.post_views,
+                A.recommend_count
+        from    interior_challenge A
+                    join     accounts D on (A.id = D.id)
+        where   A.post_code = #{ post_code }
+    </select>
 
     <select id="selectNoticeView" resultMap="generalBoardResultMap">
         select  A.post_code,
@@ -275,6 +421,51 @@
                 NOW())
     </insert>
 
+    <insert id="insertReview">
+        insert into  review (
+                             categorycode_board,
+                             product_code,
+                             id,
+                             recommend_review,
+                             star_rating)
+        values              (
+                             2,
+                             3,
+                             #{ account.id },
+                             0,
+                             5)
+    </insert>
+
+    <insert id="insertBoard">
+        insert into board (categorycode_board,
+                           id,
+                           post_title,
+                           post_content,
+                           post_created_date,
+                           post_modified_date)
+        values (2,
+                #{ account.id },
+                #{ post_title },
+                #{ post_content },
+                NOW(),
+                NOW())
+    </insert>
+
+    <insert id="insertQna">
+        insert into board (categorycode_board,
+                           id,
+                           post_title,
+                           post_content,
+                           post_created_date,
+                           post_modified_date)
+        values (3,
+                #{ account.id },
+                #{ post_title },
+                #{ post_content },
+                NOW(),
+                NOW())
+    </insert>
+
     <select id="selectQnaCommentList" resultMap="commentResultMap">
         select      A.comment_code,
                     A.post_code,
@@ -300,10 +491,10 @@
             comment_body,
             comment_date)
         values  (
-                    #{postCode},
+                    #{post_code},
                     3,
-                    #{qnaView.account.id},
-                    #{commentText},
+                    #{id},
+                    #{comment_body},
                     now()
                 )
     </insert>
@@ -314,7 +505,7 @@
         where    comment_code = #{ comment_code }
     </delete>
     
-    <update id="updateNotice" parameterType="boardDTO">
+    <update id="updateNotice" parameterType="BoardDTO">
         update   board
         set      post_title = #{ post_title }
                 , post_content = #{ post_content }
@@ -322,7 +513,41 @@
         where    post_code = #{ post_code }
     </update>
 
+    <update id="updateQna" parameterType="BoardDTO">
+        update   board
+        set      post_title = #{ post_title }
+                , post_content = #{ post_content }
+                , post_modified_date = NOW()
+        where    post_code = #{ post_code }
+    </update>
+
+    <update id="updateIc" parameterType="InteriorChallengeDTO">
+        update   interior_challenge
+        set      post_title = #{ post_title }
+                , post_content = #{ post_content }
+                , post_modified_date = NOW()
+        where    post_code = #{ post_code }
+    </update>
+
+    <delete id="deleteIc" parameterType="_int">
+        delete
+        from    interior_challenge
+        where   post_code = #{ post_code }
+    </delete>
+
     <delete id="deleteNotice" parameterType="_int">
+        delete
+        from    board
+        where   post_code = #{ post_code }
+    </delete>
+
+    <delete id="deleteQnaCommentByPostCode">
+        delete
+        from    comment
+        where   post_code = #{ post_code }
+    </delete>
+
+    <delete id="deleteQna" parameterType="_int">
         delete
         from    board
         where   post_code = #{ post_code }

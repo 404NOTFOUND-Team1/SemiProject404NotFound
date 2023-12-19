@@ -20,10 +20,16 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/upload/**")
                 .addResourceLocations("file:///C:/not404foundImageFile/upload/");
 
+//        registry.addResourceHandler("/thumbPath/**") //이미지경로
+//                .addResourceLocations("file:///C:/not404foundImageFile/img/upload/thumbnail/");
+//        registry.addResourceHandler("/imagePath/**")
+//                .addResourceLocations("file:///C:/not404foundImageFile/img/upload/original/");
+
+        /* 맥북 경로 */
         registry.addResourceHandler("/thumbPath/**") //이미지경로
-                .addResourceLocations("file:///C:/not404foundImageFile/img/upload/thumbnail/");
+                .addResourceLocations("file:////Users/sooyeun/Desktop/dev/404NOTFOUND/fileuploadimg/upload/thumbnail/");
         registry.addResourceHandler("/imagePath/**")
-                .addResourceLocations("file:///C:/not404foundImageFile/img/upload/original/");
+                .addResourceLocations("file:////Users/sooyeun/Desktop/dev/404NOTFOUND/fileuploadimg/upload/original/");
 
         registry.addResourceHandler("/summernoteImage/**")
                 .addResourceLocations("file:///" + summernotePath);

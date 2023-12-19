@@ -227,7 +227,7 @@ best.addEventListener('click',function(){
     alert("베스트 선택.")
 });
 interior_challenge.addEventListener('click',function(){
-    alert("인테리어 첼린지 선택")
+    window.location.href = '/board/ic/list';
 });
 board_toggle.addEventListener('click', function (e)
 {
@@ -236,9 +236,9 @@ board_toggle.addEventListener('click', function (e)
     if(list === categoryArray[0]){
         window.location.href = '/board/notice/list';
     } else if(list === categoryArray[1]){
-        window.location.href = '/board/notice/review';
-    } else if(list === categoryArray[2]){
         window.location.href = '/board/review/review';
+    } else if(list === categoryArray[2]){
+        window.location.href = '/board/qna/list';
     } else {
         alert("Error!!");
     }

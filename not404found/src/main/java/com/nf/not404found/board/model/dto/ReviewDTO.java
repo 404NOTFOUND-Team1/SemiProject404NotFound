@@ -1,6 +1,7 @@
 package com.nf.not404found.board.model.dto;
 
 import com.nf.not404found.account.model.dto.AccountDTO;
+import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
 import com.nf.not404found.product.model.dto.ProductDTO;
 import lombok.*;
 
@@ -11,8 +12,9 @@ import lombok.*;
 @ToString
 public class ReviewDTO {
 
-    BoardDTO board;
-    ProductDTO product;
+    private BoardDTO board;
+    private AdminProductDTO adminProduct;
+    private ProductDTO product;
     private int recommend_review;
     private int star_rating;
     private int reviewCount;
@@ -39,6 +41,13 @@ public class ReviewDTO {
         this.product.setProduct_code(product_code);
     }
 
+    public void setProductCode(Long productCode) {
+        if (this.adminProduct == null) {
+            this.adminProduct = new AdminProductDTO();
+        }
+        this.adminProduct.setProductCode(productCode);
+    }
+
     public void setId(String id) {
         if (this.board == null) {
             this.board = new BoardDTO();
@@ -48,4 +57,16 @@ public class ReviewDTO {
         }
         this.board.getAccount().setId(id);
     }
+
+    public int getPost_code() {
+        return board != null ? board.getPost_code() : null;
+    }
+    public AccountDTO getAccount() {
+        return board != null ? board.getAccount() : null;
+    }
+    public String getId() {
+        return board != null && board.getAccount() != null ? board.getAccount().getId() : null;
+    }
+
+
 }
