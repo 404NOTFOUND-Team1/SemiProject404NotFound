@@ -1,5 +1,6 @@
 package com.nf.not404found.mypage;
 
+import com.google.gson.Gson;
 import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.mypage.model.dto.AddrDTO;
 import com.nf.not404found.mypage.model.dto.MyPageCouponDTO;
@@ -39,18 +40,28 @@ public class MyPageController {
         return mv;
     }
     @GetMapping("coupon")
-    @ResponseBody
     public ModelAndView myCoupon(ModelAndView mv){
         List<MyPageCouponDTO> list = service.selectMyCoupon();
+        int couponCount = list.size();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
         mv.addObject("userCoupon",list);
+        mv.addObject("json", json);
+        mv.addObject("couponCount",couponCount);
         mv.setViewName("mypage/myPageCoupon");
         return mv;
     }
     @GetMapping("order")
     public ModelAndView myOrder(ModelAndView mv){
         List<MyPageOrderDTO> list = service.selectMyOrder();
+        int orderCount = list.size();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
         mv.addObject("userOrder",list);
+        mv.addObject("json", json);
+        mv.addObject("orderCount",orderCount);
         mv.setViewName("mypage/myOrder");
+
         return mv;
     }
 //    @GetMapping("order")

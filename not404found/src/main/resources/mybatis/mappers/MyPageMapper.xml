@@ -26,6 +26,7 @@
         <result property="price" column="price"/>
         <result property="amount" column="amount"/>
         <result property="payment_date" column="payment_date"/>
+        <result property="delivery_status" column="delivery_status"/>
     </resultMap>
     <select id="selectUserAddr" resultMap="addrResultMap">
         SELECT * FROM address WHERE id = #{id}
@@ -37,9 +38,10 @@
         WHERE user.id = #{id}
     </select>
     <select id="selectOrder" resultMap="selectOrderResultMap">
-        SELECT p.name, pay.price,pay.amout,pay.payment_date
+        SELECT p.name, pay.price,pay.amout,pay.payment_date, delivery_status
         FROM product as p
                  JOIN payment as pay ON p.product_code = pay.product_code
-        WHERE id = #{id};
+                 JOIN delivery AS del ON pay.payment_code = del.payment_code
+        WHERE del.id = #{id}
     </select>
 </mapper>

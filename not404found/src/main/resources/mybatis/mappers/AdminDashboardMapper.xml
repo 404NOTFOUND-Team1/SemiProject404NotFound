@@ -52,8 +52,8 @@
             a.count AS qnA,
             b.count AS interiorChallengeBest
         FROM
-            (SELECT COUNT(*) AS count FROM board WHERE categorycode_board = 3) AS a,
-            (SELECT COUNT(*) AS count FROM interior_challenge WHERE recommend_review > 50) AS b
+                (SELECT COUNT(*) AS count FROM board WHERE categorycode_board = 3) AS a,
+                (SELECT COUNT(*) AS count FROM interior_challenge WHERE recommend_count > 50) AS b
     </select>
     
     <select id="selectAllMembersStatus">

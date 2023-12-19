@@ -204,6 +204,7 @@
     <span class="myGradeImg">30x200이미지가 들어감</span>
     </tr>
     <script>
+        //주석
         function changeMyData(url, value, btn,inputField){
             if(btn.textContent === '변경하기'){
                 fetch(url,{
@@ -228,24 +229,24 @@
                 inputField.type = 'text';
             }
         }
-        function go(url, value){
-                fetch(url,{
-                    method: "POST",
-                    headers:{
-                        'Content-Type': 'text/plain'
-                    },
-                    body: value
-                })
-                    .then(response =>{
-                        return response.text();
-                    })
-                    .then(data => {
-                        alert(data)
-                    })
-                    .catch((error) =>{
-                        alert(error);
-                    });
-        }
+        // function go(url, value){
+        //         fetch(url,{
+        //             method: "POST",
+        //             headers:{
+        //                 'Content-Type': 'text/plain'
+        //             },
+        //             body: value
+        //         })
+        //             .then(response =>{
+        //                 return response.text();
+        //             })
+        //             .then(data => {
+        //                 alert(data)
+        //             })
+        //             .catch((error) =>{
+        //                 alert(error);
+        //             });
+        // }
         function changePhone(){
             const phoneBtn = document.getElementById('changePhone');
             const phoneInputField = document.getElementById('myPhoneField');
@@ -266,7 +267,9 @@
             const myAddressDropDown = document.getElementById('myAddressDropDown');
             const slice = myAddressDropDown.value.split(" ");
             const name = slice[slice.length -1];
-            go("/myPage/deleteAddr",name);
+            go("/myPage/deleteAddr",name,function(data){
+                alert("data = "+data);
+            });
         }
         function goCoupon(){
             window.location.href = "coupon"

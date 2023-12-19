@@ -10,4 +10,5 @@ public class MyPageOrderDTO {
     private int price;
     private int amount;
     private String payment_date;
+    private String delivery_status;
 }

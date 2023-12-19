@@ -187,10 +187,13 @@ nav{
 /* ------------ 여기서부터 테이블들 ------------*/
 .tbl_wrap table { /* 테이블 가로 */
     width: 100%;
-}
     margin: 8px 0px 8px;
 }
 .pg_cnt em { /* 총 0 건 */
+    color: red; /* 폰트 색상*/
+    font-weight: 600; /* 폰트 굵기*/
+}
+.pg_cn3t em { /* 총 0 건 */
     color: red; /* 폰트 색상*/
     font-weight: 600; /* 폰트 굵기*/
 }
