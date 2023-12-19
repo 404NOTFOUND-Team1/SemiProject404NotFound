@@ -40,7 +40,7 @@ public class MainService {
             System.out.println(p.getProductCode());
         }
         List<String> list2 = mapper.getProductColor(list.get(0).getProductCode());
-        System.out.println(list2);
+        list.get(0).setColor(list2);
         return list;
 
     }
