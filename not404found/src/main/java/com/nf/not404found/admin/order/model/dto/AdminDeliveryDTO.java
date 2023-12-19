@@ -12,7 +12,7 @@ public class AdminDeliveryDTO {
 
     private int deliveryCode;
     private int paymentCode;
-    private String id;
+    private String deliveryId;
     private int deliveryAddress;
     private int productCode;
     private String deliveryStatus;

@@ -27,6 +27,17 @@ public class AdminOrderServiceImpl implements AdminOrderService{
 
         log.info("=========================================> 주문 매퍼 다녀온 뒤 orderList : " + orderList);
 
+        for (int i = 0; i < orderList.size(); i++) {
+
+            if (orderList.get(i).getCouponList().getName() == null){
+
+                orderList.get(i).getCouponList().setName("미사용");
+                orderList.get(i).getCouponList().setRate(0);
+            }
+
+        }
+        log.info("=========================================> 주문 매퍼 다녀온 뒤 orderList : " + orderList);
+
         return orderList;
     }
 }

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 @Getter
 @Service
 @ToString
-public class AdminAdressDTO {
+public class AdminAddressDTO {
 
     private int deliveryAddress;
-    private String id;
+    private String addressId;
     private int zipCode;
     private String address;
     private String addressDetail;
