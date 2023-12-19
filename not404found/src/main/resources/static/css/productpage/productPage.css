@@ -219,3 +219,54 @@
 .selectedOptions p {
     margin: 0;
 }
+
+/* 상품 정보란 ---------------------------------------------------------------------------*/
+
+.imformation-total{
+    transition: top 0.2s ease 0s;
+}
+
+.dIcVGY {
+    box-sizing: border-box;
+    position: sticky;
+    top: 90px;
+    z-index: 900;
+}
+
+.imformation {
+    box-sizing: border-box;
+    position: relative;
+}
+.fMGAnH {
+    width: 100%;
+}
+.cgsKoo {
+    box-sizing: border-box;
+}
+
+.fMGAnH .box_tab.box_tab_lg.box_tab_fixed {
+    height: 64px;
+    padding: 23px 16px 0px;
+}
+
+.fMGAnH .box_tab.selected, .fMGAnH .box_tab:hover {
+    border-bottom: 2px solid rgb(18, 18, 18);
+}
+
+.fMGAnH .box_tab {
+    display: inline-flex;
+    align-items: flex-start;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background: rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(239, 239, 239);
+}
+
+.dfHsKl {
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    width: 32.3333%;
+}
