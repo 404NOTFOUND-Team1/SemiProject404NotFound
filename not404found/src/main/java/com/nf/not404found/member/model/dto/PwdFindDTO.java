@@ -11,5 +11,6 @@ public class PwdFindDTO {
     private int num;
     private String id;
     private String pwd_key;
+    private String password;
 
 }

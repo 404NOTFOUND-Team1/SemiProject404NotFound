@@ -41,10 +41,10 @@ public class MainController {
     public String pwdFind(){
         return "member/pwdFind";
     }
-    @GetMapping("member/pwdFindCertification")
-    public String pwdFindCertification() {
-        return "member/pwdFindCertification";
-    }
+//    @GetMapping("member/pwdFindCertification")
+//    public String pwdFindCertification() {
+//        return "member/pwdFindCertification";
+//    }
 //    @GetMapping("member/pwdChange")
 //    public String pwdChange(){
 //        return "member/pwdChange";
