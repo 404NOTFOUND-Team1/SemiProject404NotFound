@@ -17,9 +17,9 @@ public interface UserInformationMapper {
     String SearchUserPhone(String username);
 
     @Select("SELECT address FROM address WHERE id = #{username}")
-    String SearchUserAddr(String username);
+    List<String> SearchUserAddr(String username);
     @Select("SELECT address_detail FROM address WHERE id = #{username}")
-    String SearchUserAddrDetail(String username);
+    List<String> SearchUserAddrDetail(String username);
     @Select("SELECT address_name FROM address WHERE id = #{username}")
     String SearchUserAddrName(String username);
     @Select("SELECT zipcode FROM address WHERE id = #{username}")

@@ -63,6 +63,11 @@ public class OrderController {
         model.addAttribute("grade",orderInfor.getGrade());
         model.addAttribute("rate",orderInfor.getMileageRate());
         model.addAttribute("mileage",orderInfor.getMileage());
+        model.addAttribute("email",user.getEmail());
+        model.addAttribute("name",user.getName());
+        model.addAttribute("phone",user.getPhone());
+        model.addAttribute("addr",user.getAddr());
+        model.addAttribute("addrDetail",user.getAddrDetail());
         return "/order/orderMember";
     }
 //    @GetMapping("orderMember")

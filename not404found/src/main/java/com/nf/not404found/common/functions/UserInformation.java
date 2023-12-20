@@ -87,7 +87,7 @@ public class UserInformation {
         }
         return null;
     }
-    public String getAddr() {
+    public List<String> getAddr() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
             return null;
@@ -109,7 +109,7 @@ public class UserInformation {
         }
         return null;
     }
-    public String  getAddrDetail() {
+    public List<String>  getAddrDetail() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
             return null;
