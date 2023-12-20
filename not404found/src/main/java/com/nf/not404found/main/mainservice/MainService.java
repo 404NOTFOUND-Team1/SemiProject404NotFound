@@ -1,5 +1,6 @@
 package com.nf.not404found.main.mainservice;
 
+import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.main.model.dao.MainPageMapper;
 import com.nf.not404found.main.model.dto.MainPageProductDTO;
 import com.nf.not404found.product.model.dto.ProductPageDTO;
@@ -10,8 +11,10 @@ import java.util.List;
 @Service
 public class MainService {
     private final MainPageMapper mapper;
-    public MainService(MainPageMapper mapper){
+    private final UserInformation user;
+    public MainService(MainPageMapper mapper, UserInformation user){
         this.mapper = mapper;
+        this.user = user;
     }
 
     public List<MainPageProductDTO> showMainPageProduct() {
@@ -29,7 +32,8 @@ public class MainService {
     }
 
     public List<ProductPageDTO> getProduct(String name) {
-        List<ProductPageDTO> list = mapper.getProduct(name);
+
+        List<ProductPageDTO> list = mapper.getProduct(name,user.getName());
         for(ProductPageDTO p : list){
             System.out.println("===="+p.getName()+"====");
             System.out.println("마일리지 = "+p.getMileage());
