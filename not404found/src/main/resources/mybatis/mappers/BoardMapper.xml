@@ -38,7 +38,7 @@
         <result property="star_rating" column="star_rating"/>
         <association property="board" resultMap="generalBoardResultMap"/>
         <association property="product" resultMap="productResultMap"/>
-        <association property="adminProduct" resultMap="AdminProductMap"/>
+        <collection property="adminProduct" resultMap="AdminProductMap"/>
     </resultMap>
 
     <resultMap id="productCategoryResultMap" type="ProductCategoryDTO">
@@ -289,10 +289,10 @@
     <insert id="insertAttachment">
         insert
         into attachment (post_code,
-        original_attachment_name,
-        attachment_name,
-        saved_path,
-        thumbnail_path)
+                        original_attachment_name,
+                        attachment_name,
+                        saved_path,
+                        thumbnail_path)
         values
             (#{post_code},
             #{original_attachment_name},
@@ -321,9 +321,11 @@
                 A.post_created_date,
                 A.post_modified_date,
                 A.post_views,
-                A.recommend_count
+                A.recommend_count,
+                C.thumbnail_path
         from    interior_challenge A
-                    join     accounts D on (A.id = D.id)
+        join    accounts B on (A.id = B.id)
+        join    attachment C on (A.post_code = C.post_code)
         where   A.post_code = #{ post_code }
     </select>
 
@@ -367,7 +369,8 @@
                     F.post_title,
                     F.post_created_date,
                     F.post_content,
-                    E.name
+                    E.name,
+                    G.thumnail_path
         from       (
                     select      B.post_code,
                                 B.categorycode_board,
@@ -381,6 +384,7 @@
         join        accounts D on (A.id = D.id)
         join        product E on (A.product_code = E.product_code)
         join        board F on (A.post_code = F.post_code)
+        left join   image G on (E.product_code = G.product_code AND file_type='TITLE')
         <where>
             <!-- 검색 조건 -->
             <if test="selectCriteria.searchCondition == 'title'">
@@ -422,18 +426,16 @@
     </insert>
 
     <insert id="insertReview">
-        insert into  review (
-                             categorycode_board,
-                             product_code,
+        insert into  review (post_code,
                              id,
-                             recommend_review,
-                             star_rating)
-        values              (
+                             star_rating,
+                             categorycode_board,
+                             product_code)
+        values              (#{post_code},
+                             #{id},
+                             #{star_rating},
                              2,
-                             3,
-                             #{ account.id },
-                             0,
-                             5)
+                             3)
     </insert>
 
     <insert id="insertBoard">
@@ -449,6 +451,9 @@
                 #{ post_content },
                 NOW(),
                 NOW())
+        <selectKey keyProperty="post_code" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
     <insert id="insertQna">

@@ -262,8 +262,24 @@ public class BoardServiceImpl implements BoardService{
     @Override
     @Transactional
     public void writeReview(BoardDTO board, ReviewDTO review) throws NoticeWriteException {
+
+        log.info("board : " + board);
+        log.info("review : " + review);
+
         int result1 = mapper.insertBoard(board);
+
+        int post_code = board.getPost_code();
+        String id = board.getAccount().getId();
+
+        review.setPost_code(post_code);
+        review.getBoard().getAccount().setId(id);
+
+        log.info("post_code 확인!!!!!!!!!!!!" + post_code);
+
         int result = mapper.insertReview(review);
+
+        log.info("[BoardServiceImpl] writeReview =================================== result : {}", result);
+        log.info("[BoardServiceImpl] writeReview =================================== result1 : {}", result1);
 
         if (!(result1 > 0 && result > 0)) {
             throw new NoticeWriteException("게시글 등록에 실패하셨습니다.");
@@ -335,8 +351,8 @@ public class BoardServiceImpl implements BoardService{
         log.info("");
         log.info("");
         log.info("[BoardServiceImpl] modifyIc =================================== start");
-        int result = mapper.updateIc(ic);
 
+        int result = mapper.updateIc(ic);
 
         log.info("[BoardServiceImpl] modifyIc =================================== result : {}", result);
         log.info("[BoardServiceImpl] modifyIc =================================== end");

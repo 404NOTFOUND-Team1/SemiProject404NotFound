@@ -5,6 +5,8 @@ import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
 import com.nf.not404found.product.model.dto.ProductDTO;
 import lombok.*;
 
+import java.text.DecimalFormat;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -16,7 +18,7 @@ public class ReviewDTO {
     private AdminProductDTO adminProduct;
     private ProductDTO product;
     private int recommend_review;
-    private int star_rating;
+    private float star_rating;
     private int reviewCount;
 
     public void setPost_code(int post_code) {

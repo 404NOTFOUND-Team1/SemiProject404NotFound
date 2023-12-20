@@ -238,6 +238,12 @@ public class InteriorChallengeController {
         return "board/ic/view";
     }
 
+    @GetMapping("/getIcView")
+    @ResponseBody
+    public InteriorChallengeDTO getIcView(@RequestParam int post_code) {
+        return boardService.selectIcView(post_code);
+    }
+
     @GetMapping("modify")
     public String goModifyIc(@RequestParam int post_code, Model model) {
 

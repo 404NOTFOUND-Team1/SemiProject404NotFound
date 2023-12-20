@@ -73,7 +73,7 @@
                     <div class="review_list_score_container">
                         <div class="review_list_score_star">
                             <div class="star-ratings">
-                                <div class="star-ratings-fill">
+                                <div class="star-ratings-fill" th:style="'width: ' + (${review.star_rating} * 20) + '%'">
                                     <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                                 </div>
                                 <div class="star-ratings-base">
@@ -91,7 +91,6 @@
                     <a class="review_list_product_link" data-url="">
                         <div class="review_list_product_container">
                             <div class="review_list_product_image_container">
-<!--                                <img src="/images/board/sample.jpg" alt="이미지">-->
                                 <img th:src="@{|/thumbPath${review.adminProduct.attachmentList[0].getThumbnailPath()}|}" alt="이미지">
                             </div>
                             <div class="review_list_info_container">
@@ -125,7 +124,7 @@
                         <div class="review_list_content">
                             <div class="review_list_message_container">
                                 <div class="review_list_expand_link">
-                                    <div th:text="${ review.board.post_content }" class="review_list_message"></div>
+                                    <div th:utext="${ review.board.post_content }" class="review_list_message"></div>
                                 </div>
                             </div>
                         </div>
@@ -263,6 +262,19 @@
             likeCount.innerText = updatedCount;
         });
     });
+</script>
+
+<script>
+
+    export default {
+        computed: {
+            starRatingPercent() {
+                const score = +this.review.star_rating * 20;
+                return score + '%';
+            }
+        }
+    }
+
 </script>
 
 </body>

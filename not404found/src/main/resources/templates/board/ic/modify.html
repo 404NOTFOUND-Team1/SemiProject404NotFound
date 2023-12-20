@@ -115,8 +115,7 @@
               <textarea id="summernote" name="post_content" th:utext="${ icView.post_content }"></textarea>
             </div>
             <div class="thumbnail-file-area" id="thumbnailImg">
-              <input type="file" id="thumbnailImgFile" name="thumbnailImg" onchange="loadThumbnailImg(this)"
-                    >
+              <input type="file" id="thumbnailImgFile" name="thumbnailImg" onchange="loadThumbnailImg(this)" style="display: none;">
               <img id="thumbnailImgPreview" style="width: 350px; height: 200px">
               <div class="centered-text">대표 이미지를 등록해주세요</div>
             </div>
@@ -139,7 +138,7 @@
     // 게시글 정보와 썸네일 이미지 경로를 가져오는 Ajax 요청
     $.ajax({
       type: "GET",
-      url: "/board/ic/list", // 수정 게시글 정보를 가져오는 엔드포인트
+      url: "/board/ic/getIcView", // 수정 게시글 정보를 가져오는 엔드포인트
       data: { post_code : postCode }, // 수정하려는 게시글의 ID 또는 필요한 정보
       success: function (response) {
         insertOriginalThumbnail(response);
@@ -151,25 +150,31 @@
   });
 
   function insertOriginalThumbnail(data) {
-    if (data.length > 0 && data[0].attachmentList.length > 0) {
-      const thumbnailPath = data[0].attachmentList[0].getThumbnail_path();
-      $('#ic_thumbnail').attr('src', 'http://localhost:8404/imagePath/' + thumbnailPath);
+    console.log(data);
+    console.log(data.attachmentList);
+    if (data.attachmentList.length > 0) {
+      const thumbnailPath = data.attachmentList[0].thumbnail_path;
+      console.log(thumbnailPath);
+      $('#thumbnailImgPreview').attr('src', 'http://localhost:8404/thumbPath' + thumbnailPath);
     }
 
-  /* 이미지 미리보기 관련 스크립트 */
-  const $thumbnailImg = document.getElementById("thumbnailImg");
 
-  $thumbnailImg.onclick = function() {
-    document.getElementById("thumbnailImgFile").click();
-  }
-  function loadThumbnailImg(value) {
-    if (value.files && value.files[0]) {
-      const reader = new FileReader();
-      reader.readAsDataURL(value.files[0]);
+    /* 이미지 미리보기 관련 스크립트 */
+    const $thumbnailImg = document.getElementById("thumbnailImg");
 
-      reader.onload = function(e) {
-        console.log(e.target.result);
-        document.getElementById("thumbnailImgPreview").src = e.target.result;
+    $thumbnailImg.onclick = function () {
+      document.getElementById("thumbnailImgFile").click();
+    }
+
+    function loadThumbnailImg(value) {
+      if (value.files && value.files[0]) {
+        const reader = new FileReader();
+        reader.readAsDataURL(value.files[0]);
+
+        reader.onload = function (e) {
+          console.log(e.target.result);
+          document.getElementById("thumbnailImgPreview").src = e.target.result;
+        }
       }
     }
   }

@@ -1,6 +1,7 @@
 package com.nf.not404found.board.controller;
 
 
+import com.nf.not404found.account.model.dto.AccountDTO;
 import com.nf.not404found.board.model.dto.BoardDTO;
 import com.nf.not404found.board.model.dto.CommentDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
@@ -8,9 +9,11 @@ import com.nf.not404found.board.model.service.BoardService;
 import com.nf.not404found.common.exception.board.*;
 import com.nf.not404found.common.paging.Pagenation;
 import com.nf.not404found.common.paging.SelectCriteria;
+import com.nf.not404found.member.security.auth.model.dto.AuthDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -313,18 +317,51 @@ public class BoardController {
         return "board/review/write";
     }
 
+
+
     @PostMapping("review/write")
-    public String writeReview(@ModelAttribute BoardDTO board, @ModelAttribute ReviewDTO review, RedirectAttributes rttr) throws NoticeWriteException {
+    public String writeReview(@ModelAttribute BoardDTO board,
+                              @ModelAttribute ReviewDTO review,
+                              @AuthenticationPrincipal AuthDetails principal,
+                              RedirectAttributes rttr) throws NoticeWriteException {
 
         log.info("");
         log.info("");
         log.info("[BoardController] writeReview ========================================================= start");
         log.info("[BoardController] writeReview =============================== board : " + board);
+        log.info("[BoardController] writeReview =============================== review : " + review);
+        log.info("[BoardController] writeReview =============================== principal.getUsername() : " + principal.getUsername());
 
+
+        // 사용자 이름 가져오기
+        String username = principal.getUsername();
+        log.info("username/id 확인!!!!!!!!!!!!!! : " + username);
+
+        if (board == null) {
+            board = new BoardDTO();
+        }
+        if (review.getBoard() == null) {
+            review.setBoard(new BoardDTO());
+        }
+
+        if (board.getAccount() == null) {
+            board.setAccount(new AccountDTO());
+        }
+        if (review.getBoard().getAccount() == null) {
+            review.getBoard().setAccount(new AccountDTO());
+        }
+
+        // AccountDTO에 사용자 이름 설정
+        board.getAccount().setId(username);
+        review.getBoard().getAccount().setId(username);
+
+        float star_rating = review.getStar_rating();
+        review.setStar_rating(star_rating);
 
         boardService.writeReview(board, review);
 
         rttr.addFlashAttribute("message", "게시글 등록에 성공하셨습니다!");
+        rttr.addAttribute("star_rating", star_rating);
 
         log.info("[BoardController] writeReview ========================================================= end");
 

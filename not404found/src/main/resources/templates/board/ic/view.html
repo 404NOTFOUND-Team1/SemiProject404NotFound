@@ -37,6 +37,12 @@
           <dd th:text="${icView.post_views}"></dd>
         </dl>
       </div>
+
+      <div class="img-box">
+        <label>대표 사진</label>
+        <img id="ic_thumbnail" th:src="@{|/thumbPath${icView.attachmentList[0].getThumbnail_path()}|}">
+      </div>
+
       <div th:utext="${icView.post_content}" class="cont"></div>
     </div>
 
