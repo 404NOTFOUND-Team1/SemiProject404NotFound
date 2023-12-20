@@ -165,18 +165,18 @@
         <h2>주문자 정보</h2>
         <div class="input-group">
             <label for="nameInput" class="input-l" abel>이름</label>
-            <input type="text" id="nameInput" placeholder="이름을 입력하세요">
+            <input th:value="${name}" type="text" id="nameInput" placeholder="이름을 입력하세요">
         </div>
         <div class="input-group">
             <label for="emailInput">이메일</label>
             <div class="email-input">
-                <input type="text" id="emailInput" name="emailInput" placeholder="이메일 주소">
+                <input th:value="${email}" type="text" id="emailInput" name="emailInput" placeholder="이메일 주소">
             </div>
             <button id="sendVerificationCode">인증번호 발송</button>
         </div>
         <div class="input-group">
             <label for="phoneInput">휴대전화</label>
-            <input type="text" id="phoneInput" placeholder="000-0000-0000">
+            <input th:value="${phone}" type="text" id="phoneInput" placeholder="000-0000-0000">
 
         </div>
     </div>
@@ -186,16 +186,16 @@
         <h2>배송 정보</h2>
         <div class="input-group">
             <label for="recipientName">받는 사람</label>
-            <input type="text" id="recipientName" placeholder="수령인">
+            <input th:value="${name}" type="text" id="recipientName" placeholder="수령인">
         </div>
         <div class="input-group">
             <label for="recipientPhone">휴대전화</label>
-            <input type="text" id="recipientPhone" placeholder="000-0000-0000">
+            <input th:value="${phone}" type="text" id="recipientPhone" placeholder="000-0000-0000">
         </div>
         <div class="input-group">
             <label for="addressInput">배송지 주소</label>
-            <input type="text" id="addressInput" placeholder="주소">
-            <input type="text" id="addressDetails" placeholder="상세주소">
+            <input th:value="${addr[0]}" type="text" id="addressInput" placeholder="주소">
+            <input th:value="${addrDetail[0]}" type="text" id="addressDetails" placeholder="상세주소">
         </div>
         <div class="input-group">
             <select id="deliveryRequest" onchange="handleDeliveryRequestChange(this.value)">
