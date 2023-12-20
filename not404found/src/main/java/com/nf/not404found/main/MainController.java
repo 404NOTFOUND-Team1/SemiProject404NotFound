@@ -50,6 +50,7 @@ public class MainController {
     public String signUp(){
         return "member/signup";
     }
+
     @GetMapping("productPage")
     public ModelAndView showProduct(@RequestParam String  product_name, ModelAndView mv){
         System.out.println(product_name);
@@ -59,4 +60,5 @@ public class MainController {
         mv.setViewName("productpage/productPage");
         return mv;
     }
+
 }

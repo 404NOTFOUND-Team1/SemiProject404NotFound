@@ -798,7 +798,12 @@
 
         <div>
             <button sec:authorize="isAnonymous()" id="admin-button">유저 테스트 관리자 버튼</button>
-            <button sec:authorize="isAuthenticated()" id="admin-button2">관리자 테스트 관리자 버튼</button>
+            <button onclick="test()" id="admin-button2">관리자 테스트 관리자 버튼</button>
+            <script>
+                function test(){
+                    window.location.href = '/order/shoppingCart.html'
+                }
+            </script>
         </div>
 
         <br><br><br><br><br><br><br><br><br><br>

@@ -1,10 +1,18 @@
+.shoppingcart_total{
+    margin-top: 250px;
+    margin-left: 20px;
+}
+
 .shoppingcart {
     width: 1534px;
     height: 908px;
     position: absolute;
-    left: 250px;
-    top: 400px;
-    margin-top: 40PX;
+    left: 310px;
+    /*top: 250px;*/
+    margin-top: -1PX;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .action-buttons {
@@ -28,9 +36,9 @@
 .guidance_note2 {
     color: rgba(22.31249962002039, 22.31249962002039, 22.31249962002039, 1);
     width: 1200px;
-    height: 146px;
+    height: 110px;
     position: absolute;
-    left: 61px;
+    left: 60px;
     top: 400px;
     font-family: Inter;
     text-align: left;
@@ -53,8 +61,8 @@
     width: 755px;
     height: 60px;
     position: absolute;
-    left: 20%;
-    top: 20px;
+    /*left: 20%;*/
+    top: 25px;
     font-family: Inder;
     text-align: center;
     font-size: 16px;
@@ -65,43 +73,45 @@
     width: 1334px;
     /* height: 341px; */
     position: absolute;
-    left: 0px;
-    top: 85px;
-    padding-top: 20px;
+    /*left: 0px;*/
+    top: 90px;
+    padding-top: 5px;
 }
 
-.cartlist {
-    /* 장바구니 배경 및 테투리*/
+.cartlist { /* 장바구니 배경 및 테투리*/
     background-color: rgba(36.00000165402889, 36.00000165402889, 36.00000165402889, 1);
     width: 160px;
     height: 40px;
     position: relative;
-    left: 90px;
-    top: 380px;
+    left: 143px;
+    /*top: 380px;*/
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cartlist2 {
     /* 장바구니*/
     color: rgb(255, 255, 255);
-    width: 100px;
-    height: 30px;
-    position: relative;
+    /*width: 80px;*/
+    /*height: 30px;*/
+    /*position: relative;*/
     left: 50px;
     top: 5px;
-    font-family: Inder;
-    /* text-align: center; */
+    /*font-family: Inder;*/
+    text-align: center;
     font-size: 20px;
 
 }
 
 .cartlist2-line {
     border-bottom: 1px solid rgb(101, 101, 101);
-    padding-bottom: 5px;
+    /*padding-bottom: 5px;*/
     /* border : 0; */
     width: 1500px;
-    margin-top: -18px;
+    /*margin-top: -18px;*/
     margin-left: 8px;
 }
 
@@ -112,8 +122,7 @@
     height: 23px;
     position: absolute;
     left: 0px;
-    top: 60px;
-    font-family: Inter;
+    top: 55px;
     text-align: left;
     font-size: 20px;
     letter-spacing: 0;
@@ -127,6 +136,7 @@
     position: relative;
     left: 450px;
     top: 100px;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -142,22 +152,24 @@
     border: 1px solid rgba(210.00000268220901, 209.00000274181366, 209.00000274181366, 1);
     border-radius: 15px;
     cursor: pointer;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-content: center;*/
 }
 
 .changeOptionsButton2 {
     /* 주문하기 버튼 */
     color: rgba(255, 255, 255, 1);
-    font-family: Inter;
-    font-size: 28px;
-    letter-spacing: 0;
-    width: 250px;
-    height: 52px;
-    text-align: center;
+    font-size: 25px;
+    /*letter-spacing: 0;*/
+    /*width: 250px;*/
+    /*height: 52px;*/
+    /*text-align: center;*/
     position: absolute;
-    left: 50%;
+    /*left: 50%;*/
     /* 변경: 가운데 정렬을 위해 left 값을 50%로 조정 */
     top: 8px;
-    transform: translateX(-54%);
+    /*transform: translateX(-54%);*/
     /* 변경: left 값을 가운데 정렬로 조정 */
 }
 
@@ -305,7 +317,7 @@ span {
 
 .action-buttons {
     /* 선택 삭제와 바로 구매 버튼 스타일 */
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .action-buttons button {

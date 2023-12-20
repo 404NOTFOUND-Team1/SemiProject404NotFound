@@ -1,1 +1,0 @@
-define(function(){return smSubject=function(){var t=[];function n(e){0<=(e=r(e))&&t.splice(e,1)}function r(e,n){for(var r=n||0;r<t.length;r++)if(t[r]==e)return r}this.registerObserver=function(e){0<=r(e)&&n(e),t.push(e)},this.removeObserver=n,this.notifyObserver=function(e,n){for(var r=0;r<t.length;r++)t[r].update(e,n)}},smSubject});
