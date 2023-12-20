@@ -37,4 +37,8 @@ public class MainController {
     public String signUp(){
         return "member/signup";
     }
+    @GetMapping("productpage/productPage")
+    public String productPage() { return "productpage/productPage"; }
+    @GetMapping("order/shoppingCart")
+    public String shoppingCart() { return "order/shoppingCart"; }
 }

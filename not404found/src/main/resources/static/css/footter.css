@@ -30,7 +30,7 @@
     color: rgb(81 81 81);
     font-size: 12px;
     text-align: left;
-    margin-left: -20px;
+    margin-left: -10px;
 }
 
 .footer-downContainer {
@@ -76,7 +76,7 @@
     left: 300px;
     top: 50px;
     text-align: left;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .footer-up-right p {
@@ -86,7 +86,7 @@
     left: 300px;
     top: 50px;
     text-align: left;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 
@@ -96,8 +96,12 @@
     height: 30px;
     top: 50px;
     text-align: left;
-    font-size: 12px;
+    font-size: 13px;
 }
 
+.right2{ /* 고객센터 이용안내 글씨 */
+    text-align: left;
+    font-size: 16px;
+}
 /* -------------------*/
 

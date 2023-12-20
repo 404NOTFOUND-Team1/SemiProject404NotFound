@@ -1,9 +1,9 @@
 .display-flex {
-    margin-top: 400px;
+    margin-top: 210px;
     /* 이미지랑 글이랑 묶어놓은 것*/
     display: flex;
     justify-content: flex-start;
-    margin-left: 10%;
+    margin-left: 12%;
     margin-right: 20%;
     width: 100%;
 }
@@ -55,15 +55,16 @@
 }
 
 .production_header {
-    margin-top: 5px;
+    margin-top: 10px;
     /*글씨가 있는 모든 범위 */
     margin-left: 20px;
     /* 원하는 만큼의 위쪽 여백 설정 */
+    width: 380px;
 }
 
 .production_header4 {
     /* 상품명*/
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .like_action2 {
@@ -92,7 +93,7 @@
 }
 
 .number {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 700;
     margin-right: 4px;
 }
@@ -114,6 +115,10 @@
     padding-top: 5px;
 }
 
+.delivery{
+    font-size: 15px;
+}
+
 .option_choice1,
 .option_choice2 {
     /*디자인 색상 옵션*/
@@ -124,10 +129,10 @@
 .option_choice2_1 {
     /* 옵션*/
     width: 100%;
-    height: 50px;
-    margin-top: 5px;
-    font-size: 17px;
-    padding: 10px;
+    height: 30px;
+    margin-top: 0px;
+    font-size: 13px;
+    padding: 5px;
     /* 위아래 여백 조정 */
 }
 
@@ -141,30 +146,36 @@
     /* 테두리를 둥글게 만들기 위해 radius 값 지정 */
     background-color: rgb(229, 229, 229);
     /* 하얀색 배경 */
-    padding: 5px;
+    padding: 0px;
     /* 패딩을 추가하여 내부 내용과의 간격을 조절 */
+    font-size: 12px
 }
 
-.choice_list3 {
-    /*장바구니와 바로구매*/
+.choice_list3 { /*장바구니와 바로구매*/
     margin-top: 15px;
     /* 위쪽 간격 늘리기 */
     margin-bottom: 20px;
     /* 아래쪽 간격 늘리기 */
+    display: flex;
+    flex-direction: row;
 }
 
 .choice_list3_1,
 .choice_list3_2 {
     /*장바구니와 바로구매*/
-    font-size: 17px;
-    width: 100%;
+    font-size: 15px;
+    width: 600%;
     /* 너비 */
-    height: 40px;
-    margin-top: 10px;
+    height: 35px;
+    margin-top: 0px;
     border-radius: 15px;
     /* 테두리를 둥글게 만들기 위해 radius 값 지정 */
     background-color: #FFFFFF;
     /* 하얀색 배경 */
+}
+
+.choice_list3 button {
+    margin-right: 10px; /* 버튼 사이에 간격을 주기 위한 마진 설정 */
 }
 
 .choice_list3_2 {
@@ -181,12 +192,12 @@
 }
 
 .totalPurchase p:first-child {
-    font-size: 17px;
+    font-size: 15px;
     /* 원하는 크기로 조정하세요 */
 }
 
 #totalPrice {
-    font-size: 18px;
+    font-size: 15px;
     /* 원하는 크기로 조정하세요 */
     margin-left: 10px;
     /* 원하는 여백으로 조정하세요 */
@@ -196,28 +207,28 @@
     padding-bottom: -10px;
 }
 
-.selectedOptions{
-    width: 447px; /*가로*/
-    padding: 12px; /* 여백 추가 */
-    padding-top: 10px;
+.selectedOptions{ /* 옵션 선택 값들 */
+    width: 540px; /*가로*/
+    padding: 5px 0 0 10px; /* 여백 추가 */
     text-align: left; /* 내용 가운데 정렬 */
     border: 1px solid transparent; /* 테두리 설정 */
     transition: all 0.3s ease; /* 변경 시 부드럽게 전환 */
     box-sizing: border-box; /* 테두리와 패딩을 포함한 크기 지정 */
-    margin-bottom: 6px; /* 옵션 선택 사이 간격 추가 */
-    color: #535353;
+    margin-bottom: 5px; /* 옵션 선택 사이 간격 추가 */
+    color: #919090;
 }
 
 /* 배경색이 바뀔 때 스타일 변경 */
 .selectedOptions.selected {
     background-color: rgba(237, 237, 237, 0.947); /* 배경색 */
     border-color: rgb(214, 214, 214); /* 테두리 색상 */
-    height: 60px; /* 높이 */
+    height: 45px; /* 높이 */
 }
 
 /* 텍스트 스타일 */
 .selectedOptions p {
     margin: 0;
+    font-size: 13px;
 }
 
 /* 상품 정보란 ---------------------------------------------------------------------------*/
@@ -242,9 +253,11 @@
 }
 .cgsKoo {
     box-sizing: border-box;
+
 }
 
 .fMGAnH .box_tab.box_tab_lg.box_tab_fixed {
+    margin-top: -20px;
     height: 64px;
     padding: 23px 16px 0px;
 }
@@ -254,7 +267,7 @@
 }
 
 .fMGAnH .box_tab {
-    display: inline-flex;
+    /*display: inline-flex;*/
     align-items: flex-start;
     -webkit-box-pack: center;
     justify-content: center;
@@ -263,10 +276,62 @@
 }
 
 .dfHsKl {
+
+    box-sizing: border-box; /* 크기를 border와 padding을 포함하여 계산합니다.*/
+    outline: none; /* 아웃라인 스타일 없앰*/
+    border: none; /* 테두리 없앰*/
+    background-color: transparent; /* 배경색 투명 하게 설정*/
+    /*cursor: pointer; !* 마우스 커서 포인터로 설정*!*/
+    width: 50%; /* 너비를 부모 요소 너비의 몇으로 설정 할 건지*/
+    margin: 0 auto; /* 좌우 마진을 auto로 설정하여 수평 중앙에 배치 */
+    display: block; /* 요소를 블록 요소로 설정하여 가로 방향으로 차지하도록 함 */
+}
+
+.cgsKoo fMGAnH{
+    margin: 0 auto; /* 좌우 마진을 auto로 설정하여 수평 중앙에 배치 */
+    display: block; /* 요소를 블록 요소로 설정하여 가로 방향으로 차지하도록 함 */
+}
+
+.text{/* 도착예정*/
+    font-size: 14px;
+}
+
+.bWoHxD {
     box-sizing: border-box;
-    outline: none;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    width: 32.3333%;
+    width: 900px;
+    padding-top: 40px;
+    padding-right: 29px;
+    border-right: 1px solid rgb(239, 239, 239);
+}
+
+.drAxWi{
+    display: flex; /* 자식 요소들을 가로로 나열하기 위해 Flexbox 사용 */
+    justify-content: center; /* 가로 방향으로 중앙 정렬 */
+    align-items: center; /* 세로 방향으로 중앙 정렬 */
+}
+
+/*.LMfJw {*/
+/*    justify-content: center; !* 가로 방향으로 중앙 정렬 *!*/
+/*    align-items: center; !* 세로 방향으로 중앙 정렬 *!*/
+/*}*/
+/*.gylYfC {*/
+/*    justify-content: center; !* 가로 방향으로 중앙 정렬 *!*/
+/*    align-items: center; !* 세로 방향으로 중앙 정렬 *!*/
+/*}*/
+
+.hfklYI {
+    flex-wrap: wrap; /* 이미지들이 한 줄에 여러 개일 경우에 필요합니다. */
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* 이미지가 텍스트 요소 안에 있을 때 가운데 정렬될 수 있도록합니다. */
+}
+
+.hfklYI img {
+    /* 이미지들의 간격을 조정할 수 있습니다. */
+    margin: 5px; /* 원하는 간격으로 조정하세요. */
+}
+
+.jMqowv{ /* 상세정보 펼치기*/
+    display: flex;
+
 }
