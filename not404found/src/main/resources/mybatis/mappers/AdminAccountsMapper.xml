@@ -15,7 +15,13 @@
         <result property="lastLogin" column="last_login"/>
         <result property="accountStatus" column="account_status"/>
         <result property="halfYearAccumulatedAmount" column="half_year_accumulated_amount"/>
+        <association property="accountStatusList" resultMap="accountStatusMap"/>
         <association property="accountTypeName" resultMap="accountTypeMap"/>
+    </resultMap>
+
+    <resultMap id="accountStatusMap" type="AdminAccountStatusDTO">
+        <id property="accountStatus" column="account_status"/>
+        <result property="discountRate" column="discount_rate"/>
     </resultMap>
 
     <resultMap id="accountTypeMap" type="AdminAccountTypeDTO">
@@ -48,10 +54,13 @@
             a.last_login,
             a.half_year_accumulated_amount,
             a.account_status,
-            b.type_name
+            b.type_name,
+            c.account_status,
+            c.discount_rate
         FROM
             accounts a
         JOIN account_type b ON a.account_type_code = b.type_code
+        JOIN account_status c ON a.account_status = c.account_status
         ORDER BY name
     </select>
 
@@ -66,10 +75,13 @@
             a.last_login,
             a.half_year_accumulated_amount,
             a.account_status,
-            b.type_name
+            b.type_name,
+            c.account_status,
+            c.discount_rate
         FROM
             accounts a
                 JOIN account_type b ON a.account_type_code = b.type_code
+                JOIN account_status c ON a.account_status = c.account_status
         <where>
             <if test="searchCondition == 'Aid'">
                 a.id LiKE CONCAT('%', #{searchValue}, '%')

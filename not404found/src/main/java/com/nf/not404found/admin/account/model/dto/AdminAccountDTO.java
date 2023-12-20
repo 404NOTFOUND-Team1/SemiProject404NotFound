@@ -28,4 +28,6 @@ public class AdminAccountDTO {
     private Date lastLogin;
 
     private int halfYearAccumulatedAmount;
+
+    private AdminAccountStatusDTO accountStatusList;
 }
