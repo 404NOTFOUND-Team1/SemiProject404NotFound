@@ -232,23 +232,23 @@
         <div class="결제-정보">
             <div class="상세-항목">
                 <span>상품 금액</span>
-                <span id="pp">18,800원</span>
+                <span id="productPrice">18,800원</span>
             </div>
             <div class="상세-항목">
                 <span>상품 할인</span>
-                <span id="ev">12000원</span>
+                <span id="event">12000원</span>
             </div>
             <div class="상세-항목">
                 <span>쿠폰 할인</span>
-                <span id="cu">3000원</span>
+                <span id="coupon">3000원</span>
             </div>
             <div class="상세-항목">
                 <span>적립금 사용</span>
-                <span id="ml">200원</span>
+                <span id="mileage">200원</span>
             </div>
             <div class="상세-항목">
                 <span>배송비</span>
-                <span th:text="${deliveryCost}+'원'">무료</span>
+                <span id="deliveryCost" th:text="${deliveryCost}+'원'">무료</span>
             </div>
             <hr> <!-- 작은 줄 -->
             <div class="총-결제-금액">
@@ -293,11 +293,11 @@
             }
             console.log("여긴 통과 하냐?")
 
-            let productpayprice = parseInt($("#pp").text().replace("원","").replace(",",""))
-            let mileage = parseInt($("#ml").text().replace("원",""))
-            let delivery = parseInt($("#dl").text().replace("원",""))
-            let coupondiscount = parseInt($("#cu").text().replace("원",""))
-            let eventdiscount = parseInt($("#ev").text().replace("원",""))
+            let productpayprice = parseInt($("#productPrice").text().replace("원","").replace(",",""))
+            let mileage = parseInt($("#mileage").text().replace("원",""))
+            let delivery = parseInt($("#deliveryCost").text().replace("원",""))
+            let coupondiscount = parseInt($("#coupon").text().replace("원",""))
+            let eventdiscount = parseInt($("#event").text().replace("원",""))
             let totalprice = productpayprice - coupondiscount - eventdiscount - mileage + delivery;
             // 사용한 쿠폰도 넘겨야 함
 
