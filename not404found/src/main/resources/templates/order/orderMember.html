@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/order/orderMember.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <title>orderMember</title>
 </head>
 <body>
@@ -127,7 +129,7 @@
                         <input type="checkbox" id="imageCheckbox"> <!-- 체크 박스 추가 -->
                         <div class="content-container">
                             <img src="/resources/image/2.3.jpg" alt="영상" width="150" height="150">
-                            <div class="text-overlay">붙이는 템바보드 재단서비스(300x2400) /
+                            <div class="text-overlay" id="productName">붙이는 템바보드 재단서비스(300x2400) /
                                 (600x2400)<br><br>
                                 <div class="choice_option">옵션<br><br>
                                     <div id="optionChangeCell">
@@ -249,9 +251,7 @@
         <div class="input-group">
             <label for="emailInput">이메일</label>
             <div class="email-input">
-                <input type="text" id="emailId" placeholder="아이디">
-                <span>@</span>
-                <input type="text" id="emailDomain" placeholder="이메일 주소">
+                <input type="text" id="emailInput" name="emailInput" placeholder="이메일 주소">
             </div>
             <button id="sendVerificationCode">인증번호 발송</button>
         </div>
@@ -276,7 +276,6 @@
         <div class="input-group">
             <label for="addressInput">배송지 주소</label>
             <input type="text" id="addressInput" placeholder="주소">
-            <input type="text" id="addressDetails" placeholder="상세주소">
         </div>
         <div class="input-group">
             <select id="deliveryRequest" onchange="handleDeliveryRequestChange(this.value)">
@@ -313,33 +312,114 @@
         <div class="결제-정보">
             <div class="상세-항목">
                 <span>상품 금액</span>
-                <span>18,800원</span>
+                <span id="pp">18,800원</span>
             </div>
             <div class="상세-항목">
                 <span>상품 할인</span>
-                <span>0원</span>
+                <span id="ev">12000원</span>
             </div>
             <div class="상세-항목">
                 <span>쿠폰 할인</span>
-                <span>0원</span>
+                <span id="cu">3000원</span>
             </div>
             <div class="상세-항목">
                 <span>적립금 사용</span>
-                <span>0원</span>
+                <span id="ml">200원</span>
             </div>
             <div class="상세-항목">
                 <span>배송비</span>
-                <span>무료</span>
+                <span id="dl">3000원</span>
             </div>
             <hr> <!-- 작은 줄 -->
             <div class="총-결제-금액">
                 <span>총 결제 금액</span>
-                <span>18,800원</span>
+                <span id="total-price">18,800원</span>
             </div>
         </div>
-        <button class="결제-버튼">결제하기</button>
+        <button id="buy" class="결제-버튼" value="결제하기">결제하기</button>
     </div>
 </div>
+
+<script>
+    $(function(){
+
+        $("#buy").click(function(){
+
+            var pname = $("#productName").text();
+            var name = $("#nameInput").val();
+            var email = $("#emailInput").val();
+            var tel = $("#phoneInput").val();
+            var sname = $("#recipientName").val();
+            var stel = $("#recipientPhone").val();
+            var saddress = $("#addressInput").val();
+
+            if(name == ""){
+                $("#nameInput").focus()
+            }
+            if(tel == ""){
+                $("#emailInput").focus()
+            }
+            if(email == ""){
+                $("#phoneInput").focus()
+            }
+            if(sname == ""){
+                $("#recipientName").focus()
+            }
+            if(stel == ""){
+                $("#recipientPhone").focus()
+            }
+            if(saddress == ""){
+                $("#addressInput").focus()
+            }
+            console.log("여긴 통과 하냐?")
+
+            let productpayprice = parseInt($("#pp").text().replace("원","").replace(",",""))
+            let mileage = parseInt($("#ml").text().replace("원",""))
+            let delivery = parseInt($("#dl").text().replace("원",""))
+            let coupondiscount = parseInt($("#cu").text().replace("원",""))
+            let eventdiscount = parseInt($("#ev").text().replace("원",""))
+            let totalprice = productpayprice - coupondiscount - eventdiscount - mileage + delivery;
+            // 사용한 쿠폰도 넘겨야 함
+
+
+            console.log("productpayprice")
+            console.log(productpayprice)
+            console.log("mileage")
+            console.log(mileage)
+            console.log("delivery")
+            console.log(delivery)
+            console.log("coupondiscount")
+            console.log(coupondiscount)
+            console.log("eventdiscount")
+            console.log(eventdiscount)
+            console.log("totalprice")
+            console.log(totalprice)
+
+            $.ajax({
+                type:'post',
+                url:'/order/pay',
+                data:{
+                    pname : pname,
+                    totalprice : totalprice,
+                    mileage : mileage,
+                    buyname : name,
+                    buyemail : email,
+                    buytel : tel,
+                    receivename : sname,
+                    receivetel : stel,
+                    receiveaddress : saddress
+                //     사용한 쿠폰까지 넘겨야함
+                },
+                success:function(response){
+                    location.href = response.next_redirect_pc_url
+                }
+            })
+
+
+        });
+    });
+
+</script>
 
 <script> //================================ 적립금 ================================
 // 가정: totalPointsFromSomewhere() 함수는 다른 곳에서 총 보유 적립금을 가져오는 함수
@@ -361,7 +441,7 @@ totalPointsElement.textContent = totalPointsFromSomewhere() + '원';
     // 부모
     var dropdownContainer = document.querySelector('.dropdown-container');
 
-    //버튼들
+=    //버튼들
     var category = document.getElementById('category');
     var theme = document.getElementById('theme');
     var new_product = document.getElementById('new_product');
@@ -593,6 +673,7 @@ totalPointsElement.textContent = totalPointsFromSomewhere() + '원';
     special_price.addEventListener('click', function () {
         alert("특가 선택")
     });
+
 </script>
 
 
