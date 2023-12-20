@@ -35,6 +35,7 @@
     <resultMap id="getProductResultMap" type="com.nf.not404found.product.model.dto.ProductPageDTO">
         <id property="name" column="name"/>
         <result property="productCode" column="productCode"/>
+        <result property="reviewCount" column="reviewCount"/>
         <result property="price" column="price"/>
         <result property="mileage" column="mileage"/>
         <result property="deliveryCost" column="deliveryCost"/>
@@ -42,14 +43,17 @@
     <select id="getProductColor" resultType="String">
         SELECT color_code FROM options WHERE product_code = #{productCode}
     </select>
-    
+
     <select id="getProduct" resultMap="getProductResultMap">
         SELECT  p.product_code AS productCode,
                 p.name AS name,
-               p.price AS price,
-               ((SELECT price FROM product WHERE name = #{name}) * 0.07) as mileage,
-               3000 AS deliveryCost
+                p.price AS price,
+                ((SELECT price FROM product WHERE name = #{name}) * 0.07) as mileage,
+                3000 AS deliveryCost,
+                COUNT(r.product_code) AS reviewCount
         FROM product AS p
+                 LEFT JOIN review AS r ON p.product_code = r.product_code
         WHERE p.name = #{name}
+        GROUP BY p.product_code;
     </select>
 </mapper>

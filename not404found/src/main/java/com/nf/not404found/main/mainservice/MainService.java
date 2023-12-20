@@ -32,12 +32,12 @@ public class MainService {
         List<ProductPageDTO> list = mapper.getProduct(name);
         for(ProductPageDTO p : list){
             System.out.println("===="+p.getName()+"====");
-            System.out.println(p.getMileage());
-            System.out.println(p.getDeliveryCost());
-            System.out.println(p.getReviewCount());
-            System.out.println(p.getPrice());
-            System.out.println(p.getColor());
-            System.out.println(p.getProductCode());
+            System.out.println("마일리지 = "+p.getMileage());
+            System.out.println("배송비 = "+p.getDeliveryCost());
+            System.out.println("리뷰 수 = "+p.getReviewCount());
+            System.out.println("가격 = "+p.getPrice());
+            System.out.println("색상 = "+p.getColor());
+            System.out.println("코드 = "+p.getProductCode());
         }
         List<String> list2 = mapper.getProductColor(list.get(0).getProductCode());
         list.get(0).setColor(list2);

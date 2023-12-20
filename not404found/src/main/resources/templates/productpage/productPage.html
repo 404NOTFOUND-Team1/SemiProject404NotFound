@@ -119,7 +119,7 @@
                 <div class="promotion2">
                     <span class="promotion3" style="color:gray;">혜택 </span>
                     <span class="reward_points">
-                            <span class="reward_points2"><b>xx<!-- -->P</b> 적립 (<!-- -->FRIEND
+                            <span th:text="${products[0].getMileage()}+'원 적립'" class="reward_points2"><b>xx<!-- -->P</b> 적립 (<!-- -->FRIEND
                                 <!-- -->x.x<!-- -->% 적립)
                             </span>
                         </span>
@@ -127,7 +127,7 @@
                 <div class="delivery_header">
                     <div class="delivery">
                         <span class="delivery2" style="color: gray;">배송</span>
-                        <span dclass="delivery3"><b>무료배송 </b>
+                        <span th:text="${products[0].getDeliveryCost()}+'원'"  dclass="delivery3"><b>무료배송 </b>
                                 <br>
                             </svg><span style="color: gray;">제주도/도서산간 지역 5,000원</span></span>
                     </div>
@@ -169,11 +169,7 @@
                 <div class="option_choice2">
                     <select class="option_choice2_1">
                         <option selected="" value="" disabled="">색상</option>
-                        <option value="0">그레이</option>
-                        <option value="1">베이지</option>
-                        <option value="2">그린</option>
-                        <option value="3">레드</option>
-                        <option value="4">블랙</option>
+                        <option th:each="color : ${products[0].getColor()}" th:value="${color}" th:text="${color}"></option>
                     </select><span class="option_choice2_1_icon">
                             <svg class="icon" width="10" height="10" style="fill:currentColor"
                                  preserveAspectRatio="xMidYMid meet">
@@ -193,9 +189,9 @@
                 </div>
                 <div>
                     <!-- 수량 조절 -->
-                    <button onclick="decreaseQuantity()">-</button>
+                    <button id="decreaseButton" onclick="decreaseQuantity()">-</button>
                     <span id="quantity">1</span>
-                    <button onclick="increaseQuantity()">+</button><br><br>
+                    <button id="increaseButton" onclick="increaseQuantity()">+</button><br><br>
                     <hr>
                 </div>
                 <div class="totalPurchase">
@@ -210,7 +206,7 @@
             </p>
             <div class="choice_list3">
                 <button class="choice_list3_1" type="button">장바구니</button><br>
-                <button class="choice_list3_2" type="button">바로구매</button>
+                <button id="buy" class="choice_list3_2" type="button">바로구매</button>
             </div>
         </div>
     </div>
@@ -218,6 +214,42 @@
 </div>
 </div>
 </div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const product = [[${products[0].getPrice()}]];
+    // JavaScript 코드에서 myVariable 사용
+    /*]]>*/
+</script>
+<script>
+    const price = document.getElementById('totalPrice');
+    const buyButton = document.getElementById('buy');
+    const incBt = document.getElementById('increaseButton');
+    const decBt = document.getElementById('decreaseButton');
+    const originalPrice = product * 1;
+    price.textContent = product.toLocaleString();
+
+    incBt.addEventListener('click',function (){
+        let textPrice = price.textContent;  //String 타입
+        let numPrice = 1 * textPrice.replace(/,/g, "")  // , 제거
+        numPrice = numPrice + (product*1);
+        price.textContent = numPrice.toLocaleString();
+    });
+    decBt.addEventListener('click',function (){
+        let numberPrice = price.textContent * 1;    //num
+        let numberProduct = product * 1;    //num
+        if(numberProduct !== numberPrice){
+            let textPrice = price.textContent;
+            let numPrice = textPrice.replace(/,/g, "")
+            numPrice = numPrice - (product * 1);
+            price.textContent = numPrice.toLocaleString();
+        }
+
+    });
+    buyButton.addEventListener('click',function (){
+         alert(product);
+    });
+
+</script>
 <script src="/js/productpage/productPage.js"></script>
 </body>
 
