@@ -11,7 +11,7 @@ public interface MainPageMapper {
 
     List<MainPageProductDTO> showMainPageProduct();
 
-    List<ProductPageDTO> getProduct(String name);
+    List<ProductPageDTO> getProduct(String name, String userName);
 
     List<String> getProductColor(String productCode);
 }

@@ -10,6 +10,7 @@
 <header th:replace="/common/header.html"></header>
 
 <div class="display-flex"> <!-- 섬네일 이미지랑 글 -->
+
     <div class="product-images"> <!-- 큰이미지 + 섬네일 -->
         <div class="thumbnail-images"> <!-- 섬네일 -->
             <img class="thumbnail-image" src="/images/productpage/product6.jpg" alt="Thumbnail1" id="thumbnail1">
@@ -21,10 +22,11 @@
         <img class="main-image" src="/images/productpage/product1.jpg" alt="큰 이미지" id="largeImage">
     </div>
     <div class="production_header">
+
         <div class="production_header2">
             <a class="production_header3" href="브랜드 주소"
-               &amp;affect_type=ProductSaleDetail&amp;affect_id="1269519">이거슨</a></p>
-            <div th:text="${products[0].getName()}" class="production_header4"><b><span class="production_header5"> 붙이는 템바보드 재단서비스(300x2400 /
+               &amp;affect_type=ProductSaleDetail&amp;affect_id="1269519"></a></p>
+            <div th:text="${products[0].getName()}" id="productName" class="production_header4"><b><span class="production_header5"> 붙이는 템바보드 재단서비스(300x2400 /
                             600x2400)</span></di></b>
             <span class="like_action"><button class="like_action2" type="button">
                         <svg class="icon1" aria-label="" width="20" height="" fill="#fd0000" stroke="currentColor"
@@ -97,7 +99,7 @@
                                 <use xlink:href="#star-path-0.783" fill="#DBDBDB"></use>
                                 <use clip-path="url(#star-clip-0.783)" xlink:href="#star-path-0.783"></use>
                             </svg></span>
-                <span class="review_text"><span class="review_text2"><span class="review_text3"></span>&nbsp;60<span class="review_text4"></span></span><span
+                <span class="review_text"><span th:text="${products[0].getReviewCount()}" class="review_text2"><span class="review_text3"></span>&nbsp;60<span class="review_text4"></span></span><span
                     class="review_text5">개 리뷰</span></span></a>
             </p>
             <div class="price"><span class="price2"></span></dev>
@@ -119,7 +121,7 @@
                 <div class="promotion2">
                     <span class="promotion3" style="color:gray;">혜택 </span>
                     <span class="reward_points">
-                            <span th:text="${products[0].getMileage()}+'원 적립'" class="reward_points2"><b>xx<!-- -->P</b> 적립 (<!-- -->FRIEND
+                            <span th:text="${grade}+'등급 '+${products[0].getMileage()}+'원 적립'" id="mileage" class="reward_points2"><b>xx<!-- -->P</b> 적립 (<!-- -->FRIEND
                                 <!-- -->x.x<!-- -->% 적립)
                             </span>
                         </span>
@@ -127,7 +129,7 @@
                 <div class="delivery_header">
                     <div class="delivery">
                         <span class="delivery2" style="color: gray;">배송</span>
-                        <span th:text="${products[0].getDeliveryCost()}+'원'"  dclass="delivery3"><b>무료배송 </b>
+                        <span th:text="${products[0].getDeliveryCost()}+'원'" id="deliveryCost"  class="delivery3"><b>무료배송 </b>
                                 <br>
                             </svg><span style="color: gray;">제주도/도서산간 지역 5,000원</span></span>
                     </div>
@@ -206,11 +208,24 @@
             </p>
             <div class="choice_list3">
                 <button class="choice_list3_1" type="button">장바구니</button><br>
-                <button id="buy" class="choice_list3_2" type="button">바로구매</button>
+                <form action="order/orderMember" method="post">
+                <button id="buy" class="choice_list3_2" type="submit">바로구매</button>
+                    <input type="hidden" name="productName" id="product">
+                    <input type="hidden" name="amount" id="amount">
+                    <input type="hidden" name="mileage" id="userMileage">
+                    <input type="hidden" name="deliveryCost" id="productDeliveryCost">
+                    <input type="hidden" name="price" id="price">
+                </form>
             </div>
         </div>
     </div>
+
+            <script>
+
+            </script>
+
 </div>
+
 </div>
 </div>
 </div>
@@ -225,7 +240,6 @@
     const buyButton = document.getElementById('buy');
     const incBt = document.getElementById('increaseButton');
     const decBt = document.getElementById('decreaseButton');
-    const originalPrice = product * 1;
     price.textContent = product.toLocaleString();
 
     incBt.addEventListener('click',function (){
@@ -235,19 +249,33 @@
         price.textContent = numPrice.toLocaleString();
     });
     decBt.addEventListener('click',function (){
-        let numberPrice = price.textContent * 1;    //num
-        let numberProduct = product * 1;    //num
-        if(numberProduct !== numberPrice){
+        let numberPrice = price.textContent.replace(/,/g,"") * 1;    //num   60000
+        let numberProduct = product * 1;    //num   60000
+        if(numberProduct !== numberPrice){  //6만과, 6만이 같지 않냐? ㅇㅇ면 아래로
             let textPrice = price.textContent;
             let numPrice = textPrice.replace(/,/g, "")
             numPrice = numPrice - (product * 1);
             price.textContent = numPrice.toLocaleString();
         }
-
     });
     buyButton.addEventListener('click',function (){
-         alert(product);
+        const productName = document.getElementById('productName').textContent;
+        const amount = document.getElementById('quantity').textContent;
+        const mileage = document.getElementById('mileage').textContent;
+        const deliveryCost = document.getElementById('deliveryCost').textContent;
+        const price = document.getElementById('totalPrice').textContent;
+        document.getElementById("product").value = document.getElementById("productName").textContent;
+        document.getElementById("amount").value = document.getElementById("quantity").textContent;
+        document.getElementById("userMileage").value = document.getElementById("mileage").textContent.replace(/\D/g, '');
+        document.getElementById("productDeliveryCost").value = document.getElementById("deliveryCost").textContent.replace(/\D/g, '');
+        document.getElementById("price").value = document.getElementById("totalPrice").textContent.replace(/\D/g, '');
+        console.log(document.getElementById("price").value);
+
+
+
+
     });
+
 
 </script>
 <script src="/js/productpage/productPage.js"></script>

@@ -5,6 +5,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class UserInformation {
     private final UserInformationMapper mapper;
@@ -71,6 +73,28 @@ public class UserInformation {
         Object principal = auth.getPrincipal();
         if (principal instanceof UserDetails) {
             return mapper.SearchUserPhone(((UserDetails) principal).getUsername());
+        }
+        return null;
+    }
+    public String getStatus() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        if (principal instanceof UserDetails) {
+            return mapper.SearchUserStatus(((UserDetails) principal).getUsername());
+        }
+        return null;
+    }
+    public List<String> getCoupon() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        if (principal instanceof UserDetails) {
+            return mapper.SearchUserCoupon(((UserDetails) principal).getUsername());
         }
         return null;
     }

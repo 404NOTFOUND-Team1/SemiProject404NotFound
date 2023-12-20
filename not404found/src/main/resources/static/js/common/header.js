@@ -294,7 +294,7 @@ function goObject(url, object, after){
                 return response.text();
             })
             .then(data => {
-                after(data)
+                if(after){after(data)}
             })
             .catch((error) =>{
                 alert(error);
