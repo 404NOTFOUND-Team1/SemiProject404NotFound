@@ -10,5 +10,10 @@
         <module name="not404found.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="not404found" target="17" />
+      <module name="not404found.main" target="17" />
+      <module name="not404found.test" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
