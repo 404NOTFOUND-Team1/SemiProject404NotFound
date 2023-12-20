@@ -467,9 +467,11 @@ td.post_title {
 /* ========================= 인테리어 챌린지 ========================= */
 .img-box > img{
     width: 100%;
+    height: 300px;
     display: block;
     margin-top: 90px;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .ic_showCaseImg {
@@ -567,6 +569,27 @@ td.post_title {
     border-color: #000000;
     border-style: solid;
     border-width: 0.3px;
+}
+
+.pagingArea_ic {
+    text-align: center;
+    font-size: 0;
+    position: absolute;
+    bottom: -120px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 30px;
+}
+
+.pagingArea_ic button {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    /*border: 1px solid #2b2a29;*/
+    line-height: 100%;
+    color: #2b2a29;
 }
 
 .ic_page {
@@ -983,4 +1006,61 @@ td.post_title {
 .star-ratings-base {
     z-index: 0;
     padding: 0;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.rating {
+    float: none;
+    width: 200px;
+    display: flex;
+}
+
+.rating__input {
+    display: none;
+}
+
+.rating__label {
+    width: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.rating__label .star-icon {
+    width: 20px;
+    height: 40px;
+    display: block;
+    position: relative;
+    left: 0;
+    background-image: url('/images/board/empty_star.png');
+    background-repeat: no-repeat;
+    background-size: 40px;
+}
+
+.rating__label .star-icon.filled {
+    background-image: url('/images/board/fill_star.png');
+}
+
+.rating__label--full .star-icon {
+    background-position: right;
+}
+
+.rating__label--half .star-icon {
+    background-position: left;
+}
+
+.rating.readonly .star-icon {
+    opacity: 0.7;
+    cursor: default;
 }

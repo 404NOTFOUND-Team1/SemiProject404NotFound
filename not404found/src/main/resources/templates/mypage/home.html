@@ -157,6 +157,13 @@
             grid-column: 6/8;
             grid-row: 7;
         }
+        .dbsChangeEmail{
+            position: relative;
+            top: 500px;
+            left: 40px;
+            cursor: pointer;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -199,11 +206,14 @@
     <span class="myEmail">내 이메일</span>
     <input type="text" readonly="true" class="myEmailField" id="myEmailField" th:value="${id.getEmail()}">
     <button type="submit" id="changeEmail" class="changeEmail" onclick="changeEmail()">이메일 변경</button>
+    <!--    dbs 추가-->
+    <span class="dbsChangeEmail">이메일 변경?</span>
 
     <span class="myGrade">내 계정 등급</span>
     <span class="myGradeImg">30x200이미지가 들어감</span>
     </tr>
     <script>
+        //주석
         function changeMyData(url, value, btn,inputField){
             if(btn.textContent === '변경하기'){
                 fetch(url,{
@@ -228,24 +238,24 @@
                 inputField.type = 'text';
             }
         }
-        function go(url, value){
-                fetch(url,{
-                    method: "POST",
-                    headers:{
-                        'Content-Type': 'text/plain'
-                    },
-                    body: value
-                })
-                    .then(response =>{
-                        return response.text();
-                    })
-                    .then(data => {
-                        alert(data)
-                    })
-                    .catch((error) =>{
-                        alert(error);
-                    });
-        }
+        // function go(url, value){
+        //         fetch(url,{
+        //             method: "POST",
+        //             headers:{
+        //                 'Content-Type': 'text/plain'
+        //             },
+        //             body: value
+        //         })
+        //             .then(response =>{
+        //                 return response.text();
+        //             })
+        //             .then(data => {
+        //                 alert(data)
+        //             })
+        //             .catch((error) =>{
+        //                 alert(error);
+        //             });
+        // }
         function changePhone(){
             const phoneBtn = document.getElementById('changePhone');
             const phoneInputField = document.getElementById('myPhoneField');
@@ -266,11 +276,20 @@
             const myAddressDropDown = document.getElementById('myAddressDropDown');
             const slice = myAddressDropDown.value.split(" ");
             const name = slice[slice.length -1];
-            go("/myPage/deleteAddr",name);
+            go("/myPage/deleteAddr",name,function(data){
+                alert("data = "+data);
+            });
         }
         function goCoupon(){
             window.location.href = "coupon"
         }
+
+        const dbsChangeEmail = document.querySelector('.dbsChangeEmail');
+
+        dbsChangeEmail.addEventListener('click',function(){
+
+            window.location.href= '/member/send-email-form2';
+        });
         function goOrder(){
             window.location.href = "order";
         }

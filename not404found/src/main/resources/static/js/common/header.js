@@ -227,7 +227,7 @@ best.addEventListener('click',function(){
     alert("베스트 선택.")
 });
 interior_challenge.addEventListener('click',function(){
-    alert("인테리어 첼린지 선택")
+    window.location.href = '/board/ic/list';
 });
 board_toggle.addEventListener('click', function (e)
 {
@@ -236,9 +236,9 @@ board_toggle.addEventListener('click', function (e)
     if(list === categoryArray[0]){
         window.location.href = '/board/notice/list';
     } else if(list === categoryArray[1]){
-        window.location.href = '/board/notice/review';
-    } else if(list === categoryArray[2]){
         window.location.href = '/board/review/review';
+    } else if(list === categoryArray[2]){
+        window.location.href = '/board/qna/list';
     } else {
         alert("Error!!");
     }
@@ -246,4 +246,58 @@ board_toggle.addEventListener('click', function (e)
 special_price.addEventListener('click',function(){
     alert("특가 선택")
 });
+//첫 번째 인자 : 요청 URL.
+//두 번째 인자 : 전달할 단일 변수.
+//세 번째 인자 : 요청 후 수행할 함수(인자가 컨트롤러에서 돌아온 값).
+/**
+ * 비동기 단일 데이터 요청 함수 모든 인자는 생략 가능
+ * @url 1. 요청 URL.
+ * @value 2. 컨트롤러로 전달할 단일 변수.
+ * @after 3. 요청 후 수행할 함수(인자는 컨트롤러에서 돌아온 값).
+ */
+function go(url, value,after){
+    fetch(url,{
+        method: "POST",
+        headers:{
+            'Content-Type': 'text/plain'
+        },
+        body: value
+    })
+        .then(response =>{
+            return response.text();
+        })
+        .then(data => {
+            after(data);
+        })
+        .catch((error) =>{
+            alert(error);
+        });
+}
+/**
+ * 비동기 객체 데이터 전달 요청 함수.
+ * 객체는 data = {key:value,
+ *              key2:value2};
+ *              의 json 형식으로 줘야한다.
+ * @url 1. 요청 URL
+ * @object 2. 컨트롤러로 전달할 객체
+ * @after 3. 요청 후 수행할 함수(인자는 컨트롤러에서 돌아온 값).
+ */
+function goObject(url, object, after){
+        fetch(url,{
+            method: "POST",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(object)
+        })
+            .then(response =>{
+                return response.text();
+            })
+            .then(data => {
+                after(data)
+            })
+            .catch((error) =>{
+                alert(error);
+            });
+}
 

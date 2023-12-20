@@ -73,10 +73,10 @@ const largeImage = document.getElementById('largeImage');
 // 각각의 썸네일에 대한 이벤트 리스너 추가하기
 //// 마우스가 나가면 원래의 큰 이미지로 변경
 thumbnail1.addEventListener('mouseover', () => {
-    largeImage.src = "/resources/image/2.1.jpg";
+    largeImage.src = "images/productpage/a1.jpg";
 });
 thumbnail1.addEventListener('mouseout', () => {
-    largeImage.src = "/resources/image/2.3.jpg";
+    largeImage.src = "images/productpage/a2.jpg";
 });
 thumbnail2.addEventListener('mouseover', () => {
     largeImage.src = "/resources/image/2.2.jpg";
@@ -107,14 +107,12 @@ const productOptions = document.getElementById('option_choice1_1');
 const quantityElement = document.getElementById('quantity');
 const totalPriceElement = document.getElementById('totalPrice');
 
-choice1.addEventListener('change', updateSelectedOption);
-choice2.addEventListener('change', updateSelectedOption);
 // 수량 증가 함수
 function increaseQuantity() {
     let quantity = parseInt(quantityElement.textContent);
     quantity++;
-    quantityElement.textContent = quantity;
-    updateTotalPrice();
+    quantityElement.textContent = quantity.toString();
+    //updateTotalPrice();
 }
 
 // 수량 감소 함수
@@ -122,35 +120,35 @@ function decreaseQuantity() {
     let quantity = parseInt(quantityElement.textContent);
     if (quantity > 1) {
         quantity--;
-        quantityElement.textContent = quantity;
-        updateTotalPrice();
+        quantityElement.textContent = quantity.toString();
+        //updateTotalPrice();
     }
 }
 
 // 수정된 updateTotalPrice() 함수
-function updateTotalPrice() {
-    const selectedOption = productOptions.value; // productOptions로 올바른 ID를 사용합니다.
-    const quantity = parseInt(quantityElement.textContent);
-    let price = 0;
-
-    switch (selectedOption) {
-        case '0':
-            price = 0;
-            break;
-        case '1':
-            price = 2000;
-            break;
-        case '2':
-            price = 3000;
-            break;
-        case '3':
-            price = 6000;
-            break;
-        // 다른 옵션에 대한 가격 추가
-    }
-
-    const totalPrice = price * quantity;
-    totalPriceElement.textContent = totalPrice;
-}
+// function updateTotalPrice() {
+//     const selectedOption = productOptions.value; // productOptions로 올바른 ID를 사용합니다.
+//     const quantity = parseInt(quantityElement.textContent);
+//     let price = 0;
+//
+//     switch (selectedOption) {
+//         case '0':
+//             price = 0;
+//             break;
+//         case '1':
+//             price = 2000;
+//             break;
+//         case '2':
+//             price = 3000;
+//             break;
+//         case '3':
+//             price = 6000;
+//             break;
+//         // 다른 옵션에 대한 가격 추가
+//     }
+//
+//     const totalPrice = price * quantity;
+//     totalPriceElement.textContent = totalPrice;
+// }
 // 초기 총 구매 가격 계산
-updateTotalPrice();
+//updateTotalPrice();

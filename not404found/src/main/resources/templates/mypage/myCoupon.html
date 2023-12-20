@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,8 +34,8 @@
         </ul>
     </nav>
 
-    <p class="pg_cnt">
-        <em>총 0건</em>의 쿠폰내역이 있습니다.
+    <p class="pg_cn3t">
+        <em>총 <span th:text="${couponCount}"></span>개</em>의 쿠폰이 있습니다.
     </p>
 
     <div class="tbl_head02 tbl_wrap">

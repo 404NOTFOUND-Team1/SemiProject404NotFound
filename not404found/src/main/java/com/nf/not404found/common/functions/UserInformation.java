@@ -130,4 +130,16 @@ public class UserInformation {
         return 0;
     }
 
+    public String  getStatus() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        if (principal instanceof UserDetails) {
+            return mapper.SearchUserStatus(((UserDetails) principal).getUsername());
+        }
+        return null;
+    }
+
 }
