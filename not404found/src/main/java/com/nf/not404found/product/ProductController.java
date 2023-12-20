@@ -21,6 +21,7 @@ public class ProductController {
 //    }
     @GetMapping("productPage")
     public String openProductPage(){
+
         return "productpage/productPage";
     }
 }

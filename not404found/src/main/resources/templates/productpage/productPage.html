@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,7 @@
     <div class="production_header">
         <div class="production_header2">
             <a class="production_header3" href="브랜드 주소"
-               &amp;affect_type=ProductSaleDetail&amp;affect_id="1269519">이거슨</a></p>
+               &amp;affect_type=ProductSaleDetail&amp;affect_id="1269519"></a></p>
             <div th:text="${products[0].getName()}" class="production_header4"><b><span class="production_header5"> 붙이는 템바보드 재단서비스(300x2400 /
                             600x2400)</span></di></b>
             <span class="like_action"><button class="like_action2" type="button">
@@ -105,7 +106,7 @@
                     </button></span>
                 <span class="price4"></span>
                         <div class="price5">
-                            <div class="price6"><span th:text="${products[0].getPrice()}" class="number">18,800</span><span class="won">원</span><svg
+                            <div class="price6"><span th:text="${products[0].getPrice()}" class="number"></span><span class="won">원</span><svg
                                     class="icon" aria-label="특가" width="40" height="20" viewBox="0 0 30 20"
                                     preserveAspectRatio="xMidYMid meet">
                                     <rect width="30" height="20" fill="#F77" rx="4"></rect>
