@@ -5,6 +5,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class UserInformation {
     private final UserInformationMapper mapper;
@@ -74,7 +76,18 @@ public class UserInformation {
         }
         return null;
     }
-    public String getAddr() {
+    public List<String> getCoupon() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        if (principal instanceof UserDetails) {
+            return mapper.SearchUserCoupon(((UserDetails) principal).getUsername());
+        }
+        return null;
+    }
+    public List<String> getAddr() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
             return null;
@@ -96,7 +109,7 @@ public class UserInformation {
         }
         return null;
     }
-    public String  getAddrDetail() {
+    public List<String>  getAddrDetail() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
             return null;

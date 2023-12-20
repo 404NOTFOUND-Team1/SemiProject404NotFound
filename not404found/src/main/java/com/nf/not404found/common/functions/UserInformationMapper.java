@@ -3,6 +3,8 @@ package com.nf.not404found.common.functions;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface UserInformationMapper {
 
@@ -15,16 +17,18 @@ public interface UserInformationMapper {
     String SearchUserPhone(String username);
 
     @Select("SELECT address FROM address WHERE id = #{username}")
-    String SearchUserAddr(String username);
+    List<String> SearchUserAddr(String username);
     @Select("SELECT address_detail FROM address WHERE id = #{username}")
-    String SearchUserAddrDetail(String username);
+    List<String> SearchUserAddrDetail(String username);
     @Select("SELECT address_name FROM address WHERE id = #{username}")
     String SearchUserAddrName(String username);
     @Select("SELECT zipcode FROM address WHERE id = #{username}")
     String SearchUserAddrZipCode(String username);
     @Select("SELECT COUNT(*) FROM address WHERE id = #{username}")
     int SearchUserAddrCount(String username);
-
     @Select("SELECT account_status FROM accounts WHERE id = #{username}")
     String SearchUserStatus(String username);
+
+    @Select("SELECT c.name FROM user_coupon AS u JOIN coupon c on u.coupon_number = c.coupon_number WHERE u.id = #{username}")
+    List<String> SearchUserCoupon(String username);
 }

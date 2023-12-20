@@ -1,10 +1,6 @@
 package com.nf.not404found.main;
 
 
-import com.nf.not404found.account.model.dto.AccountDTO;
-import com.nf.not404found.account.model.service.AccountService;
-import com.nf.not404found.admin.account.model.dto.AdminAccountDTO;
-import com.nf.not404found.admin.account.model.service.AdminAccountServiceImpl;
 import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.main.mainservice.MainService;
 import com.nf.not404found.main.model.dto.MainPageProductDTO;
@@ -21,19 +17,17 @@ import java.util.List;
 @Slf4j
 public class MainController {
     private final MainService service;
-    
+
     private final UserInformation user;
     public MainController(MainService service, UserInformation user){
         this.service = service;
         this.user = user;
     }
-
 //    @GetMapping("/")
 //    public String defaultLocation(){
 //
 //        return "index";
 //    }
-
     @GetMapping("/")
     public ModelAndView showMainPage(ModelAndView mv){
         List<MainPageProductDTO> list = service.showMainPageProduct();
@@ -41,7 +35,6 @@ public class MainController {
         mv.setViewName("index");
         return mv;
     }
-
     @GetMapping("member/login") 
     public String logIn(){
         return "member/login";
@@ -55,8 +48,8 @@ public class MainController {
     public ModelAndView showProduct(@RequestParam String  product_name, ModelAndView mv){
         System.out.println(product_name);
         List<ProductPageDTO> list = service.getProduct(product_name);
-
         mv.addObject("products",list);
+        mv.addObject("grade",user.getStatus());
         mv.setViewName("productpage/productPage");
         return mv;
     }

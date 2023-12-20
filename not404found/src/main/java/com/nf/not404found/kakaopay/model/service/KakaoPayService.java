@@ -28,13 +28,13 @@ public class KakaoPayService {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 
 
-        parameters.add("cid", "TC0ONETIME");
-        parameters.add("partner_order_id", "4");
-        parameters.add("partner_user_id", "admin");
-        parameters.add("item_name", "아이고마책상");
-        parameters.add("quantity", "2");
+        parameters.add("cid", "TC0ONETIME"); //테스트임
+        parameters.add("partner_order_id", "4"); // 주문번호임
+        parameters.add("partner_user_id", "admin"); // 주문결제 하는 회원의 아이디
+        parameters.add("item_name", "아이고마책상"); // 상품명
+        parameters.add("quantity", "2"); // 수량
         parameters.add("total_amount", String.valueOf(totalAmount));
-        parameters.add("tax_free_amount", "0");
+        parameters.add("tax_free_amount", "0"); //비과세인가 뭔가 하는거임
         parameters.add("approval_url", "http://localhost:8404/order/pay/completed"); // 결제승인시 넘어갈 url
         parameters.add("cancel_url", "http://localhost:8404/order/pay/cancel"); // 결제취소시 넘어갈 url
         parameters.add("fail_url", "http://localhost:8404/order/pay/fail");

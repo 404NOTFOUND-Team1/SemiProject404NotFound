@@ -48,12 +48,21 @@
         SELECT  p.product_code AS productCode,
                 p.name AS name,
                 p.price AS price,
-                ((SELECT price FROM product WHERE name = #{name}) * 0.07) as mileage,
+                p.price * (
+                    CASE
+                        WHEN a.account_status = 'FRIEND' THEN 0.02
+                        WHEN a.account_status = 'FAMILY' THEN 0.03
+                        WHEN a.account_status = 'VIP' THEN 0.04
+                        WHEN a.account_status = 'VVIP' THEN 0.06
+                        ELSE 0
+                        END
+                    ) AS mileage,
                 3000 AS deliveryCost,
                 COUNT(r.product_code) AS reviewCount
         FROM product AS p
                  LEFT JOIN review AS r ON p.product_code = r.product_code
+                 LEFT JOIN accounts AS a ON a.id = #{userName}
         WHERE p.name = #{name}
-        GROUP BY p.product_code;
+        GROUP BY p.product_code
     </select>
 </mapper>
