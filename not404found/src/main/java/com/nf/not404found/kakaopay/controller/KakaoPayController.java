@@ -25,12 +25,32 @@ public class KakaoPayController {
 
     @PostMapping("/order/pay")
     @ResponseBody
-    public ReadyResponse payReady(@RequestParam int totalPayPrice, Model model) {
+    public ReadyResponse payReady(Model model,
+                                  @RequestParam int totalprice,
+                                  @RequestParam int mileage,
+                                  @RequestParam(required = false) String buyname,
+                                  @RequestParam(required = false) String buytel,
+                                  @RequestParam(required = false) String buyemail,
+                                  @RequestParam(required = false) String receivename,
+                                  @RequestParam(required = false) String receivetel,
+                                  @RequestParam(required = false) String receiveaddress,
+                                  @RequestParam(required = false) String pname
+                                  ) {
 
-        log.info("주문가격:"+totalPayPrice);
-        // 카카오 결제 준비하기	- 결제요청 service 실행.
+
         log.info("========================================================> 시작? 컨트롤 ? ");
-        ReadyResponse readyResponse = kakaoPayService.payReady(totalPayPrice);
+        log.info("=======================================================> totalprice : " + totalprice);
+        log.info("=======================================================> mileage : " + mileage);
+        log.info("=======================================================> buyname : " + buyname);
+        log.info("=======================================================> buytel : " + buytel);
+        log.info("=======================================================> buyemail : " + buyemail);
+        log.info("=======================================================> receivename : " + receivename);
+        log.info("=======================================================> receivetel : " + receivetel);
+        log.info("=======================================================> receiveaddress : " + receiveaddress);
+        log.info("=======================================================> pname : " + pname);
+
+
+        ReadyResponse readyResponse = kakaoPayService.payReady(totalprice);
         // 요청처리후 받아온 결재고유 번호(tid)를 모델에 저장
         model.addAttribute("tid", readyResponse.getTid());
         log.info("결재고유 번호: " + readyResponse.getTid());
