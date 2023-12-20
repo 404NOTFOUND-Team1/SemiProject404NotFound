@@ -19,19 +19,20 @@
     <select id="selectAllEvent" resultMap="eventMap">
         SELECT
             event_code,
-            product_code,
-            name,
-            discount_rate,
-            regist_event_date,
-            start_date,
-            end_date,
-            status
+            MAX(product_code) AS product_code,
+            MAX(name) AS name,
+            MAX(discount_rate) AS discount_rate,
+            MAX(regist_event_date) AS regist_event_date,
+            MAX(start_date) AS start_date,
+            MAX(end_date) AS end_date,
+            MAX(status) AS status
         FROM event
+        GROUP BY event_code;
     </select>
 
     <select id="selectOneEvent" resultMap="eventMap">
         SELECT
-            a.event_code,
+            DISTINCT a.event_code,
             a.product_code,
             a.name,
             a.discount_rate,

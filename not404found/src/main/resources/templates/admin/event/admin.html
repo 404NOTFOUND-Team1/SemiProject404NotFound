@@ -72,62 +72,62 @@
       <td th:text="${ events.status }"></td>
     </tr>
   </table>
-  <div class="event_list2" style="margin-top: 10px">
-    <input type="submit" name="act_button" value="선택삭제" class="btn_lsmall bx-white" onclick="document.pressed=this.value">
-    <a href="event/insert" class="fr btn_lsmall red"><i class="ionicons ion-android-add" onclick="go_event_insert()"></i>이벤트 등록</a></div>
+<!--  <div class="event_list2" style="margin-top: 10px">-->
+<!--    <input type="submit" name="act_button" value="선택삭제" class="btn_lsmall bx-white" onclick="document.pressed=this.value">-->
+<!--    <a href="event/insert" class="fr btn_lsmall red"><i class="ionicons ion-android-add" onclick="go_event_insert()"></i>이벤트 등록</a></div>-->
 </div>
 
-  <table class="table_parents">
-    <tr>
-      <th style="width: 120px">
-        이벤트코드
-        <button>↧</button>
-      </th>
-      <th style="width: 100px">
-        상품코드
-        <button>↧</button>
-      </th>
-      <th style="width: 200px">
-        이벤트명
-        <button>↧</button>
-      </th>
-      <th style="width: 100px">
-        할인율
-        <button>↧</button>
-      </th>
-      <th style="width: 200px">
-        이벤트 등록일
-        <button>↧</button>
-      </th>
-      <th style="width: 200px">
-        이벤트 시작날짜
-        <button>↧</button>
-      </th>
-      <th style="width: 200px">
-        이벤트 종료날짜
-        <button>↧</button>
-      </th>
-      <th style="width: 100px">
-        이벤트상태
-        <button>↧</button>
-      </th>
-    </tr>
-    <tr th:if="${#lists.isEmpty(accountList)}" style="text-align:center;">
-      <td colspan="9">검색 결과가 없습니다.</td>
-    </tr>
-    <tr
-            th:each="accounts : ${ accountList }">
-      <td th:text="${ accounts.id }"></td>
-      <td th:text="${ accounts.accountTypeName.typeName }"></td>
-      <td th:text="${ accounts.name }"></td>
-      <td th:text="${ accounts.email }"></td>
-      <td th:text="${ accounts.registDate }"></td>
-      <td th:text="${ accounts.payAmount }"></td>
-      <td th:text="${ accounts.mileage }"></td>
-      <td th:text="${ accounts.lastLogin }"></td>
-      <td th:text="${ accounts.halfYearAccumulatedAmount }"></td>
-    </tr>
-  </table>
+<!--  <table class="table_parents">-->
+<!--    <tr>-->
+<!--      <th style="width: 120px">-->
+<!--        이벤트코드-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 100px">-->
+<!--        상품코드-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 200px">-->
+<!--        이벤트명-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 100px">-->
+<!--        할인율-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 200px">-->
+<!--        이벤트 등록일-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 200px">-->
+<!--        이벤트 시작날짜-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 200px">-->
+<!--        이벤트 종료날짜-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--      <th style="width: 100px">-->
+<!--        이벤트상태-->
+<!--        <button>↧</button>-->
+<!--      </th>-->
+<!--    </tr>-->
+<!--    <tr th:if="${#lists.isEmpty(accountList)}" style="text-align:center;">-->
+<!--      <td colspan="9">검색 결과가 없습니다.</td>-->
+<!--    </tr>-->
+<!--    <tr-->
+<!--            th:each="accounts : ${ accountList }">-->
+<!--      <td th:text="${ accounts.id }"></td>-->
+<!--      <td th:text="${ accounts.accountTypeName.typeName }"></td>-->
+<!--      <td th:text="${ accounts.name }"></td>-->
+<!--      <td th:text="${ accounts.email }"></td>-->
+<!--      <td th:text="${ accounts.registDate }"></td>-->
+<!--      <td th:text="${ accounts.payAmount }"></td>-->
+<!--      <td th:text="${ accounts.mileage }"></td>-->
+<!--      <td th:text="${ accounts.lastLogin }"></td>-->
+<!--      <td th:text="${ accounts.halfYearAccumulatedAmount }"></td>-->
+<!--    </tr>-->
+<!--  </table>-->
   <script>
 
     function go_event_insert(){

@@ -50,6 +50,8 @@ public class AdminEventController {
 
             List<AdminEventDTO> eventList = eventService.selectAllEvent();
 
+
+
             mv.addObject("eventList", eventList);
 
         }
