@@ -76,17 +76,6 @@ public class UserInformation {
         }
         return null;
     }
-    public String getStatus() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !auth.isAuthenticated()) {
-            return null;
-        }
-        Object principal = auth.getPrincipal();
-        if (principal instanceof UserDetails) {
-            return mapper.SearchUserStatus(((UserDetails) principal).getUsername());
-        }
-        return null;
-    }
     public List<String> getCoupon() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
