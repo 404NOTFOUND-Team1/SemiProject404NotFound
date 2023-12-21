@@ -35,6 +35,7 @@ public class KakaoPayController {
                                   @RequestParam(required = false) String receivetel,
                                   @RequestParam(required = false) String receiveaddress,
                                   @RequestParam(required = false) String pname
+//                                  @RequestParam(required = false) int totalamount
                                   ) {
 
 
@@ -50,7 +51,15 @@ public class KakaoPayController {
         log.info("=======================================================> pname : " + pname);
 
 
-        ReadyResponse readyResponse = kakaoPayService.payReady(totalprice);
+        ReadyResponse readyResponse = kakaoPayService.payReady(totalprice,      //totalamount
+                mileage,
+                buyname,
+                buytel,
+                buyemail,
+                receivename,
+                receivetel,
+                receiveaddress,
+                pname);
         // 요청처리후 받아온 결재고유 번호(tid)를 모델에 저장
         model.addAttribute("tid", readyResponse.getTid());
         log.info("결재고유 번호: " + readyResponse.getTid());

@@ -1,13 +1,12 @@
 package com.nf.not404found.kakaopay.model.service;
 
 
+import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.kakaopay.model.dto.ApproveResponse;
 import com.nf.not404found.kakaopay.model.dto.ReadyResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -21,7 +20,22 @@ public class KakaoPayService {
 
     private ReadyResponse readyResponse;
 
-    public ReadyResponse payReady(int totalAmount) {
+    private final UserInformation user;
+
+    public KakaoPayService(UserInformation user) {
+        this.user = user;
+    }
+
+    public ReadyResponse payReady(//int totalAmount,
+                                  int totalprice,
+                                  int mileage,
+                                  String buyname,
+                                  String buytel,
+                                  String buyemail,
+                                  String receivename,
+                                  String receivetel,
+                                  String receiveaddress,
+                                  String pname) {
 
         log.info("======================================> 서비스 시작 ");
 
@@ -29,11 +43,11 @@ public class KakaoPayService {
 
 
         parameters.add("cid", "TC0ONETIME"); //테스트임
-        parameters.add("partner_order_id", "4"); // 주문번호임
-        parameters.add("partner_user_id", "admin"); // 주문결제 하는 회원의 아이디
-        parameters.add("item_name", "아이고마책상"); // 상품명
+        parameters.add("partner_order_id", "4"); // 주문번호임 ?
+        parameters.add("partner_user_id", user.getId()); // 주문결제 하는 회원의 아이디
+        parameters.add("item_name", pname); // 상품명
         parameters.add("quantity", "2"); // 수량
-        parameters.add("total_amount", String.valueOf(totalAmount));
+        parameters.add("total_amount", String.valueOf(totalprice));
         parameters.add("tax_free_amount", "0"); //비과세인가 뭔가 하는거임
         parameters.add("approval_url", "http://localhost:8404/order/pay/completed"); // 결제승인시 넘어갈 url
         parameters.add("cancel_url", "http://localhost:8404/order/pay/cancel"); // 결제취소시 넘어갈 url
@@ -69,8 +83,8 @@ public class KakaoPayService {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         parameters.add("cid", "TC0ONETIME");
         parameters.add("tid", tid);
-        parameters.add("partner_order_id", "4"); // 주문명
-        parameters.add("partner_user_id", "admin");
+        parameters.add("partner_order_id", "4"); // 주문번호
+        parameters.add("partner_user_id", user.getId());
         parameters.add("pg_token", pgToken);
 
         log.info("=================================================================> 여기 오냐 ? 서비스 중간 ");
