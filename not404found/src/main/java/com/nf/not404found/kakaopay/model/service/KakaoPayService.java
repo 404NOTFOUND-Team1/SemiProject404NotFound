@@ -81,6 +81,7 @@ public class KakaoPayService {
         log.info("=================================================================> 서비스 응답 시작 ");
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+
         parameters.add("cid", "TC0ONETIME");
         parameters.add("tid", tid);
         parameters.add("partner_order_id", "4"); // 주문번호
