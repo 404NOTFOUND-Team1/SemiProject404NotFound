@@ -51,8 +51,9 @@
                         <input class="p_amount" type="number" name="amount"><hr>
                     </div>
                     <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
-                        <select th:each="productLists:${productList}" id="topCategory" class="c_ref" name="adminProductCategory.refCategoryCode" onchange="updateSubCategories(this)">
-                            <option th:value="${productLists.adminProductCategory.refCategoryCode}"></option>
+                        <select id="topCategory" class="c_ref" name="adminProductCategory.refCategoryCode" onchange="updateSubCategories()">
+                            <option value="1">가구</option>
+                            <option value="2">자재</option>
                         </select>
                         <label for="subCategory">하위 카테고리 : </label>
                         <select id="subCategory" class="c_ref" name="adminProductCategory.categoryCode"></select>
@@ -403,6 +404,8 @@
             var selectedTopCategory = topCategory.options[topCategory.selectedIndex].value;
             var subCategory = document.getElementById('subCategory');
             subCategory.innerHTML ="";
+
+
 
             if(selectedTopCategory === "1"){
                 addOption(subCategory, "3", '의자');

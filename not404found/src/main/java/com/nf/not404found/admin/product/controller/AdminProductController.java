@@ -540,4 +540,12 @@ public class AdminProductController {
 
         return "redirect:/admin/product/modify";
     }
+
+    @GetMapping("product/insertCategory")
+    public String insertCategory(Model model){
+
+        model.addAttribute("boardType", "상품 관리");
+
+        return "/admin/product/insertCategory";
+    }
 }

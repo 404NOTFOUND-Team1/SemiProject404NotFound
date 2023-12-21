@@ -74,8 +74,11 @@ public class KakaoPayController {
         log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
         log.info("결재고유 번호: " + tid);
 
+        log.info("================================ model : " + model);
+
         // 카카오 결재 요청하기
         ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
+
 
 
         log.info("----------어디까지 된거냐 여긴 컨트롤러 마지막 ");
