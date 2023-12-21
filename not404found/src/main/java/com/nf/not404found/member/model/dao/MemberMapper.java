@@ -1,7 +1,6 @@
 package com.nf.not404found.member.model.dao;
 
 import com.nf.not404found.member.model.dto.LoginUserDTO;
-import com.nf.not404found.member.model.dto.PwdFindDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,7 +18,7 @@ public interface MemberMapper {
     int checkCode(String id, String pwdCode);
 
     @Insert("INSERT INTO accounts (id,password,name,email,phone_number,regist_date,last_login,account_status)" +
-            "VALUES (#{id},#{pwd},#{name},#{email},#{phone},now(),now(),null)")
+            "VALUES (#{id},#{pwd},#{name},#{email},#{phone},now(),now(),'FRIEND')")
     boolean createMember(String id, String email, String pwd, String name, String phone);
 
 

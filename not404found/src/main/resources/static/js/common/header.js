@@ -255,23 +255,25 @@ special_price.addEventListener('click',function(){
  * @value 2. 컨트롤러로 전달할 단일 변수.
  * @after 3. 요청 후 수행할 함수(인자는 컨트롤러에서 돌아온 값).
  */
-function go(url, value,after){
-    fetch(url,{
-        method: "POST",
-        headers:{
-            'Content-Type': 'text/plain'
-        },
-        body: value
-    })
-        .then(response =>{
-            return response.text();
-        })
-        .then(data => {
-            after(data);
-        })
-        .catch((error) =>{
-            alert(error);
+async function go(url, value) {
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            body: value
         });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // 서버로부터 반환된 데이터를 추출
+        const data = await response.text(); // 또는 response.json()
+        return data; // 반환된 데이터
+
+    } catch (error) {
+        alert('Error:', error);
+    }
 }
 /**
  * 비동기 객체 데이터 전달 요청 함수.

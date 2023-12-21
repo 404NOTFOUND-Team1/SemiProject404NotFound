@@ -12,6 +12,7 @@ public class ProductPageDTO {
 //    private List<String> imgPath;
     private String name;
     private String productCode;
+    private int discountPrice;
     private int price;
     private int mileage;
     private int deliveryCost;

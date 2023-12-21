@@ -108,7 +108,16 @@
                     </button></span>
                 <span class="price4"></span>
                         <div class="price5">
-                            <div class="price6"><span th:text="${products[0].getPrice()}" class="number">18,800</span><span class="won">원</span><svg
+                            <div class="price6">
+                                <th:block th:if="${products[0].getDiscountPrice()} == null">
+                                    <span th:text="${products[0].getPrice()}" class="number"></span>
+                                    <span class="won">원</span>
+                                </th:block>
+                                <th:block th:if="${products[0].getDiscountPrice() != null}">
+                                    <span th:text="${products[0].getDiscountPrice()}" class="number"></span>
+                                    <span class="won">원</span>
+                                </th:block>
+                                <svg
                                     class="icon" aria-label="특가" width="40" height="20" viewBox="0 0 30 20"
                                     preserveAspectRatio="xMidYMid meet">
                                     <rect width="30" height="20" fill="#F77" rx="4"></rect>
@@ -216,6 +225,7 @@
                     <input type="hidden" name="mileage" id="userMileage">
                     <input type="hidden" name="deliveryCost" id="productDeliveryCost">
                     <input type="hidden" name="price" id="price">
+                    <input type="hidden" name="discountPrice" id="discountPrice">
                 </form>
             </div>
         </div>
@@ -233,6 +243,7 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     const product = [[${products[0].getPrice()}]];
+    const discountP = [[${products[0].getDiscountPrice()}]];
     // JavaScript 코드에서 myVariable 사용
     /*]]>*/
 </script>
@@ -270,6 +281,7 @@
         document.getElementById("userMileage").value = document.getElementById("mileage").textContent.replace(/\D/g, '');
         document.getElementById("productDeliveryCost").value = document.getElementById("deliveryCost").textContent.replace(/\D/g, '');
         document.getElementById("price").value = document.getElementById("totalPrice").textContent.replace(/\D/g, '');
+        document.getElementById("discountPrice").value = discountP;
         console.log(document.getElementById("price").value);
 
 

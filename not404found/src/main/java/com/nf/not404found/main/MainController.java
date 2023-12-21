@@ -45,7 +45,6 @@ public class MainController {
     }
     @GetMapping("productPage")
     public ModelAndView showProduct(@RequestParam String  product_name, ModelAndView mv){
-        System.out.println(product_name);
         List<ProductPageDTO> list = service.getProduct(product_name);
         mv.addObject("products",list);
         mv.addObject("grade",user.getStatus());

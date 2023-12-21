@@ -7,10 +7,7 @@ import com.nf.not404found.order.model.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,19 +47,33 @@ public class OrderController {
                                 @RequestParam int amount,
                                 @RequestParam int mileage,
                                 @RequestParam int deliveryCost,
-                                @RequestParam String price,
+                                @RequestParam int price,
+                                @RequestParam int discountPrice,
                                 Model model) {
+        //디스카운트 프라이스는 null이 아니고,
+        //할인 중인건 할인 중인 가격, 할인중이 아닌건 본 가격과 똑같이 나온다.
+        // 그렇다면
+        if(price == discountPrice){
+            System.out.println("할인 중 아님");
+            discountPrice = 0;
+        } else {
+            System.out.println("할인 중");
+            discountPrice = price - discountPrice;
+        }
+        //으로 비교할 수 있을 것이다.
         List<String> coupon = user.getCoupon();
         System.out.println("coupon = " + coupon);
         OrderDTO orderInfor = service.getOrderInfor(user.getId());
+        model.addAttribute("coupon",user.getCoupon());
         model.addAttribute("productName",productName);
         model.addAttribute("amount",amount);
         model.addAttribute("mileage",mileage);
         model.addAttribute("deliveryCost",deliveryCost);
         model.addAttribute("price",price);
+        model.addAttribute("discountPrice",discountPrice);
         model.addAttribute("grade",orderInfor.getGrade());
         model.addAttribute("rate",orderInfor.getMileageRate());
-        model.addAttribute("mileage",orderInfor.getMileage());
+        model.addAttribute("userMileage",orderInfor.getMileage());
         model.addAttribute("email",user.getEmail());
         model.addAttribute("name",user.getName());
         model.addAttribute("phone",user.getPhone());
@@ -70,10 +81,12 @@ public class OrderController {
         model.addAttribute("addrDetail",user.getAddrDetail());
         return "/order/orderMember";
     }
-//    @GetMapping("orderMember")
-//    public String orderMemberPage(){
-//        return "/order/orderMember";
-//    }
+    @PostMapping("coupon")
+    @ResponseBody
+    public int getCouponRate(@RequestBody String coupon){
+        System.out.println(coupon);
+        return service.getCouponDiscountRate(coupon);
+    }
 
     @GetMapping("orderNonMember")
     public String orderNonMemberPage(){

@@ -59,9 +59,9 @@
                 </td>
                 <td th:text="${amount}" class="tg-r2yh">1개</td>
                 <td th:text="${mileage}" class="tg-r2yh">로그인<br>필요</td>
-                <td class="tg-r2yh">0원</td>
-                <td th:text="${deliveryCost}" class="tg-r2yh">무료</td>
-                <td th:text="${price}" class="tg-r2yh">18,800원</td>
+                <td th:text="${discountPrice}" class="tg-r2yh">0원</td>
+                <td th:text="${deliveryCost}" id="delCost" class="tg-r2yh"></td>
+                <td th:text="${price} - ${discountPrice}" id="price-field" class="tg-r2yh"></td>
             </tbody>
         </table>
     </div>
@@ -86,10 +86,10 @@
                     </div>
                     <input type="checkbox" id="maxUsageCheckbox">
                     <span class="tg-tcvq">최대 사용</span>
-                    <span th:text="${mileage}" class="tg-tcvq">사용 가능 적립금</span>
-                    <span id="availablePoints">...</span>
+                    <span class="tg-tcvq">사용 가능 적립금</span>
+                    <span  th:text="${userMileage}"  id="availablePoints">...</span>
                     <span class="tg-tcvq">총 보유 적립금</span>
-                    <span th:text="${mileage}" id="totalPoints">...</span>
+                    <span th:text="${userMileage}" id="totalPoints">...</span>
 
     </div>
     </td>
@@ -104,9 +104,8 @@
                 <p style="margin-top: -10px; font-size: 18px;">쿠폰을 선택해주세요.</p>
                 <select id="designDropdown"
                         style="border: 1px solid #ccc; display: block; margin-bottom: 10px; width: 250px;">
-                    <option value="design1">쿠폰1</option>
-                    <option value="design2">쿠폰2</option>
-                    <option value="design3">쿠폰3</option>
+                    <option class="nonCoupon">쿠폰 선택 안함</option>
+                    <option class="couponOptions" th:each="coupons : ${coupon}" th:value="${coupons}" th:text="${coupons}"></option>
                 </select>
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <div style="display: flex; gap: 10px;">
@@ -194,8 +193,11 @@
         </div>
         <div class="input-group">
             <label for="addressInput">배송지 주소</label>
-            <input th:value="${addr[0]}" type="text" id="addressInput" placeholder="주소">
-            <input th:value="${addrDetail[0]}" type="text" id="addressDetails" placeholder="상세주소">
+            <th:block th:if="${addr[0]} != null">
+                    <input th:value="${addr[0]}" type="text" id="addressInput" placeholder="주소">
+                    <input th:value="${addrDetail[0]}" type="text" id="addressDetails" placeholder="상세주소">
+            </th:block>
+
         </div>
         <div class="input-group">
             <select id="deliveryRequest" onchange="handleDeliveryRequestChange(this.value)">
@@ -232,46 +234,131 @@
         <div class="결제-정보">
             <div class="상세-항목">
                 <span>상품 금액</span>
-                <span id="pp">18,800원</span>
+                <span id="pp">0</span><span>원</span>
             </div>
             <div class="상세-항목">
                 <span>상품 할인</span>
-                <span id="ev">12000원</span>
+                <span th:text="${discountPrice}" id="ev">0</span><span>원</span>
             </div>
             <div class="상세-항목">
                 <span>쿠폰 할인</span>
-                <span id="cu">3000원</span>
+                <span id="cu">0</span><span>원</span>
             </div>
             <div class="상세-항목">
                 <span>적립금 사용</span>
-                <span id="ml">200원</span>
+                <span id="ml">0</span><span>원</span>
             </div>
             <div class="상세-항목">
                 <span>배송비</span>
-                <span th:text="${deliveryCost}+'원'">무료</span>
+                <span th:text="${deliveryCost}"></span><span>원</span>
             </div>
             <hr> <!-- 작은 줄 -->
             <div class="총-결제-금액">
                 <span>총 결제 금액</span>
-                <span id="total-price">18,800원</span>
+                <span id="total-price">0</span><span>원</span>
             </div>
         </div>
         <button id="buy" class="결제-버튼" value="결제하기">결제하기</button>
+
+        <script>
+            const productCheck = document.getElementById('imageCheckbox');
+            const productPrice = document.getElementById('pp');
+            const priceField = document.getElementById('price-field');
+
+            productCheck.addEventListener('change',function (){ //상품에 체크 버튼을 누르면
+                if(productCheck.checked){   //productCheck 가 체크되었을 때
+                    productPrice.textContent = priceField.textContent;   //상품의 가격을 붙여넣기
+                } else {
+                    productPrice.textContent = '0'; //아니면 0으로 만듦
+                }
+            });
+
+            const mCheckBox = document.getElementById('maxUsageCheckbox');
+            const ml = document.getElementById('ml');
+            const availablePoints = document.getElementById('availablePoints');
+            const editableAmount = document.getElementById('editableAmount');
+            const selectElement = document.getElementById('designDropdown');
+            const selectCoupon = document.getElementById('cu');
+            mCheckBox.addEventListener('change',function (){
+                if(this.checked){
+                    ml.textContent = availablePoints.textContent;
+                    editableAmount.textContent = availablePoints.textContent;
+                } else {
+                    ml.textContent = '0';
+                    editableAmount.textContent = '0';
+                }
+            });
+
+
+
+
+            document.addEventListener('change',function (){
+                if(document.getElementById('designDropdown')) {
+                    selectElement.addEventListener('change', function () {
+                        const selectedValue = selectElement.options[selectElement.selectedIndex].value;
+                        const selectCoupon = document.getElementById('cu');
+                        console.log(selectedValue)
+                        go("coupon", selectedValue.toString()).then(result =>{
+                            selectCoupon.textContent = ((productPrice.textContent * 1) *((result*1)/100)).toString().split('.')[0];
+                            totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1) - (ml.textContent*1) - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
+                            if(totalPrice.textContent < 0){
+                                totalPrice.textContent = '0';
+                            }
+                        });
+                    });
+                }
+                const totalPrice = this.getElementById('total-price');
+                const delCost = this.getElementById('delCost');
+                const eventDiscount = document.getElementById('ev');
+                totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1) - (ml.textContent*1) - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
+                if(totalPrice.textContent < 0){
+                    totalPrice.textContent = '0';
+                }
+            });
+        </script>
     </div>
 </div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const price = [[${price}]];
+    const amount = [[${amount}]];
+    const dcPrice = [[${discountPrice}]];
+    // JavaScript 코드에서 myVariable 사용
+    /*]]>*/
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
     $(function(){
-
         $("#buy").click(function(){
-
             var pname = $("#productName").text();
             var name = $("#nameInput").val();
             var email = $("#emailInput").val();
             var tel = $("#phoneInput").val();
             var sname = $("#recipientName").val();
             var stel = $("#recipientPhone").val();
-            var saddress = $("#addressInput").val();
+            var saddress = $(".addressInput").val();
 
             if(name == ""){
                 $("#nameInput").focus()
@@ -297,11 +384,9 @@
             let mileage = parseInt($("#ml").text().replace("원",""))
             let delivery = parseInt($("#dl").text().replace("원",""))
             let coupondiscount = parseInt($("#cu").text().replace("원",""))
-            let eventdiscount = parseInt($("#ev").text().replace("원",""))
+            let eventdiscount = parseInt($(".ev").text().replace("원",""))
             let totalprice = productpayprice - coupondiscount - eventdiscount - mileage + delivery;
             // 사용한 쿠폰도 넘겨야 함
-
-
             console.log("productpayprice")
             console.log(productpayprice)
             console.log("mileage")
@@ -340,6 +425,7 @@
     });
 
 </script>
+
 
 
 

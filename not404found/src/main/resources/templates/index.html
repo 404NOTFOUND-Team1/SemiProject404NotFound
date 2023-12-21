@@ -1324,7 +1324,6 @@
     productButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             const choose = this.querySelector('.product_name').textContent;
-            alert(choose);
             window.location.href = 'productPage?product_name='+choose;
         });
     });
