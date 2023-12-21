@@ -63,6 +63,7 @@ function updateSelectedOptions() {
 }
 
 // 각 썸네일 이미지와 큰 이미지에 대한 참조 가져오기
+
 const thumbnail1 = document.getElementById('thumbnail1');
 const thumbnail2 = document.getElementById('thumbnail2');
 const thumbnail3 = document.getElementById('thumbnail3');
@@ -70,37 +71,35 @@ const thumbnail4 = document.getElementById('thumbnail4');
 const thumbnail5 = document.getElementById('thumbnail5');
 const largeImage = document.getElementById('largeImage');
 
-// 각각의 썸네일에 대한 이벤트 리스너 추가하기
-//// 마우스가 나가면 원래의 큰 이미지로 변경
 thumbnail1.addEventListener('mouseover', () => {
-    largeImage.src = "images/productpage/a1.jpg";
+    largeImage.src = thumbnail1.src;
 });
 thumbnail1.addEventListener('mouseout', () => {
-    largeImage.src = "images/productpage/a2.jpg";
+    largeImage.src = thumbnail1.src;
 });
 thumbnail2.addEventListener('mouseover', () => {
-    largeImage.src = "/resources/image/2.2.jpg";
+    largeImage.src = thumbnail2.src;
 });
 thumbnail2.addEventListener('mouseout', () => {
-    largeImage.src = "/resources/image/2.3.jpg";
+    largeImage.src = thumbnail1.src;
 });
 thumbnail3.addEventListener('mouseover', () => {
-    largeImage.src = "/resources/image/2.4.jpg";
+    largeImage.src = thumbnail3.src;
 });
 thumbnail3.addEventListener('mouseout', () => {
-    largeImage.src = "/resources/image/2.3.jpg";
+    largeImage.src = thumbnail1.src;
 });
 thumbnail4.addEventListener('mouseover', () => {
-    largeImage.src = "/resources/image/2.5.jpg";
+    largeImage.src = thumbnail4.src;
 });
 thumbnail4.addEventListener('mouseout', () => {
-    largeImage.src = "/resources/image/2.3.jpg";
+    largeImage.src = thumbnail1.src;
 });
 thumbnail5.addEventListener('mouseover', () => {
-    largeImage.src = "/resources/image/2.6.jpg";
+    largeImage.src = thumbnail5.src;
 });
 thumbnail5.addEventListener('mouseout', () => {
-    largeImage.src = "/resources/image/2.3.jpg";
+    largeImage.src = thumbnail1.src;
 });
 
 const productOptions = document.getElementById('option_choice1_1');

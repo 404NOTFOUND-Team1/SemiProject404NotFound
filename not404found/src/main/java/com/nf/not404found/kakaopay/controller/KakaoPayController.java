@@ -35,6 +35,7 @@ public class KakaoPayController {
                                   @RequestParam(required = false) String receivetel,
                                   @RequestParam(required = false) String receiveaddress,
                                   @RequestParam(required = false) String pname
+//                                  @RequestParam(required = false) int totalamount
                                   ) {
 
 
@@ -50,7 +51,15 @@ public class KakaoPayController {
         log.info("=======================================================> pname : " + pname);
 
 
-        ReadyResponse readyResponse = kakaoPayService.payReady(totalprice);
+        ReadyResponse readyResponse = kakaoPayService.payReady(totalprice,      //totalamount
+                mileage,
+                buyname,
+                buytel,
+                buyemail,
+                receivename,
+                receivetel,
+                receiveaddress,
+                pname);
         // 요청처리후 받아온 결재고유 번호(tid)를 모델에 저장
         model.addAttribute("tid", readyResponse.getTid());
         log.info("결재고유 번호: " + readyResponse.getTid());
@@ -65,8 +74,11 @@ public class KakaoPayController {
         log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
         log.info("결재고유 번호: " + tid);
 
+        log.info("================================ model : " + model);
+
         // 카카오 결재 요청하기
         ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
+
 
 
         log.info("----------어디까지 된거냐 여긴 컨트롤러 마지막 ");
