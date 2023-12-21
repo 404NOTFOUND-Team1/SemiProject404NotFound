@@ -14,8 +14,8 @@ public class GlobalControllerAdvice {
         this.service = service;
     }
 
-    @ModelAttribute("categories")
-    public List<String> getCategories() {
-        return service.findAllCategories();
-    }
+//    @ModelAttribute("categories")
+//    public List<String> getCategories() {
+////        return service.findAllCategories();
+//    }
 }

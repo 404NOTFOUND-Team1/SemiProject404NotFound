@@ -9,7 +9,7 @@ import java.util.List;
 public class GlobalService {
     GlobalMapper mapper;
 
-    public List<String> findAllCategories() {
-        return mapper.findAllCategory();
-    }
+//    public List<String> findAllCategories() {
+//        return mapper.findAllCategory();
+//    }
 }

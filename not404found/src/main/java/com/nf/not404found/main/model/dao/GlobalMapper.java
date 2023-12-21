@@ -7,5 +7,5 @@ import java.util.List;
 @Mapper
 public interface GlobalMapper {
 
-    List<String> findAllCategory();
+//    List<String> findAllCategory();
 }

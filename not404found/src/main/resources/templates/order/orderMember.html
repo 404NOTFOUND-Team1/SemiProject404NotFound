@@ -46,7 +46,7 @@
                         <label for="imageCheckbox"></label> <!-- 체크 박스 라벨 추가 -->
                         <input type="checkbox" id="imageCheckbox"> <!-- 체크 박스 추가 -->
                         <div class="content-container">
-                            <img src="/resources/image/2.3.jpg" alt="영상" width="150" height="150">
+                            <img th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[0].modifyName}" alt="영상" width="150" height="150">
                             <div th:text="${productName}" class="text-overlay">붙이는 템바보드 재단서비스(300x2400) /
                                 (600x2400)<br><br>
                                 <div class="choice_option">옵션<br><br>
@@ -81,14 +81,16 @@
             <tr>
                 <td class="tg-mq3s">적립금 사용</td>
                 <td class="tg-tcvq">
-                    <div class="amount-container">
-                        <span class="editable" id="editableAmount">&nbsp;0원</span>
-                    </div>
-                    <input type="checkbox" id="maxUsageCheckbox">
+                    <input type="checkbox" id="inputUsageCheckbox">
+<!--                    <div class="amount-container">-->
+                        <input type="number" class="editable" id="editableAmount">원
+<!--                    </div>-->
+                    <input type="checkbox" id="maxUsageCheckbox" style="margin-left: 30px; margin-right: -10px; width: 20px;">
                     <span class="tg-tcvq">최대 사용</span>
-                    <span class="tg-tcvq">사용 가능 적립금</span>
-                    <span  th:text="${userMileage}"  id="availablePoints">...</span>
-                    <span class="tg-tcvq">총 보유 적립금</span>
+                    <span class="tg-tcvq">사용 가능 적립금 :</span>
+                    <span th:if="${userMileage} > ((${price} - ${discountPrice}) / 2)" th:text="(${price} - ${discountPrice}) / 2"  class="availablePoints">...</span>
+                    <span th:unless="${userMileage} > ((${price} - ${discountPrice}) / 2)" th:text="${userMileage}"  class="availablePoints">...</span>
+                    <span class="tg-tcvq">총 보유 적립금 : </span>
                     <span th:text="${userMileage}" id="totalPoints">...</span>
 
     </div>
@@ -147,7 +149,7 @@
 </tr>
 <tr>
     <td class="tg-mq3s">배송비</td>
-    <td class="tg-tcvq">배송비 무료</td>
+    <td class="tg-tcvq">배송비 3000원</td>
 </tr>
 </tbody>
 </table>
@@ -274,20 +276,43 @@
             });
 
             const mCheckBox = document.getElementById('maxUsageCheckbox');
+            const nCheckBox = document.getElementById('inputUsageCheckbox');
             const ml = document.getElementById('ml');
-            const availablePoints = document.getElementById('availablePoints');
+            // const availablePoints = document.getElementsByClassName('availablePoints');
+            const availablePoints = document.querySelector('.availablePoints');
             const editableAmount = document.getElementById('editableAmount');
             const selectElement = document.getElementById('designDropdown');
             const selectCoupon = document.getElementById('cu');
             mCheckBox.addEventListener('change',function (){
                 if(this.checked){
                     ml.textContent = availablePoints.textContent;
-                    editableAmount.textContent = availablePoints.textContent;
+                    // editableAmount.textContent = availablePoints.textContent;
+                    editableAmount.disabled = true;
                 } else {
                     ml.textContent = '0';
-                    editableAmount.textContent = '0';
+                    editableAmount.textContent = availablePoints.textContent;
+                    editableAmount.disabled = false;
                 }
             });
+            nCheckBox.addEventListener('change',function (){
+                if(this.checked){
+                    if(editableAmount.value.trim() === ''){
+                        editableAmount.value = 0;
+                    }
+                    if (editableAmount.value > parseInt(availablePoints.textContent)){
+                        editableAmount.disabled = false;
+                        alert("사용가능한 적립금을 초과하였습니다 다시 입력해주세요.")
+                        nCheckBox.checked = false;
+                    }else{
+                    editableAmount.disabled = true;
+                    ml.textContent = editableAmount.value;
+                    }
+                }else{
+                    editableAmount.disabled = false;
+                }
+            });
+
+
 
 
 
@@ -297,10 +322,13 @@
                     selectElement.addEventListener('change', function () {
                         const selectedValue = selectElement.options[selectElement.selectedIndex].value;
                         const selectCoupon = document.getElementById('cu');
-                        if(selectedValue === "쿠폰 선택 안함"){
+                        console.log("열받네?")
+                        if(selectedValue !== "쿠폰 선택 안함"){
+                            console.log("쿠폰 선택 했는데 이거 되나?")
                             go("coupon", selectedValue.toString()).then(result =>{
                                 selectCoupon.textContent = ((productPrice.textContent * 1) *((result*1)/100)).toString().split('.')[0];
-                                totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1) - (ml.textContent*1) - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
+                                totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1)
+                                    - (ml.textContent*1) - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
                                 if(totalPrice.textContent < 0){
                                     totalPrice.textContent = '0';
                                 }
@@ -311,7 +339,8 @@
                 const totalPrice = this.getElementById('total-price');
                 const delCost = this.getElementById('delCost');
                 const eventDiscount = document.getElementById('ev');
-                totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1) - (ml.textContent*1) - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
+                totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1) - (ml.textContent*1)
+                    - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
                 if(totalPrice.textContent < 0){
                     totalPrice.textContent = '0';
                 }

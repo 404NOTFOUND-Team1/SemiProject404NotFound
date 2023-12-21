@@ -17,4 +17,6 @@ public interface AdminProductService {
     void modifyProduct(AdminProductDTO modifyProduct) throws modifyProductException;
 
     List<AdminProductDTO> selectOneProduct3(String productName);
+
+    List<AdminProductDTO> selectOneProductName(String productName);
 }
