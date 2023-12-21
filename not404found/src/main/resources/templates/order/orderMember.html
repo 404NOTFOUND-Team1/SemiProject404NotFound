@@ -297,14 +297,15 @@
                     selectElement.addEventListener('change', function () {
                         const selectedValue = selectElement.options[selectElement.selectedIndex].value;
                         const selectCoupon = document.getElementById('cu');
-                        console.log(selectedValue)
-                        go("coupon", selectedValue.toString()).then(result =>{
-                            selectCoupon.textContent = ((productPrice.textContent * 1) *((result*1)/100)).toString().split('.')[0];
-                            totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1) - (ml.textContent*1) - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
-                            if(totalPrice.textContent < 0){
-                                totalPrice.textContent = '0';
-                            }
-                        });
+                        if(selectedValue === "쿠폰 선택 안함"){
+                            go("coupon", selectedValue.toString()).then(result =>{
+                                selectCoupon.textContent = ((productPrice.textContent * 1) *((result*1)/100)).toString().split('.')[0];
+                                totalPrice.textContent = ((productPrice.textContent*1) + (delCost.textContent*1) - (ml.textContent*1) - (eventDiscount.textContent * 1) - (selectCoupon.textContent * 1)).toString();
+                                if(totalPrice.textContent < 0){
+                                    totalPrice.textContent = '0';
+                                }
+                            });
+                        }
                     });
                 }
                 const totalPrice = this.getElementById('total-price');

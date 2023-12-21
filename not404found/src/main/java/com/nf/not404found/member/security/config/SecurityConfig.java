@@ -44,6 +44,7 @@ public class SecurityConfig {
                     auth.requestMatchers("/member/login").permitAll();
                     auth.requestMatchers("/member/**").permitAll();
                     auth.requestMatchers("/productPage/").permitAll();
+                    auth.requestMatchers("/imagePath/**").permitAll();
                     auth.requestMatchers("productpage/productPage").permitAll();
                     auth.requestMatchers("/mypage/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
                     auth.requestMatchers("/").permitAll();

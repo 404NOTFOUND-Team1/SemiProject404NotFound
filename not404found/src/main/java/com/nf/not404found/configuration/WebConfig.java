@@ -5,8 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.Serializable;
+
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer, Serializable {
     @Value("${summernote.image-dir}")
     private String summernotePath;
     @Override
