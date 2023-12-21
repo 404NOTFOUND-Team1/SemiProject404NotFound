@@ -33,4 +33,5 @@ public interface AdminProductMapper {
     List<AdminAttachmentDTO> selectAttach(Long productCode);
 
     List<AdminProductDTO> selectOneProductMain(String productName);
+
 }

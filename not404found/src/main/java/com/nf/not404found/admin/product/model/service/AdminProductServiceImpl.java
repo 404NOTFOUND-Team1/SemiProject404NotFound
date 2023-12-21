@@ -160,4 +160,12 @@ public class AdminProductServiceImpl implements AdminProductService{
 
         return productList;
     }
+
+    @Override
+    public List<AdminProductDTO> selectOneProductName(String productName) {
+
+        List<AdminProductDTO> selectList = mapper.selectOneProductMain(productName);
+
+        return selectList;
+    }
 }

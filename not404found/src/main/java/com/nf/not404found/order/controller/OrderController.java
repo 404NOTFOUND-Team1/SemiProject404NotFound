@@ -1,6 +1,8 @@
 package com.nf.not404found.order.controller;
 
 
+import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
+import com.nf.not404found.admin.product.model.service.AdminProductService;
 import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.order.model.dto.OrderDTO;
 import com.nf.not404found.order.model.service.OrderService;
@@ -18,9 +20,12 @@ public class OrderController {
 
     private final OrderService service;
     private final UserInformation user;
-    public OrderController(OrderService service,UserInformation user) {
+
+    private final AdminProductService productService;
+    public OrderController(OrderService service, UserInformation user, AdminProductService productService) {
         this.service = service;
         this.user = user;
+        this.productService = productService;
     }
 
     @GetMapping("orderComplete")
@@ -63,7 +68,9 @@ public class OrderController {
         //으로 비교할 수 있을 것이다.
         List<String> coupon = user.getCoupon();
         System.out.println("coupon = " + coupon);
+        List<AdminProductDTO> pList = productService.selectOneProductName(productName);
         OrderDTO orderInfor = service.getOrderInfor(user.getId());
+        model.addAttribute("pList", pList);
         model.addAttribute("coupon",user.getCoupon());
         model.addAttribute("productName",productName);
         model.addAttribute("amount",amount);
@@ -79,6 +86,7 @@ public class OrderController {
         model.addAttribute("phone",user.getPhone());
         model.addAttribute("addr",user.getAddr());
         model.addAttribute("addrDetail",user.getAddrDetail());
+
         return "/order/orderMember";
     }
     @PostMapping("coupon")
