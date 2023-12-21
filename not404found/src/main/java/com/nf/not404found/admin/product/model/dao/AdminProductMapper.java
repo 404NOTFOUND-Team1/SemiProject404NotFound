@@ -31,4 +31,6 @@ public interface AdminProductMapper {
     int modifyProduct4(AdminProductDTO modifyProduct);
 
     List<AdminAttachmentDTO> selectAttach(Long productCode);
+
+    List<AdminProductDTO> selectOneProductMain(String productName);
 }

@@ -51,9 +51,8 @@
                         <input class="p_amount" type="number" name="amount"><hr>
                     </div>
                     <div class="tab5"><label for="topCategory" class="tab55">상위 카테고리 : </label>
-                        <select id="topCategory" class="c_ref" name="adminProductCategory.refCategoryCode" onchange="updateSubCategories()">
-                            <option value="1">가구</option>
-                            <option value="2">자재</option>
+                        <select th:each="productLists:${productList}" id="topCategory" class="c_ref" name="adminProductCategory.refCategoryCode" onchange="updateSubCategories(this)">
+                            <option th:value="${productLists.adminProductCategory.refCategoryCode}"></option>
                         </select>
                         <label for="subCategory">하위 카테고리 : </label>
                         <select id="subCategory" class="c_ref" name="adminProductCategory.categoryCode"></select>
@@ -342,7 +341,9 @@
 
             console.log("어디야")
 
-            for (var i = 1; i <= 4; i++) {
+            console.log(data[0].attachmentList[0].savedPath)
+
+            for (var i = 1; i <= 5; i++) {
                 var contentImagePath = 'contentImage' + i;
                 console.log("반복도냐")
                 $('#' + contentImagePath).attr('src', 'http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);

@@ -899,7 +899,11 @@
                     <span class="won">원</span>
                     <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
                         <rect width="30" height="20" fill="#F77" rx="4"></rect>
-                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                        <path class="redPath" fill="#fff"
+                              d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295
+                              3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.
+                              725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736
+                              4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
                 </div>
                 <div class="review">
                     <span class="review1">35</span>
@@ -915,7 +919,7 @@
     <div class="second-square-icon-container">
         <!-- 아이콘과 텍스트 중앙정렬 -->
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/B1.jpeg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[0].modifyName}">
             <div th:text="${products[0].getName()}" class="product_name">부드러운 카스테라 향균 옥수수솜 간절기/사계절 차렵이불 세트</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[0].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -931,7 +935,9 @@
                     <span class="won">원</span>
 <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
 <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.9
+28V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.
+24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
                 </div>
                 <div class="review">
                     <span th:text="${products[0].getReviewCount()}" class="review1">125</span>
@@ -940,7 +946,7 @@
             </div>
         </div>
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a1.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[1].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[1].getName()}" class="product_name">비침없는 도톰 레이스/쉬폰커튼(나비주름/핀형/봉집)</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[1].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -956,7 +962,9 @@
                     <span class="won">원</span>
 <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
 <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.
+93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.
+264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
                 </div>
                 <div class="review">
                     <span th:text="${products[1].getReviewCount()}" class="review1">236</span>
@@ -967,7 +975,7 @@
         </div>
 
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a2.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[2].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[2].getName()}" class="product_name">아트라인 라이 블루밍 러그</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[2].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -983,7 +991,9 @@
                     <span class="won">원</span>
 <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
 <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.
+93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.2
+64V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
                 </div>
                 <div class="review">
                     <span th:text="${products[2].getReviewCount()}" class="review1">102</span>
@@ -993,7 +1003,7 @@
         </div>
 
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a3.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[3].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[3].getName()}" class="product_name">감성을 더해주는 캠핑 전용 워셔블 프리 러그</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[3].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1009,7 +1019,9 @@
                     <span class="won">원</span>
 <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
 <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.
+928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.
+24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
                 </div>
                 <div class="review">
                     <span th:text="${products[3].getReviewCount()}" class="review1">57</span>
@@ -1019,7 +1031,7 @@
         </div>
 
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a5.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[4].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[4].getName()}" class="product_name">공간분리 가벽인테리어 무타공/타공 파티션</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[4].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1035,7 +1047,9 @@
                     <span class="won">원</span>
 <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
 <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.
+992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-
+1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
                 </div>
                 <div class="review">
                     <span th:text="${products[4].getReviewCount()}" class="review1">65</span>
@@ -1051,7 +1065,7 @@
     <div class="second-square-icon-container">
         <!-- 아이콘과 텍스트 중앙정렬 -->
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a6.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[5].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[5].getName()}" class="product_name">어반 아치형 전신거울 3size(거치대 2개증정)</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[5].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1067,7 +1081,10 @@
                     <span class="won">원</span>
 <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
 <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.
+992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1
+.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.
+259-4.03 4.346-6.96z"></path></svg>-->
                 </div>
                 <div class="review">
                     <span th:text="${products[5].getReviewCount()}" class="review1">109</span>
@@ -1077,7 +1094,7 @@
         </div>
 
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a7.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[6].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[6].getName()}" class="product_name">1+1 루윈카페트 DIY 타일카페트 50x50 LTseries</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[6].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1093,7 +1110,8 @@
                     <span class="won">원</span>
 <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
 <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.
+928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
                 </div>
                 <div class="review">
                     <span th:text="${products[6].getReviewCount()}" class="review1">333</span>
@@ -1103,7 +1121,7 @@
         </div>
 
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a8.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[7].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[7].getName()}" class="product_name">마감재/신규색상 출시! 조립식 데크타일 - 스토니(Stony) 9P</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[7].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1129,7 +1147,7 @@
         </div>
 
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a9.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[8].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[8].getName()}"  class="product_name">이안빅1200/1600 옷장 슬라이딩 수납장 (행거/선반/서랍형)</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[8].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1155,7 +1173,7 @@
         </div>
 
         <div class="second-square-icon-wrapper">
-            <img class="second-square-icon" src="/images/productpage/a10.jpg" alt="아이콘 1">
+            <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[9].attachmentList[0].modifyName}" alt="아이콘 1">
             <i class="fas fa-heart"></i>
             <div th:text="${products[9].getName()}" class="product_name">풀바른벽지 초간단 셀프도배 합지벽지(사은품증정)</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
@@ -1187,7 +1205,7 @@
 <div class="second-square-icon-container">
     <!-- 아이콘과 텍스트 중앙정렬 -->
     <div class="second-square-icon-wrapper">
-        <img class="second-square-icon" src="/images/productpage/a11.gif" alt="아이콘 1">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[10].attachmentList[0].modifyName}" alt="아이콘 1">
         <div th:text="${products[10].getName()}" class="product_name">품절주의! 프리미엄 크리스마스 가랜드트리 풀세트 앰버 2size (전구+오너먼트+리모컨)</div>
         <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span th:if="${products[10].getDiscountRate() != 0}" class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1213,7 +1231,7 @@
     </div>
 
     <div class="second-square-icon-wrapper">
-        <img class="second-square-icon" src="/images/productpage/a12.gif" alt="아이콘 1">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[11].attachmentList[0].modifyName}" alt="아이콘 1">
         <div th:text="${products[11].getName()}" class="product_name">움직이는 LED 크리스마스 오르골/스노우볼/캔들 6종 (캐롤8곡)</div>
         <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1239,7 +1257,7 @@
     </div>
 
     <div class="second-square-icon-wrapper">
-        <img class="second-square-icon" src="/images/productpage/a13.gif" alt="아이콘 1">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[12].attachmentList[0].modifyName}" alt="아이콘 1">
         <div th:text="${products[12].getName()}" class="product_name">LED 크리스마스 스노우볼 워터볼 무드등 조명</div>
         <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1265,7 +1283,7 @@
     </div>
 
     <div class="second-square-icon-wrapper">
-        <img class="second-square-icon" src="/images/productpage/a14.gif" alt="아이콘 1">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[13].attachmentList[0].modifyName}" alt="아이콘 1">
         <div th:text="${products[13].getName()}" class="product_name">캐롤 나오는 움직이는 크리스마스 기차 장식 소품 장난감 선물 트리스커트</div>
         <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1291,7 +1309,7 @@
     </div>
 
     <div class="second-square-icon-wrapper">
-        <img class="second-square-icon" src="/images/productpage/a15.gif" alt="아이콘 1">
+        <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[14].attachmentList[0].modifyName}" alt="아이콘 1">
         <i class="fas fa-heart"></i>
         <div th:text="${products[14].getName()}" class="product_name">[1+1] LED 크리스마스 LED 캔들 회전 오르골 무드등(캐롤 8곡))</div>
         <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
