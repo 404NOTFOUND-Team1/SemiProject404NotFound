@@ -9,7 +9,7 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
-    private GlobalService service; // DB에서 카테고리를 가져오는 서비스
+    private final GlobalService service; // DB에서 카테고리를 가져오는 서비스
     public GlobalControllerAdvice(GlobalService service){
         this.service = service;
     }
@@ -17,5 +17,9 @@ public class GlobalControllerAdvice {
     @ModelAttribute("categories")
     public List<String> getCategories() {
         return service.findAllCategories();
+    }
+    @ModelAttribute("themes")
+    public List<String> getThemes() {
+        return service.findAllThemes();
     }
 }

@@ -7,9 +7,16 @@ import java.util.List;
 
 @Service
 public class GlobalService {
-    GlobalMapper mapper;
+    private final GlobalMapper mapper;
+    public GlobalService(GlobalMapper mapper){
+        this.mapper = mapper;
+    }
 
     public List<String> findAllCategories() {
         return mapper.findAllCategory();
+    }
+
+    public List<String> findAllThemes() {
+        return mapper.findAllThemes();
     }
 }
