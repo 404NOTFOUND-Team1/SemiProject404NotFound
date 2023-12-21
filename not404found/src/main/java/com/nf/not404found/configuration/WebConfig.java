@@ -18,12 +18,13 @@ public class WebConfig implements WebMvcConfigurer {
 
         // 사용자가 파일을 업로드할 때 연동되는 경로를 설정해주는 것
         registry.addResourceHandler("/upload/**")
-                .addResourceLocations("file:///C:/not404foundImageFile/upload/");
+                .addResourceLocations("file:///C:/dev/NF404/SemiProject404NotFound/not404found/src/main/resources/static/images/product/");
 
         registry.addResourceHandler("/thumbPath/**") //이미지경로
-                .addResourceLocations("file:///C:/not404foundImageFile/img/upload/thumbnail/");
+//                .addResourceLocations("file:///C:/not404foundImageFile/img/upload/thumbnail/");
+                .addResourceLocations("file:///C:/dev/NF404/SemiProject404NotFound/not404found/src/main/resources/static/images/productimg/upload/thumbnail/");
         registry.addResourceHandler("/imagePath/**")
-                .addResourceLocations("file:///C:/not404foundImageFile/img/upload/original/");
+                .addResourceLocations("file:///C:/dev/NF404/SemiProject404NotFound/not404found/src/main/resources/static/images/productimg/upload/original/");
 
         /* 맥북 경로 */
 //        registry.addResourceHandler("/thumbPath/**") //이미지경로

@@ -75,6 +75,4 @@ public class SecurityConfig {
         return http.build();
     }
 
-
-//                    .failureUrl("/member/loginfail")
 }
