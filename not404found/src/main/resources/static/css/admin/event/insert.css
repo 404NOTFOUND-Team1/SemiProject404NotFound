@@ -20,14 +20,14 @@ body, p, h1, h2, ul,table, input, th, td, thead, input, select {
     padding: 0px;
 }
 
-h1 {
-    margin: 0 0 20px;
-    padding-bottom: 15px;
-    /*border-bottom: 1px solid #888;*/ /* 이벤트 등록 아래 밑줄*/
-    font-size: 1.5em;
-    line-height: 1em;
-    letter-spacing: -1px;
-}
+/*h1 {*/
+/*    margin: 0 0 20px;*/
+/*    padding-bottom: 15px;*/
+/*    !*border-bottom: 1px solid #888;*! !* 이벤트 등록 아래 밑줄*!*/
+/*    font-size: 1.5em;*/
+/*    line-height: 1em;*/
+/*    letter-spacing: -1px;*/
+/*}*/
 
 h2 { /* 필수입력사항*/
     margin: 30px 0 0;
@@ -40,12 +40,12 @@ h2 { /* 필수입력사항*/
     border-bottom: 1px solid #888;
 }
 
-th{ /* 필수입력 및 세수 입력사항에 들어가는 메뉴이름들?*/
-    padding: 20px;
-}
+/*th{ !* 필수입력 및 세수 입력사항에 들어가는 메뉴이름들?*!*/
+/*    padding: 20px;*/
+/*}*/
 
 .tbl_frm01 {
-    margin: 35px 288px 30px 0px;
+    margin: 35px 325px 30px 0px;
     margin-left: 250px;
     border-bottom: 1px solid #e4e5e7;
 }
@@ -61,20 +61,15 @@ th{ /* 필수입력 및 세수 입력사항에 들어가는 메뉴이름들?*/
     /*background-color: #e4e5e7; !* 테두리 색상을 지정합니다. *!*/
 }
 
-
 .tbl_frm01 th,
 .tbl_frm01 td { /* 각 th와 td 테두리 및 높이 너비 등등~*/
-    padding: 15px 32px;
-    height: 28px;
+    padding: 14px 19px;
+    height: 20px;
     border-top: 1px solid #e4e5e7;
     border-left: 1px solid #e4e5e7;
     /*border-block-end: 1px solid #e4e5e7;*/
-    text-align: left;
+    /*text-align: center;*/
     vertical-align: middle;
-}
-
-.tbl_frm01 td{
-    border-right: 1px solid #e4e5e7
 }
 
 table th {
@@ -102,7 +97,7 @@ table, th, td{
 }
 
 .w300 { /* 이벤트명, 설명 입력 받는 란 */
-    width: 500px !important; /*300->500수정*/
+    width: 545px !important; /*300->500수정*/
 }
 
 .fc_197 { /* 예시글들 */
@@ -110,7 +105,7 @@ table, th, td{
 }
 
 .marl5 { /* 예시글들 간격 */
-    margin-left: 5px !important;
+    margin-left: 13px !important;
 }
 
 .tbl_frm01 td label { /* td에 있는 label간의 간격 */
@@ -121,7 +116,8 @@ label, input, button, select { /* 글과 체크박스 입력란 정렬*/
     vertical-align: middle;
 }
 
-.btn_small { /* 무제한, 시작일, 종료일  */
+.btn_small { /* 시작일, 종료일  */
+    margin-left: 2px;
     padding: 6px 12px;
     font-size: 12px;
     line-height: 1.555;
@@ -173,6 +169,36 @@ label, input, button, select { /* 글과 체크박스 입력란 정렬*/
 .frm_input w80{
     text-align: right;
 }
+
+.tbl_frm01 tr:not(.cols) th:first-child, .tbl_frm01 tr:not(.cols) td:first-child {
+    border-left: 0 !important;
+}
+
+#btnSearch { /* 검색 버튼*/
+    background-color: black; /* 배경색을 검정으로 설정 */
+    color: white; /* 글씨색을 흰색으로 설정 */
+    border: 2px solid black; /* 테두리를 두껍게 검정색으로 설정 */
+    padding: 8px 16px; /* 내부 여백을 조정 */
+    border-radius: 0px; /* 모서리를 둥글게 만듦 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능함을 나타냄 */
+}
+
+.td_label {
+    text-align: left;
+}
+
+.table_parents{
+    text-align: center;
+}
+
+.tbl_frm02{
+    margin-left: 0px;
+    border-bottom: 1px solid #e4e5e7;
+}
+
+.w
+
+
 
 
 

@@ -13,7 +13,7 @@
 <header th:replace="/admin/common/adminHeader.html"></header>
 <section>
     <div class="s_wrap">
-        <h1>쿠폰등록</h1>
+<!--        <h1>쿠폰등록</h1>-->
 
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
         <script>
@@ -109,7 +109,7 @@
 <!--                </table>-->
 <!--            </div>-->
 
-            <h2>필수입력사항</h2>
+            <h2>쿠폰 등록</h2>
             <div class="tbl_frm01">
                 <table>
                     <colgroup>
@@ -127,10 +127,44 @@
                     <tr>
                         <th scope="row">설명</th>
                         <td>
-                            <input type="text" name="comment" class="frm_input w300">
+                            <input id="not" type="text" name="comment" class="frm_input w300">
                             <span class="fc_197 marl5">(ex: 겨울이벤트 크리스마스 20% 할인쿠폰)</span>
                         </td>
                     </tr>
+
+                    <script>
+                        function submitForm() {
+
+
+                            const couponName = document.getElementsByName('name')[0].value.trim();
+                            const couponDescription = document.getElementsByName('comment')[0].value.trim();
+                            const submitButton = document.getElementById('submit_btn');
+
+                            if (couponName === '' || couponDescription === '') {
+                                alert('필수 입력입니다.');
+                                return false; // 제출 중단
+                            } else {
+                                submitButton.disabled = false;
+                                // 모든 조건이 충족되면 폼을 제출할 수 있도록 진행
+                                // 여기에 폼 제출을 위한 로직을 추가하세요.
+                            }
+                        }
+                    </script>
+
+
+<!--                    // const not = document.getElementById('not');-->
+<!--                        // const submitButton = document.getElementById('submit_btn');-->
+<!--                        //-->
+<!--                        // submitButton.addEventListener('click',function (){-->
+<!--                        //     if(not.value === ""){-->
+<!--                        //         alert("비었음");-->
+<!--                        //     } else {-->
+<!--                        //         alert("검색 처리");-->
+<!--                        //     }-->
+<!--                        // });-->
+
+
+
 <!--                    <tr id="ids_download">-->
 <!--                        <th scope="row">쿠폰발급 시점</th>-->
 <!--                        <td>-->
@@ -166,7 +200,7 @@
                         <td>
                             <p>
 <!--                                <input type="radio" name="cp_sale_type" value="0" checked="">-->
-                                (상품 판매가 x 수량) 의
+                                (상품 판매가 x 수량) 의 &nbsp
                                 <input type="number" name="rate" class="frm_input w80">
                                 % 할인, 최대
 <!--                                <input type="text" name="cp_sale_amt_max" value="0" numeric="" itemname="최대 할인금액" class="frm_input w80"> 원-->
@@ -181,7 +215,7 @@
 <!--                    <div id="ids_inv_type1" class="mart7" style="display: none;">-->
                         <th> 유효기간 </th>
                         <td>
-                        쿠폰발급일로부터 <input type="number" name="period" class="frm_input w50"> 일까지 사용기간을 제한      <!--numeric=""-->
+                        쿠폰발급일로부터 &nbsp <input type="number" name="period" class="frm_input w50"> 일까지 사용기간을 제한      <!--numeric=""-->
 <!--                    </div>-->
                         </td>
                     </tr>
@@ -401,7 +435,7 @@
 <!--            </div>-->
 
             <div class="btn_confirm"> <!-- 쿠폰 목록으로 가기 -->
-                <input type="submit" class="btn_large">
+                <input id="submit_btn" type="submit" class="btn_large" onclick="submitForm()">
                 <a href="/admin/coupon" class="btn_large bx-white">목록</a>
             </div></form>
 

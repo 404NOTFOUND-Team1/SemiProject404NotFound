@@ -537,4 +537,14 @@ public class AdminProductController {
 
         return "redirect:/admin/product/modify";
     }
+
+
+//    @GetMapping("product/insertCategory")
+//    public String insertCategory(){
+//
+//        log.info("============================== insertCategory : ");
+//
+//
+//        return "/admin/product/insertCategory";
+//    }
 }

@@ -45,7 +45,7 @@ public class SecurityConfig {
                     auth.requestMatchers("/member/**").permitAll();
                     auth.requestMatchers("/productPage/").permitAll();
                     auth.requestMatchers("/order/**").permitAll();
-                    auth.requestMatchers("productpage/productPage").permitAll();
+                    auth.requestMatchers("productpage/**").permitAll();
                     auth.requestMatchers("/mypage/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
                     auth.requestMatchers("/").permitAll();
                     //auth.requestMatchers("/**").permitAll();  // 모든 리소스를 권한 없이 사용가능

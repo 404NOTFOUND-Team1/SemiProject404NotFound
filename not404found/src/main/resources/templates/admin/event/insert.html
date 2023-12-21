@@ -14,111 +14,123 @@
             background-color: #99A3FE;
             color:white;
         }
+
     </style>
 </head>
 <body>
 <header th:replace="/admin/common/adminHeader.html"></header>
+
 <section>
     <div class="s_wrap">
-        <h1>이벤트 등록</h1>
-        <h2>필수입력사항</h2>
+<!--        <h1>이벤트 등록</h1>-->
+        <h2>이벤트 등록</h2>
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+
         <form id="frm">
-        <div class="tbl_frm01">
-            <table>
-                <colgroup>
-                    <col class="w180">
-                    <col>
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row">이벤트명</th>
-                    <td>
-                        <input type="text" name="eventName" value="" required=""  class="required frm_input w300" style="background-repeat: no-repeat;">
-                        <span class="fc_197 marl5">( ex: 따뜻한 연말 할인 )</span>
-                        <!--required는 입력필드가 필드가 필수로 채워져야 하는지는 나타낼 떄 사용 현재는 빈값으로 설정되어 있음 -->
-                    </td>
-                </tr>
-<!--                <tr>-->
-<!--                <th scope="row">설명</th>-->
-<!--                <td>-->
-<!--                    <input type="text" name="eventComment" value="" class="frm_input w300">-->
-<!--                    <span class="fc_197 marl5">( ex: 전품목 30% 할인 )</span>-->
-<!--                </td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <th scope="row">이벤트 상태</th>-->
-<!--                    <td class="td_label">-->
-<!--                        <label><input type="radio" name="cp_use" value="1" checked=""> 상태1</label>-->
-<!--                        <label><input type="radio" name="cp_use" value="0"> 상태2</label>-->
-<!--                    </td>-->
-<!--                </tr>-->
-                <!--        <tr id="ids_date">-->
-                <!--            <th scope="row">이벤트 등록일</th>-->
-                <!--            <td>-->
-                <!--                <input type="date" name="cp_pub_sdate" value="" id="pub_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_sdate', '9999999999');" class="btn_small grey">무제한</a>-->
-                <!--            </td>-->
-                <!--        </tr>-->
-                <tr>
-                    <th scope="row">이벤트 유효 기간</th>
-                    <td class="td_label">
-                        <div id="ids_inv_type0" class="mart7">
-                            <input type="date" name="startDate" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('eventDates', '9999-99-99');" class="btn_small grey">시작일</a> ~
-                            <input type="date" name="endDate" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('eventDatee', '9999-99-99');" class="btn_small grey">종료일</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">할인율</th>
-                    <td>
-                        <p>
-<!--                            <input type="radio" name="cp_sale_type" value="0" checked="">-->
-                            (상품 판매가 x 수량) 의
-                            <input type="text" name="eventRate" value="0"  class="frm_input w80"> <!-- numeric="" itemname="할인율" -->                            % 할인
-                        </p>
-                        <!--                , 최대-->
-                        <!--                    <input type="text" name="cp_sale_amt_max" value="0" numeric="" itemname="최대 할인금액" class="frm_input w80"> 원-->
-                        <!--                </p>-->
-                        <!--                <p class="mart3">-->
-                        <!--                    <input type="radio" name="cp_sale_type" value="1">-->
-                        <!--                    <input type="text" name="cp_sale_amt" value="0" numeric="" itemname="할인금액" class="frm_input w80"> 원 할인-->
-                        <!--                </p>-->
-                    </td>
-                </tr>
-                </tbody>
-                <div class="csstest">
+            <div class="tbl_frm01">
+                <div class="tbl_frm02">
+                    <table>
+                        <colgroup>
+                            <col class="w180">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th scope="row">이벤트명</th>
+                            <td>
+                                <input type="text" name="eventName" value="" required=""  class="required frm_input w300" style="background-repeat: no-repeat;">
+                                <span class="fc_197 marl5">( ex: 따뜻한 연말 할인 )</span>
+                                <!--required는 입력필드가 필드가 필수로 채워져야 하는지는 나타낼 떄 사용 현재는 빈값으로 설정되어 있음 -->
+                            </td>
+                        </tr>
+<!--                        <tr>-->
+<!--                        <th scope="row">설명</th>-->
+<!--                        <td>-->
+<!--                            <input type="text" name="eventComment" value="" class="frm_input w300">-->
+<!--                            <span class="fc_197 marl5">( ex: 전품목 30% 할인 )</span>-->
+<!--                        </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row">이벤트 상태</th>-->
+<!--                            <td class="td_label">-->
+<!--                                <label><input type="radio" name="cp_use" value="1" checked=""> 상태1</label>-->
+<!--                                <label><input type="radio" name="cp_use" value="0"> 상태2</label>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+                        <!--        <tr id="ids_date">-->
+                        <!--            <th scope="row">이벤트 등록일</th>-->
+                        <!--            <td>-->
+                        <!--                <input type="date" name="cp_pub_sdate" value="" id="pub_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('cp_pub_sdate', '9999999999');" class="btn_small grey">무제한</a>-->
+                        <!--            </td>-->
+                        <!--        </tr>-->
+                        <tr>
+                            <th scope="row">이벤트 유효 기간</th>
+                            <td class="td_label">
+                                <div id="ids_inv_type0" class="mart7">
+                                    <input type="date" name="startDate" value="" id="inv_sdate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('eventDates', '9999-99-99');" class="btn_small grey">시작일</a> ~
+                                    <input type="date" name="endDate" value="" id="inv_edate" class="frm_input w80 hasDatepicker"> <a href="javascript:chk_obj('eventDatee', '9999-99-99');" class="btn_small grey">종료일</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">할인율</th>
+                            <td>
+                                <p>
+<!--                                    <input type="radio" name="cp_sale_type" value="0" checked="">-->
+                                    (상품 판매가 x 수량) 의 &nbsp
+                                    <input type="text" name="eventRate" value="0"  class="frm_input w80"> <!-- numeric="" itemname="할인율" -->                            % 할인
+                                </p>
+                                <!--                , 최대-->
+                                <!--                    <input type="text" name="cp_sale_amt_max" value="0" numeric="" itemname="최대 할인금액" class="frm_input w80"> 원-->
+                                <!--                </p>-->
+                                <!--                <p class="mart3">-->
+                                <!--                    <input type="radio" name="cp_sale_type" value="1">-->
+                                <!--                    <input type="text" name="cp_sale_amt" value="0" numeric="" itemname="할인금액" class="frm_input w80"> 원 할인-->
+                                <!--                </p>-->
+                            </td>
+                        </tr>
+                        </tbody>
+
+
+<!--                        <div class="csstest"></div>-->
+                    </table>
                 </div>
-            </table>
-<!--            <form method="get" th:action="@{admin/event/insert}">-->
-            <div class="page_name2">
-                <input type="text" class="search_product" name="searchValue" placeholder="상품명을 적어주세요" id="productName" style="width: 400px; height: 30px; margin-right: 10px;">
-                <button id="btnSearch">검색</button>
-<!--                <label class="md_button" th:type="submit" th:name="searchbtn" style="height: 35px; width: 80px; margin-right: 5px; border : 1px solid black" id="btnSearch">검색</label>-->
+<!--                <form method="get" th:action="@{admin/event/insert}">-->
+                <br>
+
+                <div class="page_name2">
+                    <input type="text" class="search_product" name="searchValue" placeholder="상품명을 적어주세요" id="productName" style="width: 400px; height: 30px; margin-right: 2px; padding-left: 10px;">
+                    <button id="btnSearch">검색</button>
+<!--                    <label class="md_button" th:type="submit" th:name="searchbtn" style="height: 35px; width: 80px; margin-right: 5px; border : 1px solid black" id="btnSearch">검색</label>-->
+                </div>
+                <br>
+
+                <table style="width: 864px">
+                    <thead>
+                        <tr>
+                            <th scope="col"><input type="checkbox" name="chkbox1" value="" onclick="check_all1(this.form);"></th>
+                            <th scope="col">상품코드</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col" style="width: 200px">상품가격</th>
+                        </tr>
+                        <tr th:each="product : ${ productList }" class="table_parents">
+                            <td><input type='checkbox' name='chkbox1' th:value="${product.productCode}"></td>
+                            <td th:text="${product.productCode}"></td>
+                            <td th:text="${product.name}"></td>
+                            <td th:text="${product.price}"></td>
+                        </tr>
+                        </thead>
+                </table>
+
+<!--                </form>-->
             </div>
-            <table style="width: 864px">
-                <thead>
-                <tr>
-                    <th scope="col"><input type="checkbox" name="chkbox1" value="" onclick="check_all1(this.form);"></th>
-                    <th scope="col">상품코드</th>
-                    <th scope="col">상품명</th>
-                    <th scope="col" style="width: 200px">상품가격</th>
-                </tr>
-                <tr th:each="product : ${ productList }" class="table_parents">
-                    <td><input type='checkbox' name='chkbox1' th:value="${product.productCode}"></td>
-                    <td th:text="${product.productCode}"></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.price}"></td>
-                </tr>
-                </thead>
-            </table>
-<!--            </form>-->
-        </div>
-        <div class="btn_confirm"> <!-- 이벤트 등록 또는 목록 -->
-            <input type="submit" id="registBtn" name="regist" value="등록" class="btn_large">
-            <a href="/admin/event" class="btn_large bx-white">목록</a>
-        </div>
+
+            <div class="btn_confirm"> <!-- 이벤트 등록 또는 목록 -->
+                <input type="submit" id="registBtn" name="regist" value="등록" class="btn_large">
+                <a href="/admin/event" class="btn_large bx-white">목록</a>
+            </div>
         </form>
     </div>
+
     <script> // ============ 이벤트 유효 기간 달력 뜨게 하는 스트립트 ===============
     $(document).ready(function () {
         var startDate, endDate; // 변수를 선언하고 초기화해야 합니다.
@@ -161,7 +173,6 @@
         $('#registBtn').click(function(){
             $('#frm').attr("action",'/admin/event/insert').attr("method", "post").submit();
         });
-
     });
 
     function check_all1(form) {
@@ -320,7 +331,6 @@
     //         console.log('http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
     //
     //     }
-
     </script>
 
 </section>

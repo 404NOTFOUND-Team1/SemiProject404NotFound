@@ -38,7 +38,7 @@ table, th, td{
     font-weight: normal; /*텍스트 두깨*/
     /*font-style: normal;*/ /*글꼴*/
     color: #454545;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 label, input, button, select { /* 글과 체크박스 입력란 정렬*/
@@ -74,15 +74,16 @@ h1{
     letter-spacing: -1px;
 }
 
-/*h2 {*/
-/*    margin: 30px 0 0;*/
-/*    position: relative;*/
-/*    font-size: 16px;*/
-/*    font-weight: 600;*/
-/*    letter-spacing: -1px;*/
-/*    line-height: 1em;*/
-/*    padding: 0 0 11px 10px;*/
-/*}*/
+h2 {
+    margin: 30px 0 0;
+    position: relative;
+    font-size: 1.3em;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 1em;
+    padding: 17px 0 14px 10px;
+    border-bottom: 1px solid #888;
+}
 
 #content h2 {
     margin: 30px 0 0;
@@ -179,11 +180,11 @@ table th {
 .tbl_head01 .frm_input {width:50%;} /*누적다운로드횟수 입력란 길이*/
 
 .w300 { /*쿠폰명, 설명 입력 받는 란 */
-    width: 300px !important;}
+    width: 332px !important;}
 
 .frm_input { /*입력 받는 요소들 */
-    padding: 0 4px 1px 4px; /*요소 안쪽 위 오른쪽 아래 왼쪽 */
-    font-size: 12px;
+    padding: 4px 8px 4px 7px; /*요소 안쪽 위 오른쪽 아래 왼쪽 */
+    font-size: 14px;
     font-weight: normal;/*텍스트 두깨*/
     border: 1px solid #ddd; /* 선의 두께, 종류 및 색상*/
     background-color: #fff;
@@ -193,15 +194,17 @@ table th {
 }
 
 .tbl_frm01 th, .tbl_frm01 td { /*필수입력사항 */
-    padding: 8px 14px;
-    height: 23px;
+    padding: 14px 17px;
+    height: 20px;
     border-bottom: 1px solid #e4e5e7;
     text-align: left;
     vertical-align: middle; /* 수직정렬*/
 }
 
 .tbl_frm01 { /* 필수입력사항, 세부입력사항 밑에 줄*/
-    border-top: 1px solid #888;
+    margin: 35px 400px 30px 0px;
+    margin-left: 343px;
+    border-top: 1px solid #e4e5e7;
 }
 
 .tbl_frm01 td label{ /* 세부입력사항부터 아래 항목들*/
@@ -225,8 +228,9 @@ table th {
 
 
 .btn_confirm{ /* 저장, 목록*/
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 12px;
+    padding-left: 44%;
 }
 
 .btn_small, .btn_large { /* 무제한과 저장, 목록*/
