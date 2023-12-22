@@ -29,20 +29,19 @@
               <td style="border-top:none">
                 <ul class="arr-align">
                   <li class="w20perpc-switch">
-                    <select name="search_state">
+                    <select id="searchState" name="search_state">
                       <option value>-- 주문 상태 전체 --</option>
-                      <option value="OC">주문완료</option>
-                      <option value="DC">배송완료</option>
-                      <option value="PC">처리완료</option>
-                      <option value="CR">취소신청(구매자)</option>
-                      <option value="CC">취소완료</option>
+                      <option value="OrderComplete">주문완료</option>
+                      <option value="DeliveryComplete">배송완료</option>
+                      <option value="CancelRequest">취소신청(구매자)</option>
+                      <option value="CancelComplete">취소완료</option>
                       <option value="TB">반품신청(구매자)</option>
                       <option value="BC">반품완료</option>
                       <option value="IC">거래완료</option>
                     </select>
                   </li>
                   <li class="w20perpc-switch">
-                    <select name="search_pay_state">
+                    <select id="searchPayState" name="search_pay_state">
                       <option value="">-- 결제 상태 전체 --</option>
                       <option value="A">재결제대기</option>
                       <option value="E">결제완료</option>
@@ -57,19 +56,15 @@
               <th class="txt-l">키워드</th>
               <td>
                 <ul class="arr-align">
-                  <li><select name="search_keyword_type">
+                  <li><select id="searchKeyWordType" name="search_keyword_type">
                     <option value="">-- 검색 키워드 --</option>
-                    <option value="ord_id">주문번호</option>
-                    <option value="prd_ord_id">상품주문번호</option>
-                    <option value="sender">주문자</option>
+                    <option value="id">주문자</option>
                     <option value="phone">휴대폰 번호</option>
-                    <option value="receiver">수령자</option>
-                    <option value="prd_name">상품명</option>
-                    <option value="prd_id">상품번호</option>
+                    <option value="name">상품명</option>
                   </select>
                   </li>
                   <li>
-                    <input class="textbar" type="text" name="search_keyword" style="margin-left:50px">
+                    <input id="searchKeyword" class="textbar" type="text" name="search_keyword" style="margin-left:50px">
                   </li>
                 </ul>
               </td>
@@ -155,6 +150,24 @@
     </table>
   </div>
 </section>
+<script>
+  const searchKeyword = document.getElementById("searchKeyword");
+  const searchKeyWordType = document.getElementById("searchKeyWordType");
+  const searchBtn = document.getElementById("btn_search");
+  const searchState = document.getElementById("searchState");
+  const searchPayState = document.getElementById("searchPayState");
+  searchBtn.addEventListener("click",function (){
+    if(searchKeyword.value!=="" || searchKeyWordType.value!=="") {
+      alert(searchKeyword.value);
+      alert(searchKeyWordType.value);
+      alert(searchState.value);
+      alert(searchPayState.value);
+    } else {
+      alert("입력해주세요");
+    }
+  })
 
+
+</script>
 </body>
 </html>

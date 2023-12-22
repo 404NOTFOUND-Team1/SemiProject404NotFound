@@ -164,6 +164,16 @@
             cursor: pointer;
             color: red;
         }
+        .myMileageText{
+            text-align: center;
+            grid-column: 8/9;
+            grid-row: 7;
+        }
+        .myMileage{
+            text-align: center;
+            grid-column: 9/10;
+            grid-row: 7;
+        }
     </style>
 </head>
 <body>
@@ -211,6 +221,8 @@
 
     <span class="myGrade">내 계정 등급</span>
     <span class="myGradeImg">30x200이미지가 들어감</span>
+        <span class="myMileageText">내 마일리지 : </span>
+        <span th:text="${mileage}" class="myMileage"></span>
     </tr>
     <script>
         //주석

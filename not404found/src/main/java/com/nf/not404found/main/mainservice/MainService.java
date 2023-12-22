@@ -30,18 +30,6 @@ public class MainService {
         }
         return list;
     }
-    public List<MainPageProductDTO> showSpecialPrice() {
-        List<MainPageProductDTO> showSpecialPrice = mapper.showSpecialPrice();
-        for(MainPageProductDTO s : showSpecialPrice){
-            System.out.println("======"+s.getName()+"======");
-            System.out.println(s.getPrice());
-            System.out.println(s.getPriority());
-            System.out.println(s.getDiscountRate());
-            System.out.println(s.getReviewCount());
-            System.out.println(s.getDiscountPrice());
-        }
-        return showSpecialPrice;
-    }
 
     public List<ProductPageDTO> getProduct(String name) {
 
@@ -62,5 +50,7 @@ public class MainService {
 
     }
 
-
+    public List<MainPageProductDTO> getSpecialProduct() {
+        return mapper.getSpecialProduct();
+    }
 }

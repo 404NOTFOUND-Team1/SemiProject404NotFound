@@ -31,4 +31,6 @@ public interface UserInformationMapper {
 
     @Select("SELECT c.name FROM user_coupon AS u JOIN coupon c on u.coupon_number = c.coupon_number WHERE u.id = #{username}")
     List<String> SearchUserCoupon(String username);
+    @Select("SELECT mileage FROM accounts WHERE id = #{username}")
+    String SearchUserMileage(String username);
 }

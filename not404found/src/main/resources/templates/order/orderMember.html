@@ -47,7 +47,7 @@
                         <input type="checkbox" id="imageCheckbox"> <!-- 체크 박스 추가 -->
                         <div class="content-container">
                             <img th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[0].modifyName}" alt="영상" width="150" height="150">
-                            <div th:text="${productName}" class="text-overlay">붙이는 템바보드 재단서비스(300x2400) /
+                            <div th:text="${productName}" id="productName" class="text-overlay">붙이는 템바보드 재단서비스(300x2400) /
                                 (600x2400)<br><br>
                                 <div class="choice_option">옵션<br><br>
                                     <div id="optionChangeCell">
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                 </td>
-                <td th:text="${amount}" class="tg-r2yh">1개</td>
+                <td th:text="${amount}" id="amountcount" class="tg-r2yh">1개</td>
                 <td th:text="${mileage}" class="tg-r2yh">로그인<br>필요</td>
                 <td th:text="${discountPrice}" class="tg-r2yh">0원</td>
                 <td th:text="${deliveryCost}" id="delCost" class="tg-r2yh"></td>
@@ -118,6 +118,7 @@
             </div>
         </td>
     </tr>
+    <input type="hidden" id="productCode" th:value="${pList[0].getProductCode()}">
 </div>
 </tr>
 </tbody>
@@ -203,11 +204,11 @@
         </div>
         <div class="input-group">
             <select id="deliveryRequest" onchange="handleDeliveryRequestChange(this.value)">
-                <option value="1">배송 시 요청 사항을 선택해주세요</option>
-                <option value="2">부재 시 문앞에 놓아주세요 </option>
-                <option value="3">부재 시 경비실에 맡겨주세요 </option>
-                <option value="4">배송전 미리 연락주세요</option>
-                <option value="5">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
+                <option value="배송 시 요청 사항을 선택해주세요">배송 시 요청 사항을 선택해주세요</option>
+                <option value="부재 시 문앞에 놓아주세요">부재 시 문앞에 놓아주세요 </option>
+                <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요 </option>
+                <option value="배송전 미리 연락주세요">배송전 미리 연락주세요</option>
+                <option value="손의 위험이 있는 상품입니다. 배송 시 주의해 주세요">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
                 <option value="6">직접 입력</option>
             </select>
             <div id="customDeliveryRequest" style="display: none;"><br>
@@ -252,7 +253,7 @@
             </div>
             <div class="상세-항목">
                 <span>배송비</span>
-                <span th:text="${deliveryCost}"></span><span>원</span>
+                <span th:text="${deliveryCost}" id="deliveryCost"></span><span>원</span>
             </div>
             <hr> <!-- 작은 줄 -->
             <div class="총-결제-금액">
@@ -266,6 +267,11 @@
             const productCheck = document.getElementById('imageCheckbox');
             const productPrice = document.getElementById('pp');
             const priceField = document.getElementById('price-field');
+
+            window.onload = function (){
+                productCheck.checked = true;
+                productPrice.textContent = priceField.textContent;
+            }
 
             productCheck.addEventListener('change',function (){ //상품에 체크 버튼을 누르면
                 if(productCheck.checked){   //productCheck 가 체크되었을 때
@@ -323,6 +329,7 @@
                         const selectedValue = selectElement.options[selectElement.selectedIndex].value;
                         const selectCoupon = document.getElementById('cu');
                         console.log("열받네?")
+                        console.log(selectedValue)
                         if(selectedValue !== "쿠폰 선택 안함"){
                             console.log("쿠폰 선택 했는데 이거 되나?")
                             go("coupon", selectedValue.toString()).then(result =>{
@@ -344,6 +351,7 @@
                 if(totalPrice.textContent < 0){
                     totalPrice.textContent = '0';
                 }
+                console.log(totalPrice.textContent)
             });
         </script>
     </div>
@@ -357,39 +365,25 @@
     /*]]>*/
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
     $(function(){
         $("#buy").click(function(){
+            console.log("오긴하나?")
             var pname = $("#productName").text();
             var name = $("#nameInput").val();
             var email = $("#emailInput").val();
             var tel = $("#phoneInput").val();
             var sname = $("#recipientName").val();
             var stel = $("#recipientPhone").val();
-            var saddress = $(".addressInput").val();
+            var saddress = $("#addressInput").val();
+            var saddressdetail = $("#addressDetails").val();
+            var amount = $("#amountcount").text();
+            const selectedValue = selectElement.options[selectElement.selectedIndex].value;
+            var productCode = $("#productCode").val();
+            var deliveryrq = $("#deliveryRequest").val();
+            var deliveryCost = $("#deliveryCost").text();
 
+            console.log(deliveryCost);
             if(name == ""){
                 $("#nameInput").focus()
             }
@@ -410,12 +404,13 @@
             }
             console.log("여긴 통과 하냐?")
 
-            let productpayprice = parseInt($("#pp").text().replace("원","").replace(",",""))
+            let productpayprice = parseInt($("#total-price").text().replace("원","").replace(",",""))
             let mileage = parseInt($("#ml").text().replace("원",""))
             let delivery = parseInt($("#dl").text().replace("원",""))
             let coupondiscount = parseInt($("#cu").text().replace("원",""))
             let eventdiscount = parseInt($(".ev").text().replace("원",""))
-            let totalprice = productpayprice - coupondiscount - eventdiscount - mileage + delivery;
+            // let totalprice = productpayprice - coupondiscount - eventdiscount - mileage + delivery;
+            let totalprice = parseInt($("#total-price").text().replace("원","").replace(",",""))
             // 사용한 쿠폰도 넘겨야 함
 
 
@@ -444,7 +439,13 @@
                     buytel : tel,
                     receivename : sname,
                     receivetel : stel,
-                    receiveaddress : saddress
+                    receiveaddress : saddress,
+                    receiveaddressdetail : saddressdetail,
+                    coupon : selectedValue,
+                    amount : amount,
+                    productCode : productCode,
+                    deliveryrequest : deliveryrq,
+                    deliveryCost : deliveryCost
                 //     사용한 쿠폰까지 넘겨야함
                 },
                 success:function(response){
