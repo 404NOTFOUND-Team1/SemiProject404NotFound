@@ -1,10 +1,329 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/productpage/productsPage.css">
     <title>Title</title>
 </head>
 <body>
+
+<header th:replace="/common/header.html"></header>
+
+<h2>카테고리 이름</h2>
+
+<div class="category-tit">
+    <span class="total_num">
+        <span class="col555">총 91개</span>의 상품</span>
+
+    <div class="second-square-icon-container-1">
+        <!-- 아이콘과 텍스트 중앙정렬 -->
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/Y4.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div class="product_name">이거슨 의자여</div>
+                <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                    <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                         <span class="number" style="color: red;">48</span>
+                         <span class="percent" style="color: red;">%　</span>
+                                <div class="price-original">
+                                <span class="price-original" style="text-decoration: line-through;">36,800</span>
+                                <span class="won">원</span>
+                                </div>
+                    </span>
+
+                    <div class="price">
+                        <span class="price2">10,000</span>
+                        <span class="won">원</span>
+<!--                        <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                            <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                            <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                    </div> <!--price -->
+                    <div class="review">
+                        <span class="review1">63</span>
+                        <span class="review2">개 리뷰</span>
+                    </div> <!-- review -->
+                </div>
+        </div> <!-- second-square-icon-wrapper-1 -->
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/Y5.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div class="product_name">이것이 의자여</div>
+                <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                    <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span class="number" style="color: red;">77</span>
+                                <span class="percent" style="color: red;">%　</span>
+                            <div class="price-original">
+                                <span class="price-original" style="text-decoration: line-through;">166,000</span>
+                                <span class="won">원</span>
+                            </div>
+                    </span>
+
+                    <div class="price">
+                        <span class="price2"></span>
+                        <span class="won">원</span>
+<!--                        <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                            <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                            <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                    </div>
+                    <div class="review">
+                        <span class="review1">35</span>
+                        <span class="review2">개 리뷰</span>
+                    </div>
+                </div>
+        </div> <!-- second-square-icon-wrapper-1-->
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/a3.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div class="product_name">아니여내가진정한의자여</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">60</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">286,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                </div>
+                <div class="review">
+                    <span class="review1">89</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">
+            <div class="product_name">나는옷장이여</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/a5.jpg" alt="아이콘 1">
+            <div class="product_name">옷장인척하는애</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/a9.jpg" alt="아이콘 1">
+            <div class="product_name">생각하는옷장</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">
+            <div class="product_name">마약소파</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/product4.jpg" alt="아이콘 1">
+            <div class="product_name">식욕을부르는소파</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/Y2.jpg" alt="아이콘 1">
+            <div class="product_name">마냥소파</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/Z2.jpg" alt="아이콘 1">
+            <div class="product_name">침침한램프</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/Z1.jpg" alt="아이콘 1">
+            <div class="product_name">조명이보이지않아</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/x2.jpeg" alt="아이콘 1">
+            <div class="product_name">카페같은 테이블</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="number" style="color: red;">77</span>
+                    <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">120,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+
+                <div class="price">
+                    <span class="price2"></span>
+                    <span class="won">원</span>
+
+                </div>
+
+                <div class="review">
+                    <span class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+
+    </div> <!--second-square-icon-container-1 -->
+</div> <!-- category-tit-->
 
 </body>
 </html>

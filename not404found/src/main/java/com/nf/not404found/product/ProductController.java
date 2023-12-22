@@ -37,7 +37,7 @@ public class ProductController {
     @GetMapping("products")//상품 뿌려주는 페이지에 연결할 거
     public String openProductsPage(@RequestParam String value, Model md){     //받아오면 쿼리로 value 날리고 상품들 선택해서 뿌리자.
         System.out.println(value);  //상단 바 드롭다운 메뉴에서 선택한 이름이 나옴
-        List<ProductDTO> list =  service.getProduct();
+        //List<ProductDTO> list =  service.getProduct();
         return "productpage/productsPage";
     }
 }

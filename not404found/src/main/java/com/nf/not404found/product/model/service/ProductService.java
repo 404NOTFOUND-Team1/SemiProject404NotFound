@@ -13,7 +13,7 @@ public class ProductService {
         this.mapper = mapper;
     }
 
-    public List<ProductDTO> getProduct() {
-        return mapper.getProduct();
-    }
+    //public List<ProductDTO> getProduct() {
+        //return mapper.getProduct();
+    //}
 }
