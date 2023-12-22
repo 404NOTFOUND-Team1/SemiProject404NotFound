@@ -1,5 +1,6 @@
 package com.nf.not404found.product;
 
+import com.nf.not404found.main.model.dto.MainPageProductDTO;
 import com.nf.not404found.product.model.dto.ProductDTO;
 import com.nf.not404found.product.model.service.ProductService;
 import org.springframework.stereotype.Controller;
@@ -31,13 +32,31 @@ public class ProductController {
 //    }
     @GetMapping("productPage")
     public String openProductPage(){
-
         return "productpage/productPage";
     }
     @GetMapping("products")//상품 뿌려주는 페이지에 연결할 거
-    public String openProductsPage(@RequestParam String value, Model md){     //받아오면 쿼리로 value 날리고 상품들 선택해서 뿌리자.
-        System.out.println(value);  //상단 바 드롭다운 메뉴에서 선택한 이름이 나옴
-        List<ProductDTO> list =  service.getProduct();
+    public String openProductsPage(@RequestParam String value, Model md){//받아오면 쿼리로 value 날리고 상품들 선택해서 뿌리자.
+        md.addAttribute("chooseCategory",value);
+
+        List<MainPageProductDTO> list;
+        if(value.equals("가구")) {    //가구, 자재 선택시
+            list = service.getFurniture();
+            md.addAttribute("products", list);
+        } else if(value.equals("자재")){
+            list = service.getMaterial();
+            md.addAttribute("products", list);
+        } else if(value.equals("newProducts")){ //신상품 선택시
+            list = service.getNewProduct();
+            md.addAttribute("products", list);
+        }else if(value.equals("best")){ //베스트 선택시
+            list = service.getBest();
+            md.addAttribute("products", list);
+        } else {    //테마 선택 시
+            list = service.getProduct(value);
+            md.addAttribute("products", list);
+        }
+
+
         return "productpage/productsPage";
     }
 }

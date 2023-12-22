@@ -61,6 +61,17 @@ public class UserInformation {
         }
         return null;
     }
+    public String getMileage() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        if (principal instanceof UserDetails) {
+            return mapper.SearchUserMileage(((UserDetails) principal).getUsername());
+        }
+        return null;
+    }
     /**
      * 로그인한 유저의 핸드폰 번호를 받아오는 메소드
      * @return 로그인한 유저 핸드폰 번호

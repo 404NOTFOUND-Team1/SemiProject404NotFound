@@ -33,6 +33,7 @@ public class MyPageController {
 //        for(int i=0; i>=list.size(); i++){
 //            mv.addObject()
 //        }
+        mv.addObject("mileage",user.getMileage());
         mv.addObject("id",myPage);
         mv.addObject("addr",list);
         mv.getModel();

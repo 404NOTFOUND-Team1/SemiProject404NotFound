@@ -49,4 +49,8 @@ public class MainService {
         return list;
 
     }
+
+    public List<MainPageProductDTO> getSpecialProduct() {
+        return mapper.getSpecialProduct();
+    }
 }
