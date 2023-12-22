@@ -30,10 +30,6 @@
           ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
           // 글자색
           ['color', ['forecolor','color']],
-          // 표만들기
-          ['table', ['table']],
-          // 그림첨부
-          ['insert',['picture']],
         ],
         // 추가한 글꼴
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
@@ -324,30 +320,6 @@
 
         // 폼을 서버로 제출
         $('form').submit();
-
-        // // 선택된 별점 값을 서버로 전송하기 위한 데이터 구성
-        // var dataToSend = {
-        //     star_rating: selectedRating
-        //     // 추가적인 필드가 있다면 여기에 추가
-        // };
-        //
-        // // AJAX를 사용하여 데이터 전송
-        // $.ajax({
-        //     type: 'POST', // HTTP 요청 방식
-        //     url: '/board/review/write', // 전송할 URL
-        //     contentType: 'application/json', // 전송할 데이터 타입
-        //     data: JSON.stringify(dataToSend), // 전송할 데이터
-        //     success: function(response) {
-        //         // 성공적으로 전송되었을 때 실행될 코드
-        //         alert('별점이 등록되었습니다!');
-        //         // 서버로부터 받은 응답에 따라 추가 작업을 수행할 수 있습니다.
-        //     },
-        //     error: function(err) {
-        //         // 전송에 실패했을 때 실행될 코드
-        //         console.error('전송 실패:', err);
-        //         // 실패 시 사용자에게 알림을 보여줄 수 있습니다.
-        //     }
-        // });
     });
 
     // .filled 클래스가 붙은 별 아이콘의 개수를 세는 함수

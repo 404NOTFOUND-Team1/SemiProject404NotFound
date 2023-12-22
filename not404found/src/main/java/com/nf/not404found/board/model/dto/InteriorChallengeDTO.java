@@ -22,6 +22,7 @@ public class InteriorChallengeDTO {
     private int post_views;
     private int recommend_count;
     private List<AttachmentDTO> attachmentList = new ArrayList<>();
+    private RecommendIcDTO recommend_ic;
 
     public InteriorChallengeDTO(List<AttachmentDTO> attachmentList) {
         this.attachmentList = attachmentList != null ? attachmentList : new ArrayList<>();

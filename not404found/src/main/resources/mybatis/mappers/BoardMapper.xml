@@ -29,6 +29,13 @@
         <collection property="attachmentList" resultMap="attachmentResultMap"/>
     </resultMap>
 
+    <resultMap id="recommendIcResultMap" type="RecommendIcDTO">
+        <id property="r_code" column="r_code"/>
+        <result property="id" column="id"/>
+        <result property="post_code" column="post_code"/>
+        <result property="r_check" column="r_check"/>
+    </resultMap>
+
     <resultMap id="reviewResultMap" type="ReviewDTO">
         <id property="post_code" column="post_code"/>
         <id property="category_code" column="category_code"/>
@@ -322,12 +329,39 @@
                 A.post_modified_date,
                 A.post_views,
                 A.recommend_count,
-                C.thumbnail_path
+                C.thumbnail_path,
+                D.r_check
         from    interior_challenge A
         join    accounts B on (A.id = B.id)
         join    attachment C on (A.post_code = C.post_code)
+        left join    recommend_ic D on (A.post_code=D.post_code AND A.id=D.id)
         where   A.post_code = #{ post_code }
     </select>
+
+    <!-- id와 post_code가 주어졌을 때 해당 레코드를 가져오는 쿼리 -->
+    <select id="getRecommendICByIdAndPostCode" resultMap="recommendIcResultMap">
+        SELECT * FROM recommend_ic
+        WHERE id = #{id} AND post_code = #{postCode}
+    </select>
+
+    <!-- RecommendIc 테이블에 새로운 레코드를 삽입하는 쿼리 -->
+    <insert id="insertRecommendIC" parameterType="RecommendIcDTO">
+        INSERT INTO recommend_ic (id, post_code, r_check)
+        VALUES (#{id}, #{post_code}, #{r_check})
+    </insert>
+
+    <!-- RecommendIc 테이블의 r_check 값을 업데이트하는 쿼리 -->
+    <update id="increaseRecommendIC" parameterType="RecommendIcDTO">
+        UPDATE recommend_ic
+        SET r_check = #{r_check}
+        WHERE id = #{id} AND post_code = #{post_code}
+    </update>
+
+    <update id="decreaseRecommendIC" parameterType="RecommendIcDTO">
+        UPDATE recommend_ic
+        SET r_check = #{r_check}
+        WHERE id = #{id} AND post_code = #{post_code}
+    </update>
 
     <select id="selectNoticeView" resultMap="generalBoardResultMap">
         select  A.post_code,

@@ -378,4 +378,29 @@ public class BoardServiceImpl implements BoardService{
             throw new NoticeRemoveException("인테리어 챌린지 삭제에 실패하셨습니다.");
         }
     }
+
+    @Override
+    @Transactional
+    public int updateIcRecommend(String id, int post_code, int r_check) throws NoticeModifyException {
+
+        log.info("[BoardServiceImpl] updateIcRecommend =================================== start");
+
+        RecommendIcDTO existingRecommendIC = mapper.getRecommendICByIdAndPostCode(id, post_code);
+        if (existingRecommendIC == null) {
+            RecommendIcDTO newRecommendIC = new RecommendIcDTO();
+            newRecommendIC.setId(id);
+            newRecommendIC.setPost_code(post_code);
+            newRecommendIC.setR_check(1); // Set r_check to 1 (or 0)
+            return mapper.insertRecommendIC(newRecommendIC);
+        } else if (existingRecommendIC.getR_check() == 0){
+            existingRecommendIC.setR_check(1); // Set r_check to 1 (or 0)
+            return mapper.increaseRecommendIC(existingRecommendIC);
+        } else if (existingRecommendIC.getR_check() == 1) {
+            existingRecommendIC.setR_check(0);
+            return mapper.decreaseRecommendIC(existingRecommendIC);
+        } else {
+            throw new NoticeModifyException("추천 오류");
+        }
+
+    }
 }

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>인테리어 챌린지</title>
     <link rel="stylesheet" href="/css/board/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 <header th:replace="common/header.html"></header>
@@ -22,11 +24,11 @@
       <div class="title">
         <p th:text="${ icView.post_title }">
       </div>
-      <input type="hidden" name="post_code" th:text="${ icView.post_code }">
+      <input type="hidden" id="ic_post_code" name="post_code" th:text="${ icView.post_code }">
       <div class="info">
         <dl>
             <dt>글쓴이</dt>
-            <dd th:text="${icView.account.id}"></dd>
+            <dd id="ic_writer" th:text="${icView.account.id}"></dd>
         </dl>
         <dl>
           <dt>작성일</dt>
@@ -68,9 +70,85 @@
     <div class="bt_recommend_area">
       <button type="button" class="bt_recommend">추천👍🏻</button>
     </div>
+
+    <div>
+      <input type="hidden" id="like_check" th:value="${icView != null && icView.recommend_ic != null && icView.recommend_ic.r_check != null ? icView.recommend_ic.r_check : 0}">
+      <img class="rounded-circle likeimg" id="likeimg" src="/images/board/before_recommend.png"
+           width="60px" height="60px"> 추천 <input type="text" th:value="${icView.recommend_count}">
+    </div>
+
   </div>
 </div>
 
+<script>
+  // $(document).ready(function () {
+  //   let likeval = document.getElementById('like_check').value;
+  //   console.log(likeval);
+  //   const id = document.getElementById('ic_writer').innerText;
+  //   console.log(id);
+  //   const likeimg = document.getElementById("likeimg");
+  //
+  //   if (likeval > 0) {
+  //     likeimg.src = "/images/board/after_recommend.png";
+  //   }
+  //   else {
+  //     likeimg.src = "/images/board/before_recommend.png";
+  //   }
+  //   // 좋아요 버튼을 클릭 시 실행되는 코드
+  //   $(".likeimg").on("click", function () {
+  //     $.ajax({
+  //       url: '/board/ic/recommend',
+  //       type: 'POST',
+  //       data: { 'id': id, 'r_check': likeval },
+  //       success: function (data) {
+  //         if (data == 1) {
+  //           $("#likeimg").attr("src", "/images/board/after_recommend.png");
+  //           location.reload();
+  //         } else {
+  //           $("#likeimg").attr("src", "/images/board/before_recommend.png");
+  //           location.reload();
+  //         }
+  //       }, error: function () {
+  //         $("#likeimg").attr("src", "/images/board/after_recommend.png");
+  //         console.log('오타 찾으세요')
+  //       }
+  //
+  //     });
+  //
+  //   });
+  // });
+
+  $(document).ready(function () {
+  $(".likeimg").on("click", function () {
+    let likeval = document.getElementById('like_check').value;
+    console.log(likeval);
+    const id = document.getElementById('ic_writer').innerText;
+    console.log(id);
+    const likeimg = document.getElementById("likeimg");
+    const post_code = document.getElementById('ic_post_code').value;
+    console.log(post_code);
+
+    $.ajax({
+      url: '/board/ic/recommend',
+      type: 'POST',
+      data: { 'id': id, 'post_code': post_code, 'r_check': likeval },
+      success: function (data) {
+        if (data == 1) {
+          $("#likeimg").attr("src", "/images/board/after_recommend.png");
+          location.reload();
+        } else {
+          $("#likeimg").attr("src", "/images/board/before_recommend.png");
+          location.reload();
+        }
+      }, error: function () {
+        $("#likeimg").attr("src", "/images/board/after_recommend.png");
+        console.log('오타 찾으세요')
+      }
+    });
+  });
+  });
+
+</script>
 
 </body>
 </html>

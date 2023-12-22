@@ -55,4 +55,6 @@ public interface BoardService {
     void modifyIc(InteriorChallengeDTO ic) throws NoticeModifyException;
 
     void removeIc(int post_code) throws NoticeRemoveException;
+
+    int updateIcRecommend(String id, int post_code, int r_check) throws NoticeModifyException;
 }

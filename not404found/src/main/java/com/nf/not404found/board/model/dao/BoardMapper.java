@@ -63,4 +63,12 @@ public interface BoardMapper {
     int updateIc(InteriorChallengeDTO ic);
 
     int deleteIc(int post_code);
+
+    RecommendIcDTO getRecommendICByIdAndPostCode(String id, int post_code);
+
+    int insertRecommendIC(RecommendIcDTO newRecommendIC);
+
+    int increaseRecommendIC(RecommendIcDTO existingRecommendIC);
+
+    int decreaseRecommendIC(RecommendIcDTO existingRecommendIC);
 }

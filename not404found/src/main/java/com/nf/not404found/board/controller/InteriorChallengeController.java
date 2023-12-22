@@ -238,6 +238,19 @@ public class InteriorChallengeController {
         return "board/ic/view";
     }
 
+    @PostMapping("/recommend")
+    @ResponseBody
+    public int icRecommend(@RequestParam("id") String id,
+                           @RequestParam("post_code") int post_code,
+                           @RequestParam("r_check") int r_check) throws NoticeModifyException {
+
+        log.info("추천 id 확인 : " + id);
+        log.info("추천 post_code 확인 : " + post_code);
+        log.info("추천 r_check 확인 : " + r_check);
+
+        return boardService.updateIcRecommend(id, post_code, r_check);
+    }
+
     @GetMapping("/getIcView")
     @ResponseBody
     public InteriorChallengeDTO getIcView(@RequestParam int post_code) {
