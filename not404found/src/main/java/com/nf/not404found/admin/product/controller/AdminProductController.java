@@ -43,7 +43,7 @@ public class AdminProductController {
     @Value("${image.image-dir}")
     private String IMAGE_DIR;
 
-    @Value("C:/not404foundImageFile/")
+    @Value("C:/dev/NF404/SemiProject404NotFound/not404found/src/main/resources/static/images/product")
     private String ROOT_LOCATION;
 
     @GetMapping("product")
@@ -317,6 +317,9 @@ public class AdminProductController {
     public String productModifyPage(Model model){
 
         model.addAttribute("boardType", "상품 관리");
+        List<AdminProductDTO> productList = productService.selectAllProduct();
+
+        model.addAttribute("productList", productList);
 
         return "/admin/product/modify";
     }
@@ -537,4 +540,14 @@ public class AdminProductController {
 
         return "redirect:/admin/product/modify";
     }
+
+    @GetMapping("product/insertCategory")
+    public String insertCategory(Model model){
+
+        model.addAttribute("boardType", "상품 관리");
+
+        return "/admin/product/insertCategory";
+    }
+
+
 }

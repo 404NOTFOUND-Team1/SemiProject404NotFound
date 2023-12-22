@@ -45,14 +45,23 @@
                 </select>
                 <label for="subCategory">하위 카테고리 : </label>
                 <select id="subCategory" class="c_ref" name="adminProductCategory.categoryCode"></select>
-                <hr></div>
-            <div class="tab5"><label for="colorCategory">옵션(색상) : </label>
+            <button id="categoryButton" type="button" onclick="insertCategory()">카테고리 등록</button>
+            <hr></div>
+            <script>
+                function insertCategory(){
+                    window.location.href="/admin/product/insertCategory"
+                }
+            </script>
+        <div class="tab5"><label for="colorCategory">옵션(색상) : </label>
                 <select id="colorCategory" class="c_ref" name="adminOption.colorCode">
                     <option value="검은색">black</option>
                     <option value="파란색">blue</option>
                     <option value="빨간색">red</option>
                 </select>
                 <hr>
+            </div>
+            <div class="tab3"><label class="tab33">중요도 :  </label>
+                <input class="priority" type="number" name="priority"><hr>
             </div>
             <table>
                 <tr>

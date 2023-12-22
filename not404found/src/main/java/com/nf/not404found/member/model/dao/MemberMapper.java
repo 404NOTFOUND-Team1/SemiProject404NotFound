@@ -18,9 +18,11 @@ public interface MemberMapper {
     int checkCode(String id, String pwdCode);
 
     @Insert("INSERT INTO accounts (id,password,name,email,phone_number,regist_date,last_login,account_status)" +
-            "VALUES (#{id},#{pwd},#{name},#{email},#{phone},now(),now(),null)")
+            "VALUES (#{id},#{pwd},#{name},#{email},#{phone},now(),now(),'FRIEND')")
     boolean createMember(String id, String email, String pwd, String name, String phone);
 
 
     LoginUserDTO findId(String username);
+
+
 }

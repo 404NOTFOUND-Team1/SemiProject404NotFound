@@ -35,13 +35,15 @@ dependencies {
     implementation 'javax.mail:javax.mail-api:1.6.2'
     implementation 'com.sun.mail:javax.mail:1.6.2'
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+    //메일
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
     // 스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'
     // build.gradle의 경우
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     // 파일 업로드
     implementation 'commons-io:commons-io:2.11.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     // 사진등록용 API
     implementation 'net.coobird:thumbnailator:0.4.8'

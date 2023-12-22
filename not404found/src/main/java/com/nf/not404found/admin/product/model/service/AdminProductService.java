@@ -15,4 +15,8 @@ public interface AdminProductService {
     List<AdminProductDTO> selectOneProduct2(Long productCode);
 
     void modifyProduct(AdminProductDTO modifyProduct) throws modifyProductException;
+
+    List<AdminProductDTO> selectOneProduct3(String productName);
+
+    List<AdminProductDTO> selectOneProductName(String productName);
 }

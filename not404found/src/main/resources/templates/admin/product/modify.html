@@ -66,6 +66,9 @@
                         </select>
                         <hr>
                     </div>
+                    <div class="tab3"><label class="tab33">중요도 :  </label>
+                        <input class="priority" type="number" name="priority"><hr>
+                    </div>
                     <table>
                         <tr>
                             <td>대표 이미지</td>
@@ -339,7 +342,9 @@
 
             console.log("어디야")
 
-            for (var i = 1; i <= 4; i++) {
+            console.log(data[0].attachmentList[0].savedPath)
+
+            for (var i = 1; i <= 5; i++) {
                 var contentImagePath = 'contentImage' + i;
                 console.log("반복도냐")
                 $('#' + contentImagePath).attr('src', 'http://localhost:8404/thumbPath' + data[0].attachmentList[i].thumbnailPath);
@@ -399,6 +404,8 @@
             var selectedTopCategory = topCategory.options[topCategory.selectedIndex].value;
             var subCategory = document.getElementById('subCategory');
             subCategory.innerHTML ="";
+
+
 
             if(selectedTopCategory === "1"){
                 addOption(subCategory, "3", '의자');

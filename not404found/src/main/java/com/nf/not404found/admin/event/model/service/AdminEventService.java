@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AdminEventService {
     List<AdminEventDTO> selectAllEvent();
+
+    void insertEvent(List<Integer> chkbox1, AdminEventDTO eventDTO);
 }

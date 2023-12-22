@@ -52,11 +52,15 @@
             c.saved_path,
             c.modify_name,
             c.thumnail_path,
-            c.file_type
+            c.file_type,
+            a.priority
         FROM
             product a
         JOIN product_category b ON a.category_code = b.category_code
         LEFT JOIN image c ON a.product_code = c.product_code
+        LEFT JOIN event e ON a.product_code = e.product_code
+        GROUP BY a.product_code, a.name, a.price, e.discount_rate, e.status, a.priority
+        ORDER BY a.priority DESC;
     </select>
 
     <select id="selectConditionProduct" resultMap="AdminProductMap">
@@ -182,6 +186,31 @@
             a.product_code = #{productCode}
     </select>
 
+    <select id="selectOneProductName" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.amount,
+            a.delete_status,
+            b.ref_category_code,
+            b.category_code,
+            c.image_code,
+            c.saved_path,
+            c.modify_name,
+            c.thumnail_path,
+            c.file_type,
+            c.original_name,
+            d.color_code
+        FROM
+            product a
+                JOIN product_category b ON a.category_code = b.category_code
+                LEFT JOIN image c ON a.product_code = c.product_code
+                LEFT JOIN options d ON a.product_code = d.product_code
+        WHERE
+            a.product_code = #{productName}
+    </select>
+
     <update id="modifyProduct">
         UPDATE product
         SET
@@ -222,6 +251,31 @@
             modify_name
         from image
         WHERE product_code = #{ productCode }
+    </select>
+
+    <select id="selectOneProductMain" resultMap="AdminProductMap">
+        SELECT
+            a.product_code,
+            a.name,
+            a.price,
+            a.amount,
+            a.delete_status,
+            b.ref_category_code,
+            b.category_code,
+            c.image_code,
+            c.saved_path,
+            c.modify_name,
+            c.thumnail_path,
+            c.file_type,
+            c.original_name,
+            d.color_code
+        FROM
+            product a
+                JOIN product_category b ON a.category_code = b.category_code
+                LEFT JOIN image c ON a.product_code = c.product_code
+                LEFT JOIN options d ON a.product_code = d.product_code
+        WHERE
+            a.name = #{name}
     </select>
 
 
