@@ -86,4 +86,12 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 
         return dormantList;
     }
+
+    @Override
+    public void blacked(String id) {
+
+        int result = mapper.blacked(id);
+
+    }
+
 }

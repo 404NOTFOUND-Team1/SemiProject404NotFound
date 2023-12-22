@@ -4,6 +4,7 @@ package com.nf.not404found.kakaopay.model.service;
 import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.kakaopay.model.dto.ApproveResponse;
 import com.nf.not404found.kakaopay.model.dto.ReadyResponse;
+import com.nf.not404found.payment.model.service.PaymentServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,8 +23,11 @@ public class KakaoPayService {
 
     private final UserInformation user;
 
-    public KakaoPayService(UserInformation user) {
+    private final PaymentServiceImpl paymentService;
+
+    public KakaoPayService(UserInformation user, PaymentServiceImpl paymentService) {
         this.user = user;
+        this.paymentService = paymentService;
     }
 
     public ReadyResponse payReady(//int totalAmount,
@@ -35,7 +39,9 @@ public class KakaoPayService {
                                   String receivename,
                                   String receivetel,
                                   String receiveaddress,
-                                  String pname) {
+                                  String pname,
+                                  String amount,
+                                  String coupon) {
 
         log.info("======================================> 서비스 시작 ");
 
@@ -46,7 +52,7 @@ public class KakaoPayService {
         parameters.add("partner_order_id", "4"); // 주문번호임 ?
         parameters.add("partner_user_id", user.getId()); // 주문결제 하는 회원의 아이디
         parameters.add("item_name", pname); // 상품명
-        parameters.add("quantity", "2"); // 수량
+        parameters.add("quantity", amount); // 수량
         parameters.add("total_amount", String.valueOf(totalprice));
         parameters.add("tax_free_amount", "0"); //비과세인가 뭔가 하는거임
         parameters.add("approval_url", "http://localhost:8404/order/pay/completed"); // 결제승인시 넘어갈 url
@@ -72,6 +78,16 @@ public class KakaoPayService {
         log.info("결재준비 응답객체: " + readyResponse);
 
         log.info("===============================================================> 서비스 첫 리턴 ");
+
+        if (coupon != null){
+            paymentService.updateCoupon(user.getId(),coupon);
+        }
+
+        if (mileage > 0){
+            paymentService.updateMileage(user.getId(),mileage);
+        }
+        paymentService.updateAmount(pname,amount);
+        log.info("===================================== 데이터베이스까지 완료 !!");
 
         return readyResponse;
     }
@@ -103,6 +119,8 @@ public class KakaoPayService {
 
         ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
         log.info("결재승인 응답객체: " + approveResponse);
+
+        paymentService.insertComplete();
 
         log.info("======================================================================= 서비스 마지막 리턴 :");
         return approveResponse;

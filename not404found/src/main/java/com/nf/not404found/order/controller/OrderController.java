@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -20,7 +21,6 @@ public class OrderController {
 
     private final OrderService service;
     private final UserInformation user;
-
     private final AdminProductService productService;
     public OrderController(OrderService service, UserInformation user, AdminProductService productService) {
         this.service = service;
@@ -29,12 +29,16 @@ public class OrderController {
     }
 
     @GetMapping("orderComplete")
-    public String orderEndPage(){
-
-        log.info("=============================================> orderEnd 매핑 확인");
+    public ModelAndView orderEndPage(ModelAndView mv){
 
 
-        return "/order/orderComplete";
+        mv.setViewName("/order/orderComplete");
+
+        List<OrderDTO> orderList = service.orderInfo();
+
+        mv.addObject("orderList", orderList);
+
+        return mv;
     }
 
     @GetMapping("orderFailure")
@@ -58,13 +62,18 @@ public class OrderController {
         //디스카운트 프라이스는 null이 아니고,
         //할인 중인건 할인 중인 가격, 할인중이 아닌건 본 가격과 똑같이 나온다.
         // 그렇다면
-        if(price == discountPrice){
+        log.info("========================================= discountPrice : " + discountPrice);
+        log.info("========================================= price : " + price);
+        if(price == (discountPrice*amount)){
             System.out.println("할인 중 아님");
+            log.info("========================================= discountPrice : " + discountPrice);
             discountPrice = 0;
         } else {
             System.out.println("할인 중");
-            discountPrice = price - discountPrice;
+            log.info("========================================= discountPrice : " + discountPrice);
+            discountPrice = price - (discountPrice * amount);
         }
+        log.info("========================================= discountPrice : " + discountPrice);
         //으로 비교할 수 있을 것이다.
         List<String> coupon = user.getCoupon();
         System.out.println("coupon = " + coupon);
