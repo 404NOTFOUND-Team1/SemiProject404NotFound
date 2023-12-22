@@ -63,6 +63,7 @@ mainImg.addEventListener('click',function(){
 
 });
 
+
 customer.addEventListener('click',function(){
     alert('고객센터!');
 });
@@ -97,7 +98,6 @@ function commonEnterMouseEvent(target){
         theme_toggle.style.display = 'none';
     } else if(target === theme){
         category_toggle.style.display = 'none';
-        new_product_toggle.style.display = 'none';
     } else if(target === new_product){
         theme_toggle.style.display = 'none';
     }
@@ -114,7 +114,7 @@ function commonLeaveMouseEvent(){
 }
 function commonEvent(e){
     var selectedOption = e.target.getAttribute('data-value');
-    var list = [category_toggle,theme_toggle,new_product_toggle,board_toggle]
+    var list = [category_toggle,theme_toggle,board_toggle]
     for(let i =0; i<list.length;i++) {
         list[i].style.display = 'none';
     }
@@ -137,7 +137,6 @@ theme.addEventListener('mouseenter', function () {
 });
 // 마우스가 new_product 위에 올라갈 때
 new_product.addEventListener('mouseenter', function () {
-    new_product_toggle.style.display = 'block';
     new_product.style.fontSize = "18px";
     commonEnterMouseEvent(new_product);
 });
@@ -164,67 +163,31 @@ special_price.addEventListener('mouseenter',function(){
 dropdownContainer.addEventListener('mouseleave', function () {
     category_toggle.style.display = 'none';
     theme_toggle.style.display = 'none';
-    new_product_toggle.style.display = 'none';
     board_toggle.style.display = 'none';
     commonLeaveMouseEvent();
 });
 
-category_toggle.addEventListener('click', function (e)
-{
-    const categoryArray = ['목록1','목록2','목록3','목록4','목록5']
+category_toggle.addEventListener('click', function (e){
     var list = commonEvent(e);
-    if(list === categoryArray[0]){
-        alert("카테고리 목록1 Test");
-    } else if(list === categoryArray[1]){
-        alert("카테고리 목록2 Test");
-    } else if(list === categoryArray[2]){
-        alert("카테고리 목록3 Test");
-    } else if(list === categoryArray[3]){
-        alert("카테고리 목록4 Test");
-    } else if(list === categoryArray[4]){
-        alert("카테고리 목록5 Test");
-    } else {
-        alert("Error!!");
+    for(var i =0; i<categoriesDropDown.length; i++){
+        if(list===categoriesDropDown[i]){
+            window.location.href = '/product/products?'+"value="+categoriesDropDown[i];  //클릭한거 이름 갖고 컨트롤러로
+        }
     }
 });
-theme_toggle.addEventListener('click', function (e)
-{
-    const categoryArray = ['목록6','목록7','목록8','목록9','목록10']
+theme_toggle.addEventListener('click', function (e) {
     var list = commonEvent(e);
-    if(list === categoryArray[0]){
-        alert("테마 목록6 Test");
-    } else if(list === categoryArray[1]){
-        alert("테마 목록7 Test");
-    } else if(list === categoryArray[2]){
-        alert("테마 목록8 Test");
-    } else if(list === categoryArray[3]){
-        alert("테마 목록9 Test");
-    } else if(list === categoryArray[4]){
-        alert("테마 목록10 Test");
-    } else {
-        alert("Error!!");
+    for(var i =0; i<themeDropdown.length; i++){
+        if(list===themeDropdown[i]){
+            window.location.href = '/product/products?'+"value="+themeDropdown[i];  //클릭한거 이름 갖고 컨트롤러로
+        }
     }
 });
-new_product_toggle.addEventListener('click', function (e)
-{
-    const categoryArray = ['목록11','목록12','목록13','목록14','목록15']
-    var list = commonEvent(e);
-    if(list === categoryArray[0]){
-        alert("신상품 목록11 Test");
-    } else if(list === categoryArray[1]){
-        alert("신상품 목록12 Test");
-    } else if(list === categoryArray[2]){
-        alert("신상품 목록13 Test");
-    } else if(list === categoryArray[3]){
-        alert("신상품 목록14 Test");
-    } else if(list === categoryArray[4]){
-        alert("신상품 목록15 Test");
-    } else {
-        alert("Error!!");
-    }
+new_product.addEventListener('click',function (){
+    window.location.href = '/product/products?'+"value="+"newProducts";
 });
 best.addEventListener('click',function(){
-    alert("베스트 선택.")
+    window.location.href = '/product/products?'+"value="+"best";
 });
 interior_challenge.addEventListener('click',function(){
     window.location.href = '/board/ic/list';
@@ -255,23 +218,25 @@ special_price.addEventListener('click',function(){
  * @value 2. 컨트롤러로 전달할 단일 변수.
  * @after 3. 요청 후 수행할 함수(인자는 컨트롤러에서 돌아온 값).
  */
-function go(url, value,after){
-    fetch(url,{
-        method: "POST",
-        headers:{
-            'Content-Type': 'text/plain'
-        },
-        body: value
-    })
-        .then(response =>{
-            return response.text();
-        })
-        .then(data => {
-            after(data);
-        })
-        .catch((error) =>{
-            alert(error);
+async function go(url, value) {
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            body: value
         });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // 서버로부터 반환된 데이터를 추출
+        const data = await response.text(); // 또는 response.json()
+        return data; // 반환된 데이터
+
+    } catch (error) {
+        alert('Error:', error);
+    }
 }
 /**
  * 비동기 객체 데이터 전달 요청 함수.

@@ -152,4 +152,20 @@ public class AdminProductServiceImpl implements AdminProductService{
             throw new modifyProductException("상품 정보 수정에 실패하셨습니다.");
         }
     }
+
+    @Override
+    public List<AdminProductDTO> selectOneProduct3(String productName) {
+
+        List<AdminProductDTO> productList = mapper.selectOneProductMain(productName);
+
+        return productList;
+    }
+
+    @Override
+    public List<AdminProductDTO> selectOneProductName(String productName) {
+
+        List<AdminProductDTO> selectList = mapper.selectOneProductMain(productName);
+
+        return selectList;
+    }
 }

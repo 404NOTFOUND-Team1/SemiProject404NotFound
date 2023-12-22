@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/productpage/productPage.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>productPage</title>
 </head>
 <body>
@@ -14,13 +15,13 @@
 
     <div class="product-images"> <!-- 큰이미지 + 섬네일 -->
         <div class="thumbnail-images"> <!-- 섬네일 -->
-            <img class="thumbnail-image" src="/images/productpage/product6.jpg" alt="Thumbnail1" id="thumbnail1">
-            <img class="thumbnail-image" src="/images/productpage/product2.jpg" alt="Thumbnail2" id="thumbnail2">
-            <img class="thumbnail-image" src="/images/productpage/product3.jpg" alt="Thumbnail3" id="thumbnail3">
-            <img class="thumbnail-image" src="/images/productpage/product4.jpg" alt="Thumbnail4" id="thumbnail4">
-            <img class="thumbnail-image" src="/images/productpage/product5.jpg" alt="Thumbnail5" id="thumbnail5">
+            <img class="thumbnail-image" th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[0].modifyName}" alt="Thumbnail1" id="thumbnail1">  <!--src="/images/productpage/product6.jpg" -->
+            <img class="thumbnail-image" th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[1].modifyName}" alt="Thumbnail2" id="thumbnail2">   <!--src="/images/productpage/product2.jpg" -->
+            <img class="thumbnail-image" th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[2].modifyName}" alt="Thumbnail3" id="thumbnail3">   <!--src="/images/productpage/product3.jpg" -->
+            <img class="thumbnail-image" th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[3].modifyName}" alt="Thumbnail4" id="thumbnail4">   <!--src="/images/productpage/product4.jpg" -->
+            <img class="thumbnail-image" th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[4].modifyName}" alt="Thumbnail5" id="thumbnail5">   <!--src="/images/productpage/product5.jpg" -->
         </div>
-        <img class="main-image" src="/images/productpage/product1.jpg" alt="큰 이미지" id="largeImage">
+        <img class="main-image" th:src="'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[0].modifyName}" alt="큰 이미지" id="largeImage">
     </div>
 
     <div class="production_header">
@@ -331,6 +332,7 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     const product = [[${products[0].getPrice()}]];
+    const discountP = [[${products[0].getDiscountPrice()}]];
     // JavaScript 코드에서 myVariable 사용
     /*]]>*/
 </script>
@@ -371,6 +373,7 @@
         document.getElementById("userMileage").value = document.getElementById("mileage").textContent.replace(/\D/g, '');
         document.getElementById("productDeliveryCost").value = document.getElementById("deliveryCost").textContent.replace(/\D/g, '');
         document.getElementById("price").value = document.getElementById("totalPrice").textContent.replace(/\D/g, '');
+        document.getElementById("discountPrice").value = discountP;
         console.log(document.getElementById("price").value);
 
     });

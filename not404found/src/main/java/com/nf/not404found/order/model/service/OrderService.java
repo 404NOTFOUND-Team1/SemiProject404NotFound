@@ -18,4 +18,8 @@ public class OrderService{
     public OrderDTO getOrderInfor(String id) {
         return mapper.getOrderInfor(id);
     }
+
+    public int getCouponDiscountRate(String coupon) {
+        return mapper.getCouponDiscountRate(coupon);
+    }
 }

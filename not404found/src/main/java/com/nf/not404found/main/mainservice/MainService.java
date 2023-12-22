@@ -42,6 +42,7 @@ public class MainService {
             System.out.println("가격 = "+p.getPrice());
             System.out.println("색상 = "+p.getColor());
             System.out.println("코드 = "+p.getProductCode());
+            System.out.println("할인된 가격 = "+p.getDiscountPrice());
         }
         List<String> list2 = mapper.getProductColor(list.get(0).getProductCode());
         list.get(0).setColor(list2);
