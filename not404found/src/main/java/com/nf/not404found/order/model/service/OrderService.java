@@ -6,6 +6,8 @@ import com.nf.not404found.order.model.dto.OrderDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class OrderService{
@@ -21,5 +23,12 @@ public class OrderService{
 
     public int getCouponDiscountRate(String coupon) {
         return mapper.getCouponDiscountRate(coupon);
+    }
+
+    public List<OrderDTO> orderInfo() {
+
+        List<OrderDTO> orderList = mapper.getorderInfo();
+
+        return orderList;
     }
 }

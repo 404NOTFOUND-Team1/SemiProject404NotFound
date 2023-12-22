@@ -114,6 +114,17 @@ public class AdminAccountController {
 
         return mv;
     }
+
+    @GetMapping("member/blacked2")
+    public String memberblacked(@RequestParam String id,
+                                @RequestParam String reason){
+
+        accountService.blacked(id);
+        log.info("============================> 됬냐? ");
+
+        return "/admin/member/blacked";
+    }
+
     @GetMapping("member/dormant")
     public ModelAndView memberDormantPage(@RequestParam(required = false) String searchCondition,
                                     @RequestParam(required = false) String searchValue,

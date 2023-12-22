@@ -20,4 +20,7 @@ public interface AdminAccountService {
     List<AdminDormantDTO> selectAllDormant();
 
     List<AdminDormantDTO> selectDormantOne(Map<String, String> dormantOne);
+
+    void blacked(String id);
+
 }

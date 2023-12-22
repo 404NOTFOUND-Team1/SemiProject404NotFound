@@ -42,8 +42,10 @@
     <button type="submit" class="mem_search_icon"></button>
     </form>
   </div>
+  <button id="blackedbtn" type="button" value="블랙버튼" onclick="blacked()">구속시켜</button>
   <table class="search_one">
     <tr>
+      <th><input type="checkbox" name="chkbox1" value="1" onclick="check_all1(this.form);"></th>
       <th>아이디</th>
       <th>계정타입</th>
       <th>이름</th>
@@ -55,11 +57,12 @@
       <th>반년누적금액</th>
     </tr>
     <tr th:if="${#lists.isEmpty(searchList)}" style="text-align:center;">
-      <td colspan="9">검색 결과가 없습니다.</td>
+      <td colspan="10">검색 결과가 없습니다.</td>
     </tr>
     <tr
             th:each="account : ${ searchList }"
     >
+      <td><input type='checkbox' id="checkedId" name='chkbox1' th:value="${account.id}"></td>
       <td th:text="${ account.id }"></td>
       <td th:text="${ account.accountTypeName.typeName }"></td>
       <td th:text="${ account.name }"></td>
@@ -128,6 +131,24 @@
     </tr>
   </table>
   <script>
+    function blacked(){
+
+
+      var reason = prompt("블랙 사유를 작성해주세요 ");
+      var checkedId = $('#checkedId').val();
+
+      $.ajax({
+        type:"GET",
+        url: "/admin/member/blacked2",
+        data:{ id : checkedId,
+              reason : reason},
+        success:function(response){
+          alert("구속시켰습니다.")
+        }
+      })
+
+    }
+
     $(document).ready(function(){
       $('.t_id1').click(function(){
         alert('아이디 조회방법 클릭');
@@ -183,6 +204,11 @@
     }
     function go_blacked(){
       window.location.href = "/admin/member/blacked"
+    }
+
+    function check_all1(form) {
+      var allcheck = $('[name="chkbox1"]', form);
+      $('input[name="chkbox1"]').prop('checked', allcheck.prop('checked'));
     }
   </script>
 </section>

@@ -7,6 +7,7 @@ import com.nf.not404found.mypage.model.dto.MyPageCouponDTO;
 import com.nf.not404found.mypage.model.dto.MyPageDTO;
 import com.nf.not404found.mypage.model.dto.MyPageOrderDTO;
 import com.nf.not404found.mypage.model.service.MyPageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/myPage")
+@Slf4j
 public class MyPageController {
     private final UserInformation user;
     private final MyPageService service;
@@ -55,6 +57,7 @@ public class MyPageController {
     @GetMapping("order")
     public ModelAndView myOrder(ModelAndView mv){
         List<MyPageOrderDTO> list = service.selectMyOrder();
+        log.info("==================================================> list : " + list);
         int orderCount = list.size();
         Gson gson = new Gson();
         String json = gson.toJson(list);
