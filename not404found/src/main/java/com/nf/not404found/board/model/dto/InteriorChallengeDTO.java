@@ -26,6 +26,19 @@ public class InteriorChallengeDTO {
 
     public InteriorChallengeDTO(List<AttachmentDTO> attachmentList) {
         this.attachmentList = attachmentList != null ? attachmentList : new ArrayList<>();
+        this.recommend_ic = new RecommendIcDTO();
+    }
+
+    public InteriorChallengeDTO(RecommendIcDTO recommend_ic) {
+        this.recommend_ic = new RecommendIcDTO();
+    }
+
+    public RecommendIcDTO getRecommend_ic() {
+        return recommend_ic;
+    }
+
+    public void setRecommend_ic(RecommendIcDTO recommend_ic) {
+        this.recommend_ic = recommend_ic;
     }
 
 }

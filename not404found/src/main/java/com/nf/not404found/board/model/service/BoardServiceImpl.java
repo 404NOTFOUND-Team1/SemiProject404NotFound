@@ -169,9 +169,12 @@ public class BoardServiceImpl implements BoardService{
 
         int post_code = removeComment.getPost_code();
         int comment_code = removeComment.getComment_code();
-
+        log.info("post_code 확인 ~~~~~~~~~~ : " + post_code);
         int result = mapper.deleteQnaComment(comment_code);
-        List<CommentDTO> commentList = selectQnaCommentList(removeComment.getComment_code());
+        List<CommentDTO> commentList = selectQnaCommentList(removeComment.getPost_code());
+
+        log.info("result 확인 ~~~~~~~~~~ : " + result);
+        log.info("commendList 확인 ~~~~~~~~~~ : " + commentList);
 
         if (result > 0) {
             return commentList;
@@ -253,7 +256,6 @@ public class BoardServiceImpl implements BoardService{
 
         log.info("[BoardServiceImpl] removeQna =================================== result : {}", result);
         log.info("[BoardServiceImpl] removeQna =================================== end");
-
         if(!(result > 0)) {
             throw new NoticeRemoveException("QnA 삭제에 실패하셨습니다.");
         }
@@ -333,33 +335,87 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    @Transactional
     public InteriorChallengeDTO selectIcView(int post_code) {
 
         InteriorChallengeDTO icView = null;
+
+        String id = user.getId();
+        log.info("id 확인~~~~~~~~~~~~~~~~~~~~~~~~ " + id);
 
         int result = mapper.incrementIcCount(post_code);
 
         if (result > 0) {
             icView = mapper.selectIcView(post_code);
+            RecommendIcDTO recommendIc = mapper.getRecommendICByIdAndPostCode(id, post_code);
+            icView.setRecommend_ic(recommendIc);
         }
         return icView;
     }
 
     @Override
     @Transactional
-    public void modifyIc(InteriorChallengeDTO ic) throws NoticeModifyException {
+    public int updateIcRecommend(int post_code) throws NoticeModifyException {
+
+        log.info("[BoardServiceImpl] updateIcRecommend =================================== start");
+
+        RecommendIcDTO existingRecommendIC = mapper.getRecommendICByIdAndPostCode(user.getId(), post_code);
+        if (existingRecommendIC == null) {
+            RecommendIcDTO newRecommendIC = new RecommendIcDTO();
+            newRecommendIC.setId(user.getId());
+            newRecommendIC.setPost_code(post_code);
+            newRecommendIC.setR_check(1); // Set r_check to 1 (or 0)
+            return mapper.insertRecommendIC(newRecommendIC);
+        } else if (existingRecommendIC.getR_check() == 0){
+            existingRecommendIC.setR_check(1);
+            mapper.increaseRecommendIC(user.getId(), post_code);
+            mapper.increaseRecommendCount(post_code);
+            return 1;
+        } else if (existingRecommendIC.getR_check() == 1) {
+            existingRecommendIC.setR_check(0);
+            mapper.decreaseRecommendIC(user.getId(), post_code);
+            mapper.decreaseRecommendCount(post_code);
+            return 0;
+        } else {
+            throw new NoticeModifyException("추천 오류");
+        }
+    }
+
+    @Override
+    public String getRecommend(int post_code) {
+        return mapper.getRecommend(user.getId(), post_code);
+    }
+
+    @Override
+    @Transactional
+    public void modifyIc(InteriorChallengeDTO ic) throws NoticeModifyException, NoticeWriteException {
         log.info("");
         log.info("");
         log.info("[BoardServiceImpl] modifyIc =================================== start");
 
         int result = mapper.updateIc(ic);
 
+        int post_code = ic.getPost_code();
+
+        // thumbnailAttachment를 attachment로 삽입
+        AttachmentDTO thumbnailAttachment = ic.getAttachmentList().get(0); // thumbnailAttachment는 첫 번째로 추가된 파일이라 가정
+        thumbnailAttachment.setPost_code(post_code);
+
+        log.info("post_code 확인!!!!!!!!!!!!" + post_code);
+
+        int resultThumbnail = mapper.updateAttachment(thumbnailAttachment);
+
+        // 결과 확인 후 예외 처리
+        if (resultThumbnail <= 0) {
+            throw new NoticeWriteException("썸네일 파일 등록에 실패하셨습니다.");
+        }
+
+        if (result <= 0) {
+            throw new NoticeWriteException("게시글 등록에 실패하셨습니다.");
+        }
+
         log.info("[BoardServiceImpl] modifyIc =================================== result : {}", result);
         log.info("[BoardServiceImpl] modifyIc =================================== end");
-
-        if(!(result > 0)) {
-            throw new NoticeModifyException("인테리어 챌린지 수정에 실패하셨습니다.");
-        }
     }
 
     @Override
@@ -379,28 +435,5 @@ public class BoardServiceImpl implements BoardService{
         }
     }
 
-    @Override
-    @Transactional
-    public int updateIcRecommend(String id, int post_code, int r_check) throws NoticeModifyException {
 
-        log.info("[BoardServiceImpl] updateIcRecommend =================================== start");
-
-        RecommendIcDTO existingRecommendIC = mapper.getRecommendICByIdAndPostCode(id, post_code);
-        if (existingRecommendIC == null) {
-            RecommendIcDTO newRecommendIC = new RecommendIcDTO();
-            newRecommendIC.setId(id);
-            newRecommendIC.setPost_code(post_code);
-            newRecommendIC.setR_check(1); // Set r_check to 1 (or 0)
-            return mapper.insertRecommendIC(newRecommendIC);
-        } else if (existingRecommendIC.getR_check() == 0){
-            existingRecommendIC.setR_check(1); // Set r_check to 1 (or 0)
-            return mapper.increaseRecommendIC(existingRecommendIC);
-        } else if (existingRecommendIC.getR_check() == 1) {
-            existingRecommendIC.setR_check(0);
-            return mapper.decreaseRecommendIC(existingRecommendIC);
-        } else {
-            throw new NoticeModifyException("추천 오류");
-        }
-
-    }
 }

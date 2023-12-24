@@ -3,6 +3,9 @@ package com.nf.not404found.board.model.dao;
 import com.nf.not404found.board.model.dto.*;
 import com.nf.not404found.common.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -64,11 +67,25 @@ public interface BoardMapper {
 
     int deleteIc(int post_code);
 
-    RecommendIcDTO getRecommendICByIdAndPostCode(String id, int post_code);
 
     int insertRecommendIC(RecommendIcDTO newRecommendIC);
 
-    int increaseRecommendIC(RecommendIcDTO existingRecommendIC);
+    @Update("update recommend_ic set r_check = 1 where id=#{id} AND post_code=#{post_code}")
+    int increaseRecommendIC(String id, int post_code);
 
-    int decreaseRecommendIC(RecommendIcDTO existingRecommendIC);
+    @Update("update recommend_ic set r_check = 0 where id=#{id} AND post_code=#{post_code}")
+    int decreaseRecommendIC(String id, int post_code);
+
+    RecommendIcDTO getRecommendICByIdAndPostCode(String id, int post_code);
+
+    @Select("select r_check from recommend_ic where id = #{id} AND post_code=#{post_code}")
+    String getRecommend(String id, int post_code);
+
+    @Update("update interior_challenge set recommend_count = recommend_count + 1 where post_code = #{post_code}")
+    int increaseRecommendCount(int post_code);
+
+    @Update("update interior_challenge set recommend_count = recommend_count - 1 where post_code = #{post_code}")
+    int decreaseRecommendCount(int post_code);
+
+    int updateAttachment(AttachmentDTO thumbnailAttachment);
 }

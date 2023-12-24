@@ -34,20 +34,20 @@
     </div>
 
 
+    <!-- ============== 게시글 검색 ============== -->
+    <div class="search">
+        <form class="searchForm" th:action="@{/board/notice/list}">
+            <select class="searchCondition" name="searchCondition">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+            </select>
+
+            <input type="search" class="searchValue" name="searchValue" placeholder="">
+            <button class="btn btn-bs" id="searchButton" type="submit">검색</button>
+        </form>
+    </div>
+
     <div class="board_list">
-
-        <!-- ============== 게시글 검색 ============== -->
-        <div class="search">
-            <form class="searchForm" th:action="@{/board/notice/list}">
-                <select class="searchCondition" name="searchCondition">
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
-                </select>
-
-                <input type="search" class="searchValue" name="searchValue" placeholder="">
-                <button class="btn btn-bs" id="searchButton" type="submit">검색</button>
-            </form>
-        </div>
 
         <!-- ============== 공지사항 테이블 ============== -->
 
@@ -70,7 +70,9 @@
             </tr>
         </table>
 
+
         <!-- 페이지 처리 -->
+
         <div class="pagingArea" align="center">
             <!-- 맨 앞으로 이동 버튼 -->
             <button
@@ -111,7 +113,9 @@
             </button>
         </div>
 
-<!--         관리자로 로그인한 경우에만 글쓰기 버튼이 보여짐 -->
+
+
+        <!--         관리자로 로그인한 경우에만 글쓰기 버튼이 보여짐 -->
         <th:block sec:authorize="hasRole('ADMIN')">
             <div class="bt_wrap">
                 <button class="writeBoard" th:onclick="'location.href=\'/board/notice/write\''">글쓰기</button>
@@ -119,6 +123,9 @@
         </th:block>
 
     </div>
+
+
+
 
 </div>
 

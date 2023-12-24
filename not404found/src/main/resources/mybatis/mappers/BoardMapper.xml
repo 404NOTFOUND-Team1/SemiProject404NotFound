@@ -43,6 +43,7 @@
         <id property="id" column="id"/>
         <result property="recommend_review" column="recommend_review"/>
         <result property="star_rating" column="star_rating"/>
+        <result property="avg_star" column="avg_star"/>
         <association property="board" resultMap="generalBoardResultMap"/>
         <association property="product" resultMap="productResultMap"/>
         <collection property="adminProduct" resultMap="AdminProductMap"/>
@@ -126,7 +127,6 @@
         <result property="file_type" column="file_type"/>
         <result property="thumbnail_path" column="thumbnail_path"/>
         <result property="status" column="status"/>
-<!--        <association property="boardInfo" resultMap="interiorChallengeResultMap"/>-->
     </resultMap>
 
 
@@ -307,6 +307,15 @@
             #{saved_path},
             #{thumbnail_path})
     </insert>
+    
+    <update id="updateAttachment">
+        update attachment
+        set original_attachment_name = #{original_attachment_name},
+            attachment_name = #{attachment_name},
+            saved_path = #{saved_path},
+            thumbnail_path = #{thumbnail_path}
+        where post_code = #{post_code}
+    </update>
 
     <update id="incrementBoardCount">
         update board
@@ -340,8 +349,8 @@
 
     <!-- id와 post_code가 주어졌을 때 해당 레코드를 가져오는 쿼리 -->
     <select id="getRecommendICByIdAndPostCode" resultMap="recommendIcResultMap">
-        SELECT * FROM recommend_ic
-        WHERE id = #{id} AND post_code = #{postCode}
+        SELECT r_check FROM recommend_ic
+        WHERE id = #{id} AND post_code = #{post_code}
     </select>
 
     <!-- RecommendIc 테이블에 새로운 레코드를 삽입하는 쿼리 -->
@@ -349,19 +358,6 @@
         INSERT INTO recommend_ic (id, post_code, r_check)
         VALUES (#{id}, #{post_code}, #{r_check})
     </insert>
-
-    <!-- RecommendIc 테이블의 r_check 값을 업데이트하는 쿼리 -->
-    <update id="increaseRecommendIC" parameterType="RecommendIcDTO">
-        UPDATE recommend_ic
-        SET r_check = #{r_check}
-        WHERE id = #{id} AND post_code = #{post_code}
-    </update>
-
-    <update id="decreaseRecommendIC" parameterType="RecommendIcDTO">
-        UPDATE recommend_ic
-        SET r_check = #{r_check}
-        WHERE id = #{id} AND post_code = #{post_code}
-    </update>
 
     <select id="selectNoticeView" resultMap="generalBoardResultMap">
         select  A.post_code,
@@ -400,6 +396,7 @@
                     A.id,
                     A.recommend_review,
                     A.star_rating,
+                    round(A.sum_star/A.cnt_star, 1) as avg_star,
                     F.post_title,
                     F.post_created_date,
                     F.post_content,
@@ -411,8 +408,10 @@
                                 B.product_code,
                                 B.id,
                                 B.recommend_review,
-                                B.star_rating
-                    from        review B
+                                B.star_rating,
+                                (select sum(star_rating) from review where product_code = B.product_code) as sum_star,
+                                (select count(star_rating) from review where product_code = B.product_code) as cnt_star
+        from        review B
                     ) A
         join        category_board C on (A.categorycode_board = C.categorycode_board)
         join        accounts D on (A.id = D.id)

@@ -19,8 +19,8 @@ public class WebConfig implements WebMvcConfigurer, Serializable {
         // 이미지 불러올 수 있도록 세팅
 
         // 사용자가 파일을 업로드할 때 연동되는 경로를 설정해주는 것
-//        registry.addResourceHandler("/upload/**")
-//                .addResourceLocations("file:///C:/dev/NF404/SemiProject404NotFound/not404found/src/main/resources/static/images/product/");
+        registry.addResourceHandler("/upload/**")
+                .addResourceLocations("file:///C:/dev/NF404/SemiProject404NotFound/not404found/src/main/resources/static/images/product/");
 //
 //        registry.addResourceHandler("/thumbPath/**") //이미지경로
 ////                .addResourceLocations("file:///C:/not404foundImageFile/img/upload/thumbnail/");

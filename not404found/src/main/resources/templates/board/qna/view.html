@@ -58,7 +58,7 @@
 
 
     <!-- 댓글 작성 -->
-    <input type="hidden" id="postCode" name="postCode" th:value="${ qnaView.post_code }">
+    <input type="hidden" id="post_code" name="post_code" th:value="${ qnaView.post_code }">
     <input type="hidden" id="qnaView.account.id" name="qnaView.account.id" th:value="${ qnaView.account.id }">
     <th:block sec:authorize="hasRole('ADMIN')">
       <div class="comment">
@@ -72,22 +72,24 @@
 
 
     <!-- 댓글 내용 출력 table -->
+
     <table id="commentResult">
       <th:block th:if="${ qnaCommentList != null }">
-
         <th:block th:each="comment : ${qnaCommentList}">
           <tr class="commentListTr">
             <input type="hidden" id="${ comment.comment_code }" th:value="${ comment.comment_code }">
             <td th:text="${ comment.comment_body }"></td>
-            <td th:text="${ comment.board.account.id }"></td>
+            <td>
+              <th:block sec:authorize="hasRole('ADMIN')">
+                <span>관리자</span>
+              </th:block>
+            </td>
             <td th:text="${ comment.comment_date }"></td>
             <td>
-              <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().getUsername() == comment.board.account.id}">
-                <span th:if="${comment.board.account.id == 'admin'}">관리자</span>
-                <span th:unless="${comment.board.account.id == 'admin'}" th:text="${comment.board.account.id}"></span>
-              </th:block>
+              <th:block sec:authorize="hasRole('ADMIN')">
                 <button
                         type="button"
+                        class="writeBoard"
                         th:comment_code="${ comment.comment_code }"
                         th:onclick="removeComment(this.getAttribute('comment_code'))"
                         >
@@ -97,7 +99,6 @@
             </td>
           </tr>
         </th:block>
-
       </th:block>
     </table>
 
@@ -167,7 +168,6 @@
             .then(commentList => {
               console.log('---------------->',commentList);
 
-             //  $table.append($tr);
               /* 댓글을 쓰자마자 비동기 처리해서 바로 댓글이 목록으로 보이도록 하는 부분 */
               const $table = $("#commentResult");
               $table.html(""); // 기존 내용을 지우고 다시 그림
@@ -177,19 +177,23 @@
                 const $tr = $("<tr>");
                 $tr.append("<input type='hidden' id='" + comment.comment_code + "' value='" + comment.comment_code + "'>");
                 $tr.append("<td>" + comment.comment_body + "</td>");
-                $tr.append("<td>" + comment.board.account.id + "</td>");
-                $tr.append("<td>" + comment.comment_date + "</td>");
-                if (comment.board.account.id === "[[${#authentication.getPrincipal().getUsername()}]]") {
-                  const $removeTd = $("<td>");
-                  const $removeBtn = $("<button>")
-                          .attr("type", "button")
-                          .attr("onclick", "removeComment('" + comment.comment_code + "')")
-                          .text("댓글삭제");
-                  $removeTd.append($removeBtn);
-                  $tr.append($removeTd);
+                if (comment.id === 'admin') {
+                  $tr.append("<span>관리자</span>"); // Display '관리자' if the ID is 'admin'
                 } else {
-                  $tr.append("<td></td>");
+                  $tr.append("<span>" + comment.id + "</span>"); // Display account ID if not 'admin'
                 }
+                // $tr.append("<td>" + comment.comment_date + "</td>");
+                // if (comment.board.account.id === "[[${#authentication.getPrincipal().getUsername()}]]") {
+                //   const $removeTd = $("<td>");
+                //   const $removeBtn = $("<button>")
+                //           .attr("type", "button")
+                //           .attr("onclick", "removeComment('" + comment.comment_code + "')")
+                //           .text("댓글삭제");
+                //   $removeTd.append($removeBtn);
+                //   $tr.append($removeTd);
+                // } else {
+                //   $tr.append("<td></td>");
+                // }
 
                 $table.append($tr);
               });
@@ -220,47 +224,22 @@
   /* 댓글 삭제 이벤트 처리 함수*/
   function removeComment(comment_code){
 
-    let postCode = $("#postCode").val();
+    let post_code = $("#post_code").val();
+    console.log("post_cd = " + post_code);
 
     $.ajax({
       url: "/board/qna/removeComment",
       type: "POST",
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({
-        postCode: postCode,
+        post_code: post_code,
         comment_code: comment_code
       }),
       success: function(data) {
         console.table(data);
 
-        const $table = $("#commentResult");
-
-        // $table.html("");
-
-        data.forEach(comment => {
-          const $tr = $("<tr>");
-          const $bodyTd = $("<td>").text(comment.comment_body);
-          const $writerTd = $("<td>").text(comment.board.account.id);
-          const $createDateTd = $("<td>").text(comment.comment_date);
-
-          let $removeTd;
-          if (comment.board.account.id === "[[${#authentication.getPrincipal().getUsername()}]]") {
-            $removeTd = $("<td>").append("<button type='button' onclick='removeComment(" + comment.comment_code + ")'>댓글삭제</button>");
-          } else {
-            $removeTd = $("<td>");
-          }
-
-          $tr.append("<input type='hidden' id=" + comment.comment_code + " value='" + comment.comment_code + "'>");
-          $tr.append($bodyTd);
-          $tr.append($writerTd);
-          $tr.append($createDateTd);
-          $tr.append($removeTd);
-
-          $table.append($tr);
-
-          // 삭제된 댓글의 comment_code를 가진 엘리먼트를 찾아 삭제
-          $(`#${comment_code}`).closest('tr').remove();
-        });
+        // 삭제된 댓글의 comment_code를 가진 엘리먼트를 찾아 삭제
+        $(`#${comment_code}`).closest('tr').remove();
       },
       error: function(error) {
         alert(error);
