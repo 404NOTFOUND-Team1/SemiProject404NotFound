@@ -22,5 +22,10 @@ public interface AdminAccountService {
     List<AdminDormantDTO> selectDormantOne(Map<String, String> dormantOne);
 
     void blacked(String id);
+    
+    String selectMail(String id);
 
+    void blackedreason(String id, String reason, String email);
+
+    void whited(String id);
 }

@@ -14,4 +14,6 @@ public interface PaymentService {
     void insertOrder(String id, int deliveryCode, int productCode, int totalprice, String amount, String deliveryrequest, String deliveryCost, int couponCode);
 
     void insertComplete();
+
+    void insertDelivery(String id, int productCode);
 }

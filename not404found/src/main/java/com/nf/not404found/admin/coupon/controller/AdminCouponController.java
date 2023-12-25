@@ -60,23 +60,6 @@ public class AdminCouponController {
 
         int count = 0;
 
-//        if (periods != 0 || periode != 0 || searchRates != 0 || searchRatee != 0){
-//
-//            log.info("===============================================================> 조건문 시작 number ");
-//
-//            addPlus.setPeriods(periods);
-//            addPlus.setPeriode(periode);
-//            addPlus.setSearchRates(searchRates);
-//            addPlus.setSearchRatee(searchRatee);
-//
-//            couponList = couponService.selectSection(addPlus);
-//
-//            log.info("========================================================= > addPlus " + addPlus);
-//
-//            couponList.add(addPlus);
-//
-//        }
-
         if (searchCoupon != "" && searchCoupon != null || periods != null || periode != null || searchRates != null || searchRatee != null){
 
 

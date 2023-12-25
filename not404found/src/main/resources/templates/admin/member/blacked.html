@@ -38,20 +38,23 @@
                 <button type="submit" class="mem_search_icon"></button>
             </form>
         <table class="search_one">
+            <button id="whitebtn" type="button" value="블랙해제" onclick="whited()">석방!!</button>
             <tr>
+                <th><input type="checkbox" name="chkbox1" value="1" onclick="check_all1(this.form);"></th>
                 <th>아이디</th>
                 <th>이메일</th>
                 <th>블랙사유</th>
                 <th>블랙당한 날</th>
             </tr>
             <tr th:if="${#lists.isEmpty(searchBlackList)}" style="text-align:center;">
-                <td colspan="4">검색 결과가 없습니다.</td>
+                <td colspan="5">검색 결과가 없습니다.</td>
             </tr>
             <tr th:each=" blackedOne : ${ searchBlackList } ">
+                <td><input type='checkbox' id="checkedId" name='chkbox1' th:value="${blackedOne.id}"></td>
                 <td th:text="${blackedOne.id}"></td>
                 <td th:text="${blackedOne.email}"></td>
                 <td th:text="${blackedOne.reason}"></td>
-                <td th:text="${blackedOne.blackDate}"></td>
+                <td th:text="${#dates.format(blackedOne.blackDate,'yyyy-MM-dd') }"></td>
             </tr>
         </table>
         <table class="table_parents">
@@ -76,7 +79,7 @@
                 <td th:text="${blacked.id}"></td>
                 <td th:text="${blacked.email}"></td>
                 <td th:text="${blacked.reason}"></td>
-                <td th:text="${blacked.blackDate}"></td>
+                <td th:text="${#dates.format(blacked.blackDate,'yyyy-MM-dd') }"></td>
             </tr>
         </table>
         </div>
@@ -86,6 +89,27 @@
             }
             function go_admin(){
                 window.location.href = "/admin/member"
+            }
+            function check_all1(form) {
+                var allcheck = $('[name="chkbox1"]', form);
+                $('input[name="chkbox1"]').prop('checked', allcheck.prop('checked'));
+            }
+
+            function whited(){
+
+                alert("블랙 해제 하시겠습니까?")
+
+                var checkedId = $('#checkedId').val();
+
+                $.ajax({
+                    type:"GET",
+                    url: "/admin/member/whited",
+                    data:{ id : checkedId},
+                    success:function(response){
+                        alert("석방시켰습니다.")
+                    }
+                })
+
             }
         </script>
     </section>

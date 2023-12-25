@@ -41,7 +41,8 @@ public class KakaoPayService {
                                   String receiveaddress,
                                   String pname,
                                   String amount,
-                                  String coupon) {
+                                  String coupon,
+                                  int productCode) {
 
         log.info("======================================> 서비스 시작 ");
 
@@ -87,6 +88,8 @@ public class KakaoPayService {
             paymentService.updateMileage(user.getId(),mileage);
         }
         paymentService.updateAmount(pname,amount);
+
+//        paymentService.insertDelivery()?
         log.info("===================================== 데이터베이스까지 완료 !!");
 
         return readyResponse;

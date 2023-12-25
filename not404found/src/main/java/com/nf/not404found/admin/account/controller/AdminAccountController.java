@@ -120,7 +120,18 @@ public class AdminAccountController {
                                 @RequestParam String reason){
 
         accountService.blacked(id);
+        String email = accountService.selectMail(id);
+        log.info("====================== DB 잘 좀 짜자 제발 !!!!!");
+        accountService.blackedreason(id, reason, email);
         log.info("============================> 됬냐? ");
+
+        return "/admin/member/blacked";
+    }
+
+    @GetMapping("member/whited")
+    public String memberwhite(@RequestParam String id){
+
+        accountService.whited(id);
 
         return "/admin/member/blacked";
     }
@@ -158,6 +169,8 @@ public class AdminAccountController {
 
         return mv;
     }
+
+
 
 }
 

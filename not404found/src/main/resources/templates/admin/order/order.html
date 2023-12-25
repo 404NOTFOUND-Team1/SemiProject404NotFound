@@ -32,18 +32,18 @@
                     <select id="searchState" name="search_state">
                       <option value>-- 주문 상태 전체 --</option>
                       <option value="OrderComplete">주문완료</option>
+                      <option value="DeliveryYet">처리중</option>
+                      <option value="DeliveryIng">배송중</option>
                       <option value="DeliveryComplete">배송완료</option>
                       <option value="CancelRequest">취소신청(구매자)</option>
                       <option value="CancelComplete">취소완료</option>
                       <option value="TB">반품신청(구매자)</option>
                       <option value="BC">반품완료</option>
-                      <option value="IC">거래완료</option>
                     </select>
                   </li>
                   <li class="w20perpc-switch">
                     <select id="searchPayState" name="search_pay_state">
-                      <option value="">-- 결제 상태 전체 --</option>
-                      <option value="A">재결제대기</option>
+                      <option value="">==미구현==</option>
                       <option value="E">결제완료</option>
                       <option value="RF1">환불대기</option>
                       <option value="RF5">환불완료</option>
@@ -59,41 +59,41 @@
                   <li><select id="searchKeyWordType" name="search_keyword_type">
                     <option value="">-- 검색 키워드 --</option>
                     <option value="id">주문자</option>
-                    <option value="phone">휴대폰 번호</option>
+                    <option value="phone">주문번호</option>
                     <option value="name">상품명</option>
                   </select>
                   </li>
                   <li>
-                    <input id="searchKeyword" class="textbar" type="text" name="search_keyword" style="margin-left:50px">
+                    <input id="searchKeyword" class="textbar" type="text" name="searchKeyword" style="margin-left:50px">
                   </li>
                 </ul>
               </td>
             </tr>
-            <tr>
-              <th class="txt-l">기간</th>
-              <td>
-                <ul class="arr-align">
-                  <li class="">
-                    <select style="width:120px" name="search_end_state" class="pc-switch">
-                      <option value="ord_end">주문일</option>
-                      <option value="pay_end">결제일</option>
-                    </select>
-                  </li>
-                  <li class="w40per period-4x">
-                    <a href="#" class="btn-toggle btn-dateterm" sdate="2023-11-20" edate="2023-11-20">오늘</a>
-                    <a href="#" class="btn-toggle btn-dateterm now" sdate="2023-11-13" edate="2023-11-20">1주일</a>
-                    <a href="#" class="btn-toggle btn-dateterm" sdate="2023-10-20" edate="2023-11-20">1개월</a>
-                    <a href="#" class="btn-toggle btn-dateterm" sdate="2023-08-20" edate="2023-11-20">3개월</a>
-                    <a href="#" class="btn-toggle btn-dateterm" sdate="2023-05-20" edate="2023-11-20">6개월</a>
-                  </li>
-                  <li class="w30per calendar">
-                    <label><input type="text" name="search_start_date" value="2023-11-13" class="hasDatepicker"></label>
-                    <span class="date_space">~</span>
-                    <label><input type="text" name="search_end_date" value="2023-11-20" class="hasDatepicker"></label>
-                  </li>
-                </ul>
-              </td>
-            </tr>
+<!--            <tr>-->
+<!--              <th class="txt-l">기간</th>-->
+<!--              <td>-->
+<!--                <ul class="arr-align">-->
+<!--                  <li class="">-->
+<!--                    <select style="width:120px" name="search_end_state" class="pc-switch">-->
+<!--                      <option value="ord_end">주문일</option>-->
+<!--                      <option value="pay_end">결제일</option>-->
+<!--                    </select>-->
+<!--                  </li>-->
+<!--                  <li class="w40per period-4x">-->
+<!--                    <a href="#" class="btn-toggle btn-dateterm" sdate="2023-11-20" edate="2023-11-20">오늘</a>-->
+<!--                    <a href="#" class="btn-toggle btn-dateterm now" sdate="2023-11-13" edate="2023-11-20">1주일</a>-->
+<!--                    <a href="#" class="btn-toggle btn-dateterm" sdate="2023-10-20" edate="2023-11-20">1개월</a>-->
+<!--                    <a href="#" class="btn-toggle btn-dateterm" sdate="2023-08-20" edate="2023-11-20">3개월</a>-->
+<!--                    <a href="#" class="btn-toggle btn-dateterm" sdate="2023-05-20" edate="2023-11-20">6개월</a>-->
+<!--                  </li>-->
+<!--                  <li class="w30per calendar">-->
+<!--                    <label><input type="text" name="search_start_date" value="2023-11-13" class="hasDatepicker"></label>-->
+<!--                    <span class="date_space">~</span>-->
+<!--                    <label><input type="text" name="search_end_date" value="2023-11-20" class="hasDatepicker"></label>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </td>-->
+<!--            </tr>-->
             </tbody>
           </table>
         </div>

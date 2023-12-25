@@ -85,6 +85,11 @@ public class PaymentServiceImpl implements PaymentService{
         log.info("========================================= 결제완료까지 다 왔냐 ");
     }
 
+    @Override
+    public void insertDelivery(String id, int productCode) {
 
+        int result = mapper.insertDelivery(id, productCode);
+        log.info("=============딜리버리 인서트 : " + result);
+    }
 }
 

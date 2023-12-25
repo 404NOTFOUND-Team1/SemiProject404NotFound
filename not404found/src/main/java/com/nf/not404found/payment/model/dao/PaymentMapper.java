@@ -44,4 +44,7 @@ public interface PaymentMapper {
 
     @Insert("INSERT INTO payment_complete (payment_code) SELECT MAX(payment_code) FROM payment")
     int insertComplete();
+
+    @Insert("INSERT INTO delivery (payment_code, id, delivery_address, product_code ) VALUES ((SELECT MAX(payment_code) FROM payment), #{id}, 13, #{productCode})")
+    int insertDelivery(String id, int productCode);
 }

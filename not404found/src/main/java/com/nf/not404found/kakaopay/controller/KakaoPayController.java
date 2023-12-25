@@ -77,7 +77,8 @@ public class KakaoPayController {
                 receiveaddress,
                 pname,
                 amount,
-                coupon);
+                coupon,
+                productCode);
         // 요청처리후 받아온 결재고유 번호(tid)를 모델에 저장
         model.addAttribute("tid", readyResponse.getTid());
         log.info("결재고유 번호: " + readyResponse.getTid());
@@ -86,7 +87,13 @@ public class KakaoPayController {
 
         log.info("======================================================= 딜리버리코드");
 
-        int couponCode = paymentService.selectCoupon(coupon);
+        int couponCode = 0;
+
+        if (!coupon.equals("쿠폰 선택 안함")) {
+
+            log.info("========================<> 여기 들어오는거라고 ? ");
+           couponCode = paymentService.selectCoupon(coupon);
+        }
 
         log.info("======================================================> 쿠폰코드 ");
 

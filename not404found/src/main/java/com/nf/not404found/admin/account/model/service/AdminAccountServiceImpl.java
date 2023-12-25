@@ -94,4 +94,27 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 
     }
 
+    @Override
+    public String selectMail(String id) {
+
+        String email = mapper.selectMail(id);
+
+
+        return email;
+    }
+
+
+    @Override
+    public void blackedreason(String id, String reason, String email) {
+
+        mapper.insertBlackReason(id, reason, email);
+    }
+
+    @Override
+    public void whited(String id) {
+
+        mapper.whited(id);
+        mapper.whitedmember(id);
+
+    }
 }

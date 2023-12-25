@@ -86,31 +86,21 @@ public class AdminCouponServiceImpl implements AdminCouponService {
     @Transactional
     public void supplyCoupon(List<Integer> chkbox1, List<String> chkbox2) {
 
-        log.info("==================> 쿠폰 배포 서비스 ");
-        log.info("chkbox2 ===========================> chkbox2 :" + chkbox2);
-        log.info("chkbox2 ===========================> chkbox1 :" + chkbox1);
-
         int result = 0;
 
         AdminUserCouponDTO user = new AdminUserCouponDTO();
 
         for (int i = 0; i < chkbox1.size(); i++) {
 
-            log.info("쿠폰 반복 시작 -======> chkbox1 : " + chkbox1.get(i));
-
             user.setCouponNumber(chkbox1.get(i));
 
-            log.info("========================> user 1 : " + user);
             for (int j = 0; j < chkbox2.size(); j++) {
 
-                log.info("=================================> chkbox2 : " + chkbox2.get(i));
 
                 if (!chkbox2.get(j).isEmpty()) {
-                    log.info("아이디 반복 시작==========> chkbox2 : " + chkbox2.get(j));
 
                     user.setId(chkbox2.get(j));
 
-                    log.info("==================================> user2 : " + user);
 
                     mapper.supplyCoupon(user);
                 }
