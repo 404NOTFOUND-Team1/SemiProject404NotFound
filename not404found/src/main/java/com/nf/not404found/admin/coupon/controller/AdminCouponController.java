@@ -179,6 +179,7 @@ public class AdminCouponController {
 
         rttr.addFlashAttribute("complete", "쿠폰 등록에 성공하셨습니다.");
 
+        // 복구용 메인에 커밋만들기
 
 
         return "redirect:/admin/coupon";
