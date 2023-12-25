@@ -106,7 +106,7 @@
 
   <div class="board_write_wrap">
 
-
+      <form th:action="@{/board/review/write}" method="post">
 
       <!--      <input type="hidden" name="product_code" th:value="${ totalReviewCountByProduct.product.product_code }">-->
       <div class="review_product_img">
@@ -114,10 +114,8 @@
           <img src="/images/board/sample.jpg"/>
       </div>
 
-      <form th:action="@{/board/review/write}" method="post">
-
       <div class="wrap">
-          <h1>Star rating</h1>
+          <h1 class="review_star_rating">받으신 상품은 어땠나요?</h1>
           <div class="rating">
               <label class="rating__label rating__label--half" for="starhalf">
                   <input type="radio" id="starhalf" class="rating__input" name="rating" value="0.5">
@@ -164,15 +162,6 @@
 
       <div class="board_write">
 
-
-<!--        <input type="hidden" name="post_code" th:value="${ review.board.post_code }">-->
-
-
-<!--        <input-->
-<!--                type="text"-->
-<!--                id="id"-->
-<!--                name="account.id"-->
-<!--                th:value="${ #authentication.getPrincipal().getUsername() }">-->
         <input type="hidden" id="star_rating" name="star_rating">
 
         <div class="title">

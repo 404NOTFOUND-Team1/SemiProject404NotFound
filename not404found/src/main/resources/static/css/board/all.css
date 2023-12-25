@@ -389,15 +389,20 @@ td.post_title {
     border-collapse: collapse;
 }
 
-#commentResult .commentListTr td:nth-child(2) {
+#commentResult .commentListTr td:nth-child(1) {
     width: 60%;
     text-align: left;
+    padding: 20px;
+    padding-left: 40px;
 }
 
-#commentResult .commentListTr td:nth-child(3),
-#commentResult .commentListTr td:nth-child(4),
-#commentResult .commentListTr td:nth-child(5) {
-    width: 10%;
+#commentResult .commentListTr td:nth-child(2),
+#commentResult .commentListTr td:nth-child(3) {
+    width: 18%;
+}
+
+#commentResult .commentListTr td:nth-child(4) {
+    width: 4%;
 }
 
 /* --------------------- 게시물 작성 --------------------- */
@@ -503,7 +508,7 @@ td.post_title {
 /* ========================= 인테리어 챌린지 ========================= */
 .img-box > img{
     width: 100%;
-    height: 330px;
+    height: 460px;
     display: block;
     margin-top: 90px;
     border-radius: 10px;
@@ -881,6 +886,14 @@ td.post_title {
     padding-top: 10px;
 }
 
+.review_product_img img {
+    width: 30%;
+}
+
+.review_star_rating {
+    font-size: 25px;
+}
+
 
 .pagingArea_review {
     text-align: center;
@@ -1076,23 +1089,12 @@ td.post_title {
     padding: 0;
 }
 
-.wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 32px;
-}
-
-h1 {
-    font-size: 40px;
-    font-weight: 600;
-}
 
 .rating {
     float: none;
     width: 200px;
     display: flex;
+    margin-bottom: 20px;
 }
 
 .rating__input {

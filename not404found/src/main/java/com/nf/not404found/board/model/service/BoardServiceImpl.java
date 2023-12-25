@@ -311,7 +311,9 @@ public class BoardServiceImpl implements BoardService{
     @Override
     @Transactional
     public void registIc(InteriorChallengeDTO ic) throws NoticeWriteException {
-
+        String id = user.getId();
+        log.info("인테리어 챌린지 id 확인 : " + id);
+        ic.setId(id);
         int result = mapper.insertIc(ic);
 
         int post_code = ic.getPost_code();

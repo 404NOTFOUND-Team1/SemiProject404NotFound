@@ -14,8 +14,6 @@ public class CommentDTO {
     private int comment_code;
     private int post_code;
     private int categorycode_board;
-    BoardDTO board;
-    private int postCode;
     private String comment_body;
     private Date comment_date;
     private String id;

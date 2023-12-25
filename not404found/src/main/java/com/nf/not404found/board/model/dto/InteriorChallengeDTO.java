@@ -1,6 +1,5 @@
 package com.nf.not404found.board.model.dto;
 
-import com.nf.not404found.account.model.dto.AccountDTO;
 import lombok.*;
 
 import java.sql.Date;
@@ -14,7 +13,7 @@ import java.util.List;
 public class InteriorChallengeDTO {
 
     private int post_code;
-    private AccountDTO account;
+    private String id;
     private String post_title;
     private String post_content;
     private Date post_created_date;

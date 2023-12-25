@@ -10,6 +10,7 @@ import com.nf.not404found.common.exception.board.NoticeRemoveException;
 import com.nf.not404found.common.exception.board.NoticeWriteException;
 import com.nf.not404found.common.paging.Pagenation;
 import com.nf.not404found.common.paging.SelectCriteria;
+import com.nf.not404found.member.model.dto.LoginUserDTO;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +52,6 @@ public class InteriorChallengeController {
                                      @RequestParam(required = false, defaultValue = "") String searchValue,
                                      @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
                                      ModelAndView mv) {
-
         log.info("");
         log.info("");
         log.info("[InteriorChallengeController] ========================================================= start");
@@ -164,8 +164,8 @@ public class InteriorChallengeController {
 
 
                 /* 썸네일로 변환 할 사이즈를 지정한다. */
-                int width = 300;
-                int height = 300;
+                int width = 800;
+                int height = 800;
 
                 /* 썸네일로 변환 후 저장한다. */
                 Thumbnails.of(fileUploadDirectory + "/" + attachment_name).size(width, height)
@@ -175,7 +175,6 @@ public class InteriorChallengeController {
                 String thumbnail_path = "/thumbnail_" + attachment_name;
 
                 /* InteriorChallengeDTO에 썸네일 경로를 설정한다. */
-
                 AttachmentDTO thumbnailAttachment = new AttachmentDTO();
                 thumbnailAttachment.setOriginal_attachment_name(original_attachment_name);
                 thumbnailAttachment.setAttachment_name(attachment_name);

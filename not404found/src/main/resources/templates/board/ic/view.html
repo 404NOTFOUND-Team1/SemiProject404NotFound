@@ -27,7 +27,7 @@
       <div class="info">
         <dl>
             <dt>글쓴이</dt>
-            <dd id="ic_writer" th:text="${icView.account.id}"></dd>
+            <dd id="ic_writer" th:text="${icView.id}"></dd>
         </dl>
         <dl>
           <dt>작성일</dt>
@@ -57,7 +57,7 @@
     <div class="bt_wrap">
       <button type="button" th:onclick="'location.href=\'/board/ic/list\''" class="writeBoard">목록</button>
       <th:block sec:authorize="isAuthenticated()"
-                th:if="${ #authentication.getPrincipal().getUsername() == icView.account.id }">
+                th:if="${ icView.id == loginUserDTO.id }">
         <button
                 class="writeBoard"
                 th:onclick="'location.href=\'/board/ic/modify?post_code='+ @{${ icView.post_code }} + '\''"
