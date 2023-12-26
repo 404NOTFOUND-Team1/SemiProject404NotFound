@@ -58,6 +58,20 @@ public class EmailService {
             return false;
         }
     }
+    public boolean checkEmail2(String pwd_key, String id) {
+        System.out.println("여기오나");
+        // 넘겨받은 값이랑 데이터베이스에 있는 내용이이랑 같은지 비교
+        String searchRandomStr = mapper.searchRandomStr2(id,pwd_key);
+        System.out.println("searchRandomStr = " + searchRandomStr);
+
+        if(searchRandomStr.equals(pwd_key)) {
+            System.out.println("입력한인증번호 = " + pwd_key);
+            return true;
+        } else{
+            System.out.println("실패임");
+            return false;
+        }
+    }
     @Transactional
     public boolean updatePassword(PwdFindDTO pwdFind) {
         System.out.println("pwdFind = " + pwdFind);

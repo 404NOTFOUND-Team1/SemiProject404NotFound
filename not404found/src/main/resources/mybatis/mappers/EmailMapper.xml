@@ -15,6 +15,10 @@
         select pwd_key from email_check WHERE num = #{id}
     </select>
 
+<!--    <select id="searchRandomStr" resultType="string">-->
+<!--        select pwd_key from email_check WHERE id = #{id}-->
+<!--    </select>-->
+
     <update id="changePwd">
         update accounts
         set password = #{password}

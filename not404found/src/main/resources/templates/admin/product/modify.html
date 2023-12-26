@@ -58,6 +58,17 @@
                         <label for="subCategory">하위 카테고리 : </label>
                         <select id="subCategory" class="c_ref" name="adminProductCategory.categoryCode"></select>
                         <hr></div>
+<!--                    <div class="tab5">-->
+<!--                        <label for="topCategory" class="tab55">상위 카테고리 : </label>-->
+<!--                        <select id="topCategory" class="c_ref" name="adminProductCategory.refCategoryCode" onchange="updateSubCategories()">-->
+<!--                            <option th:each="category : ${topCategories}" th:value="${category.id}" th:text="${category.name}"></option>-->
+<!--                        </select>-->
+<!--                        <label for="subCategory">하위 카테고리 : </label>-->
+<!--                        <select id="subCategory" class="c_ref" name="adminProductCategory.categoryCode">-->
+<!--                            &lt;!&ndash; 하위 카테고리 옵션은 JavaScript를 통해 동적으로 로드 &ndash;&gt;-->
+<!--                        </select>-->
+<!--                        <hr>-->
+<!--                    </div>-->
                     <div class="tab5"><label for="colorCategory">옵션(색상) : </label>
                         <select id="colorCategory" class="c_ref" name="adminOption.colorCode">
                             <option value="검은색">black</option>
@@ -413,6 +424,25 @@
                 addOption(subCategory, "8", "공구");
             }
         }
+        // function  updateSubCategories(){
+        //     var selectedCategory = document.getElementById('topCategory').value;
+        //     fetch(`getSubCategories?categorytCode=${selectedCategory}`)
+        //         .then(response => response.json())
+        //         .then(data =>{
+        //             var subCategorySelect = document.getElementById('subCategory');
+        //             subCategorySelect.innerHTML = ''; // 하위 카테고리 드롭다운 초기화
+        //             // 서버로부터 받은 하위 카테고리 데이터로 옵션 생성
+        //             data.forEach(subCategory => {
+        //                 var option = document.createElement('option');
+        //                 option.value = subCategory.categoryCode;
+        //                 option.text = subCategory.categoryName; // 예: { categoryCode: "1A", categoryName: "소파" }
+        //                 subCategorySelect.appendChild(option);
+        //             });
+        //         })
+        //         .catch(error => {
+        //             console.error('Error', error);
+        //         });
+        // }
 
         function addOption(selectElement, value, text) {
             var option = document.createElement("option");
@@ -420,7 +450,7 @@
             option.text = text;
             selectElement.add(option);
         }
-        updateSubCategories();
+        // updateSubCategories();
         // document.getElementById('fileInput').addEventListener('change', function() {
         //     const file = this.files[0];
         //     if (file) {

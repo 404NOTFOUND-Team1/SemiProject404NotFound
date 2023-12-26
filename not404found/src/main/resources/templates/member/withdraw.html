@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>회원 탈퇴</title>
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1>회원 탈퇴</h1>
+
+<div>
+    <p>회원 탈퇴를 하면 서비스를 더 이상 이용할 수 없습니다.<br/>회원 탈퇴를 진행하시겠습니까?</p>
+
+    <!-- 회원 탈퇴 폼 시작 -->
+    <form th:action="@{/member/withdraw}" method="post" id="draw">
+        <div>
+<!--            <input type="text" name="userId" value="사용자ID"/>-->
+            <button type="submit" id="withdraw">회원 탈퇴 하기</button>
+        </div>
+    </form>
+    <!-- 회원 탈퇴 폼 끝 -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.getElementById('draw').addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 폼 제출 동작 방지
+
+        const url = this.action; // 폼의 action 값 사용
+
+        go2(url, null, function(data) {
+            console.log(data); // 서버 응답 처리
+            alert('성공1')
+            window.location.href = '/member/logout';
+            // 성공 시 수행할 추가 작업을 여기에 추가하세요.
+            // 예: 성공 메시지 표시, 페이지 리디렉션 등
+        });
+    });
+
+    function go2(url, value, after) {
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(value) // 이 경우 value는 null입니다.
+        })
+            .then(response => response.text())
+            .then(data => after(data))
+            .catch(error => alert(error));
+    }
+</script>
+</body>
+</html>

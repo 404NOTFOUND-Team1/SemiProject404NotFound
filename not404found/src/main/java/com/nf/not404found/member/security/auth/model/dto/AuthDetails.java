@@ -43,6 +43,12 @@ public class AuthDetails implements UserDetails {
         return loginUserDTO.getId();
     }
 
+//    @Override
+//    public String getUserEmail() {
+//        System.out.println("email : "+loginUserDTO.getEmail());
+//        return loginUserDTO.getEmail();
+//    }
+
     /**
      * 계정 만료 여부를 표현하는 메소드로
      * false이면 해당 계정을 사용할 수 없다.

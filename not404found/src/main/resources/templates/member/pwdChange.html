@@ -49,7 +49,7 @@
         #changePwd2-check{
             border-radius: 2px;
             position: relative;
-            top: 100px;
+            top: 25px;
             left: 40px;
             height: 40px;
             width: 382px;
@@ -69,7 +69,7 @@
         #changePwd2-text{
             border-radius: 2px;
             position: relative;
-            top: 90px;
+            top: 15px;
             left: 20px;
             height: 20px;
             width: 382px;
@@ -82,7 +82,7 @@
             color: grey;
             position: relative;
             border: none;
-            top: 110px;
+            top: 35px;
             left: 40px;
             height: 45px;
             width: 410px;
@@ -158,15 +158,19 @@
             <!--            <input type="Password" id="changePwdid-check" name="changePwdid" required><br>-->
 
             <span id="changePwd-text">새로운 비밀번호</span>
-            <input type="Password" id="changePwd-check" required><br>
+            <input type="Password" name="changePwd" id="changePwd-check" required><br>
+            <br>
+            <br>
+            <br>
+
             <input type="hidden" name="email" th:value="${email}">
             <span id="changePwd2-text">비밀번호 확인</span>
             <input type="Password" id="changePwd2-check" required>
 
             <input type="submit" value="확인" id="find-button">
             <div id="result-message"></div>
-
         </form>
+
     </div>
     <div class="find-text">비밀번호변경</div>
 </div>

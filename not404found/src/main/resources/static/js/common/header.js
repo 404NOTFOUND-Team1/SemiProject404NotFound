@@ -255,24 +255,27 @@ special_price.addEventListener('click',function(){
  * @value 2. 컨트롤러로 전달할 단일 변수.
  * @after 3. 요청 후 수행할 함수(인자는 컨트롤러에서 돌아온 값).
  */
-function go(url, value,after){
+function go(url, value, after) {
+    //기존 const result = fetch(url, {
     fetch(url,{
         method: "POST",
-        headers:{
+        headers: {
             'Content-Type': 'text/plain'
         },
         body: value
     })
-        .then(response =>{
-            return response.text();
-        })
+        .then(response => response.text())
         .then(data => {
+        //기존 return data;
             after(data);
         })
-        .catch((error) =>{
+        .catch((error) => {
             alert(error);
         });
+    //기존 return result;
+
 }
+
 /**
  * 비동기 객체 데이터 전달 요청 함수.
  * 객체는 data = {key:value,

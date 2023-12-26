@@ -6,7 +6,9 @@ import com.nf.not404found.admin.product.model.dto.AdminAttachmentDTO;
 import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
 import com.nf.not404found.admin.common.exception.ThumbnailRegistException;
 import com.nf.not404found.admin.common.exception.modifyProductException;
+import jdk.jfr.Category;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -151,5 +153,8 @@ public class AdminProductServiceImpl implements AdminProductService{
         if(!(result >= 0 && result2 >= 0  && result3 >= 0 && result4 >= 0)) {
             throw new modifyProductException("상품 정보 수정에 실패하셨습니다.");
         }
+
     }
+
+
 }

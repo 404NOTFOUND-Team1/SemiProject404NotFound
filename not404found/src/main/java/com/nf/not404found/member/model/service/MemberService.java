@@ -8,9 +8,13 @@ import com.nf.not404found.member.security.auth.model.dto.AuthDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 public class MemberService {
     private final MemberMapper mapper;
+
+
     public MemberService(MemberMapper mapper){
         this.mapper = mapper;
     }
@@ -53,4 +57,14 @@ public class MemberService {
         AuthDetails authDetails = new AuthDetails(login);
         return authDetails;
     }
+
+    public boolean updateFormerMemberDate(String userEmail, LocalDate deleteDate) {
+        int updatedRows = mapper.updateAccountStatus(userEmail, deleteDate);
+        return updatedRows > 0;
+    }
+    public boolean withdrawAccount(String username) {
+        int updatedRows = mapper.deleteAccount(username);
+        return updatedRows > 0;
+    }
+
 }

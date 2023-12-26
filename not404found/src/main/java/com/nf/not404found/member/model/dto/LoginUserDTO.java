@@ -17,6 +17,7 @@ public class LoginUserDTO {
     private String id;
     private String name;
     private String password;
+//    private String email;
     private UserRole role;
 
     public List<String> getRole() {
@@ -39,4 +40,7 @@ public class LoginUserDTO {
     public String getPassword() {
         return password;
     }
+//    public String getEmail(){
+//        return email;
+//    }
 }

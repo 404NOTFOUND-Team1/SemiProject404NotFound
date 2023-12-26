@@ -30,8 +30,8 @@ public class EmailSender {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject(subject);
             message.setText(text);
-            System.out.println("EmailSender 클래스 : "+to);
-            System.out.println("EmailSender 클래스 : "+text);
+            System.out.println("EmailSender email : "+to);
+            System.out.println("EmailSender pwd_key : "+text);
             // 메시지 전송
             Transport.send(message);
             System.out.println("이메일 전송 성공!");
