@@ -30,13 +30,15 @@ a {
 /* --------------------- 게시판 전체 --------------------- */
 .board_wrap {
     width: 70%;
-    margin: 230px 20px 100px 250px;
-
+    height: 90%;
+    margin: 230px 20px 10px 250px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .board_list {
-    position: relative;
-    z-index: 1;
+
     display: contents;
 }
 
@@ -50,6 +52,17 @@ a {
 }
 
 /* --------------------- 게시글 정렬 & 검색 --------------------- */
+.search {
+    position: absolute;
+    right: 0;
+}
+
+.search_ic {
+    position: absolute;
+    right: 124px;
+    top: -30px;
+}
+
 .searchForm {
     position: relative;
     z-index: 1;
@@ -128,10 +141,10 @@ a {
 .bt_wrap {
     margin-top: 30px;
     text-align: center;
-    position: absolute;
-    bottom: -80px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /*position: absolute;*/
+    /*bottom: -80px;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
 }
 
 .writeBoard {
@@ -183,12 +196,12 @@ a {
     width: 100%;
     border-top: 2px solid #000;
     border-bottom: 1px solid #000;
-    position: relative;
-    z-index: 1;
     top: 120px;
     font-size: 16px;
     border-collapse: collapse;
     text-align: center;
+    margin-top: 100px;
+    margin-bottom: 30px;
 }
 
 th, td {
@@ -239,10 +252,10 @@ td.post_title {
 .pagingArea {
     text-align: center;
     font-size: 0;
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /*position: absolute;*/
+    /*bottom: 60px;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
 }
 
 
@@ -266,6 +279,7 @@ td.post_title {
 
 .board_view_wrap {
     position: relative;
+    width: 100%;
 }
 
 .board_view .title {
@@ -370,7 +384,32 @@ td.post_title {
     color: white;
 }
 
+#commentResult {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#commentResult .commentListTr td:nth-child(1) {
+    width: 60%;
+    text-align: left;
+    padding: 20px;
+    padding-left: 40px;
+}
+
+#commentResult .commentListTr td:nth-child(2),
+#commentResult .commentListTr td:nth-child(3) {
+    width: 18%;
+}
+
+#commentResult .commentListTr td:nth-child(4) {
+    width: 4%;
+}
+
 /* --------------------- 게시물 작성 --------------------- */
+.board_write_wrap {
+    width: 100%;
+}
+
 .board_write {
     border-top: 2px solid #000;
     position: relative;
@@ -379,7 +418,9 @@ td.post_title {
 .bt_wrap.write{
     margin-top: 30px;
     text-align: center;
-    top: 530px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .bt_submit {
@@ -467,7 +508,7 @@ td.post_title {
 /* ========================= 인테리어 챌린지 ========================= */
 .img-box > img{
     width: 100%;
-    height: 300px;
+    height: 460px;
     display: block;
     margin-top: 90px;
     border-radius: 10px;
@@ -496,6 +537,10 @@ td.post_title {
     clear: both;
 }
 
+.ic_item_list_all {
+    position: relative;
+}
+
 .ic_item_list_all > ul > li {
     width: 33.3%;
     padding:0 20px;
@@ -515,12 +560,18 @@ td.post_title {
     padding-bottom: 10px;
 }
 
-.ic_viewCount, .ic_date {
-    color: rgb(134, 134, 134);
+.ic_third_row img {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: bottom;
+}
+
+.ic_viewCount, .ic_date, .ic_recommend_count {
     font-size: 13px;
     display: inline-block;
     margin-right: 10px;
-    margin-left: 10px;
+    margin-left: 4px;
 }
 
 .ic_sort {
@@ -571,11 +622,33 @@ td.post_title {
     border-width: 0.3px;
 }
 
+.ic_recommend {
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.ic_recommend label {
+    margin: 5px;
+    font-size: 20px;
+}
+
+#recommend_count {
+    margin-left: 0;
+    font-size: 20px;
+}
+
+.ic_recommend img.likeimg {
+    margin-right: 8px; /* 이미지와 텍스트 사이 간격 조절 */
+}
+
 .pagingArea_ic {
     text-align: center;
     font-size: 0;
     position: absolute;
-    bottom: -120px;
+    margin-top: 70px;
     left: 50%;
     transform: translate(-50%, -50%);
     margin-bottom: 30px;
@@ -635,12 +708,11 @@ td.post_title {
 }
 
 .bt_wrap.ic_list{
-    margin-top: 30px;
     text-align: center;
-    font-size: 0;
-    /* position: absolute;
-    top: 650px; */
-    left: 46%;
+    position: absolute;
+    margin-top: 130px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 
@@ -770,7 +842,6 @@ td.post_title {
 .board_title {
     text-align: center;
     z-index: 1;
-    overflow: hidden;
 }
 
 .board_title_review {
@@ -811,6 +882,16 @@ td.post_title {
     display: flex;
     border-bottom: 1px solid #848484;
     margin-bottom: -1px;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+
+.review_product_img img {
+    width: 30%;
+}
+
+.review_star_rating {
+    font-size: 25px;
 }
 
 
@@ -1008,23 +1089,12 @@ td.post_title {
     padding: 0;
 }
 
-.wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 32px;
-}
-
-h1 {
-    font-size: 40px;
-    font-weight: 600;
-}
 
 .rating {
     float: none;
     width: 200px;
     display: flex;
+    margin-bottom: 20px;
 }
 
 .rating__input {

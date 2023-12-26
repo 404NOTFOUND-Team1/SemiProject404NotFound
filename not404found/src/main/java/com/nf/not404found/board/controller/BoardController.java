@@ -169,15 +169,15 @@ public class BoardController {
         System.out.println("savedFileName = " + savedFileName);
         File targetFile = new File(fileRoot + savedFileName);
 
-//        try {
-//          InputStream fileStream = multipartFile.getInputStream();
-//            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-//            returnMap.put("url", "/summernoteImage/"+savedFileName);
-//            returnMap.put("responseCode", "success");
-//        } catch (IOException e) {
-//            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-//          e.printStackTrace();
-//        }
+        try {
+          InputStream fileStream = multipartFile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+            returnMap.put("url", "/summernoteImage/"+savedFileName);
+            returnMap.put("responseCode", "success");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+          e.printStackTrace();
+        }
 
         log.info("[BoardController] uploadSummernoteImgFile ===================================================== return \n {}", returnMap);
         log.info("[BoardController] uploadSummernoteImgFile ========================================================= end");
@@ -558,77 +558,6 @@ public class BoardController {
         log.info("[BoardController] removeQna ========================================================= end");
         return "redirect:/board/qna/list";
     }
-
-    /**
-     * ======================================================================== 인테리어 챌린지 ========================================================================
-     */
-//
-//    @GetMapping(value = "ic/list")
-//    public ModelAndView icList(@RequestParam(required = false, defaultValue = "") String searchCondition,
-//                                @RequestParam(required = false, defaultValue = "") String searchValue,
-//                                @RequestParam(required = true, defaultValue = "4") int categorycode_board,
-//                                @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
-//                                ModelAndView mv) {
-//
-//        log.info("");
-//        log.info("");
-//        log.info("[BoardController] ========================================================= start");
-//        /*
-//         * 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다.
-//         * 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로 전달받은 페이지 수 이다.
-//         */
-//
-//        Map<String, Object> searchMap = new HashMap<>();
-//        searchMap.put("searchCondition", searchCondition);
-//        searchMap.put("searchValue", searchValue);
-//        searchMap.put("categorycode_board", categorycode_board); // categorycode_board 추가
-//
-//        log.info("[BoardController] 컨트롤러에서 검색조건 확인하기 : " + searchMap);
-//
-//        /*
-//         * 전체 게시물 수가 필요하다.
-//         * 데이터베이스에서 먼저 전체 게시물 수를 조회해올 것이다.
-//         * 검색조건이 있는 경우 검색 조건에 맞는 전체 게시물 수를 조회한다.
-//         */
-//
-//        int totalCount = boardService.selectTotalCount(searchMap);
-//        log.info("[BoardController] totalBoardCount : " + totalCount);
-//
-//        /* 한 페이지에 보여줄 게시물 수 */
-//        int limit = 9;
-//
-//        /* 한 번에 보여질 페이징 버튼의 갯수 */
-//        int buttonAmount = 5;
-//
-//        /* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
-//        SelectCriteria selectCriteria = null;
-//
-//        if (searchCondition != null && !"".equals(searchCondition)) {
-//            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
-//        } else {
-//            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
-//        }
-//
-//        log.info("[BoardController] selectCriteria : " + selectCriteria);
-//
-//        Map<String, Object> selectCriteria2 = new HashMap<>();
-//        selectCriteria2.put("selectCriteria", selectCriteria);
-//        selectCriteria2.put("categorycode_board", categorycode_board);
-//
-//        /* 조회 */
-//        List<BoardDTO> boardList = boardService.selectBoardList(selectCriteria2);
-//
-//        log.info("[BoardController] boardList : " + boardList);
-//
-//        mv.addObject("boardList", boardList);
-//        mv.addObject("selectCriteria", selectCriteria);
-//        log.info("[BoardController] SelectCriteria : " + selectCriteria);
-//        mv.setViewName("board/ic/list");
-//
-//        log.info("[BoardController] ========================================================= end");
-//        return mv;
-//    }
-
 
 }
 

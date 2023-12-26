@@ -10,6 +10,7 @@ import com.nf.not404found.common.exception.board.NoticeRemoveException;
 import com.nf.not404found.common.exception.board.NoticeWriteException;
 import com.nf.not404found.common.paging.Pagenation;
 import com.nf.not404found.common.paging.SelectCriteria;
+import com.nf.not404found.member.model.dto.LoginUserDTO;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,8 @@ public class InteriorChallengeController {
 
     private final BoardService boardService;
 
+
+
     public InteriorChallengeController(BoardService boardService) {
         this.boardService = boardService;
     }
@@ -49,7 +52,6 @@ public class InteriorChallengeController {
                                      @RequestParam(required = false, defaultValue = "") String searchValue,
                                      @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
                                      ModelAndView mv) {
-
         log.info("");
         log.info("");
         log.info("[InteriorChallengeController] ========================================================= start");
@@ -162,8 +164,8 @@ public class InteriorChallengeController {
 
 
                 /* 썸네일로 변환 할 사이즈를 지정한다. */
-                int width = 300;
-                int height = 300;
+                int width = 800;
+                int height = 800;
 
                 /* 썸네일로 변환 후 저장한다. */
                 Thumbnails.of(fileUploadDirectory + "/" + attachment_name).size(width, height)
@@ -173,15 +175,11 @@ public class InteriorChallengeController {
                 String thumbnail_path = "/thumbnail_" + attachment_name;
 
                 /* InteriorChallengeDTO에 썸네일 경로를 설정한다. */
-
-//                List<AttachmentDTO> attachmentList = ic.getAttachmentList();
                 AttachmentDTO thumbnailAttachment = new AttachmentDTO();
                 thumbnailAttachment.setOriginal_attachment_name(original_attachment_name);
                 thumbnailAttachment.setAttachment_name(attachment_name);
                 thumbnailAttachment.setSaved_path(fileUploadDirectory);
                 thumbnailAttachment.setThumbnail_path(thumbnail_path);
-
-//                attachmentList.add(thumbnailAttachment);
 
                 ic.setAttachmentList(new ArrayList<AttachmentDTO>());
                 ic.getAttachmentList().add(thumbnailAttachment);
@@ -238,6 +236,24 @@ public class InteriorChallengeController {
         return "board/ic/view";
     }
 
+    @PostMapping("/getRecommend")
+    @ResponseBody
+    public String getRecommend(@RequestBody int post_code) {
+
+        log.info("확인~~~~~~~~~~~~~~~~~ " + post_code);
+
+        return boardService.getRecommend(post_code);
+    }
+
+    @PostMapping("/recommend")
+    @ResponseBody
+    public int icRecommend(@RequestBody String post_code) throws NoticeModifyException {
+
+        log.info("확인!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + post_code);
+
+        return boardService.updateIcRecommend(Integer.parseInt(post_code));
+    }
+
     @GetMapping("/getIcView")
     @ResponseBody
     public InteriorChallengeDTO getIcView(@RequestParam int post_code) {
@@ -263,7 +279,9 @@ public class InteriorChallengeController {
 
     @PostMapping("/modify")
     @Transactional
-    public String modifyIc(@ModelAttribute InteriorChallengeDTO ic, RedirectAttributes rttr) throws NoticeModifyException {
+    public String modifyIc(@ModelAttribute InteriorChallengeDTO ic,
+                           @RequestParam("thumbnailImg") MultipartFile thumbnailImg,
+                           RedirectAttributes rttr) throws NoticeModifyException {
 
         log.info("");
         log.info("");
@@ -271,9 +289,102 @@ public class InteriorChallengeController {
         log.info("[InteriorChallengeController] modifyIc =============================== board : " + ic);
 
 
-        boardService.modifyIc(ic);
 
-        rttr.addFlashAttribute("message", "게시글 수정에 성공하셨습니다!");
+        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
+
+
+        String fileUploadDirectory = rootLocation + "/upload/original";
+        String thumbnailDirectory = rootLocation + "/upload/thumbnail";
+
+
+        File directory = new File(fileUploadDirectory);
+        File directory2 = new File(thumbnailDirectory);
+
+        log.info("[InteriorChallengeController] fileUploadDirectory : " + directory);
+        log.info("[InteriorChallengeController] thumbnailDirectory : " + directory2);
+
+        /* 파일 저장경로가 존재하지 않는 경우 디렉토리를 생성한다. */
+        if (!directory.exists() || !directory2.exists()) {
+
+            /* 폴더를 한 개만 생성할거면 mkdir, 상위 폴더도 존재하지 않으면 한 번에 생성하란 의미로 mkdirs를 이용한다. */
+            log.info("[InteriorChallengeController] 폴더 생성 : " + directory.mkdirs());
+            log.info("[InteriorChallengeController] 폴더 생성 : " + directory2.mkdirs());
+        }
+
+
+        try {
+            if (thumbnailImg.getSize() > 0) {
+                String original_attachment_name = thumbnailImg.getOriginalFilename();
+
+                log.info("[InteriorChallengeController] originFileName : " + original_attachment_name);
+
+                String ext = original_attachment_name.substring(original_attachment_name.lastIndexOf("."));
+                String attachment_name = UUID.randomUUID().toString().replace("-", "") + ext;
+
+                log.info("[InteriorChallengeController] 변경한 이름 : " + attachment_name);
+
+                log.info("[InteriorChallengeController] paramFile : " + fileUploadDirectory + "/" + attachment_name);
+                thumbnailImg.transferTo(new File(fileUploadDirectory + "/" + attachment_name));
+
+                /* DB에 업로드한 파일의 정보를 저장하는 비지니스 로직 수행 */
+                /* 필요한 정보를 Map에 담는다. */
+                Map<String, String> fileMap = new HashMap<>();
+                fileMap.put("original_attachment_name", original_attachment_name);
+                fileMap.put("original_attachment_name", original_attachment_name);
+                fileMap.put("saved_path", fileUploadDirectory);
+
+
+                /* 썸네일로 변환 할 사이즈를 지정한다. */
+                int width = 300;
+                int height = 300;
+
+                /* 썸네일로 변환 후 저장한다. */
+                Thumbnails.of(fileUploadDirectory + "/" + attachment_name).size(width, height)
+                        .toFile(thumbnailDirectory + "/thumbnail_" + attachment_name);
+
+                /* 나중에 웹서버에서 접근 가능한 경로 형태로 썸네일의 저장 경로도 함께 저장한다. */
+                String thumbnail_path = "/thumbnail_" + attachment_name;
+
+                /* InteriorChallengeDTO에 썸네일 경로를 설정한다. */
+
+                AttachmentDTO thumbnailAttachment = new AttachmentDTO();
+                thumbnailAttachment.setOriginal_attachment_name(original_attachment_name);
+                thumbnailAttachment.setAttachment_name(attachment_name);
+                thumbnailAttachment.setSaved_path(fileUploadDirectory);
+                thumbnailAttachment.setThumbnail_path(thumbnail_path);
+
+                ic.setAttachmentList(new ArrayList<AttachmentDTO>());
+                ic.getAttachmentList().add(thumbnailAttachment);
+            }
+
+            log.info("[InteriorChallengeController] ic : " + ic);
+
+            boardService.modifyIc(ic);
+
+            rttr.addFlashAttribute("message", "게시글 수정에 성공하셨습니다!");
+
+        } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+            // thumbnailImg 예외 처리
+            if (thumbnailImg.getSize() > 0) {
+                String thumbnailImgSavedFileName = UUID.randomUUID().toString().replace("-", "") +
+                        thumbnailImg.getOriginalFilename().substring(thumbnailImg.getOriginalFilename().lastIndexOf("."));
+
+                File deleteFile = new File(fileUploadDirectory + "/" + thumbnailImgSavedFileName);
+                boolean isDeleted1 = deleteFile.delete();
+
+                File deleteThumbnail = new File(thumbnailDirectory + "/thumbnail_" + thumbnailImgSavedFileName);
+                boolean isDeleted2 = deleteThumbnail.delete();
+
+                if (isDeleted1 && isDeleted2) {
+                    log.info("[InteriorChallengeController] thumbnailImg 업로드 실패 시 삭제 완료!");
+                } else {
+                    log.error("[InteriorChallengeController] thumbnailImg 업로드 실패 시 삭제 실패!");
+                }
+            }
+        } catch (NoticeWriteException e) {
+            throw new RuntimeException(e);
+        }
 
         log.info("[InteriorChallengeController] modifyIc ========================================================= end");
 

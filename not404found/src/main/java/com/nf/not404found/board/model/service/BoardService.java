@@ -6,6 +6,7 @@ import com.nf.not404found.board.model.dto.InteriorChallengeDTO;
 import com.nf.not404found.board.model.dto.ReviewDTO;
 import com.nf.not404found.common.exception.board.*;
 import com.nf.not404found.common.paging.SelectCriteria;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,12 @@ public interface BoardService {
 
     InteriorChallengeDTO selectIcView(int post_code);
 
-    void modifyIc(InteriorChallengeDTO ic) throws NoticeModifyException;
+    void modifyIc(InteriorChallengeDTO ic) throws NoticeModifyException, NoticeWriteException;
 
     void removeIc(int post_code) throws NoticeRemoveException;
+
+    @Transactional
+    int updateIcRecommend(int post_code) throws NoticeModifyException;
+
+    String getRecommend(int post_code);
 }

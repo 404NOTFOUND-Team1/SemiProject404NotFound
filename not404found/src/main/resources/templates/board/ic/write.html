@@ -97,11 +97,11 @@
     <div class="board_write">
 
       <form th:action="@{/board/ic/write}" method="post" enctype="multipart/form-data">
-        <input
-                type="hidden"
-                id="id"
-                name="account.id"
-                th:value="${ #authentication.getPrincipal().getUsername() }">
+<!--        <input-->
+<!--                type="hidden"-->
+<!--                id="id"-->
+<!--                name="account.id"-->
+<!--                th:value="${ #authentication.getPrincipal().getUsername() }">-->
 
         <div class="title">
           <dl>
@@ -115,7 +115,7 @@
               <textarea id="summernote" name="post_content"></textarea>
             </div>
             <div class="thumbnail-file-area" id="thumbnailImg">
-              <input type="file" id="thumbnailImgFile" name="thumbnailImg" onchange="loadThumbnailImg(this)">
+              <input type="file" id="thumbnailImgFile" name="thumbnailImg" onchange="loadThumbnailImg(this)" style="display: none;">
               <img id="thumbnailImgPreview" style="width: 350px; height: 200px">
               <div class="centered-text">대표 이미지를 등록해주세요</div>
             </div>

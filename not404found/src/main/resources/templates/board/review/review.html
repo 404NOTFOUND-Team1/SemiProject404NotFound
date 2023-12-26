@@ -33,16 +33,6 @@
         <strong>Review</strong>
     </div>
 
-    <!-- ============== 리뷰 정렬 ============== -->
-    <div class="review_sort">
-        <select name="sortPosts" id="review_sortPosts">
-            <option value="latest">최신순</option>
-            <option value="popular">별점순</option>
-            <option value="popular">추천순</option>
-        </select>
-    </div>
-
-
     <!-- ============== 리뷰 검색 ============== -->
     <div class="search">
         <form class="searchForm" th:action="@{/board/review/review}">
@@ -111,7 +101,7 @@
                                             </svg>
                                         </div>
                                     </span>
-                                    <span th:text="${ review.product.average_star_rating }" class="review_list_score"></span>
+                                    <span th:text="${ review.avg_star }" class="review_list_score"></span>
                                     리뷰 <span th:text="${ review.reviewCount }"></span>
                                 </div>
                             </div>
@@ -128,25 +118,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="review_image">
-                    <img src="/images/board/sample.jpg" alt="리뷰 이미지">
-                    <img src="/images/board/sample.jpg" alt="리뷰 이미지">
-                </div>
-
-                <div class="review_list_like_section">
-                    <div class="review_like_action_like_container">
-                        <a class="review_like_action_like_link">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="review_like_action_like_icon">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M8.725 6.2c-.051.152-.026.32.068.45s.245.207.406.207h3.477c.061 0 .121.006.181.017.55.1.914.626.814 1.175l-.962 5.288c-.087.48-.505.83-.994.83H6.177c-.558 0-1.01-.453-1.01-1.011v-6.24c0-.241.086-.474.243-.657l3.619-4.223c.174-.202.463-.26.702-.141.21.105.312.35.237.573L8.725 6.2zM2.333 14V7.333">
-                                </path>
-                            </svg>
-                            <span class="review_like_action_like_text">도움돼요</span>
-                            <span class="review_like_action_like_count js-like-score-plus">0</span>
-                            <span class="review_like_action_like_count_text js-like-score-text" style="display: none;">0</span>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -243,37 +214,6 @@
             }
         });
     });
-
-    // JavaScript로 클릭 이벤트 핸들링
-    document.addEventListener('DOMContentLoaded', function() {
-        // a 태그 요소 가져오기
-        var likeLink = document.querySelector('.review_like_action_like_link');
-
-        // 클릭 이벤트 리스너 추가
-        likeLink.addEventListener('click', function(event) {
-            event.preventDefault(); // 기본 동작 방지 (링크 이동)
-
-            // 현재 숫자 가져오기
-            var likeCount = document.querySelector('.js-like-score-plus');
-            var currentCount = parseInt(likeCount.innerText);
-
-            // 숫자 1 증가 후 업데이트
-            var updatedCount = currentCount + 1;
-            likeCount.innerText = updatedCount;
-        });
-    });
-</script>
-
-<script>
-
-    export default {
-        computed: {
-            starRatingPercent() {
-                const score = +this.review.star_rating * 20;
-                return score + '%';
-            }
-        }
-    }
 
 </script>
 

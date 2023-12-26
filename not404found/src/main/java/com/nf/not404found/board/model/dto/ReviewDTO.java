@@ -20,6 +20,7 @@ public class ReviewDTO {
     private int recommend_review;
     private float star_rating;
     private int reviewCount;
+    private float avg_star;
 
     public void setPost_code(int post_code) {
         if (this.board == null) {

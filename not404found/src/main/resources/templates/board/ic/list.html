@@ -16,30 +16,38 @@
     </div>
 </div>
 
-<!-- ============== 게시글 검색 ============== -->
-<div class="search">
-    <form class="searchForm" th:action="@{/board/ic/list}">
-        <select class="searchCondition" name="searchCondition">
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-        </select>
 
-        <input type="search" class="searchValue" name="searchValue" placeholder="">
-        <button class="btn btn-bs" id="searchButton" type="submit">검색</button>
-    </form>
-</div>
 
 <!-- ============== 인테리어 챌린지 리스트 ============== -->
 <div class="ic_item_list_all con">
+
+    <!-- ============== 게시글 검색 ============== -->
+    <div class="search_ic">
+        <form class="searchForm" th:action="@{/board/ic/list}">
+            <select class="searchCondition" name="searchCondition">
+                <option value="title" th:selected="${param.searchCondition == 'title'}">제목</option>
+                <option value="content" th:selected="${param.searchCondition == 'content'}">내용</option>
+            </select>
+
+            <input type="search" class="searchValue" name="searchValue" placeholder="">
+            <button class="btn btn-bs" id="searchButton" type="submit">검색</button>
+        </form>
+    </div>
+
     <ul class="row">
         <li class="cell" th:each="ic : ${ icList }" id="goIcView">
             <input type="hidden" th:value="${ ic.post_code }">
             <div class="img-box"><img id="ic_thumbnail" th:src="'http://localhost:8404/imagePath' + ${ic.attachmentList[0].getThumbnail_path()}"></div>
             <div class="ic_title" th:text="${ic.post_title}">글 제목이 들어갑니다.</div>
-            <div class="ic_writer" th:text="${ic.account.id}">글쓴이</div>
-            <div class="ic_viewCount" th:text="${ic.post_views}">33</div>
-            <div class="ic_date" th:text="${ic.post_modified_date != null} ? ${ic.post_modified_date} : ${ic.post_created_date}">2023.11.23</div>
-        </li>
+            <div class="ic_writer" th:text="${ic.id}">글쓴이</div>
+            <div class="ic_third_row">
+                <img src="/images/board/recommend_icon.png">
+                <div class="ic_recommend_count" th:text="${ic.recommend_count}"></div>
+                <img src="/images/board/post_view.png">
+                <div class="ic_viewCount" th:text="${ic.post_views}">조회수</div>
+                <div class="ic_date" th:text="${ic.post_modified_date != null} ? ${ic.post_modified_date} : ${ic.post_created_date}">작성날짜</div>
+            </div>
+            </li>
     </ul>
 </div>
 
@@ -86,8 +94,8 @@
 
         <!--         관리자로 로그인한 경우에만 글쓰기 버튼이 보여짐 -->
         <th:block sec:authorize="isAuthenticated()">
-            <div class="bt_wrap">
-                <button id="writeBoard" th:onclick="'location.href=\'/board/ic/write\''">글쓰기</button>
+            <div class="bt_wrap ic_list">
+                <button class="writeBoard" th:onclick="'location.href=\'/board/ic/write\''">글쓰기</button>
             </div>
         </th:block>
 

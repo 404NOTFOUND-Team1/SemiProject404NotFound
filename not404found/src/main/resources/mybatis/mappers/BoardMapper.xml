@@ -19,14 +19,21 @@
 
     <resultMap id="interiorChallengeResultMap" type="InteriorChallengeDTO">
         <id property="post_code" column="post_code"/>
-        <result property="post_title" column="post_title"/>
+        <id property="id" column="id"/>
+        <result property ="post_title" column="post_title"/>
         <result property="post_content" column="post_content"/>
         <result property="post_created_date" column="post_created_date"/>
         <result property="post_modified_date" column="post_modified_date"/>
         <result property="post_views"  column="post_views"/>
         <result property="recommend_count" column="recommend_count"/>
-        <association property="account" resultMap="accountResultMap"/>
         <collection property="attachmentList" resultMap="attachmentResultMap"/>
+    </resultMap>
+
+    <resultMap id="recommendIcResultMap" type="RecommendIcDTO">
+        <id property="r_code" column="r_code"/>
+        <result property="id" column="id"/>
+        <result property="post_code" column="post_code"/>
+        <result property="r_check" column="r_check"/>
     </resultMap>
 
     <resultMap id="reviewResultMap" type="ReviewDTO">
@@ -36,6 +43,7 @@
         <id property="id" column="id"/>
         <result property="recommend_review" column="recommend_review"/>
         <result property="star_rating" column="star_rating"/>
+        <result property="avg_star" column="avg_star"/>
         <association property="board" resultMap="generalBoardResultMap"/>
         <association property="product" resultMap="productResultMap"/>
         <collection property="adminProduct" resultMap="AdminProductMap"/>
@@ -106,9 +114,11 @@
 
     <resultMap id="commentResultMap" type="CommentDTO">
         <id property="comment_code" column="comment_code"/>
+        <id property="post_code" column="post_code"/>
+        <id property="categorycode_board" column="categorycode_board"/>
+        <id property="id" column="id"/>
         <result property="comment_body" column="comment_body"/>
         <result property="comment_date" column="comment_date"/>
-        <association property="board" resultMap="generalBoardResultMap"/>
     </resultMap>
 
     <resultMap id="attachmentResultMap" type="AttachmentDTO">
@@ -119,7 +129,6 @@
         <result property="file_type" column="file_type"/>
         <result property="thumbnail_path" column="thumbnail_path"/>
         <result property="status" column="status"/>
-<!--        <association property="boardInfo" resultMap="interiorChallengeResultMap"/>-->
     </resultMap>
 
 
@@ -276,7 +285,7 @@
                                  post_content,
                                  post_created_date,
                                  post_modified_date)
-        values ( #{ account.id },
+        values ( #{ id },
                 #{ post_title },
                 #{ post_content },
                 NOW(),
@@ -300,6 +309,15 @@
             #{saved_path},
             #{thumbnail_path})
     </insert>
+    
+    <update id="updateAttachment">
+        update attachment
+        set original_attachment_name = #{original_attachment_name},
+            attachment_name = #{attachment_name},
+            saved_path = #{saved_path},
+            thumbnail_path = #{thumbnail_path}
+        where post_code = #{post_code}
+    </update>
 
     <update id="incrementBoardCount">
         update board
@@ -322,12 +340,26 @@
                 A.post_modified_date,
                 A.post_views,
                 A.recommend_count,
-                C.thumbnail_path
+                C.thumbnail_path,
+                D.r_check
         from    interior_challenge A
         join    accounts B on (A.id = B.id)
         join    attachment C on (A.post_code = C.post_code)
+        left join    recommend_ic D on (A.post_code=D.post_code AND A.id=D.id)
         where   A.post_code = #{ post_code }
     </select>
+
+    <!-- id와 post_code가 주어졌을 때 해당 레코드를 가져오는 쿼리 -->
+    <select id="getRecommendICByIdAndPostCode" resultMap="recommendIcResultMap">
+        SELECT r_check FROM recommend_ic
+        WHERE id = #{id} AND post_code = #{post_code}
+    </select>
+
+    <!-- RecommendIc 테이블에 새로운 레코드를 삽입하는 쿼리 -->
+    <insert id="insertRecommendIC" parameterType="RecommendIcDTO">
+        INSERT INTO recommend_ic (id, post_code, r_check)
+        VALUES (#{id}, #{post_code}, #{r_check})
+    </insert>
 
     <select id="selectNoticeView" resultMap="generalBoardResultMap">
         select  A.post_code,
@@ -366,6 +398,7 @@
                     A.id,
                     A.recommend_review,
                     A.star_rating,
+                    round(A.sum_star/A.cnt_star, 1) as avg_star,
                     F.post_title,
                     F.post_created_date,
                     F.post_content,
@@ -377,8 +410,10 @@
                                 B.product_code,
                                 B.id,
                                 B.recommend_review,
-                                B.star_rating
-                    from        review B
+                                B.star_rating,
+                                (select sum(star_rating) from review where product_code = B.product_code) as sum_star,
+                                (select count(star_rating) from review where product_code = B.product_code) as cnt_star
+        from        review B
                     ) A
         join        category_board C on (A.categorycode_board = C.categorycode_board)
         join        accounts D on (A.id = D.id)
