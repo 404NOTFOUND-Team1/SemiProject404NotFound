@@ -2,7 +2,6 @@ package com.nf.not404found.main;
 
 
 import com.nf.not404found.admin.product.model.dto.AdminProductDTO;
-import com.nf.not404found.admin.product.model.service.AdminProductService;
 import com.nf.not404found.admin.product.model.service.AdminProductServiceImpl;
 import com.nf.not404found.common.functions.UserInformation;
 import com.nf.not404found.main.mainservice.MainService;
@@ -38,9 +37,8 @@ public class MainController {
     public ModelAndView showMainPage(ModelAndView mv){
         List<MainPageProductDTO> list = service.showMainPageProduct();
         List<AdminProductDTO> pList = pService.selectAllProduct();
-        List<MainPageProductDTO> sp = service.getSpecialProduct();
-
-        mv.addObject("sp",sp);
+        List<MainPageProductDTO> specialPrice = service.showSpecialPrice();
+        mv.addObject("specialPrice",specialPrice);
         mv.addObject("pList", pList);
         mv.addObject("products",list);
         mv.setViewName("index");
@@ -57,6 +55,7 @@ public class MainController {
     @GetMapping("productPage")
     public ModelAndView showProduct(@RequestParam String  product_name, ModelAndView mv){
         List<ProductPageDTO> list = service.getProduct(product_name);
+
         List<AdminProductDTO> pList = pService.selectOneProduct3(product_name);
 
         log.info("=============================================== pList : " + pList);

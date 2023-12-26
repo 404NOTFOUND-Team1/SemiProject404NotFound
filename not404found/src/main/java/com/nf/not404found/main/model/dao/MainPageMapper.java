@@ -15,5 +15,5 @@ public interface MainPageMapper {
 
     List<String> getProductColor(String productCode);
 
-    List<MainPageProductDTO> getSpecialProduct();
+    List<MainPageProductDTO> showSpecialPrice();
 }

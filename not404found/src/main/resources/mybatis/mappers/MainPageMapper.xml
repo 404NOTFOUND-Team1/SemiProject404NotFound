@@ -28,6 +28,28 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
+        WHERE e.discount_rate >= 20
+        GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
+        ORDER BY p.priority DESC
+    </select>
+
+    <select id="showSpecialPrice" resultMap="mainPageResultMap">
+        SELECT p.name AS name,
+               e.discount_rate AS discountRate,
+               p.price AS price,
+               CASE
+                   WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
+                   ELSE p.price
+                   END AS discountPrice,
+               COALESCE(r.review_count, 0) AS reviewCount,
+               p.priority AS priority
+        FROM product AS p
+                 LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN (
+            SELECT product_code, COUNT(*) AS review_count
+            FROM review
+            GROUP BY product_code
+        ) AS r ON p.product_code = r.product_code
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
         ORDER BY p.priority DESC
 

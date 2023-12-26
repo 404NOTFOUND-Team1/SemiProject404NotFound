@@ -227,7 +227,7 @@
     <script>
         //주석
         function changeMyData(url, value, btn,inputField){
-            if(btn.textContent === '변경하기'){
+            if(btn.textContent === '변경완료'){
                 fetch(url,{
                     method: "POST",
                     headers:{
@@ -245,7 +245,7 @@
                         alert(error);
                     });
             } else {
-                btn.textContent = '변경하기';
+                btn.textContent = '변경완료';
                 inputField.readOnly = false;
                 inputField.type = 'text';
             }
