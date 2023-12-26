@@ -18,6 +18,12 @@ public class OrderService{
     }
 
     public OrderDTO getOrderInfor(String id) {
+        log.info("=========================== 아오 ");
+        log.info("============================ > id : " + id);
+
+        OrderDTO sad = mapper.getOrderInfor(id);
+        log.info("=-============================sad : " + sad);
+        log.info("============================ id : " + id);
         return mapper.getOrderInfor(id);
     }
 

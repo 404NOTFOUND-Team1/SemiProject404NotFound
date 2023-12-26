@@ -945,7 +945,7 @@
 
     <th:block th:if="${sp.size() > 3}">
         <div class="second-square-icon-wrapper-1">
-            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">
+            <img class="second-square-icon-1"                                                                                                             alt="아이콘 1">
             <div th:text="${sp[3].getName()}" class="product_name"></div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
@@ -1340,7 +1340,7 @@
 
     <div class="second-square-icon-wrapper">
         <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[11].attachmentList[0].modifyName}" alt="아이콘 1">
-        <div th:text="${products[11].getName()}" class="product_name">움직이는 LED 크리스마스 오르골/스노우볼/캔들 6종 (캐롤8곡)</div>
+        <div class="product_name">화려한 병 거치대</div>
         <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
                 <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
                         <span th:text="${products[11].getDiscountRate()}" class="number" style="color: red;">17</span>

@@ -78,6 +78,8 @@ public class OrderController {
         List<String> coupon = user.getCoupon();
         System.out.println("coupon = " + coupon);
         List<AdminProductDTO> pList = productService.selectOneProductName(productName);
+
+        log.info("======================================= id : " + user.getId());
         OrderDTO orderInfor = service.getOrderInfor(user.getId());
         model.addAttribute("pList", pList);
         model.addAttribute("coupon",user.getCoupon());
@@ -87,7 +89,7 @@ public class OrderController {
         model.addAttribute("deliveryCost",deliveryCost);
         model.addAttribute("price",price);
         model.addAttribute("discountPrice",discountPrice);
-        model.addAttribute("grade",orderInfor.getGrade());
+        model.addAttribute("grade",user.getStatus());
         model.addAttribute("rate",orderInfor.getMileageRate());
         model.addAttribute("userMileage",orderInfor.getMileage());
         model.addAttribute("email",user.getEmail());
