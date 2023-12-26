@@ -56,8 +56,7 @@
 
     <div class="bt_wrap">
       <button type="button" th:onclick="'location.href=\'/board/ic/list\''" class="writeBoard">목록</button>
-      <th:block sec:authorize="isAuthenticated()"
-                th:if="${ icView.id == loginUserDTO.id }">
+      <th:block sec:authorize="hasRole('ADMIN')">
         <button
                 class="writeBoard"
                 th:onclick="'location.href=\'/board/ic/modify?post_code='+ @{${ icView.post_code }} + '\''"

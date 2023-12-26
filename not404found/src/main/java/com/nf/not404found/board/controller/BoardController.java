@@ -161,7 +161,7 @@ public class BoardController {
         log.info("[BoardController] uploadSummernoteImgFile ========================================================= start");
         log.info("[BoardController] multipartFile ========================================================= {}", multipartFile);
         Map<String, String> returnMap = new HashMap<>();
-        String fileRoot = "/Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload/";
+        String fileRoot = "C:/dev/NF404/SemiProject404NotFound/not404found/src/main/resources/static/images/productimg/";
         String originFileName = multipartFile.getOriginalFilename();
         String ext = originFileName.substring(originFileName.lastIndexOf("."));
 

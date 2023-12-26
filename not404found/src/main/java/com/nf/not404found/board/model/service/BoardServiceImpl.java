@@ -367,6 +367,7 @@ public class BoardServiceImpl implements BoardService{
             newRecommendIC.setId(user.getId());
             newRecommendIC.setPost_code(post_code);
             newRecommendIC.setR_check(1); // Set r_check to 1 (or 0)
+            mapper.increaseRecommendCount(post_code);
             return mapper.insertRecommendIC(newRecommendIC);
         } else if (existingRecommendIC.getR_check() == 0){
             existingRecommendIC.setR_check(1);

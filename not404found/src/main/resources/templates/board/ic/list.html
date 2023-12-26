@@ -37,7 +37,7 @@
     <ul class="row">
         <li class="cell" th:each="ic : ${ icList }" id="goIcView">
             <input type="hidden" th:value="${ ic.post_code }">
-            <div class="img-box"><img id="ic_thumbnail" th:src="'http://localhost:8404/imagePath' + ${ic.attachmentList[0].getThumbnail_path()}"></div>
+            <div class="img-box"><img id="ic_thumbnail" th:src="'http://localhost:8404/thumbPath' + ${ic.attachmentList[0].getThumbnail_path()}"></div>
             <div class="ic_title" th:text="${ic.post_title}">글 제목이 들어갑니다.</div>
             <div class="ic_writer" th:text="${ic.id}">글쓴이</div>
             <div class="ic_third_row">

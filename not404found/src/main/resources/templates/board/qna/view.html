@@ -73,35 +73,6 @@
 
     <!-- 댓글 내용 출력 table -->
 
-<!--    <table id="commentResult">-->
-<!--      <th:block th:if="${ qnaCommentList != null }">-->
-<!--        <th:block th:each="comment : ${qnaCommentList}">-->
-<!--          <tr class="commentListTr">-->
-<!--            <input type="hidden" id="${ comment.comment_code }" th:value="${ comment.comment_code }">-->
-<!--            <td th:text="${ comment.comment_body }"></td>-->
-<!--            <td>-->
-<!--              <th:block sec:authorize="hasRole('ADMIN')">-->
-<!--                <span>관리자</span>-->
-<!--              </th:block>-->
-<!--            </td>-->
-<!--            <td th:text="${ comment.comment_date }"></td>-->
-<!--            <td>-->
-<!--              <th:block sec:authorize="hasRole('ADMIN')">-->
-<!--                <button-->
-<!--                        type="button"-->
-<!--                        class="writeBoard"-->
-<!--                        th:comment_code="${ comment.comment_code }"-->
-<!--                        th:onclick="removeComment(this.getAttribute('comment_code'))"-->
-<!--                        >-->
-<!--                  댓글삭제-->
-<!--                </button>-->
-<!--              </th:block>-->
-<!--            </td>-->
-<!--          </tr>-->
-<!--        </th:block>-->
-<!--      </th:block>-->
-<!--    </table>-->
-
     <table id="commentResult">
       <tbody>
       <!-- Thymeleaf의 if 조건으로 qnaCommentList가 null이 아닐 때에만 반복문 실행 -->
@@ -191,7 +162,7 @@
                 $tr.append("<td>" + comment.comment_date + "</td>");
                 if (comment.id === 'admin') {
                   const $removeTd = $("<td>");
-                  const $removeBtn = $("<button>")
+                  const $removeBtn = $("<button class=\"writeBoard\">")
                           .attr("type", "button")
                           .attr("onclick", "removeComment('" + comment.comment_code + "')")
                           .text("댓글삭제");

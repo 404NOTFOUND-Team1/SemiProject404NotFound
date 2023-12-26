@@ -13,10 +13,10 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 10MB
+      max-file-size: 30MB
       max-request-size: 10MB
-#      location: C:/thymeleaf-springboot/
-      location: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload
+      location: C:\dev\NF404\SemiProject404NotFound\not404found\src\main\resources\static\images\productimg\
+    #      location: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload
     devtools:
       restart:
         enabled: false
@@ -31,14 +31,16 @@ spring:
       check-template-location: true
     web:
       resources:
-#        static-locations: C:/not404foundImageFile/
-        static-locations: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload
+        #        static-locations: C:/not404foundImageFile/
+        static-locations: C:\dev\NF404\SemiProject404NotFound\not404found\src\main\resources\static\images\productimg\
+#        static-locations: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload
 
 image:
   image-dir: img
 
 summernote:
-  image-dir: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload/
+#  image-dir: /Users/sooyeun/Desktop/dev/404NOTFOUND/fileupload/
+  image-dir: C:\dev\NF404\SemiProject404NotFound\not404found\src\main\resources\static\images\productimg\
 
 # mybatis config
 mybatis:

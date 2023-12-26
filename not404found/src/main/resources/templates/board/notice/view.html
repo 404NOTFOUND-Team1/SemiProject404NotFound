@@ -35,7 +35,7 @@
       <div class="title">
         <p th:text="${noticeView.post_title}">
       </div>
-      <input type="hidden" name="post_code" th:text="${noticeView.post_code}">
+      <input type="hidden" name="post_code" th:value="${noticeView.post_code}">
       <div class="info">
         <dl>
             <dt>글쓴이</dt>

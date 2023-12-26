@@ -119,7 +119,7 @@ public class InteriorChallengeController {
         log.info("[InteriorChallengeController] ========================================================= start");
 
         //String rootLocation = request.getSession().getServletContext().getRealPath("/resources");
-        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
+        String rootLocation = ROOT_LOCATION;
 
 
         String fileUploadDirectory = rootLocation + "/upload/original";
