@@ -95,11 +95,6 @@ public class MyPageController {
     @PostMapping("insertAddress")
     @ResponseBody
     public boolean insertAddr(@RequestBody AddrDTO addr){
-        System.out.println("여기까진 옴");
-        System.out.println(addr.getName());
-        System.out.println(addr.getZonecode());
-        System.out.println(addr.getAddress());
-        System.out.println(addr.getAddrDetail());
         return service.insertAddr(addr);
     }
     @PostMapping("deleteAddr")

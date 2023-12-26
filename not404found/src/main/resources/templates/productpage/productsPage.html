@@ -41,11 +41,20 @@
                     <span class="review2">개 리뷰</span>
                 </div>
             </div>
+            <div th:if="${status.count % 4 == 0}" style="margin-top: 200px;">
         </div>
-        <div th:if="${status.count % 4 == 0}" style="margin-top: 200px;">
             <hr>
         </div>
     </div>
     </div>
+<script>
+    document.querySelectorAll('.second-square-icon-wrapper-1').forEach(wrapper => {
+        wrapper.addEventListener('click', function() {
+            const productName = this.querySelector('.product_name').textContent;
+            alert(productName);
+            window.location.href = '/productPage?product_name=' + productName;
+        });
+    });
+</script>
 </body>
 </html>

@@ -17,7 +17,7 @@ public class GlobalControllerAdvice {
     @ModelAttribute("categories")
     public List<String> getCategories() {
         return service.findAllCategories();
-    }
+    }   //상단 바 카테고리
     @ModelAttribute("themes")
     public List<String> getThemes() {
         return service.findAllThemes();
