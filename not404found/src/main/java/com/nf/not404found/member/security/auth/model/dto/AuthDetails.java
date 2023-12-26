@@ -29,7 +29,7 @@ public class AuthDetails implements UserDetails {
      */
     @Override
     public String getPassword() {   //여기로 오지 못한다.
-        System.out.println("password : "+loginUserDTO.getPassword());
+        //System.out.println("password : "+loginUserDTO.getPassword());
         return loginUserDTO.getPassword();
     }
 
@@ -39,7 +39,7 @@ public class AuthDetails implements UserDetails {
      */
     @Override
     public String getUsername() {
-        System.out.println("id : "+loginUserDTO.getId());
+        //System.out.println("id : "+loginUserDTO.getId());
         return loginUserDTO.getId();
     }
 

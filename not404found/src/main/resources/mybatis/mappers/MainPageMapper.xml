@@ -28,7 +28,6 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
-        WHERE e.discount_rate >= 20
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
         ORDER BY p.priority DESC
     </select>
