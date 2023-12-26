@@ -20,7 +20,8 @@
     <div class="second-square-icon-container-1">
         <!-- 아이콘과 텍스트 중앙정렬 -->
         <div th:each="p,status : ${products}" class="second-square-icon-wrapper-1">
-            <img class="second-square-icon-1" src="/images/productpage/Y4.jpg" alt="아이콘 1">
+            <img class="second-square-icon-1" th:src="'http://localhost:8404/imagePath/' + ${p.getImgName()}" alt="아이콘 1">
+<!--            'http://localhost:8404/imagePath/' + ${pList[0].attachmentList[0].modifyName}-->
             <i class="fas fa-heart"></i>
             <div th:text="${p.getName()}" class="product_name">상품 이름</div>
             <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
@@ -41,8 +42,8 @@
                     <span class="review2">개 리뷰</span>
                 </div>
             </div>
-        </div>
         <div th:if="${status.count % 4 == 0}" style="margin-top: 200px;">
+        </div>
             <hr>
         </div>
     </div>

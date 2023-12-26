@@ -8,7 +8,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter@Setter@ToString
 public class ProductPageDTO {
-//    private List<String> imgName;
+    private String imgName;
 //    private List<String> imgPath;
     private String name;
     private String productCode;

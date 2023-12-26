@@ -15,6 +15,7 @@
     <select id="getProduct" resultMap="getProductResultMap">
         SELECT p.name AS name,
                e.discount_rate AS discountRate,
+               i.modify_name AS imgName,
                p.price AS price,
                CASE
                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
@@ -29,6 +30,7 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
                  INNER JOIN product_category AS pc ON p.category_code = pc.category_code
         WHERE pc.category_name = #{value}
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
@@ -38,6 +40,7 @@
     <select id="getFurniture" resultMap="getProductResultMap">
         SELECT p.name AS name,
                e.discount_rate AS discountRate,
+               i.modify_name AS imgName,
                p.price AS price,
                CASE
                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
@@ -52,6 +55,7 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
                  INNER JOIN product_category AS pc ON p.category_code = pc.category_code
         WHERE pc.ref_category_code = 1
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
@@ -61,6 +65,7 @@
     <select id="getMaterial" resultMap="getProductResultMap">
         SELECT p.name AS name,
                e.discount_rate AS discountRate,
+               i.modify_name AS imgName,
                p.price AS price,
                CASE
                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
@@ -75,6 +80,7 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
                  INNER JOIN product_category AS pc ON p.category_code = pc.category_code
         WHERE pc.ref_category_code = 2
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
@@ -84,6 +90,7 @@
     <select id="getNewProduct" resultMap="getProductResultMap">
         SELECT  p.name,
                 e.discount_rate AS discountRate,
+                i.modify_name AS imgName,
                 p.price,
                 CASE
                     WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
@@ -98,6 +105,7 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
                  INNER JOIN product_category AS pc ON p.category_code = pc.category_code
         WHERE enter_date > DATE_SUB(NOW(),INTERVAL 25 DAY)
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
@@ -106,6 +114,7 @@
     <select id="getBest" resultMap="getProductResultMap">
         SELECT p.name,
                e.discount_rate AS discountRate,
+               i.modify_name AS imgName,
                p.price,
                CASE
                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
@@ -119,6 +128,7 @@
             GROUP BY product_code
             HAVING COUNT(*) >= 2
         ) AS subquery ON p.product_code = subquery.product_code
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
                  LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
                  LEFT JOIN (
             SELECT product_code, COUNT(*) AS review_count
@@ -130,4 +140,3 @@
         ORDER BY p.priority DESC
     </select>
 </mapper>
-
