@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class UserInformation {
     private final UserInformationMapper mapper;
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     //인증 후 최종 인증 결과를 Authentication 객체에 담고
     public UserInformation(UserInformationMapper mapper){
         this.mapper = mapper;
@@ -21,7 +21,7 @@ public class UserInformation {
      * @return 로그인한 유저 아이디
      */
     public String getId() {
-        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth == null || !auth.isAuthenticated()) {  //auth 객체가 null 또는 권한 상관 없이 로그인 인증을 받지 않은 경우에는
             return null;                                //null 리턴
@@ -37,7 +37,7 @@ public class UserInformation {
      * @return 로그인한 유저 Email
      */
     public String getEmail(){
-        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
             return null;
         }

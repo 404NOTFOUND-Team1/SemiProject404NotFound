@@ -16,6 +16,7 @@
         SELECT p.name AS name,
                e.discount_rate AS discountRate,
                p.price AS price,
+               i.modify_name,
                CASE
                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
                    ELSE p.price
@@ -30,6 +31,7 @@
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
                  INNER JOIN product_category AS pc ON p.category_code = pc.category_code
+        LEFT JOIN image AS i ON p.product_code = i.product_code
         WHERE pc.category_name = #{value}
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
         ORDER BY p.priority DESC

@@ -7,6 +7,7 @@
     <resultMap id="mainPageResultMap" type="com.nf.not404found.main.model.dto.MainPageProductDTO">
         <id property="name" column="name"/>
         <result property="discountRate" column="discountRate"/>
+        <result property="imgName" column="imgName"/>
         <result property="price" column="price"/>
         <result property="reviewCount" column="reviewCount"/>
         <result property="priority" column="priority"/>
@@ -15,6 +16,7 @@
         SELECT p.name AS name,
                e.discount_rate AS discountRate,
                p.price AS price,
+               i.modify_name AS imgName,
                CASE
                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
                    ELSE p.price
@@ -28,6 +30,7 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
         ORDER BY p.priority DESC
     </select>
@@ -36,6 +39,7 @@
         SELECT p.name AS name,
                e.discount_rate AS discountRate,
                p.price AS price,
+               i.modify_name AS imgName,
                CASE
                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
                    ELSE p.price
@@ -49,6 +53,7 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
         ORDER BY p.priority DESC
 
@@ -57,6 +62,7 @@
     <select id="getSpecialProduct" resultMap="mainPageResultMap">
         SELECT p.name AS name,
                e.discount_rate AS discountRate,
+               i.modify_name AS imgName,
                p.price AS price,
                CASE
                    WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
@@ -71,6 +77,7 @@
             FROM review
             GROUP BY product_code
         ) AS r ON p.product_code = r.product_code
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
         WHERE e.discount_rate >= 20
         GROUP BY p.product_code, p.name, p.price, e.discount_rate, e.status, p.priority
         ORDER BY p.priority DESC;
@@ -79,6 +86,7 @@
     <resultMap id="getProductResultMap" type="com.nf.not404found.product.model.dto.ProductPageDTO">
         <id property="name" column="name"/>
         <result property="productCode" column="productCode"/>
+        <result property="imgName" column="imgName"/>
         <result property="reviewCount" column="reviewCount"/>
         <result property="price" column="price"/>
         <result property="mileage" column="mileage"/>
@@ -92,6 +100,7 @@
         SELECT  p.product_code AS productCode,
                 p.name AS name,
                 p.price AS price,
+                i.modify_name,
                 CASE
                     WHEN e.status = 'y' THEN p.price - (p.price * e.discount_rate / 100)
                     ELSE p.price
@@ -111,6 +120,7 @@
                  LEFT JOIN review AS r ON p.product_code = r.product_code
                  LEFT JOIN accounts AS a ON a.id = #{userName}
                  LEFT JOIN event AS e ON p.product_code = e.product_code AND e.status = 'y'
+                 LEFT JOIN image AS i ON p.product_code = i.product_code
         WHERE p.name = #{name}
         GROUP BY p.product_code;
     </select>

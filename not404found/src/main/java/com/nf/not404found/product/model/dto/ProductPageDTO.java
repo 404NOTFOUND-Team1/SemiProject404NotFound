@@ -11,6 +11,7 @@ public class ProductPageDTO {
 //    private List<String> imgName;
 //    private List<String> imgPath;
     private String name;
+    private String imgName;
     private String productCode;
     private int discountPrice;
     private int price;
