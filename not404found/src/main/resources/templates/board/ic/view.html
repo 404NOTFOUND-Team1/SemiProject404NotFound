@@ -56,8 +56,7 @@
 
     <div class="bt_wrap">
       <button type="button" th:onclick="'location.href=\'/board/ic/list\''" class="writeBoard">목록</button>
-      <th:block sec:authorize="isAuthenticated()"
-                th:if="${ icView.id == loginUserDTO.id }">
+      <th:block sec:authorize="isAuthenticated()">
         <button
                 class="writeBoard"
                 th:onclick="'location.href=\'/board/ic/modify?post_code='+ @{${ icView.post_code }} + '\''"
@@ -82,11 +81,9 @@
   $(document).ready(async function () {
     // 페이지 로드 시 r_check 값을 가져와서 이미지 소스 변경
     const like_check = document.getElementById('like_check').value;
-    console.log(like_check);
     const likeimg = document.getElementById("likeimg");
     const post_code = document.getElementById('ic_post_code').value;
     const recommend_count = document.getElementById('recommend_count');
-    console.log(recommend_count);
 
     if (like_check === '1') {
       likeimg.setAttribute("src", "/images/board/after_recommend.png");
@@ -95,10 +92,7 @@
     }
 
     $(".likeimg").on("click", function () {
-
       go('/board/ic/recommend', post_code).then(data => {
-        console.log(data);
-
         // 추천 수를 가져와서 증가 또는 감소
         const currentCount = parseInt(recommend_count.textContent, 10);
         const updatedCount = data == 1 ? currentCount + 1 : currentCount - 1;
@@ -108,7 +102,6 @@
         } else {
           likeimg.setAttribute("src", "/images/board/before_recommend.png");
         }
-
         // 추천 수 업데이트
         recommend_count.textContent = updatedCount;
       });

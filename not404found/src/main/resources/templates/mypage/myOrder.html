@@ -58,11 +58,16 @@
             </thead>
             <tbody>
             <tr th:each="order : ${userOrder}">
-                <td colspan="1" th:text="${order.name}">
-                    <form th:action="@{/board/review/write}" method="post">
-                        <input type="hidden" name="product_code" th:value="${order.product_code}"/>
-                        <button type="submit" style="width: 100px; border: 1px solid black;">리뷰 쓰기</button>
-                    </form>
+                <td colspan="1" style="display: flex;">
+                    <span th:text="${order.name}" style="flex: 2;"></span>
+                    <!--<th:block th:if="${order.delivery_status == '배송 완료'}">
+                        <form th:action="@{/board/review/write}" method="post" style="flex: 1;">
+                            <input type="hidden" name="product_code" th:value="${order.product_code}"/>
+                            <button type="submit" style="padding: 3px;border: 1px solid #000;border-radius: 4px;background-color: #2b2a29;color: white;cursor: pointer;">
+                                리뷰 쓰기
+                            </button>
+                        </form>
+                    </th:block>-->
                 </td>
                 <td colspan="1" th:text="${order.price}"/>
                 <td colspan="1" th:text="${order.amount}"/>

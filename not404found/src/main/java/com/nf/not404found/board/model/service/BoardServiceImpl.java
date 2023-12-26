@@ -319,7 +319,7 @@ public class BoardServiceImpl implements BoardService{
         int post_code = ic.getPost_code();
 
         // thumbnailAttachment를 attachment로 삽입
-        AttachmentDTO thumbnailAttachment = ic.getAttachmentList().get(0); // thumbnailAttachment는 첫 번째로 추가된 파일이라 가정
+        AttachmentDTO thumbnailAttachment = ic.getAttachmentList().get(0);
         thumbnailAttachment.setPost_code(post_code);
 
         log.info("post_code 확인!!!!!!!!!!!!" + post_code);
@@ -360,13 +360,12 @@ public class BoardServiceImpl implements BoardService{
     public int updateIcRecommend(int post_code) throws NoticeModifyException {
 
         log.info("[BoardServiceImpl] updateIcRecommend =================================== start");
-
         RecommendIcDTO existingRecommendIC = mapper.getRecommendICByIdAndPostCode(user.getId(), post_code);
         if (existingRecommendIC == null) {
             RecommendIcDTO newRecommendIC = new RecommendIcDTO();
             newRecommendIC.setId(user.getId());
             newRecommendIC.setPost_code(post_code);
-            newRecommendIC.setR_check(1); // Set r_check to 1 (or 0)
+            newRecommendIC.setR_check(1);
             return mapper.insertRecommendIC(newRecommendIC);
         } else if (existingRecommendIC.getR_check() == 0){
             existingRecommendIC.setR_check(1);

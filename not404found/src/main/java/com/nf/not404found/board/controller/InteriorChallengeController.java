@@ -111,7 +111,8 @@ public class InteriorChallengeController {
 
     @PostMapping("/write")
     public String registIc(@ModelAttribute InteriorChallengeDTO ic,
-                           @RequestParam("thumbnailImg") MultipartFile thumbnailImg, RedirectAttributes rttr)
+                           @RequestParam("thumbnailImg") MultipartFile thumbnailImg,
+                           RedirectAttributes rttr)
             throws UnsupportedEncodingException, ThumbnailRegistException {
 
         log.info("");

@@ -147,7 +147,6 @@
   $(document).ready(function () {
 
     const postCode = $('#post_code').val();
-
     // 게시글 정보와 썸네일 이미지 경로를 가져오는 Ajax 요청
     $.ajax({
       type: "GET",
@@ -168,28 +167,17 @@
     if (data.attachmentList.length > 0) {
       const thumbnailPath = data.attachmentList[0].thumbnail_path;
       console.log(thumbnailPath);
-      $('#thumbnailImgPreview').attr('src', 'http://localhost:8404/thumbPath' + thumbnailPath);
+      $('#thumbnailImgPreview').attr('src',
+              'http://localhost:8404/thumbPath' + thumbnailPath);
     }
 
 
     /* 이미지 미리보기 관련 스크립트 */
     const $thumbnailImg = document.getElementById("thumbnailImg");
-
     $thumbnailImg.onclick = function () {
       document.getElementById("thumbnailImgFile").click();
     }
 
-    function reloadThumbnailImg(value) {
-      if (value.files && value.files[0]) {
-        const reader = new FileReader();
-        reader.readAsDataURL(value.files[0]);
-
-        reader.onload = function (e) {
-          console.log(e.target.result);
-          document.getElementById("thumbnailImgPreview").src = e.target.result;
-        }
-      }
-    }
   }
 </script>
 
