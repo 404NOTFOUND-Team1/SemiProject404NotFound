@@ -794,220 +794,202 @@
     <!-- 메인 아이콘 -1 -->
     <h2>이번주 초특가 상품</h2>
 
-<!--        <div class="second-square-icon-container-1">-->
-<!--            <th:block th:if="${sp[0].getName() != null}">-->
-<!--                &lt;!&ndash; 아이콘과 텍스트 중앙정렬 &ndash;&gt;-->
-<!--                <div class="second-square-icon-wrapper-1">-->
-<!--                    <img class="second-square-icon-1" src="/images/productpage/product2.jpg" alt="아이콘 1">-->
-<!--                    <i class="fas fa-heart"></i>-->
-<!--                    <div th:text="${sp[0].getName()}" class="product_name">셀프시공 붙이는 켐바보드 재단서비스(300X2400 / 600X2400)</div>-->
-<!--                    <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">-->
-<!--                         <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">-->
-<!--                              <span th:text="${sp[0].getDiscountRate()}" class="number" style="color: red;">48</span>-->
-<!--                              <span class="percent" style="color: red;">%　</span>-->
-<!--                            <div class="price-original">-->
-<!--                              <span th:text="${sp[0].getPrice()}" class="price-original" style="text-decoration: line-through;">36,800</span>-->
-<!--                              <span class="won">원</span>-->
-<!--                            </div>-->
-<!--                         </span>-->
+        <div class="second-square-icon-container-1">
+            <th:block th:if="${sp[0].getName() != null}">
+                <!-- 아이콘과 텍스트 중앙정렬 -->
+                <div class="second-square-icon-wrapper-1">
+                    <img class="second-square-icon-1" src="/images/productpage/product2.jpg" alt="아이콘 1">
+                    <i class="fas fa-heart"></i>
+                    <div th:text="${sp[0].getName()}" class="product_name">셀프시공 붙이는 켐바보드 재단서비스(300X2400 / 600X2400)</div>
+                    <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                         <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                              <span th:text="${sp[0].getDiscountRate()}" class="number" style="color: red;">48</span>
+                              <span class="percent" style="color: red;">%　</span>
+                            <div class="price-original">
+                              <span th:text="${sp[0].getPrice()}" class="price-original" style="text-decoration: line-through;">36,800</span>
+                              <span class="won">원</span>
+                            </div>
+                         </span>
 
-<!--                      <div class="price">-->
-<!--                          <span th:text="${sp[0].getDiscountPrice()}" class="price2"></span>-->
-<!--                          <span class="won"></span>-->
-<!--                          <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
-<!--                              <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                              <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
-<!--                      </div>-->
+                      <div class="price">
+                          <span th:text="${sp[0].getDiscountPrice()}" class="price2"></span>
+                          <span class="won"></span>
+                          <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                              <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                              <!--<path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                              -->
+                      </div>
 
-<!--                      <div class="review">-->
-<!--                          <span th:text="${sp[0].getReviewCount()}" class="review1">63</span>-->
-<!--                          <span class="review2">개 리뷰</span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--            </th:block>-->
+                      <div class="review">
+                          <span th:text="${sp[0].getReviewCount()}" class="review1">63</span>
+                          <span class="review2">개 리뷰</span>
+                      </div>
+                  </div>
+                </div>
+            </th:block>
 
-<!--    <th:block th:if="${sp[1].getName() != null}">-->
-<!--        <div class="second-square-icon-wrapper-1">-->
-<!--            <img class="second-square-icon-1" src="/images/productpage/Z1.jpg" alt="아이콘 1">-->
-<!--            <i class="fas fa-heart"></i>-->
-<!--            <div th:text="${sp[1].getName()}" class="product_name">[~12/31 딜특가] 플레인 플로어 스탠드 램프 조명</div>-->
-<!--            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">-->
-<!--                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">-->
-<!--                        <span th:text="${sp[1].getDiscountRate()}" class="number" style="color: red;">77</span>-->
-<!--                        <span class="percent" style="color: red;">%　</span>-->
-<!--                    <div class="price-original">-->
-<!--                        <span th:text="${sp[1].getPrice()}" class="price-original" style="text-decoration: line-through;">166,000</span>-->
-<!--                        <span class="won">원</span>-->
-<!--                    </div>-->
-<!--                </span>-->
-<!--                <div class="price">-->
-<!--                    <span th:text="${sp[1].getDiscountPrice()}" class="price2"></span>-->
-<!--                    <span class="won">원</span>-->
-<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
-<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
-<!--                </div>-->
-<!--                <div class="review">-->
-<!--                    <span th:text="${sp[1].getReviewCount()}" class="review1">35</span>-->
-<!--                    <span class="review2">개 리뷰</span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+    <th:block th:if="${sp[1].getName() != null}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/Z1.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div th:text="${sp[1].getName()}" class="product_name">[~12/31 딜특가] 플레인 플로어 스탠드 램프 조명</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${sp[1].getDiscountRate()}" class="number" style="color: red;">77</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${sp[1].getPrice()}" class="price-original" style="text-decoration: line-through;">166,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${sp[1].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span th:text="${sp[1].getReviewCount()}" class="review1">35</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
 
-<!--    </th:block>-->
-<!--        <th:block th:if="${sp[1].getName() == null}">-->
-<!--            <div class="second-square-icon-wrapper-1">-->
-<!--                <img class="second-square-icon-1" src="/images/productpage/Z1.jpg" alt="아이콘 1">-->
-<!--                <i class="fas fa-heart"></i>-->
-<!--                <div class="product_name">상품 정보 없음</div>-->
-<!--                <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">-->
-<!--                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">-->
-<!--                        <span class="number" style="color: red;">1</span>-->
-<!--                        <span class="percent" style="color: red;">%　</span>-->
-<!--                    <div class="price-original">-->
-<!--                        <span class="price-original" style="text-decoration: line-through;">0</span>-->
-<!--                        <span class="won">원</span>-->
-<!--                    </div>-->
-<!--                </span>-->
-<!--                    <div class="price">-->
-<!--                        <span class="price2">0</span>-->
-<!--                        <span class="won">원</span>-->
-<!--                        <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
-<!--                            <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                            <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
-<!--                    </div>-->
-<!--                    <div class="review">-->
-<!--                        <span class="review1">0</span>-->
-<!--                        <span class="review2">개 리뷰</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </th:block>-->
+    </th:block>
+        <th:block th:if="${sp[1].getName() == null}">
+            <div class="second-square-icon-wrapper-1">
+                <img class="second-square-icon-1" src="/images/productpage/Z1.jpg" alt="아이콘 1">
+                <i class="fas fa-heart"></i>
+                <div class="product_name">상품 정보 없음</div>
+                <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="number" style="color: red;">1</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">0</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                    <div class="price">
+                        <span class="price2">0</span>
+                        <span class="won">원</span>
+                        <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                            <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                            <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                    </div>
+                    <div class="review">
+                        <span class="review1">0</span>
+                        <span class="review2">개 리뷰</span>
+                    </div>
+                </div>
+            </div>
+        </th:block>
 
-<!--    <th:block th:if="${sp[2].getName() != null}">-->
-<!--        <div class="second-square-icon-wrapper-1">-->
-<!--            <img class="second-square-icon-1" src="/images/productpage/y1.jpg" alt="아이콘 1">-->
-<!--            <i class="fas fa-heart"></i>-->
-<!--            <div th:text="${sp[2].getName()}" class="product_name">아이와비 폴테와이드 아쿠아텍스 4단 접이식 소파베드 1450</div>-->
-<!--            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">-->
-<!--                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">-->
-<!--                        <span th:text="${sp[2].getDiscountRate()}" class="number" style="color: red;">60</span>-->
-<!--                        <span class="percent" style="color: red;">%　</span>-->
-<!--                    <div class="price-original">-->
-<!--                        <span th:text="${sp[2].getPrice()}" class="price-original" style="text-decoration: line-through;">286,000</span>-->
-<!--                        <span class="won">원</span>-->
-<!--                    </div>-->
-<!--                </span>-->
-<!--                <div class="price">-->
-<!--                    <span th:text="${sp[2].getDiscountPrice()}" class="price2"></span>-->
-<!--                    <span class="won">원</span>-->
-<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
-<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
-<!--                </div>-->
-<!--                <div class="review">-->
-<!--                    <span th:text="${sp[2].getReviewCount()}" class="review1">89</span>-->
-<!--                    <span class="review2">개 리뷰</span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </th:block>-->
-<!--    <th:block th:if="${sp[2].getName() == null}">-->
-<!--        <div class="second-square-icon-wrapper-1">-->
-<!--            <img class="second-square-icon-1" src="/images/productpage/y1.jpg" alt="아이콘 1">-->
-<!--            <i class="fas fa-heart"></i>-->
-<!--            <div class="product_name">상품 정보 없음</div>-->
-<!--            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">-->
-<!--                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">-->
-<!--                        <span class="number" style="color: red;">1</span>-->
-<!--                        <span class="percent" style="color: red;">%　</span>-->
-<!--                    <div class="price-original">-->
-<!--                        <span class="price-original" style="text-decoration: line-through;">0</span>-->
-<!--                        <span class="won">원</span>-->
-<!--                    </div>-->
-<!--                </span>-->
-<!--                <div class="price">-->
-<!--                    <span class="price2">0</span>-->
-<!--                    <span class="won">원</span>-->
-<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
-<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
-<!--                </div>-->
-<!--                <div class="review">-->
-<!--                    <span class="review1">0</span>-->
-<!--                    <span class="review2">개 리뷰</span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </th:block>-->
+    <th:block th:if="${sp[2].getName() != null}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/y1.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div th:text="${sp[2].getName()}" class="product_name">아이와비 폴테와이드 아쿠아텍스 4단 접이식 소파베드 1450</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${sp[2].getDiscountRate()}" class="number" style="color: red;">60</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${sp[2].getPrice()}" class="price-original" style="text-decoration: line-through;">286,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${sp[2].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span th:text="${sp[2].getReviewCount()}" class="review1">89</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:if="${sp[2].getName() == null}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/y1.jpg" alt="아이콘 1">
+            <i class="fas fa-heart"></i>
+            <div class="product_name">상품 정보 없음</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="number" style="color: red;">1</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">0</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span class="price2">0</span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span class="review1">0</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
 
-<!--    <th:block th:if="${sp.size() > 3}">-->
-<!--        <div class="second-square-icon-wrapper-1">-->
-<!--            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">-->
-<!--            <div th:text="${sp[3].getName()}" class="product_name">[~12/31 딜특가] 제이픽스 어반 화이트 원형 식탁 테이블</div>-->
-<!--            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">-->
-<!--                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">-->
-<!--                        <span th:text="${sp[3].getDiscountRate()}" class="number" style="color: red;">77</span>-->
-<!--                        <span class="percent" style="color: red;">%　</span>-->
-<!--                    <div class="price-original">-->
-<!--                        <span th:text="${sp[3].getPrice()}" class="price-original" style="text-decoration: line-through;">120,000</span>-->
-<!--                        <span class="won">원</span>-->
-<!--                    </div>-->
-<!--                </span>-->
-<!--                <div class="price">-->
-<!--                    <span th:text="${sp[3].getDiscountPrice()}" class="price2"></span>-->
-<!--                    <span class="won">원</span>-->
-<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
-<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff"-->
-<!--                              d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295-->
-<!--                              3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.-->
-<!--                              725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736-->
-<!--                              4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
-<!--                </div>-->
-<!--                <div class="review">-->
-<!--                    <span th:text="${sp[3].getReviewCount()}" class="review1">35</span>-->
-<!--                    <span class="review2">개 리뷰</span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </th:block>-->
-<!--    <th:block th:if="${!(sp.size() > 3)}">-->
-<!--        <div class="second-square-icon-wrapper-1">-->
-<!--            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">-->
-<!--            <div class="product_name">상품 정보 없음</div>-->
-<!--            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">-->
-<!--                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">-->
-<!--                        <span class="number" style="color: red;">0</span>-->
-<!--                        <span class="percent" style="color: red;">%　</span>-->
-<!--                    <div class="price-original">-->
-<!--                        <span class="price-original" style="text-decoration: line-through;">0</span>-->
-<!--                        <span class="won">원</span>-->
-<!--                    </div>-->
-<!--                </span>-->
-<!--                <div class="price">-->
-<!--                    <span class="price2">0</span>-->
-<!--                    <span class="won">원</span>-->
-<!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
-<!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
-<!--                        <path class="redPath" fill="#fff"-->
-<!--                              d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295-->
-<!--                              3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.-->
-<!--                              725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736-->
-<!--                              4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
-<!--                </div>-->
-<!--                <div class="review">-->
-<!--                    <span class="review1">0</span>-->
-<!--                    <span class="review2">개 리뷰</span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </th:block>-->
+    <th:block th:if="${sp.size() > 3}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">
+            <div th:text="${sp[3].getName()}" class="product_name"></div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span th:text="${sp[3].getDiscountRate()}" class="number" style="color: red;"></span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span th:text="${sp[3].getPrice()}" class="price-original" style="text-decoration: line-through;"></span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                <div class="price">
+                    <span th:text="${sp[3].getDiscountPrice()}" class="price2"></span>
+                    <span class="won">원</span>
+                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                        <rect width="30" height="20" fill="#F77" rx="4"></rect>
+                        <path class="redPath" fill="#fff"
+                              d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295
+                              3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.
+                              725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736
+                              4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
+                </div>
+                <div class="review">
+                    <span th:text="${sp[3].getReviewCount()}" class="review1"></span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:if="${!(sp.size() > 3)}">
+        <div class="second-square-icon-wrapper-1">
+            <img class="second-square-icon-1" src="/images/productpage/x1.jpeg" alt="아이콘 1">
+            <div class="product_name">상품 정보 없음</div>
+            <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <div class="review">
+                    <span class="review1">0</span>
+                    <span class="review2">개 리뷰</span>
+                </div>
+            </div>
+        </div>
+    </th:block>
 
-<!--    </div> &lt;!&ndash; second-square-icon-container-header &ndash;&gt;-->
+    </div> <!-- second-square-icon-container-header -->
 
-<!--    <br><br><br><br><br>-->
+    <br><br><br><br><br>
 
     <!--  메인 아이콘 2 -->
     <h2>인기 상품</h2>
@@ -1097,6 +1079,7 @@
             </div>
         </div>
 
+        <th:block th:if="${products.size() > 3}">
         <div class="second-square-icon-wrapper">
             <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[3].attachmentList[0].modifyName}" alt="아이콘 1">
             <div th:text="${products[3].getName()}" class="product_name">감성을 더해주는 캠핑 전용 워셔블 프리 러그</div>
@@ -1124,6 +1107,36 @@
                 </div>
             </div>
         </div>
+        </th:block>
+        <th:block th:if="${products.size() <= 3}">
+            <div class="second-square-icon-wrapper">
+                <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[3].attachmentList[0].modifyName}" alt="아이콘 1">
+                <div class="product_name">감성을 더해주는 캠핑 전용 워셔블 프리 러그</div>
+                <div class="production-item" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="production-item-price" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="number" style="color: red;">20</span>
+                        <span class="percent" style="color: red;">%　</span>
+                    <div class="price-original">
+                        <span class="price-original" style="text-decoration: line-through;">97,000</span>
+                        <span class="won">원</span>
+                    </div>
+                </span>
+                    <div class="price">
+                        <span class="price2"></span>
+                        <span class="won">원</span>
+                        <!--                    <svg class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">-->
+                        <!--                        <rect width="30" height="20" fill="#F77" rx="4"></rect>-->
+                        <!--                        <path class="redPath" fill="#fff" d="M12.83 7.93 v-.9H8.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.
+                        928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.
+                        24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>-->
+                    </div>
+                    <div class="review">
+                        <span class="review1">57</span>
+                        <span class="review2">개 리뷰</span>
+                    </div>
+                </div>
+            </div>
+        </th:block>
 
         <div class="second-square-icon-wrapper">
             <img class="second-square-icon" th:src="'http://localhost:8404/imagePath/' + ${pList[4].attachmentList[0].modifyName}" alt="아이콘 1">

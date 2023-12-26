@@ -15,14 +15,12 @@ public class EmailSender {
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.port", "465");
-
         // 인증 정보 설정
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("wjdwltjq7289", "Qwqw13245@");
             }
         });
-
         try {
             // 이메일 메시지 생성
             MimeMessage message = new MimeMessage(session);
@@ -30,8 +28,6 @@ public class EmailSender {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject(subject);
             message.setText(text);
-            System.out.println("EmailSender 클래스 : "+to);
-            System.out.println("EmailSender 클래스 : "+text);
             // 메시지 전송
             Transport.send(message);
             System.out.println("이메일 전송 성공!");

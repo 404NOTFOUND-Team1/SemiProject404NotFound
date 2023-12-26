@@ -40,7 +40,7 @@ var side_button = document.querySelector('.side_button_container');
 var side_bar_menus = document.querySelector('.side_bar_menus');
 side_button.addEventListener('click', function() {
     if (side_bar_menus.style.display === 'none' || side_bar_menus.style.display === '') {
-        side_bar_menus.style.display = 'block'; // 먼저 display를 block으로 설정
+        side_bar_menus.style.display = 'block'; // 먼저 display를 block으로
         side_bar_menus.classList.remove('up_animation');
         side_bar_menus.classList.add('fallDown');
     } else {
@@ -48,8 +48,8 @@ side_button.addEventListener('click', function() {
         side_bar_menus.classList.add('up_animation');
         side_bar_menus.addEventListener('animationend', function() {
             if (side_bar_menus.classList.contains('up_animation')) {
-                side_bar_menus.style.display = 'none'; // 애니메이션이 끝나면 display를 none으로 설정
+                side_bar_menus.style.display = 'none'; // 애니메이션이 끝나면 display를 none으로
             }
-        }, { once: true }); // 이벤트 핸들러는 한 번만 실행되도록 설정
+        }, { once: true }); // 이벤트 핸들러는 한 번만 실행되도록
     }
 });

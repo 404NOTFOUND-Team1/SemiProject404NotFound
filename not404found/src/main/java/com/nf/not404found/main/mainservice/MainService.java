@@ -18,49 +18,19 @@ public class MainService {
     }
 
     public List<MainPageProductDTO> showMainPageProduct() {
-        List<MainPageProductDTO> list = mapper.showMainPageProduct();
-        for(MainPageProductDTO product : list){
-            System.out.println("======"+product.getName()+"======");
-            System.out.println(product.getPrice());
-            System.out.println(product.getPriority());
-            System.out.println(product.getDiscountRate());
-            System.out.println(product.getReviewCount());
-            System.out.println(product.getDiscountPrice());
-            System.out.println("=========================");
-        }
-        return list;
-    }
-    public List<MainPageProductDTO> showSpecialPrice() {
-        List<MainPageProductDTO> showSpecialPrice = mapper.showSpecialPrice();
-        for(MainPageProductDTO s : showSpecialPrice){
-            System.out.println("======"+s.getName()+"======");
-            System.out.println(s.getPrice());
-            System.out.println(s.getPriority());
-            System.out.println(s.getDiscountRate());
-            System.out.println(s.getReviewCount());
-            System.out.println(s.getDiscountPrice());
-        }
-        return showSpecialPrice;
+        return mapper.showMainPageProduct();
     }
 
     public List<ProductPageDTO> getProduct(String name) {
 
         List<ProductPageDTO> list = mapper.getProduct(name,user.getName());
-        for(ProductPageDTO p : list){
-            System.out.println("===="+p.getName()+"====");
-            System.out.println("마일리지 = "+p.getMileage());
-            System.out.println("배송비 = "+p.getDeliveryCost());
-            System.out.println("리뷰 수 = "+p.getReviewCount());
-            System.out.println("가격 = "+p.getPrice());
-            System.out.println("색상 = "+p.getColor());
-            System.out.println("코드 = "+p.getProductCode());
-            System.out.println("할인된 가격 = "+p.getDiscountPrice());
-        }
         List<String> list2 = mapper.getProductColor(list.get(0).getProductCode());
         list.get(0).setColor(list2);
         return list;
 
     }
 
-
+    public List<MainPageProductDTO> getSpecialProduct() {
+        return mapper.getSpecialProduct();
+    }
 }
