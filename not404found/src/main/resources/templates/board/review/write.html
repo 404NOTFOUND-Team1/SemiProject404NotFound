@@ -206,8 +206,8 @@
             stars.forEach((starIcon, idx) => {
                 starIcon.addEventListener('mouseenter', () => {
                     if (wrap.classList.contains('readonly') == false) {
-                        initStars();/* // 기선택된 별점 무시하고 초기화*/
-                        filledRate(idx, labelLength);  /*// hover target만큼 별점 active*/
+                        initStars(); // 기선택된 별점 무시하고 초기화*
+                        filledRate(idx, labelLength);  // hover target만큼 별점 active
 
                         /*// hover 시 active된 별점의 opacity 조정*/
                         for (let i = 0; i < stars.length; i++) {
@@ -225,14 +225,14 @@
                     }
                 });
 
-                /*// rate wrap을 벗어날 때 active된 별점의 opacity = 1*/
+                // rate wrap을 벗어날 때 active된 별점의 opacity = 1
                 wrap.addEventListener('mouseleave', () => {
                     if (wrap.classList.contains('readonly') == false) {
                         starIcon.style.opacity = '1';
                     }
                 });
 
-                /*// readonnly 일 때 비활성화*/
+                // readonnly 일 때 비활성화
                 wrap.addEventListener('click', (e) => {
                     if (wrap.classList.contains('readonly')) {
                         e.preventDefault();
@@ -242,7 +242,7 @@
         });
     });
 
-    /*// target보다 인덱스가 낮은 .star-icon에 .filled 추가 (별점 구현)*/
+    // target보다 인덱스가 낮은 .star-icon에 .filled 추가 (별점 구현)
     function filledRate(index, length) {
         if (index <= length) {
             for (let i = 0; i <= index; i++) {
@@ -251,7 +251,7 @@
         }
     }
 
-    /*// 선택된 라디오버튼 이하 인덱스는 별점 active*/
+    // 선택된 라디오버튼 이하 인덱스는 별점 active
     function checkedRate() {
         let checkedRadio = document.querySelectorAll('input[type="radio"]:checked');
 
@@ -295,7 +295,7 @@
         // 별점에 해당하는 NodeList를 가져옵니다.
         var stars = document.querySelectorAll('.rating .star-icon');
 
-        // .filled 클래스가 붙은 요소의 수를 세어서 2로 나눈 값을 선택된 별점으로 설정합니다.
+        // .filled 클래스가 붙은 요소의 수를 세어서 2로 나눈 값을 선택된 별점으로 설정
         var selectedRating = countFilledStars(stars) / 2;
 
         console.log("별점 값 확인!!!!!!!!!! : " + selectedRating)
